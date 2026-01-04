@@ -1,0 +1,12 @@
+export { Hero } from "./Hero"
+export { NoaFloatingDemo } from "./NoaFloatingDemo"
+export { PainSection } from "./PainSection"
+export { GammeNoa } from "./GammeNoa"
+export { Features } from "./Features"
+export { Performance } from "./Performance"
+export { Integration } from "./Integration"
+export { SocialProof } from "./SocialProof"
+export { PricingTeaser } from "./PricingTeaser"
+export { FAQ } from "./FAQ"
+export { FooterCTA } from "./FooterCTA"
+
