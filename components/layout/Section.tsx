@@ -4,10 +4,9 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 
 interface SectionProps extends React.HTMLAttributes<HTMLElement> {
-  variant?: "dark" | "light" | "glass" | "gradient"
+  variant?: "white" | "gray" | "gradient" | "gradient-soft"
   container?: boolean
   padding?: "sm" | "md" | "lg" | "xl"
-  noise?: boolean
 }
 
 const paddingSizes = {
@@ -18,19 +17,18 @@ const paddingSizes = {
 }
 
 const variantStyles = {
-  dark: "bg-dark-200 text-white",
-  light: "bg-gray-50 text-dark-200",
-  glass: "bg-white/5 backdrop-blur-xl text-white",
-  gradient: "bg-gradient-to-b from-dark-200 to-dark-100 text-white",
+  white: "bg-white text-gray-700",
+  gray: "bg-gray-50 text-gray-700",
+  gradient: "bg-gradient-to-r from-brand-cyan via-brand-blue to-brand-orange text-gray-700",
+  "gradient-soft": "bg-gradient-to-b from-white to-gray-50 text-gray-700",
 }
 
 export function Section({
   children,
   className,
-  variant = "dark",
+  variant = "white",
   container = true,
   padding = "lg",
-  noise = false,
   ...props
 }: SectionProps) {
   return (
@@ -39,7 +37,6 @@ export function Section({
         "relative overflow-hidden",
         variantStyles[variant],
         paddingSizes[padding],
-        noise && "noise-overlay",
         className
       )}
       {...props}
@@ -52,4 +49,3 @@ export function Section({
     </section>
   )
 }
-

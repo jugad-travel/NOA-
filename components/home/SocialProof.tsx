@@ -13,10 +13,10 @@ const categories = [
 
 export function SocialProof() {
   return (
-    <Section variant="dark" padding="md">
+    <Section variant="white" padding="md">
       <ScrollReveal>
         <div className="text-center mb-8">
-          <p className="text-gray-500 text-sm uppercase tracking-wider font-medium">
+          <p className="text-gray-400 text-sm uppercase tracking-wider font-medium">
             Ils nous font confiance
           </p>
         </div>
@@ -25,7 +25,7 @@ export function SocialProof() {
           {categories.map((category) => (
             <div
               key={category}
-              className="flex items-center justify-center w-32 h-16 rounded-xl bg-dark-50/50 border border-white/5 text-gray-500 font-medium"
+              className="flex items-center justify-center w-32 h-16 rounded-xl bg-gray-50 border border-gray-200 text-gray-500 font-medium hover:border-gray-300 transition-colors"
             >
               {category}
             </div>
@@ -35,4 +35,3 @@ export function SocialProof() {
     </Section>
   )
 }
-

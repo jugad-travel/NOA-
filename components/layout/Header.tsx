@@ -4,8 +4,7 @@ import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronDown, Menu, X, Play } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { ChevronDown, Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const navigation = [
@@ -48,21 +47,14 @@ export function Header() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         isScrolled
-          ? "bg-dark-200/80 backdrop-blur-xl border-b border-white/5"
+          ? "bg-white/90 backdrop-blur-xl shadow-sm border-b border-gray-100"
           : "bg-transparent"
       )}
     >
       <nav className="container">
         <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-brand flex items-center justify-center">
-              <span className="text-dark-200 font-bold text-lg">N</span>
-            </div>
-            <span className="text-xl font-bold text-white group-hover:text-brand transition-colors">
-              NOA
-            </span>
-          </Link>
+          {/* Empty space for layout balance */}
+          <div className="w-20" />
           
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-1">
@@ -78,8 +70,8 @@ export function Header() {
                   className={cn(
                     "flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-full transition-colors",
                     isActive(item.href)
-                      ? "text-brand"
-                      : "text-gray-300 hover:text-white hover:bg-white/5"
+                      ? "text-gray-900 bg-gray-100"
+                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                   )}
                 >
                   {item.name}
@@ -99,14 +91,14 @@ export function Header() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute top-full left-0 mt-2 w-56 rounded-2xl bg-dark-50/95 backdrop-blur-xl border border-white/10 shadow-2xl overflow-hidden"
+                      className="absolute top-full left-0 mt-2 w-56 rounded-2xl bg-white border border-gray-100 shadow-lg overflow-hidden"
                     >
                       <div className="p-2">
                         {item.children.map((child) => (
                           <Link
                             key={child.name}
                             href={child.href}
-                            className="block px-4 py-3 text-sm text-gray-300 hover:text-brand hover:bg-white/5 rounded-xl transition-colors"
+                            className="block px-4 py-3 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-xl transition-colors"
                           >
                             {child.name}
                           </Link>
@@ -121,21 +113,17 @@ export function Header() {
           
           {/* CTA Buttons */}
           <div className="hidden lg:flex items-center gap-3">
-            <Link href="/#demo-video" className="flex items-center gap-2 text-sm text-gray-300 hover:text-brand transition-colors">
-              <Play className="w-4 h-4" />
-              <span>Voir Noa en action</span>
-            </Link>
             <Link href="/demo">
-              <Button variant="primary" size="md" magnetic>
+              <button className="h-11 px-6 text-sm font-semibold rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-all">
                 Réserver une démo
-              </Button>
+              </button>
             </Link>
           </div>
           
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2 text-white hover:text-brand transition-colors"
+            className="lg:hidden p-2 text-gray-700 hover:text-gray-900 transition-colors"
             aria-label={isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -151,7 +139,7 @@ export function Header() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden bg-dark-200/95 backdrop-blur-xl border-t border-white/5"
+            className="lg:hidden bg-white border-t border-gray-100"
           >
             <div className="container py-6 space-y-4">
               {navigation.map((item) => (
@@ -161,7 +149,7 @@ export function Header() {
                     onClick={() => !item.children && setIsMobileMenuOpen(false)}
                     className={cn(
                       "block py-3 text-lg font-medium transition-colors",
-                      isActive(item.href) ? "text-brand" : "text-gray-300"
+                      isActive(item.href) ? "text-gray-900" : "text-gray-600"
                     )}
                   >
                     {item.name}
@@ -173,7 +161,7 @@ export function Header() {
                           key={child.name}
                           href={child.href}
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="block py-2 text-sm text-gray-400 hover:text-brand transition-colors"
+                          className="block py-2 text-sm text-gray-500 hover:text-gray-900 transition-colors"
                         >
                           {child.name}
                         </Link>
@@ -182,15 +170,11 @@ export function Header() {
                   )}
                 </div>
               ))}
-              <div className="pt-4 flex flex-col gap-3">
-                <Link href="/#demo-video" className="flex items-center gap-2 text-gray-300">
-                  <Play className="w-4 h-4" />
-                  <span>Voir Noa en action</span>
-                </Link>
+              <div className="pt-4">
                 <Link href="/demo">
-                  <Button variant="primary" size="lg" className="w-full">
+                  <button className="w-full h-12 px-8 text-sm font-semibold rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-all">
                     Réserver une démo
-                  </Button>
+                  </button>
                 </Link>
               </div>
             </div>
@@ -200,4 +184,3 @@ export function Header() {
     </header>
   )
 }
-

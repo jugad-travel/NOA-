@@ -7,28 +7,28 @@ import { cn } from "@/lib/utils"
 interface CardProps {
   children: React.ReactNode
   className?: string
-  glow?: boolean
-  glass?: boolean
+  hover?: boolean
+  gradient?: boolean
   id?: string
   onClick?: () => void
 }
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, glow = false, glass = false, children, id, onClick }, ref) => {
+  ({ className, hover = false, gradient = false, children, id, onClick }, ref) => {
     const baseStyles = "rounded-2xl p-6 transition-all duration-300"
-    const glassStyles = glass 
-      ? "bg-white/5 backdrop-blur-xl border border-white/10" 
-      : "bg-[#1A1A1A] border border-gray-800"
-    const glowStyles = glow ? "card-glow" : ""
+    const defaultStyles = gradient 
+      ? "bg-white border-2 border-transparent bg-clip-padding" 
+      : "bg-white border border-gray-200"
+    const hoverStyles = hover ? "hover:shadow-lg hover:border-gray-300 hover:-translate-y-1" : ""
     const clickableStyles = onClick ? "cursor-pointer" : ""
     
-    if (glow) {
+    if (hover) {
       return (
         <motion.div
           ref={ref}
           id={id}
           onClick={onClick}
-          className={cn(baseStyles, glassStyles, glowStyles, clickableStyles, className)}
+          className={cn(baseStyles, defaultStyles, hoverStyles, clickableStyles, className)}
           whileHover={{ y: -4 }}
         >
           {children}
@@ -41,7 +41,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
         ref={ref}
         id={id}
         onClick={onClick}
-        className={cn(baseStyles, glassStyles, glowStyles, clickableStyles, className)}
+        className={cn(baseStyles, defaultStyles, hoverStyles, clickableStyles, className)}
       >
         {children}
       </div>
@@ -68,7 +68,7 @@ const CardTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <h3
     ref={ref}
-    className={cn("text-xl font-semibold leading-none tracking-tight text-white", className)}
+    className={cn("text-xl font-semibold leading-none tracking-tight text-gray-900", className)}
     {...props}
   />
 ))
@@ -80,7 +80,7 @@ const CardDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn("text-sm text-gray-400", className)}
+    className={cn("text-sm text-gray-500", className)}
     {...props}
   />
 ))

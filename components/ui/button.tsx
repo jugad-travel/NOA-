@@ -6,25 +6,33 @@ import { motion, useMotionValue, useSpring } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFF56E] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
+        // Primary - clean black
         primary:
-          "bg-[#FFF56E] text-[#0F0F0F] hover:bg-[#FFF899] shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_0_20px_rgba(255,245,110,0.15)]",
+          "bg-gray-900 text-white hover:bg-gray-800",
+        // Secondary - subtle outline
         secondary:
-          "bg-[#1A1A1A] text-white border border-gray-700 hover:border-[#FFF56E]/50 hover:bg-[#141414]",
-        ghost:
-          "text-gray-400 hover:text-white hover:bg-white/5",
+          "bg-white text-gray-900 border border-gray-200 hover:bg-gray-50",
+        // Outline - subtle border
         outline:
-          "border border-gray-600 text-white hover:border-[#FFF56E] hover:text-[#FFF56E]",
+          "border-2 border-gray-200 text-gray-700 bg-white hover:border-gray-300 hover:bg-gray-50",
+        // Ghost - minimal
+        ghost:
+          "text-gray-600 hover:text-gray-900 hover:bg-gray-100",
+        // White - for dark backgrounds
+        white:
+          "bg-white text-gray-700 hover:bg-gray-50 shadow-sm",
+        // Link style
         link:
-          "text-[#FFF56E] underline-offset-4 hover:underline",
+          "text-brand-blue underline-offset-4 hover:underline",
       },
       size: {
         sm: "h-9 px-4 text-xs",
         md: "h-11 px-6 text-sm",
-        lg: "h-13 px-8 text-base",
+        lg: "h-12 px-8 text-sm",
         xl: "h-14 px-10 text-base",
         icon: "h-10 w-10",
       },
@@ -64,8 +72,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       const distanceX = e.clientX - centerX
       const distanceY = e.clientY - centerY
       
-      x.set(distanceX * 0.2)
-      y.set(distanceY * 0.2)
+      x.set(distanceX * 0.15)
+      y.set(distanceY * 0.15)
     }
     
     const handleMouseLeave = () => {
@@ -73,7 +81,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       y.set(0)
     }
     
-    // Extract only the native button props (remove magnetic and asChild)
     const { disabled, onClick, onMouseDown, onMouseUp, onFocus, onBlur, ...restProps } = props
     
     if (magnetic) {
@@ -95,7 +102,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             onFocus={onFocus}
             onBlur={onBlur}
             className={cn(buttonVariants({ variant, size, className }))}
-            whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
             {children}
@@ -115,7 +121,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         onFocus={onFocus}
         onBlur={onBlur}
         className={cn(buttonVariants({ variant, size, className }))}
-        whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
       >
         {children}

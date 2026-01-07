@@ -1,5 +1,5 @@
 export { Hero } from "./Hero"
-export { NoaFloatingDemo } from "./NoaFloatingDemo"
+export { DemoSection } from "./DemoSection"
 export { PainSection } from "./PainSection"
 export { GammeNoa } from "./GammeNoa"
 export { Features } from "./Features"
