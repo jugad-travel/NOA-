@@ -38,14 +38,19 @@ const securityFeatures = [
 
 export function Footer() {
   return (
-    <footer className="bg-gray-50 border-t border-gray-200">
+    <footer 
+      className="border-t border-white/20"
+      style={{
+        background: "linear-gradient(135deg, #d0f7fb 0%, #83a6ff 40%, #ff966b 100%)"
+      }}
+    >
       {/* Security Strip */}
-      <div className="border-b border-gray-200">
+      <div className="border-b border-black/10">
         <div className="container py-4">
           <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
             {securityFeatures.map((feature) => (
-              <div key={feature.label} className="flex items-center gap-2 text-gray-500">
-                <feature.icon className="w-4 h-4 text-brand-blue" />
+              <div key={feature.label} className="flex items-center gap-2 text-gray-800">
+                <feature.icon className="w-4 h-4 text-gray-900" />
                 <span className="text-sm font-medium">{feature.label}</span>
               </div>
             ))}
@@ -59,9 +64,9 @@ export function Footer() {
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-4 lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-6">
-              <span className="text-3xl font-bold text-gray-900 font-display">NOA</span>
+              <span className="text-3xl font-bold text-gray-900">NOA</span>
             </Link>
-            <p className="text-gray-500 text-sm mb-6 leading-relaxed">
+            <p className="text-gray-700 text-sm mb-6 leading-relaxed">
               Le premier conseiller de vente IA qui vend comme en magasin.
             </p>
             <Link href="/demo">
@@ -79,7 +84,7 @@ export function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-gray-500 hover:text-brand-blue transition-colors text-sm"
+                    className="text-gray-700 hover:text-gray-900 transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -96,7 +101,7 @@ export function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-gray-500 hover:text-brand-blue transition-colors text-sm"
+                    className="text-gray-700 hover:text-gray-900 transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -113,7 +118,7 @@ export function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-gray-500 hover:text-brand-blue transition-colors text-sm"
+                    className="text-gray-700 hover:text-gray-900 transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -130,7 +135,7 @@ export function Footer() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-gray-500 hover:text-brand-blue transition-colors text-sm"
+                    className="text-gray-700 hover:text-gray-900 transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -141,16 +146,16 @@ export function Footer() {
         </div>
         
         {/* Bottom Bar */}
-        <div className="mt-16 pt-8 border-t border-gray-200 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-gray-400 text-sm">
+        <div className="mt-16 pt-8 border-t border-black/10 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-gray-700 text-sm">
             © {new Date().getFullYear()} NOA. Tous droits réservés.
           </p>
-          <div className="flex items-center gap-2 text-gray-400 text-sm">
+          <div className="flex items-center gap-2 text-gray-700 text-sm">
             <span>Sécurité & conformité</span>
             <span>•</span>
             <span>RGPD</span>
             <span>•</span>
-            <Link href="/demo" className="hover:text-brand-blue transition-colors">
+            <Link href="/demo" className="hover:text-gray-900 transition-colors">
               Contact
             </Link>
           </div>

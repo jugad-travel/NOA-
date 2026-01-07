@@ -7,7 +7,6 @@ import { Performance } from "@/components/home/Performance"
 import { Integration } from "@/components/home/Integration"
 import { SocialProof } from "@/components/home/SocialProof"
 import { PricingTeaser } from "@/components/home/PricingTeaser"
-import { FAQ } from "@/components/home/FAQ"
 import { FooterCTA } from "@/components/home/FooterCTA"
 
 export default function HomePage() {
@@ -22,7 +21,6 @@ export default function HomePage() {
       <Performance />
       <Integration />
       <PricingTeaser />
-      <FAQ />
       <FooterCTA />
     </>
   )
