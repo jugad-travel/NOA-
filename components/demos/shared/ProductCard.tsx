@@ -40,7 +40,7 @@ export function ProductCard({
       >
         {/* Product image placeholder */}
         <div 
-          className="w-14 h-14 rounded-lg flex items-center justify-center text-sm font-bold text-white flex-shrink-0"
+          className="w-14 h-14 rounded-lg flex items-center justify-center text-sm font-normal text-white flex-shrink-0"
           style={{ backgroundColor: product.colors[0]?.hex || "#6b7280" }}
         >
           {initials}
@@ -98,7 +98,7 @@ export function ProductCard({
       >
         {/* Product image placeholder */}
         <div 
-          className="w-20 h-20 rounded-xl flex items-center justify-center text-lg font-bold text-white flex-shrink-0"
+          className="w-20 h-20 rounded-xl flex items-center justify-center text-lg font-normal text-white flex-shrink-0"
           style={{ backgroundColor: product.colors[0]?.hex || "#6b7280" }}
         >
           {initials}
@@ -122,7 +122,7 @@ export function ProductCard({
         </div>
         
         <div className="text-right flex-shrink-0">
-          <p className="text-lg font-bold text-gray-900">{formatPrice(product.price)}</p>
+          <p className="text-lg font-normal text-gray-900">{formatPrice(product.price)}</p>
           {product.originalPrice && (
             <p className="text-xs text-gray-400 line-through">{formatPrice(product.originalPrice)}</p>
           )}
@@ -145,7 +145,7 @@ export function ProductCard({
     >
       {/* Product image placeholder */}
       <div 
-        className="aspect-square flex items-center justify-center text-2xl font-bold text-white relative"
+        className="aspect-square flex items-center justify-center text-2xl font-normal text-white relative"
         style={{ backgroundColor: product.colors[0]?.hex || "#6b7280" }}
       >
         {initials}
@@ -185,7 +185,7 @@ export function ProductCard({
         {/* Price */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-sm font-bold text-gray-900">{formatPrice(product.price)}</span>
+            <span className="text-sm font-normal text-gray-900">{formatPrice(product.price)}</span>
             {product.originalPrice && (
               <span className="text-xs text-gray-400 line-through">{formatPrice(product.originalPrice)}</span>
             )}

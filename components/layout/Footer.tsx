@@ -64,7 +64,7 @@ export function Footer() {
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-4 lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-6">
-              <span className="text-3xl font-bold text-gray-900">NOA</span>
+              <span className="text-3xl font-normal text-gray-900">NOA</span>
             </Link>
             <p className="text-gray-700 text-sm mb-6 leading-relaxed">
               Le premier conseiller de vente IA qui vend comme en magasin.
@@ -78,7 +78,7 @@ export function Footer() {
           
           {/* Produits */}
           <div>
-            <h4 className="text-gray-900 font-semibold mb-4">Produits</h4>
+            <h4 className="text-gray-900 font-normal mb-4">Produits</h4>
             <ul className="space-y-3">
               {footerLinks.produits.map((link) => (
                 <li key={link.name}>
@@ -95,7 +95,7 @@ export function Footer() {
           
           {/* Ressources */}
           <div>
-            <h4 className="text-gray-900 font-semibold mb-4">Ressources</h4>
+            <h4 className="text-gray-900 font-normal mb-4">Ressources</h4>
             <ul className="space-y-3">
               {footerLinks.ressources.map((link) => (
                 <li key={link.name}>
@@ -112,7 +112,7 @@ export function Footer() {
           
           {/* Entreprise */}
           <div>
-            <h4 className="text-gray-900 font-semibold mb-4">Entreprise</h4>
+            <h4 className="text-gray-900 font-normal mb-4">Entreprise</h4>
             <ul className="space-y-3">
               {footerLinks.entreprise.map((link) => (
                 <li key={link.name}>
@@ -129,7 +129,7 @@ export function Footer() {
           
           {/* Légal */}
           <div>
-            <h4 className="text-gray-900 font-semibold mb-4">Légal</h4>
+            <h4 className="text-gray-900 font-normal mb-4">Légal</h4>
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>

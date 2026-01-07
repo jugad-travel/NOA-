@@ -60,7 +60,7 @@ export function Integration() {
         <ScrollReveal>
           <div className="text-center mb-12">
             <Badge className="mb-4">Intégration technique</Badge>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 font-display">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal text-gray-900 mb-6 font-display">
               Une suite modulaire, intégrée à votre stack existante
             </h2>
             <p className="text-xl text-gray-500 max-w-3xl mx-auto">

@@ -29,7 +29,7 @@ export function MiniCart({ items, onUpdateQuantity, onRemove, className }: MiniC
       {/* Header */}
       <div className="px-4 py-3 border-b border-gray-100">
         <div className="flex items-center justify-between">
-          <h3 className="font-semibold text-gray-900 text-sm">Mon panier</h3>
+          <h3 className="font-normal text-gray-900 text-sm">Mon panier</h3>
           <span className="text-xs text-gray-500">{items.length} article{items.length > 1 ? "s" : ""}</span>
         </div>
       </div>
@@ -50,7 +50,7 @@ export function MiniCart({ items, onUpdateQuantity, onRemove, className }: MiniC
               >
                 {/* Product image placeholder */}
                 <div 
-                  className="w-16 h-16 rounded-lg flex items-center justify-center text-sm font-bold text-white flex-shrink-0"
+                  className="w-16 h-16 rounded-lg flex items-center justify-center text-sm font-normal text-white flex-shrink-0"
                   style={{ backgroundColor: item.product.colors[0]?.hex || "#6b7280" }}
                 >
                   {initials}
@@ -146,7 +146,7 @@ export function CartItemRow({
     >
       {/* Product image */}
       <div 
-        className="w-20 h-20 rounded-lg flex items-center justify-center text-lg font-bold text-white flex-shrink-0"
+        className="w-20 h-20 rounded-lg flex items-center justify-center text-lg font-normal text-white flex-shrink-0"
         style={{ backgroundColor: item.product.colors[0]?.hex || "#6b7280" }}
       >
         {initials}

@@ -42,7 +42,7 @@ export function DemoNoaProjet() {
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-gray-900 flex items-center justify-center">
-              <span className="text-white font-bold text-xs">OE</span>
+              <span className="text-white font-normal text-xs">OE</span>
             </div>
             <span className="font-semibold text-gray-900 text-sm">Outdoor Expert</span>
           </div>
@@ -72,7 +72,7 @@ export function DemoNoaProjet() {
           <div className="absolute inset-0 flex items-center px-6">
             <div>
               <p className="text-white/70 text-xs mb-1">Nouvelle collection</p>
-              <h1 className="text-white font-bold text-lg mb-2">Équipement Trek 2024</h1>
+              <h1 className="text-white font-normal text-lg mb-2">Équipement Trek 2024</h1>
               <button className="text-xs bg-white text-gray-900 px-3 py-1.5 rounded-full font-medium hover:bg-gray-100 transition-colors">
                 Découvrir
               </button>
@@ -88,7 +88,7 @@ export function DemoNoaProjet() {
         
         {/* Categories */}
         <div className="px-4 py-4">
-          <h2 className="text-sm font-semibold text-gray-900 mb-3">Nos catégories</h2>
+          <h2 className="text-sm font-normal text-gray-900 mb-3">Nos catégories</h2>
           <div className="grid grid-cols-4 gap-2">
             {categories.map((cat) => (
               <motion.div
@@ -230,7 +230,7 @@ export function DemoNoaProjet() {
                               className="flex items-center gap-2 bg-white rounded-lg p-2 border border-gray-100"
                             >
                               <div 
-                                className="w-10 h-10 rounded-lg flex items-center justify-center text-[10px] font-bold text-white flex-shrink-0"
+                                className="w-10 h-10 rounded-lg flex items-center justify-center text-[10px] font-normal text-white flex-shrink-0"
                                 style={{ backgroundColor: product.colors[0]?.hex || "#6b7280" }}
                               >
                                 {initials}

@@ -30,7 +30,7 @@ export function PainSection() {
     <Section variant="gray" padding="lg">
       <div className="max-w-4xl mx-auto">
         <ScrollReveal>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 text-center mb-16 font-display">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal text-gray-900 text-center mb-16 font-display">
             À chaque étape du parcours d'achat, vos clients hésitent.
           </h2>
         </ScrollReveal>
@@ -44,7 +44,7 @@ export function PainSection() {
                   <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center">
                     <X className="w-5 h-5 text-red-500" />
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900">{comparison.before.title}</h3>
+                  <h3 className="text-xl font-normal text-gray-900">{comparison.before.title}</h3>
                 </div>
                 <ul className="space-y-4">
                   {comparison.before.items.map((item, index) => (
@@ -75,7 +75,7 @@ export function PainSection() {
                   <div className="w-10 h-10 rounded-full bg-gradient-to-r from-brand-cyan to-brand-blue flex items-center justify-center">
                     <Check className="w-5 h-5 text-white" />
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900">{comparison.after.title}</h3>
+                  <h3 className="text-xl font-normal text-gray-900">{comparison.after.title}</h3>
                 </div>
                 <ul className="space-y-4">
                   {comparison.after.items.map((item, index) => (

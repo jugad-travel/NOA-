@@ -151,7 +151,7 @@ export function DemoNoaMatch() {
           {/* Product Grid */}
           <div className="flex-1 p-3 overflow-y-auto">
             <div className="flex items-center justify-between mb-3">
-              <h1 className="text-sm font-semibold text-gray-900">Chaussures de randonnée</h1>
+              <h1 className="text-sm font-normal text-gray-900">Chaussures de randonnée</h1>
               <span className="text-[10px] text-gray-500">{chaussures.length} produits</span>
             </div>
             
@@ -177,7 +177,7 @@ export function DemoNoaMatch() {
                   >
                     {/* Product image */}
                     <div 
-                      className="aspect-square flex items-center justify-center text-sm font-bold text-white relative"
+                      className="aspect-square flex items-center justify-center text-sm font-normal text-white relative"
                       style={{ backgroundColor: product.colors[0]?.hex || "#6b7280" }}
                     >
                       {initials}
@@ -215,7 +215,7 @@ export function DemoNoaMatch() {
                         <span className="text-[9px] text-gray-600">{product.rating}</span>
                       </div>
                       <div className="flex items-center gap-1 mt-1">
-                        <span className="text-[10px] font-bold text-gray-900">{formatPrice(product.price)}</span>
+                        <span className="text-[10px] font-normal text-gray-900">{formatPrice(product.price)}</span>
                         {product.originalPrice && (
                           <span className="text-[9px] text-gray-400 line-through">{formatPrice(product.originalPrice)}</span>
                         )}

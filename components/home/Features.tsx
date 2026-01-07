@@ -37,7 +37,7 @@ export function Features() {
         <ScrollReveal>
           <div className="text-center mb-16">
             <Badge className="mb-4">Fonctionnalités</Badge>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 font-display">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal text-gray-900 mb-4 font-display">
               Plus qu'un chatbot : Noa est un moteur de croissance.
             </h2>
           </div>
@@ -59,7 +59,7 @@ export function Features() {
                       <Icon className="w-7 h-7 text-brand-blue" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                      <h3 className="text-lg font-normal text-gray-900 mb-2">
                         {feature.title}
                       </h3>
                       <p className="text-gray-500">

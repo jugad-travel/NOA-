@@ -51,7 +51,7 @@ export function DemoNoaExpert() {
           {/* Left - Product Image */}
           <div className="w-1/2 p-4">
             <div 
-              className="aspect-square rounded-2xl flex items-center justify-center text-4xl font-bold text-white relative"
+              className="aspect-square rounded-2xl flex items-center justify-center text-4xl font-normal text-white relative"
               style={{ backgroundColor: product.colors[selectedColor]?.hex || "#6b7280" }}
             >
               {initials}
@@ -82,7 +82,7 @@ export function DemoNoaExpert() {
                 <div 
                   key={idx}
                   className={cn(
-                    "w-14 h-14 rounded-lg flex items-center justify-center text-xs font-bold text-white cursor-pointer transition-all",
+                    "w-14 h-14 rounded-lg flex items-center justify-center text-xs font-normal text-white cursor-pointer transition-all",
                     idx === 0 ? "ring-2 ring-gray-900" : "opacity-60 hover:opacity-100"
                   )}
                   style={{ backgroundColor: product.colors[0]?.hex || "#6b7280" }}
@@ -98,7 +98,7 @@ export function DemoNoaExpert() {
             {/* Header */}
             <div className="mb-3">
               <p className="text-xs text-gray-500">{product.brand}</p>
-              <h1 className="text-lg font-bold text-gray-900">{product.name}</h1>
+              <h1 className="text-lg font-normal text-gray-900">{product.name}</h1>
               <div className="flex items-center gap-2 mt-1">
                 <div className="flex items-center gap-0.5">
                   <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
@@ -110,7 +110,7 @@ export function DemoNoaExpert() {
             
             {/* Price */}
             <div className="flex items-center gap-2 mb-4">
-              <span className="text-xl font-bold text-gray-900">{formatPrice(product.price)}</span>
+              <span className="text-xl font-normal text-gray-900">{formatPrice(product.price)}</span>
               {product.originalPrice && (
                 <>
                   <span className="text-sm text-gray-400 line-through">{formatPrice(product.originalPrice)}</span>

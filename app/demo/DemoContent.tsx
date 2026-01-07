@@ -118,11 +118,11 @@ export function DemoContent() {
   return (
     <div className="pt-20">
       {/* Hero */}
-      <Section variant="dark" padding="lg" noise>
+      <Section variant="gradient" padding="lg">
         <div className="max-w-4xl mx-auto text-center">
           <ScrollReveal>
             <Badge className="mb-6">Démo</Badge>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-normal text-white mb-6">
               Landing page dédiée à la prise de rendez-vous.
             </h1>
             <p className="text-xl text-gray-400">
@@ -140,7 +140,7 @@ export function DemoContent() {
             <div className="lg:col-span-2">
               <ScrollReveal>
                 <div className="sticky top-24">
-                  <h2 className="text-2xl font-bold text-white mb-6">
+                  <h2 className="text-2xl font-normal text-white mb-6">
                     Découvrez NOA en action
                   </h2>
                   
@@ -153,7 +153,7 @@ export function DemoContent() {
                     ))}
                   </ul>
                   
-                  <Card glass className="p-6">
+                  <Card className="p-6">
                     <div className="flex items-center gap-4 mb-4">
                       <div className="w-12 h-12 rounded-full bg-brand/20 flex items-center justify-center">
                         <Sparkles className="w-6 h-6 text-brand" />
@@ -183,7 +183,7 @@ export function DemoContent() {
                     transition={{ duration: 0.3 }}
                   >
                     <Card className="p-8">
-                      <h3 className="text-xl font-bold text-white mb-6">
+                      <h3 className="text-xl font-normal text-white mb-6">
                         Demander une démo
                       </h3>
                       
@@ -366,7 +366,7 @@ export function DemoContent() {
                           <ChevronLeft className="w-4 h-4" />
                           Retour
                         </button>
-                        <h3 className="text-xl font-bold text-white">
+                        <h3 className="text-xl font-normal text-white">
                           Choisir un créneau
                         </h3>
                         <div className="w-20" />
@@ -478,7 +478,7 @@ export function DemoContent() {
                         <CheckCircle className="w-10 h-10 text-green-500" />
                       </motion.div>
                       
-                      <h3 className="text-2xl font-bold text-white mb-4">
+                      <h3 className="text-2xl font-normal text-white mb-4">
                         Rendez-vous confirmé !
                       </h3>
                       

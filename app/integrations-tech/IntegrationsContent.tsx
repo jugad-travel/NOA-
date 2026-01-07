@@ -127,11 +127,11 @@ export function IntegrationsContent() {
   return (
     <div className="pt-20">
       {/* Hero */}
-      <Section variant="dark" padding="xl" noise>
+      <Section variant="gradient" padding="xl">
         <div className="max-w-4xl mx-auto text-center">
           <ScrollReveal>
             <Badge className="mb-6">Intégrations & Tech</Badge>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-normal text-white mb-8">
               Pensé pour s'intégrer à votre écosystème e-commerce
             </h1>
           </ScrollReveal>
@@ -154,7 +154,7 @@ export function IntegrationsContent() {
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              <h2 className="text-3xl md:text-4xl font-normal text-white mb-4">
                 Compatibilité plateformes & architectures
               </h2>
               <p className="text-xl text-gray-400">
@@ -167,7 +167,7 @@ export function IntegrationsContent() {
             {/* Plateformes e-commerce */}
             <ScrollReveal delay={0.1}>
               <Card className="h-full">
-                <h3 className="text-xl font-bold text-white mb-6">Plateformes e-commerce</h3>
+                <h3 className="text-xl font-normal text-white mb-6">Plateformes e-commerce</h3>
                 <div className="grid grid-cols-2 gap-4">
                   {platformLogos.map((platform) => (
                     <div
@@ -187,7 +187,7 @@ export function IntegrationsContent() {
             {/* Architectures modernes */}
             <ScrollReveal delay={0.2}>
               <Card className="h-full">
-                <h3 className="text-xl font-bold text-white mb-6">Architectures modernes</h3>
+                <h3 className="text-xl font-normal text-white mb-6">Architectures modernes</h3>
                 <div className="space-y-4">
                   {modernArchitectures.map((arch) => {
                     const Icon = arch.icon
@@ -217,12 +217,12 @@ export function IntegrationsContent() {
       </Section>
       
       {/* Stack Compatibility Panel */}
-      <Section variant="dark" padding="lg">
+      <Section variant="gradient" padding="lg">
         <div className="max-w-5xl mx-auto">
           <ScrollReveal>
             <div className="text-center mb-12">
               <Badge className="mb-4">Stack Compatibility</Badge>
-              <h2 className="text-3xl md:text-4xl font-bold text-white">
+              <h2 className="text-3xl md:text-4xl font-normal text-white">
                 Compatible avec votre écosystème
               </h2>
             </div>
@@ -244,12 +244,12 @@ export function IntegrationsContent() {
       </Section>
       
       {/* Architecture Preview */}
-      <Section variant="gradient" padding="lg" noise>
+      <Section variant="gradient" padding="lg">
         <div className="max-w-5xl mx-auto">
           <ScrollReveal>
             <div className="text-center mb-8">
               <Badge className="mb-4">Architecture Preview</Badge>
-              <h2 className="text-3xl md:text-4xl font-bold text-white">
+              <h2 className="text-3xl md:text-4xl font-normal text-white">
                 Intégration transparente
               </h2>
             </div>
@@ -260,10 +260,10 @@ export function IntegrationsContent() {
       </Section>
       
       {/* Connexions fonctionnelles */}
-      <Section variant="dark" padding="xl">
+      <Section variant="gradient" padding="xl">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-normal text-white text-center mb-12">
               Connexions fonctionnelles
             </h2>
           </ScrollReveal>
@@ -276,7 +276,7 @@ export function IntegrationsContent() {
                   <div className="w-14 h-14 rounded-2xl bg-brand/10 flex items-center justify-center">
                     <Database className="w-7 h-7 text-brand" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white">Catalogue produit</h3>
+                  <h3 className="text-2xl font-normal text-white">Catalogue produit</h3>
                 </div>
                 
                 <div className="space-y-4 text-gray-300">
@@ -322,7 +322,7 @@ export function IntegrationsContent() {
                   <div className="w-14 h-14 rounded-2xl bg-brand/10 flex items-center justify-center">
                     <ShoppingCart className="w-7 h-7 text-brand" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white">Panier & funnel d'achat</h3>
+                  <h3 className="text-2xl font-normal text-white">Panier & funnel d'achat</h3>
                 </div>
                 
                 <div className="space-y-4 text-gray-300">
@@ -353,11 +353,11 @@ export function IntegrationsContent() {
       </Section>
       
       {/* Déploiement modulaire */}
-      <Section variant="gradient" padding="lg" noise>
+      <Section variant="gradient" padding="lg">
         <div className="max-w-5xl mx-auto">
           <ScrollReveal>
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              <h2 className="text-3xl md:text-4xl font-normal text-white mb-4">
                 Déploiement modulaire
               </h2>
               <p className="text-xl text-gray-400">
@@ -370,7 +370,7 @@ export function IntegrationsContent() {
             {modules.map((mod) => (
               <StaggerItem key={mod.name}>
                 <div className="bg-dark-50/50 border border-white/10 rounded-2xl p-5 hover:border-brand/30 transition-colors text-center">
-                  <h4 className="text-white font-semibold mb-1">{mod.name}</h4>
+                  <h4 className="text-white font-normal mb-1">{mod.name}</h4>
                   <p className="text-gray-400 text-sm">{mod.description}</p>
                 </div>
               </StaggerItem>
@@ -400,12 +400,12 @@ export function IntegrationsContent() {
       </Section>
       
       {/* Sécurité & conformité */}
-      <Section variant="dark" padding="xl">
+      <Section variant="gradient" padding="xl">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
             <div className="text-center mb-12">
               <Badge className="mb-4">Sécurité & conformité</Badge>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              <h2 className="text-3xl md:text-4xl font-normal text-white mb-4">
                 Conçu pour des environnements professionnels exigeants
               </h2>
             </div>
@@ -432,10 +432,10 @@ export function IntegrationsContent() {
       </Section>
       
       {/* CTA */}
-      <Section variant="gradient" padding="xl" noise>
+      <Section variant="gradient" padding="xl">
         <div className="max-w-3xl mx-auto text-center">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">
+            <h2 className="text-3xl md:text-4xl font-normal text-white mb-8">
               Prêt à intégrer NOA à votre stack ?
             </h2>
           </ScrollReveal>

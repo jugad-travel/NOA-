@@ -84,7 +84,7 @@ export function FAQ() {
         <ScrollReveal>
           <div className="text-center mb-12">
             <Badge className="mb-4">FAQ</Badge>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 font-display">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal text-gray-900 font-display">
               Questions fréquentes
             </h2>
           </div>

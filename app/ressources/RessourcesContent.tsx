@@ -126,11 +126,11 @@ export function RessourcesContent() {
   return (
     <div className="pt-20">
       {/* Hero */}
-      <Section variant="dark" padding="xl" noise>
+      <Section variant="gradient" padding="xl">
         <div className="max-w-4xl mx-auto text-center">
           <ScrollReveal>
             <Badge className="mb-6">Ressources</Badge>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-normal text-white mb-8">
               Blog (Conseils CRO), Études de cas, Centre d'aide.
             </h1>
           </ScrollReveal>
@@ -150,7 +150,7 @@ export function RessourcesContent() {
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
               <div>
                 <Badge className="mb-4">Blog</Badge>
-                <h2 className="text-3xl md:text-4xl font-bold text-white">
+                <h2 className="text-3xl md:text-4xl font-normal text-white">
                   Conseils CRO
                 </h2>
               </div>
@@ -179,7 +179,7 @@ export function RessourcesContent() {
                             {article.readTime}
                           </span>
                         </div>
-                        <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-brand transition-colors line-clamp-2">
+                        <h3 className="text-lg font-normal text-white mb-2 group-hover:text-brand transition-colors line-clamp-2">
                           {article.title}
                         </h3>
                         <p className="text-gray-400 text-sm line-clamp-2">
@@ -197,13 +197,13 @@ export function RessourcesContent() {
       </Section>
       
       {/* Case Studies Section */}
-      <Section id="etudes-de-cas" variant="dark" padding="xl" noise>
+      <Section id="etudes-de-cas" variant="gradient" padding="xl">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
               <div>
                 <Badge className="mb-4">Success Stories</Badge>
-                <h2 className="text-3xl md:text-4xl font-bold text-white">
+                <h2 className="text-3xl md:text-4xl font-normal text-white">
                   Études de cas
                 </h2>
               </div>
@@ -227,7 +227,7 @@ export function RessourcesContent() {
                       <Badge variant="outline">{study.industry}</Badge>
                     </div>
                     
-                    <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-brand transition-colors">
+                    <h3 className="text-lg font-normal text-white mb-3 group-hover:text-brand transition-colors">
                       {study.title}
                     </h3>
                     
@@ -238,7 +238,7 @@ export function RessourcesContent() {
                     <div className="flex gap-4 pt-4 border-t border-white/5">
                       {study.metrics.map((metric) => (
                         <div key={metric.label}>
-                          <p className="text-2xl font-bold text-brand">{metric.value}</p>
+                          <p className="text-2xl font-normal text-brand">{metric.value}</p>
                           <p className="text-xs text-gray-500">{metric.label}</p>
                         </div>
                       ))}
@@ -257,7 +257,7 @@ export function RessourcesContent() {
           <ScrollReveal>
             <div className="text-center mb-12">
               <Badge className="mb-4">Support</Badge>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              <h2 className="text-3xl md:text-4xl font-normal text-white mb-4">
                 Centre d'aide
               </h2>
               <p className="text-xl text-gray-400 max-w-2xl mx-auto">
@@ -289,7 +289,7 @@ export function RessourcesContent() {
                     <div className="w-12 h-12 rounded-xl bg-brand/10 flex items-center justify-center mb-4 group-hover:bg-brand/20 transition-colors">
                       <Icon className="w-6 h-6 text-brand" />
                     </div>
-                    <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-brand transition-colors">
+                    <h3 className="text-lg font-normal text-white mb-2 group-hover:text-brand transition-colors">
                       {category.title}
                     </h3>
                     <p className="text-gray-400 text-sm mb-4">
@@ -307,10 +307,10 @@ export function RessourcesContent() {
       </Section>
       
       {/* CTA Section */}
-      <Section variant="dark" padding="xl" noise>
+      <Section variant="gradient" padding="xl">
         <div className="max-w-3xl mx-auto text-center">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <h2 className="text-3xl md:text-4xl font-normal text-white mb-4">
               Besoin d'aide personnalisée ?
             </h2>
             <p className="text-xl text-gray-400 mb-8">

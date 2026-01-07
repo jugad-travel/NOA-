@@ -60,7 +60,7 @@ export function Performance() {
         <ScrollReveal>
           <div className="text-center mb-16">
             <Badge className="mb-4">Performance & ROI</Badge>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 font-display">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal text-gray-900 font-display">
               Des résultats mesurables
             </h2>
           </div>

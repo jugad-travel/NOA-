@@ -70,7 +70,7 @@ export function GammeNoa() {
         <ScrollReveal>
           <div className="text-center mb-12">
             <Badge className="mb-4">La suite NOA</Badge>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 font-display">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal text-gray-900 mb-6 font-display">
               Une suite de 4 conseillers de vente IA, activés au bon moment
             </h2>
           </div>
@@ -134,7 +134,7 @@ export function GammeNoa() {
                         <Icon className="w-6 h-6 text-white" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-xl font-bold text-gray-900 mb-1">{item.name}</h3>
+                        <h3 className="text-xl font-normal text-gray-900 mb-1">{item.name}</h3>
                         <p className="text-gray-600 text-sm font-medium">{item.tagline}</p>
                       </div>
                     </div>

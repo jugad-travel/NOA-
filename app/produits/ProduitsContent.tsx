@@ -116,7 +116,7 @@ export function ProduitsContent() {
         <div className="max-w-4xl mx-auto text-center">
           <ScrollReveal>
             <Badge className="mb-6">La suite NOA</Badge>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-8 font-display">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-normal text-gray-900 mb-8 font-display">
               La suite NOA
             </h1>
           </ScrollReveal>
@@ -142,7 +142,7 @@ export function ProduitsContent() {
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
             <div className="text-center mb-12">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 font-display">
+              <h2 className="text-2xl md:text-3xl font-normal text-gray-900 mb-4 font-display">
                 Vue d'ensemble de la gamme NOA
               </h2>
               <p className="text-xl text-gray-500">
@@ -199,7 +199,7 @@ export function ProduitsContent() {
                       <Icon className="w-7 h-7 text-white" />
                     </div>
                     <div className="text-left">
-                      <h2 className="text-3xl md:text-4xl font-bold text-gray-900 font-display">
+                      <h2 className="text-3xl md:text-4xl font-normal text-gray-900 font-display">
                         {product.name}
                       </h2>
                       <p className="text-gray-600 font-medium">{product.tagline}</p>
@@ -228,7 +228,7 @@ export function ProduitsContent() {
                 {/* Description */}
                 <ScrollReveal delay={0.2}>
                   <div className="bg-white rounded-2xl p-6 border border-gray-200 h-full">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Description</h3>
+                    <h3 className="text-lg font-normal text-gray-900 mb-3">Description</h3>
                     <p className="text-gray-600 text-sm leading-relaxed mb-4">{product.description}</p>
                     <p className="text-gray-500 text-sm leading-relaxed">{product.details}</p>
                   </div>
@@ -237,7 +237,7 @@ export function ProduitsContent() {
                 {/* Cas typiques */}
                 <ScrollReveal delay={0.3}>
                   <div className="bg-white rounded-2xl p-6 border border-gray-200 h-full">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Cas typiques</h3>
+                    <h3 className="text-lg font-normal text-gray-900 mb-3">Cas typiques</h3>
                     <ul className="space-y-3">
                       {product.casTypiques.map((cas) => (
                         <li key={cas} className="flex items-start gap-2 text-gray-600 text-sm">
@@ -252,7 +252,7 @@ export function ProduitsContent() {
                 {/* Intégration & Objectif */}
                 <ScrollReveal delay={0.4}>
                   <div className="bg-white rounded-2xl p-6 border border-gray-200 h-full">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Intégration</h3>
+                    <h3 className="text-lg font-normal text-gray-900 mb-3">Intégration</h3>
                     <div className="flex flex-wrap gap-2 mb-6">
                       {product.integration.map((place) => (
                         <Badge key={place} variant="secondary">
@@ -261,7 +261,7 @@ export function ProduitsContent() {
                       ))}
                     </div>
                     
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">Objectif</h3>
+                    <h3 className="text-lg font-normal text-gray-900 mb-3">Objectif</h3>
                     <p className="text-gray-600 text-sm">{product.objectif}</p>
                   </div>
                 </ScrollReveal>

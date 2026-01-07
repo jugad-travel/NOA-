@@ -33,7 +33,8 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        display: ["var(--font-elios)", "SF Pro Display", "system-ui", "sans-serif"],
+        display: ["var(--font-manrope)", "Manrope", "system-ui", "sans-serif"],
+        heading: ["var(--font-manrope)", "Manrope", "sans-serif"],
       },
       borderRadius: {
         sm: "8px",

@@ -1,17 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
-/* Custom font face for Elios - using similar geometric sans */
-@font-face {
-  font-family: 'Elios';
-  src: local('SF Pro Display'), local('Helvetica Neue'), local('Arial');
-  font-weight: 300 800;
-  font-style: normal;
-  font-display: swap;
-}
-
 @theme {
-  --font-elios: "Elios", "SF Pro Display", "Helvetica Neue", system-ui, sans-serif;
+  --font-manrope: "Manrope", system-ui, sans-serif;
   --font-inter: "Inter", system-ui, sans-serif;
   
   /* Premium color palette */
@@ -179,10 +171,10 @@ body {
   background: #9AA0A6;
 }
 
-/* Typography - Elios-inspired */
+/* Typography - Manrope for headings */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-elios);
-  font-weight: 600;
+  font-family: var(--font-manrope), "Manrope", system-ui, sans-serif;
+  font-weight: 400;
   letter-spacing: -0.03em;
   line-height: 1.1;
   color: #202124;
@@ -196,12 +188,12 @@ h1 {
 
 h2 {
   font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 600;
+  font-weight: 400;
 }
 
 h3 {
   font-size: clamp(1.5rem, 3vw, 2rem);
-  font-weight: 600;
+  font-weight: 400;
 }
 
 /* Body text */

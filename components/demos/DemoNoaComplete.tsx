@@ -51,7 +51,7 @@ export function DemoNoaComplete() {
       <div className="h-[500px] overflow-hidden">
         {/* Header */}
         <div className="px-4 py-3 border-b border-gray-100">
-          <h1 className="text-sm font-semibold text-gray-900">Mon panier ({cartItems.length} articles)</h1>
+          <h1 className="text-sm font-normal text-gray-900">Mon panier ({cartItems.length} articles)</h1>
         </div>
         
         <div className="flex h-[calc(100%-48px)]">
@@ -77,7 +77,7 @@ export function DemoNoaComplete() {
                     >
                       {/* Product image */}
                       <div 
-                        className="w-16 h-16 rounded-lg flex items-center justify-center text-sm font-bold text-white flex-shrink-0"
+                        className="w-16 h-16 rounded-lg flex items-center justify-center text-sm font-normal text-white flex-shrink-0"
                         style={{ backgroundColor: item.product.colors[0]?.hex || "#6b7280" }}
                       >
                         {initials}
@@ -176,7 +176,7 @@ export function DemoNoaComplete() {
                         className="flex items-center gap-2 bg-white rounded-lg p-2 border border-gray-200"
                       >
                         <div 
-                          className="w-12 h-12 rounded-lg flex items-center justify-center text-[10px] font-bold text-white flex-shrink-0"
+                          className="w-12 h-12 rounded-lg flex items-center justify-center text-[10px] font-normal text-white flex-shrink-0"
                           style={{ backgroundColor: suggestedProduct.colors[0]?.hex || "#6b7280" }}
                         >
                           {suggestedProduct.brand.substring(0, 2).toUpperCase()}
@@ -204,7 +204,7 @@ export function DemoNoaComplete() {
           
           {/* Right - Summary */}
           <div className="w-56 border-l border-gray-100 p-4 bg-gray-50">
-            <h2 className="text-sm font-semibold text-gray-900 mb-4">Récapitulatif</h2>
+            <h2 className="text-sm font-normal text-gray-900 mb-4">Récapitulatif</h2>
             
             <div className="space-y-2 mb-4">
               <div className="flex justify-between text-xs">

@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Inter, Manrope } from "next/font/google"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
 import "./globals.css"
@@ -8,6 +8,13 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
+})
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-manrope",
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
 })
 
 export const metadata: Metadata = {
@@ -127,7 +134,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="fr">
+    <html lang="fr" className={`${inter.variable} ${manrope.variable}`}>
       <head>
         <script
           type="application/ld+json"
@@ -135,7 +142,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} font-sans antialiased bg-white text-gray-700`}
+        className="font-sans antialiased bg-white text-gray-700"
       >
         <Header />
         <main className="min-h-screen">{children}</main>
