@@ -228,3 +228,4 @@ export function getDayProgramItems(dayId: string): JugadProgramItem[] {
   return annecyProgramItems.filter(item => item.day_id === dayId)
 }
 
+

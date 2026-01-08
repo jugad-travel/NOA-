@@ -7,33 +7,76 @@ import { SafariWindow } from "./SafariWindow"
 import { cn } from "@/lib/utils"
 import { categories, getProductsByIds, noaConversations, formatPrice } from "@/lib/demo-data"
 
-export function DemoNoaProjet() {
-  const [isChatOpen, setIsChatOpen] = React.useState(false)
-  const [chatStep, setChatStep] = React.useState(0)
-  const [addedProducts, setAddedProducts] = React.useState<string[]>([])
+interface DemoNoaProjetProps {
+  animationProgress?: number // 0 à 1
+}
+
+export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
+  // Calculer les étapes basées sur le progress - Timing optimisé pour fluidité et visibilité
+  // Étape 1 (0-0.08) : Chat s'ouvre
+  // Étape 2 (0.08-0.15) : Message "Bonjour..." (déjà visible)
+  // Étape 3 (0.15-0.25) : Message utilisateur
+  // Étape 4 (0.25-0.35) : Typing
+  // Étape 5 (0.35-0.50) : Réponse NOA (message texte seulement - temps pour lire)
+  // Étape 6 (0.50-0.60) : Produits apparaissent
+  // Étape 7 (0.60-1.0) : Ajout au panier (40% pour bien voir chaque produit ajouté)
   
-  // Auto-animate chat
+  const chatMessagesRef = React.useRef<HTMLDivElement>(null)
+  const isChatOpen = animationProgress >= 0.08
+  const chatStep = animationProgress >= 0.60 ? 4 : animationProgress >= 0.50 ? 3 : animationProgress >= 0.35 ? 3 : animationProgress >= 0.25 ? 2 : animationProgress >= 0.15 ? 1 : 0
+  
+  // Calculer quels produits sont ajoutés basé sur le progress
+  const suggestedProducts = getProductsByIds(noaConversations.projet.suggestions)
+  const addedProducts = React.useMemo(() => {
+    if (animationProgress < 0.60) return []
+    // Ajouter progressivement les produits sur une période plus longue (40% pour bien voir)
+    const addProgress = (animationProgress - 0.60) / 0.40 // 0 à 1 entre 0.60 et 1.0
+    const productsToAdd = Math.min(
+      suggestedProducts.length,
+      Math.ceil(addProgress * suggestedProducts.length)
+    )
+    return suggestedProducts.slice(0, productsToAdd).map(p => p.id)
+  }, [animationProgress, suggestedProducts])
+  
+  // Scroll synchronisé avec le progress (contrôlé uniquement par le scroll de la page)
   React.useEffect(() => {
-    const timer1 = setTimeout(() => setIsChatOpen(true), 1500)
-    const timer2 = setTimeout(() => setChatStep(1), 2500) // User message
-    const timer3 = setTimeout(() => setChatStep(2), 3500) // Typing
-    const timer4 = setTimeout(() => setChatStep(3), 5000) // NOA response + products
+    const chatMessages = chatMessagesRef.current
+    if (chatMessages && animationProgress >= 0.50) {
+      // Calculer le scroll basé sur le progress pour voir les produits et l'ajout au panier
+      const scrollProgress = (animationProgress - 0.50) / 0.50 // 0 à 1 entre 0.50 et 1.0
+      const maxScroll = chatMessages.scrollHeight - chatMessages.clientHeight
+      // Scroller directement mais de manière fluide grâce au scrub de GSAP
+      chatMessages.scrollTop = maxScroll * scrollProgress
+    }
+  }, [animationProgress])
+  
+  // Bloquer le scroll manuel dans la fenêtre - le scroll est uniquement programmatique via animationProgress
+  // Le scroll de la page fonctionne toujours, même quand le curseur est au-dessus de la fenêtre
+  React.useEffect(() => {
+    const chatMessages = chatMessagesRef.current
+    if (!chatMessages) return
+    
+    const handleWheel = (e: WheelEvent) => {
+      // Vérifier si on peut encore scroller dans la fenêtre
+      const canScrollDown = chatMessages.scrollTop < chatMessages.scrollHeight - chatMessages.clientHeight - 1
+      const canScrollUp = chatMessages.scrollTop > 0
+      const scrollingDown = e.deltaY > 0
+      const scrollingUp = e.deltaY < 0
+      
+      // Bloquer seulement si on peut encore scroller dans cette direction dans la fenêtre
+      // Sinon, laisser passer le scroll à la page
+      if ((scrollingDown && canScrollDown) || (scrollingUp && canScrollUp)) {
+        e.preventDefault()
+      }
+      // Ne pas utiliser stopPropagation pour que le scroll de la page fonctionne toujours
+    }
+    
+    chatMessages.addEventListener('wheel', handleWheel, { passive: false })
     
     return () => {
-      clearTimeout(timer1)
-      clearTimeout(timer2)
-      clearTimeout(timer3)
-      clearTimeout(timer4)
+      chatMessages.removeEventListener('wheel', handleWheel)
     }
   }, [])
-  
-  const suggestedProducts = getProductsByIds(noaConversations.projet.suggestions)
-  
-  const handleAddToCart = (productId: string) => {
-    if (!addedProducts.includes(productId)) {
-      setAddedProducts([...addedProducts, productId])
-    }
-  }
   
   return (
     <SafariWindow url="shop.outdoor-expert.fr" className="w-full">
@@ -59,9 +102,13 @@ export function DemoNoaProjet() {
             <div className="relative">
               <ShoppingBag className="w-4 h-4 text-gray-400" />
               {addedProducts.length > 0 && (
-                <span className="absolute -top-1 -right-1 w-3 h-3 bg-gray-900 rounded-full text-[8px] text-white flex items-center justify-center">
+                <motion.span
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  className="absolute -top-1 -right-1 w-3 h-3 bg-gray-900 rounded-full text-[8px] text-white flex items-center justify-center"
+                >
                   {addedProducts.length}
-                </span>
+                </motion.span>
               )}
             </div>
           </div>
@@ -112,7 +159,7 @@ export function DemoNoaProjet() {
               animate={{ scale: 1 }}
               exit={{ scale: 0 }}
               whileHover={{ scale: 1.05 }}
-              onClick={() => setIsChatOpen(true)}
+              onClick={() => {}}
               className="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-gray-900 shadow-lg flex items-center justify-center"
             >
               <MessageCircle className="w-5 h-5 text-white" />
@@ -141,7 +188,7 @@ export function DemoNoaProjet() {
                   </div>
                 </div>
                 <button 
-                  onClick={() => setIsChatOpen(false)}
+                  onClick={() => {}}
                   className="text-gray-400 hover:text-gray-600"
                 >
                   <X className="w-4 h-4" />
@@ -149,7 +196,7 @@ export function DemoNoaProjet() {
               </div>
               
               {/* Chat Messages */}
-              <div className="p-3 space-y-3 h-56 overflow-y-auto">
+              <div ref={chatMessagesRef} className="p-3 space-y-3 h-56 overflow-y-auto" style={{ scrollBehavior: 'auto' }}>
                 {/* Welcome message */}
                 <div className="flex gap-2">
                   <div className="w-6 h-6 rounded-full bg-gray-900 flex items-center justify-center flex-shrink-0">
@@ -198,7 +245,7 @@ export function DemoNoaProjet() {
                   )}
                 </AnimatePresence>
                 
-                {/* NOA response with products */}
+                {/* NOA response (message texte d'abord) */}
                 <AnimatePresence>
                   {chatStep >= 3 && (
                     <motion.div
@@ -214,9 +261,18 @@ export function DemoNoaProjet() {
                           {noaConversations.projet.noaResponse}
                         </div>
                       </div>
-                      
-                      {/* Product suggestions */}
-                      <div className="space-y-2 ml-8">
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+                
+                {/* Product suggestions (apparaissent après le message) */}
+                <AnimatePresence>
+                  {chatStep >= 4 && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="space-y-2 ml-8"
+                    >
                         {suggestedProducts.map((product, idx) => {
                           const initials = product.brand.substring(0, 2).toUpperCase()
                           const isAdded = addedProducts.includes(product.id)
@@ -239,23 +295,30 @@ export function DemoNoaProjet() {
                                 <p className="text-[10px] font-medium text-gray-900 truncate">{product.name}</p>
                                 <p className="text-[10px] text-gray-500">{formatPrice(product.price)}</p>
                               </div>
-                              <button
-                                onClick={() => handleAddToCart(product.id)}
+                              <motion.div
                                 className={cn(
                                   "w-6 h-6 rounded-full flex items-center justify-center transition-colors",
-                                  isAdded ? "bg-green-100" : "bg-gray-100 hover:bg-gray-200"
+                                  isAdded ? "bg-green-500" : "bg-gray-100"
                                 )}
+                                animate={isAdded ? {
+                                  scale: [1, 1.3, 1.1],
+                                  backgroundColor: ["#10b981", "#22c55e", "#10b981"]
+                                } : {}}
+                                transition={{ 
+                                  duration: 0.5,
+                                  repeat: isAdded ? 1 : 0,
+                                  repeatType: "reverse"
+                                }}
                               >
                                 {isAdded ? (
-                                  <Check className="w-3 h-3 text-green-600" />
+                                  <Check className="w-3 h-3 text-white" />
                                 ) : (
                                   <ShoppingCart className="w-3 h-3 text-gray-600" />
                                 )}
-                              </button>
+                              </motion.div>
                             </motion.div>
                           )
                         })}
-                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>

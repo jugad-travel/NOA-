@@ -31,7 +31,7 @@ export function Hero() {
       <div className="container relative z-10">
         {/* Large NOA Title */}
         <ScrollReveal>
-          <h1 className="text-[8rem] md:text-[12rem] lg:text-[16rem] font-normal tracking-tighter text-gray-900 leading-none font-display">
+          <h1 className="text-[10rem] md:text-[14rem] lg:text-[18rem] font-light tracking-tighter text-gray-900 leading-none font-display">
             NOA
           </h1>
         </ScrollReveal>

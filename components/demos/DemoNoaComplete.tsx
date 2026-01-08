@@ -7,40 +7,86 @@ import { SafariWindow } from "./SafariWindow"
 import { cn } from "@/lib/utils"
 import { getProductById, getProductsByIds, noaConversations, formatPrice } from "@/lib/demo-data"
 
-export function DemoNoaComplete() {
-  const [cartItems, setCartItems] = React.useState(() => 
-    noaConversations.complete.cartItems.map(id => ({
+interface DemoNoaCompleteProps {
+  animationProgress?: number // 0 à 1
+}
+
+export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps) {
+  // Calculer les étapes basées sur le progress - Timing optimisé pour fluidité et visibilité
+  // Étape 1 (0-0.20) : Typing
+  // Étape 2 (0.20-0.50) : Suggestion NOA (temps pour lire)
+  // Étape 3 (0.50-1.0) : Ajout de la suggestion au panier (50% pour bien voir)
+  
+  const cartItemsRef = React.useRef<HTMLDivElement>(null)
+  const chatStep = animationProgress >= 0.20 ? 2 : animationProgress >= 0.08 ? 1 : 0
+  const suggestionAdded = animationProgress >= 0.50
+  
+  const suggestedProduct = getProductById(noaConversations.complete.suggestion)!
+  
+  // Scroll synchronisé pour voir la suggestion NOA quand elle apparaît
+  const noaSuggestionRef = React.useRef<HTMLDivElement>(null)
+  
+  React.useEffect(() => {
+    const cartItems = cartItemsRef.current
+    const noaSuggestion = noaSuggestionRef.current
+    if (cartItems && noaSuggestion && animationProgress >= 0.20) {
+      // Calculer le progress de scroll (0 à 1 entre 0.20 et 1.0)
+      const scrollProgress = Math.min(1, (animationProgress - 0.20) / 0.80)
+      const suggestionTop = noaSuggestion.offsetTop
+      const containerHeight = cartItems.clientHeight
+      const suggestionHeight = noaSuggestion.offsetHeight
+      // Scroller pour voir la suggestion (avec un peu de marge en haut)
+      const targetScroll = Math.max(0, suggestionTop - 20)
+      const maxScroll = cartItems.scrollHeight - containerHeight
+      // Scroller progressivement pour voir la suggestion
+      cartItems.scrollTop = Math.min(maxScroll, targetScroll * scrollProgress)
+    }
+  }, [animationProgress])
+  
+  // Bloquer le scroll manuel dans la fenêtre - le scroll est uniquement programmatique via animationProgress
+  // Le scroll de la page fonctionne toujours, même quand le curseur est au-dessus de la fenêtre
+  React.useEffect(() => {
+    const cartItems = cartItemsRef.current
+    if (!cartItems) return
+    
+    const handleWheel = (e: WheelEvent) => {
+      const canScrollDown = cartItems.scrollTop < cartItems.scrollHeight - cartItems.clientHeight - 1
+      const canScrollUp = cartItems.scrollTop > 0
+      const scrollingDown = e.deltaY > 0
+      const scrollingUp = e.deltaY < 0
+      
+      // Bloquer seulement si on peut encore scroller dans cette direction dans la fenêtre
+      // Sinon, laisser passer le scroll à la page
+      if ((scrollingDown && canScrollDown) || (scrollingUp && canScrollUp)) {
+        e.preventDefault()
+      }
+      // Ne pas utiliser stopPropagation pour que le scroll de la page fonctionne toujours
+    }
+    
+    cartItems.addEventListener('wheel', handleWheel, { passive: false })
+    
+    return () => {
+      cartItems.removeEventListener('wheel', handleWheel)
+    }
+  }, [])
+  
+  // Calculer les items du panier
+  const cartItems = React.useMemo(() => {
+    const baseItems = noaConversations.complete.cartItems.map(id => ({
       product: getProductById(id)!,
       quantity: 1,
       selectedSize: 42,
     }))
-  )
-  const [chatStep, setChatStep] = React.useState(0)
-  const [suggestionAdded, setSuggestionAdded] = React.useState(false)
-  
-  const suggestedProduct = getProductById(noaConversations.complete.suggestion)!
-  
-  // Auto-animate
-  React.useEffect(() => {
-    const timer1 = setTimeout(() => setChatStep(1), 1000) // Typing
-    const timer2 = setTimeout(() => setChatStep(2), 2500) // Suggestion
     
-    return () => {
-      clearTimeout(timer1)
-      clearTimeout(timer2)
-    }
-  }, [])
-  
-  const handleAddSuggestion = () => {
-    if (!suggestionAdded) {
-      setSuggestionAdded(true)
-      setCartItems([...cartItems, {
+    if (suggestionAdded) {
+      return [...baseItems, {
         product: suggestedProduct,
         quantity: 1,
         selectedSize: 42,
-      }])
+      }]
     }
-  }
+    return baseItems
+  }, [suggestionAdded, suggestedProduct])
   
   const subtotal = cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0)
   const shipping = subtotal > 100 ? 0 : 5.90
@@ -56,7 +102,7 @@ export function DemoNoaComplete() {
         
         <div className="flex h-[calc(100%-48px)]">
           {/* Left - Cart Items */}
-          <div className="flex-1 p-4 overflow-y-auto">
+          <div ref={cartItemsRef} className="flex-1 p-4 overflow-y-auto">
             <div className="space-y-3">
               <AnimatePresence>
                 {cartItems.map((item, idx) => {
@@ -134,6 +180,7 @@ export function DemoNoaComplete() {
             <AnimatePresence>
               {chatStep >= 1 && !suggestionAdded && (
                 <motion.div
+                  ref={noaSuggestionRef}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
@@ -185,15 +232,24 @@ export function DemoNoaComplete() {
                           <p className="text-[10px] font-medium text-gray-900 truncate">{suggestedProduct.name}</p>
                           <p className="text-[10px] text-gray-500">{formatPrice(suggestedProduct.price)}</p>
                         </div>
-                        <motion.button
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          onClick={handleAddSuggestion}
-                          className="px-2 py-1 rounded-lg bg-gray-900 text-white text-[10px] font-medium flex items-center gap-1"
+                        <div
+                          className={cn(
+                            "px-2 py-1 rounded-lg text-white text-[10px] font-medium flex items-center gap-1",
+                            suggestionAdded ? "bg-green-500" : "bg-gray-900"
+                          )}
                         >
-                          <Plus className="w-3 h-3" />
-                          Ajouter
-                        </motion.button>
+                          {suggestionAdded ? (
+                            <>
+                              <Check className="w-3 h-3" />
+                              Ajouté
+                            </>
+                          ) : (
+                            <>
+                              <Plus className="w-3 h-3" />
+                              Ajouter
+                            </>
+                          )}
+                        </div>
                       </motion.div>
                     </motion.div>
                   )}

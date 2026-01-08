@@ -303,8 +303,8 @@ export const noaConversations = {
     highlightProduct: "trail-pro-x",
   },
   expert: {
-    userMessage: "Est-ce que ces chaussures sont adaptées pour la terre battue ?",
-    noaResponse: "Oui, la Trail Pro X dispose d'une semelle Vibram avec des crampons multidirectionnels parfaitement adaptés à la terre battue. Le grip reste excellent même sur sol humide.",
+    userMessage: "Imperméable ?",
+    noaResponse: "Oui, la Trail Pro X est entièrement imperméable grâce à sa membrane Gore-Tex. Elle vous protège efficacement contre l'eau et l'humidité, même lors de longues randonnées sous la pluie.",
     product: "trail-pro-x",
   },
   complete: {
@@ -326,4 +326,5 @@ export function getProductsByIds(ids: string[]): Product[] {
 export function formatPrice(price: number): string {
   return `${price}€`
 }
+
 

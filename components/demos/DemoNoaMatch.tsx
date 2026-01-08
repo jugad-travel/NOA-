@@ -13,28 +13,44 @@ const filters = {
   priceRanges: ["< 150€", "150-200€", "> 200€"],
 }
 
-export function DemoNoaMatch() {
-  const [selectedSize, setSelectedSize] = React.useState<number | null>(null)
-  const [highlightedProduct, setHighlightedProduct] = React.useState<string | null>(null)
-  const [chatStep, setChatStep] = React.useState(0)
+interface DemoNoaMatchProps {
+  animationProgress?: number // 0 à 1
+}
+
+export function DemoNoaMatch({ animationProgress = 0 }: DemoNoaMatchProps) {
+  // Calculer les étapes basées sur le progress - Timing optimisé pour fluidité et visibilité
+  // Étape 1 (0-0.15) : Message utilisateur "Je cherche des chaussures..."
+  // Étape 2 (0.15-0.30) : Typing
+  // Étape 3 (0.30-0.50) : Réponse NOA + sélection taille 42 (temps pour lire)
+  // Étape 4 (0.50-1.0) : Carte produit s'encadre en bleu (50% pour bien voir)
   
-  // Auto-animate
+  const productGridRef = React.useRef<HTMLDivElement>(null)
+  const sidebarRef = React.useRef<HTMLDivElement>(null)
+  const chatStep = animationProgress >= 0.50 ? 3 : animationProgress >= 0.30 ? 3 : animationProgress >= 0.15 ? 2 : animationProgress >= 0.08 ? 1 : 0
+  const selectedSize = animationProgress >= 0.30 ? 42 : null
+  const highlightedProduct = animationProgress >= 0.50 ? noaConversations.match.highlightProduct : null
+  
+  // Le scroll dans les fenêtres est uniquement contrôlé par animationProgress
+  // Pas de blocage - le scroll de la page fonctionne toujours
+  
+  // Scroll synchronisé avec le progress (contrôlé uniquement par le scroll de la page)
   React.useEffect(() => {
-    const timer1 = setTimeout(() => setChatStep(1), 1000) // User message
-    const timer2 = setTimeout(() => setChatStep(2), 2000) // Typing
-    const timer3 = setTimeout(() => {
-      setChatStep(3) // NOA response
-      setSelectedSize(42)
-    }, 3500)
-    const timer4 = setTimeout(() => setHighlightedProduct(noaConversations.match.highlightProduct), 4500)
-    
-    return () => {
-      clearTimeout(timer1)
-      clearTimeout(timer2)
-      clearTimeout(timer3)
-      clearTimeout(timer4)
+    const productGrid = productGridRef.current
+    if (productGrid && highlightedProduct && animationProgress >= 0.50) {
+      // Calculer le scroll basé sur le progress pour voir la carte mise en avant
+      const scrollProgress = (animationProgress - 0.50) / 0.50 // 0 à 1 entre 0.50 et 1.0
+      const highlightedCard = productGrid.querySelector(`[data-product-id="${highlightedProduct}"]`) as HTMLElement
+      if (highlightedCard) {
+        const cardRelativeTop = highlightedCard.offsetTop
+        const containerHeight = productGrid.clientHeight
+        const cardHeight = highlightedCard.offsetHeight
+        // Centrer la carte dans la vue
+        const targetScroll = Math.max(0, cardRelativeTop - (containerHeight / 2) + (cardHeight / 2))
+        // Scroller directement mais de manière fluide grâce au scrub de GSAP
+        productGrid.scrollTop = targetScroll * scrollProgress
+      }
     }
-  }, [])
+  }, [animationProgress, highlightedProduct])
   
   return (
     <SafariWindow url="shop.outdoor-expert.fr/chaussures" className="w-full">
@@ -48,8 +64,8 @@ export function DemoNoaMatch() {
         
         <div className="flex h-[calc(100%-32px)]">
           {/* Sidebar - Filters + NOA */}
-          <div className="w-48 border-r border-gray-100 p-3 flex flex-col gap-4 overflow-y-auto">
-            {/* Filters */}
+          <div ref={sidebarRef} className="w-48 border-r border-gray-100 p-3 flex flex-col gap-4 overflow-hidden">
+              {/* Filters */}
             <div>
               <div className="flex items-center gap-1 mb-2">
                 <Filter className="w-3 h-3 text-gray-400" />
@@ -61,18 +77,17 @@ export function DemoNoaMatch() {
                 <p className="text-[10px] text-gray-500 mb-1.5">Pointure</p>
                 <div className="flex flex-wrap gap-1">
                   {filters.sizes.map((size) => (
-                    <button
+                    <div
                       key={size}
-                      onClick={() => setSelectedSize(size === selectedSize ? null : size)}
                       className={cn(
                         "w-7 h-7 rounded-lg text-[10px] font-medium transition-all",
                         selectedSize === size
                           ? "bg-gray-900 text-white"
-                          : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                          : "bg-gray-100 text-gray-600"
                       )}
                     >
                       {size}
-                    </button>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -149,8 +164,8 @@ export function DemoNoaMatch() {
           </div>
           
           {/* Product Grid */}
-          <div className="flex-1 p-3 overflow-y-auto">
-            <div className="flex items-center justify-between mb-3">
+          <div ref={productGridRef} className="flex-1 p-3 overflow-hidden">
+              <div className="flex items-center justify-between mb-3">
               <h1 className="text-sm font-normal text-gray-900">Chaussures de randonnée</h1>
               <span className="text-[10px] text-gray-500">{chaussures.length} produits</span>
             </div>
@@ -163,17 +178,22 @@ export function DemoNoaMatch() {
                 return (
                   <motion.div
                     key={product.id}
+                    data-product-id={product.id}
                     animate={isHighlighted ? { 
-                      scale: [1, 1.02, 1],
-                      boxShadow: ["0 0 0 0 rgba(0,0,0,0)", "0 0 0 3px rgba(59,130,246,0.3)", "0 0 0 3px rgba(59,130,246,0.3)"]
-                    } : {}}
-                    transition={{ duration: 0.5 }}
+                      scale: 1.02,
+                    } : {
+                      scale: 1
+                    }}
+                    transition={{ duration: 0.3 }}
                     className={cn(
-                      "rounded-xl border overflow-hidden cursor-pointer transition-all hover:border-gray-300",
+                      "rounded-xl border overflow-hidden cursor-pointer transition-all",
                       isHighlighted 
-                        ? "border-blue-400 ring-2 ring-blue-200" 
+                        ? "border-blue-500 ring-4 ring-blue-300 shadow-lg" 
                         : "border-gray-200"
                     )}
+                    style={isHighlighted ? {
+                      boxShadow: "0 0 0 4px rgba(59, 130, 246, 0.3), 0 4px 6px -1px rgba(0, 0, 0, 0.1)"
+                    } : {}}
                   >
                     {/* Product image */}
                     <div 

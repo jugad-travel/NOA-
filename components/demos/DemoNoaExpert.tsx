@@ -8,32 +8,79 @@ import { cn } from "@/lib/utils"
 import { getProductById, noaConversations, formatPrice } from "@/lib/demo-data"
 
 const suggestedQuestions = [
-  "Compatible terre battue ?",
   "Imperméable ?",
+  "Compatible terre battue ?",
   "Taille correcte ?",
 ]
 
-export function DemoNoaExpert() {
-  const [selectedSize, setSelectedSize] = React.useState<number | null>(42)
-  const [selectedColor, setSelectedColor] = React.useState(0)
-  const [chatStep, setChatStep] = React.useState(0)
-  const [addedToCart, setAddedToCart] = React.useState(false)
+interface DemoNoaExpertProps {
+  animationProgress?: number // 0 à 1
+}
+
+export function DemoNoaExpert({ animationProgress = 0 }: DemoNoaExpertProps) {
+  // Séquence d'animation basée sur le progress
+  // Étape 1 (0-0.12) : Sélection couleur noir
+  // Étape 2 (0.12-0.25) : Sélection taille 42
+  // Étape 3 (0.25-0.40) : Auto scroll vers le bas pour voir la section questions fréquentes
+  // Étape 4 (0.40-0.50) : Sélection de la question "Imperméable ?"
+  // Étape 5 (0.50-0.60) : Typing
+  // Étape 6 (0.60-1.0) : Affichage de la réponse (40% du temps pour bien lire)
+  
+  const expertSectionRef = React.useRef<HTMLDivElement>(null)
+  const rightColumnRef = React.useRef<HTMLDivElement>(null)
+  const contentWrapperRef = React.useRef<HTMLDivElement>(null)
+  
+  // Calculer les états basés sur le progress
+  const selectedColor = animationProgress >= 0.12 ? 0 : undefined // Noir sélectionné à partir de 0.12
+  const selectedSize = animationProgress >= 0.25 ? 42 : undefined // Taille 42 sélectionnée à partir de 0.25
+  const chatStep = animationProgress >= 0.60 ? 3 : animationProgress >= 0.50 ? 2 : animationProgress >= 0.40 ? 1 : 0
+  const addedToCart = false
   
   const product = getProductById(noaConversations.expert.product)!
   const initials = product.brand.substring(0, 2).toUpperCase()
   
-  // Auto-animate
+  // Scroll programmatique pour voir la section questions fréquentes
+  // Utilisation de transform sur un wrapper interne pour éviter overflow-y-auto
   React.useEffect(() => {
-    const timer1 = setTimeout(() => setChatStep(1), 1500) // Question clicked
-    const timer2 = setTimeout(() => setChatStep(2), 2000) // Typing
-    const timer3 = setTimeout(() => setChatStep(3), 3500) // Response
+    const rightColumn = rightColumnRef.current
+    const contentWrapper = contentWrapperRef.current
+    const expertSection = expertSectionRef.current
+    if (!rightColumn || !contentWrapper || !expertSection) return
     
-    return () => {
-      clearTimeout(timer1)
-      clearTimeout(timer2)
-      clearTimeout(timer3)
+    if (animationProgress >= 0.25) {
+      // Calculer le scroll basé sur le progress
+      // Étape 3 (0.25-0.40) : Scroll vers la section questions fréquentes
+      const scrollProgress = animationProgress < 0.40 
+        ? (animationProgress - 0.25) / 0.15 // 0 à 1 entre 0.25 et 0.40
+        : 1 // Après 0.40, on reste en bas pour voir la réponse
+      
+      // Easing pour fluidité (ease-out cubic)
+      const easedProgress = 1 - Math.pow(1 - scrollProgress, 3)
+      
+      // Calculer la position de scroll nécessaire
+      const containerHeight = rightColumn.clientHeight
+      const contentHeight = contentWrapper.scrollHeight
+      const sectionTop = expertSection.offsetTop
+      const sectionHeight = expertSection.offsetHeight
+      
+      // Scroller pour voir la section questions fréquentes et la réponse complète
+      // On veut voir toute la section, donc on scrolle jusqu'à ce que le bas de la section soit visible
+      const targetScroll = Math.max(0, sectionTop + sectionHeight - containerHeight + 20) // +20 pour marge
+      const maxScroll = contentHeight - containerHeight
+      const scrollAmount = Math.min(maxScroll, Math.max(0, targetScroll * easedProgress))
+      
+      // Utiliser transform sur le wrapper interne pour le scroll programmatique
+      // Utiliser requestAnimationFrame pour fluidité
+      requestAnimationFrame(() => {
+        if (contentWrapper) {
+          contentWrapper.style.transform = `translateY(-${scrollAmount}px)`
+        }
+      })
+    } else if (contentWrapper) {
+      contentWrapper.style.transform = 'translateY(0px)'
     }
-  }, [])
+  }, [animationProgress])
+  
   
   return (
     <SafariWindow url={`shop.outdoor-expert.fr/p/${product.id}`} className="w-full">
@@ -94,7 +141,8 @@ export function DemoNoaExpert() {
           </div>
           
           {/* Right - Product Info */}
-          <div className="w-1/2 p-4 overflow-y-auto">
+          <div ref={rightColumnRef} className="w-1/2 overflow-hidden relative">
+            <div ref={contentWrapperRef} className="p-4" style={{ willChange: 'transform' }}>
             {/* Header */}
             <div className="mb-3">
               <p className="text-xs text-gray-500">{product.brand}</p>
@@ -123,12 +171,12 @@ export function DemoNoaExpert() {
             
             {/* Color selection */}
             <div className="mb-4">
-              <p className="text-xs text-gray-500 mb-1.5">Couleur: <span className="text-gray-900 font-medium">{product.colors[selectedColor]?.name}</span></p>
+              <p className="text-xs text-gray-500 mb-1.5">Couleur: <span className="text-gray-900 font-medium">{selectedColor !== undefined ? product.colors[selectedColor]?.name : product.colors[0]?.name}</span></p>
               <div className="flex gap-2">
                 {product.colors.map((color, idx) => (
-                  <button
+                  <motion.div
                     key={color.name}
-                    onClick={() => setSelectedColor(idx)}
+                    animate={selectedColor === idx ? { scale: [1, 0.95, 1] } : {}}
                     className={cn(
                       "w-8 h-8 rounded-full transition-all",
                       selectedColor === idx ? "ring-2 ring-offset-2 ring-gray-900" : ""
@@ -144,25 +192,24 @@ export function DemoNoaExpert() {
               <p className="text-xs text-gray-500 mb-1.5">Pointure</p>
               <div className="flex flex-wrap gap-1.5">
                 {product.sizes.map((size) => (
-                  <button
+                  <motion.div
                     key={size}
-                    onClick={() => setSelectedSize(size)}
+                    animate={selectedSize === size ? { scale: [1, 0.95, 1] } : {}}
                     className={cn(
-                      "w-9 h-9 rounded-lg text-xs font-medium transition-all",
+                      "w-9 h-9 rounded-lg text-xs font-medium transition-all flex items-center justify-center",
                       selectedSize === size
                         ? "bg-gray-900 text-white"
-                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                    )}
+                        : "bg-gray-100 text-gray-700"
+                      )}
                   >
                     {size}
-                  </button>
+                  </motion.div>
                 ))}
               </div>
             </div>
             
             {/* Add to cart */}
-            <button 
-              onClick={() => setAddedToCart(true)}
+            <div 
               className={cn(
                 "w-full h-10 rounded-xl text-sm font-medium flex items-center justify-center gap-2 transition-all",
                 addedToCart 
@@ -181,7 +228,7 @@ export function DemoNoaExpert() {
                   Ajouter au panier
                 </>
               )}
-            </button>
+            </div>
             
             {/* Guarantees */}
             <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-100">
@@ -200,7 +247,7 @@ export function DemoNoaExpert() {
             </div>
             
             {/* NOA Expert Section */}
-            <div className="mt-4 bg-gray-50 rounded-xl p-3">
+            <div ref={expertSectionRef} className="mt-4 bg-gray-50 rounded-xl p-3">
               <div className="flex items-center gap-1.5 mb-2">
                 <div className="w-5 h-5 rounded-md bg-gray-900 flex items-center justify-center">
                   <Sparkles className="w-2.5 h-2.5 text-white" />
@@ -213,8 +260,13 @@ export function DemoNoaExpert() {
                 {suggestedQuestions.map((q, idx) => (
                   <motion.button
                     key={q}
-                    animate={chatStep >= 1 && idx === 0 ? { scale: [1, 0.98, 1], backgroundColor: ["#f3f4f6", "#e5e7eb", "#e5e7eb"] } : {}}
-                    className="w-full text-left text-[10px] px-2 py-1.5 bg-white rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-100 transition-colors"
+                    animate={chatStep >= 1 && idx === 0 ? { scale: [1, 0.98, 1], backgroundColor: ["#ffffff", "#e5e7eb", "#e5e7eb"] } : {}}
+                    className={cn(
+                      "w-full text-left text-[10px] px-2 py-1.5 rounded-lg border transition-all",
+                      chatStep >= 1 && idx === 0 
+                        ? "bg-gray-100 border-gray-300 text-gray-900" 
+                        : "bg-white border-gray-200 text-gray-700 hover:bg-gray-100"
+                    )}
                   >
                     {q}
                   </motion.button>
@@ -253,6 +305,7 @@ export function DemoNoaExpert() {
                   </motion.div>
                 )}
               </AnimatePresence>
+            </div>
             </div>
           </div>
         </div>
