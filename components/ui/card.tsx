@@ -9,17 +9,19 @@ interface CardProps {
   className?: string
   hover?: boolean
   gradient?: boolean
+  glow?: boolean
   id?: string
   onClick?: () => void
 }
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, hover = false, gradient = false, children, id, onClick }, ref) => {
+  ({ className, hover = false, gradient = false, glow = false, children, id, onClick }, ref) => {
     const baseStyles = "rounded-2xl p-6 transition-all duration-300"
     const defaultStyles = gradient 
       ? "bg-white border-2 border-transparent bg-clip-padding" 
       : "bg-white border border-gray-200"
     const hoverStyles = hover ? "hover:shadow-lg hover:border-gray-300 hover:-translate-y-1" : ""
+    const glowStyles = glow ? "shadow-[0_8px_24px_rgba(131,166,255,0.25)]" : ""
     const clickableStyles = onClick ? "cursor-pointer" : ""
     
     if (hover) {
@@ -28,7 +30,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
           ref={ref}
           id={id}
           onClick={onClick}
-          className={cn(baseStyles, defaultStyles, hoverStyles, clickableStyles, className)}
+          className={cn(baseStyles, defaultStyles, hoverStyles, glowStyles, clickableStyles, className)}
           whileHover={{ y: -4 }}
         >
           {children}

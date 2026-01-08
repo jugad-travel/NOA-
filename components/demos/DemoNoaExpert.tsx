@@ -120,7 +120,7 @@ export function DemoNoaExpert({ animationProgress = 0 }: DemoNoaExpertProps) {
                     ) : (
                       <div 
                         className="w-full h-full flex items-center justify-center text-4xl font-normal text-white"
-                        style={{ backgroundColor: product.colors[selectedColor]?.hex || "#6b7280" }}
+                        style={{ backgroundColor: (selectedColor !== undefined && product.colors[selectedColor]) ? product.colors[selectedColor].hex : "#6b7280" }}
                       >
                         {initials}
                       </div>

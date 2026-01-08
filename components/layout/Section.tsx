@@ -23,16 +23,17 @@ const variantStyles = {
   "gradient-soft": "bg-gradient-to-b from-white to-gray-50 text-gray-700",
 }
 
-export function Section({
+export const Section = React.forwardRef<HTMLElement, SectionProps>(({
   children,
   className,
   variant = "white",
   container = true,
   padding = "lg",
   ...props
-}: SectionProps) {
+}, ref) => {
   return (
     <section
+      ref={ref}
       className={cn(
         "relative overflow-hidden",
         variantStyles[variant],
@@ -48,4 +49,5 @@ export function Section({
       )}
     </section>
   )
-}
+})
+Section.displayName = "Section"
