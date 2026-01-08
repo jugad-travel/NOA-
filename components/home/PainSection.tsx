@@ -27,7 +27,7 @@ const comparison = {
 
 export function PainSection() {
   return (
-    <Section variant="gradient" padding="lg" noise>
+    <Section variant="gradient" padding="lg">
       <div className="max-w-4xl mx-auto">
         <ScrollReveal>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center mb-16">
