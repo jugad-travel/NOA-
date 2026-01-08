@@ -81,7 +81,7 @@ export function DemoNoaMatch({ animationProgress = 0 }: DemoNoaMatchProps) {
                     <div
                       key={size}
                       className={cn(
-                        "w-7 h-7 rounded-lg text-[10px] font-medium transition-all",
+                        "w-7 h-7 rounded-lg text-[10px] font-medium transition-all flex items-center justify-center",
                         selectedSize === size
                           ? "bg-gray-900 text-white"
                           : "bg-gray-100 text-gray-600"

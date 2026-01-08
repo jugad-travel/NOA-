@@ -243,12 +243,35 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
                         transition={{ delay: 0.2 }}
                         className="flex items-center gap-2 bg-white rounded-lg p-2 border border-gray-200"
                       >
-                        <div 
-                          className="w-12 h-12 rounded-lg flex items-center justify-center text-[10px] font-normal text-white flex-shrink-0"
-                          style={{ backgroundColor: suggestedProduct.colors[0]?.hex || "#6b7280" }}
-                        >
-                          {suggestedProduct.brand.substring(0, 2).toUpperCase()}
-                        </div>
+                        {/* Product image */}
+                        {(() => {
+                          const productImageMap: Record<string, string> = {
+                            "trail-pro-x": "/images/trailprox noires.png",
+                            "osprey-atmos-65": "/images/atmos AG 65.png",
+                            "chaussettes-icebreaker": "/images/Hike + Medium Crew.png",
+                          }
+                          const productImage = productImageMap[suggestedProduct.id]
+                          const initials = suggestedProduct.brand.substring(0, 2).toUpperCase()
+                          
+                          return productImage ? (
+                            <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 relative">
+                              <Image
+                                src={productImage}
+                                alt={suggestedProduct.name}
+                                fill
+                                className="object-cover"
+                                sizes="48px"
+                              />
+                            </div>
+                          ) : (
+                            <div 
+                              className="w-12 h-12 rounded-lg flex items-center justify-center text-[10px] font-normal text-white flex-shrink-0"
+                              style={{ backgroundColor: suggestedProduct.colors[0]?.hex || "#6b7280" }}
+                            >
+                              {initials}
+                            </div>
+                          )
+                        })()}
                         <div className="flex-1 min-w-0">
                           <p className="text-[10px] font-medium text-gray-900 truncate">{suggestedProduct.name}</p>
                           <p className="text-[10px] text-gray-500">{formatPrice(suggestedProduct.price)}</p>

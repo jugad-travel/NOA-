@@ -187,7 +187,7 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
               exit={{ scale: 0 }}
               whileHover={{ scale: 1.05 }}
               onClick={() => {}}
-              className="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-gray-900 shadow-lg flex items-center justify-center"
+              className="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-gray-900 shadow-lg flex items-center justify-center z-50"
             >
               <MessageCircle className="w-5 h-5 text-white" />
             </motion.button>
@@ -201,7 +201,7 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.95 }}
-              className="absolute bottom-4 right-4 w-72 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden"
+              className="absolute bottom-4 right-4 w-72 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden z-50"
             >
               {/* Chat Header */}
               <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-gray-50">
@@ -301,8 +301,14 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
                       className="space-y-2 ml-8"
                     >
                         {suggestedProducts.map((product, idx) => {
-                          const initials = product.brand.substring(0, 2).toUpperCase()
                           const isAdded = addedProducts.includes(product.id)
+                          
+                          // Mapping des images pour les produits suggérés
+                          const productImageMap: Record<string, string> = {
+                            "trail-pro-x": "/images/trailprox noires.png",
+                            "osprey-atmos-65": "/images/atmos AG 65.png",
+                          }
+                          const productImage = productImageMap[product.id]
                           
                           return (
                             <motion.div
@@ -312,12 +318,18 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
                               transition={{ delay: idx * 0.15 }}
                               className="flex items-center gap-2 bg-white rounded-lg p-2 border border-gray-100"
                             >
-                              <div 
-                                className="w-10 h-10 rounded-lg flex items-center justify-center text-[10px] font-normal text-white flex-shrink-0"
-                                style={{ backgroundColor: product.colors[0]?.hex || "#6b7280" }}
-                              >
-                                {initials}
-                              </div>
+                              {/* Product image */}
+                              {productImage && (
+                                <div className="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 relative">
+                                  <Image
+                                    src={productImage}
+                                    alt={product.name}
+                                    fill
+                                    className="object-cover"
+                                    sizes="40px"
+                                  />
+                                </div>
+                              )}
                               <div className="flex-1 min-w-0">
                                 <p className="text-[10px] font-medium text-gray-900 truncate">{product.name}</p>
                                 <p className="text-[10px] text-gray-500">{formatPrice(product.price)}</p>

@@ -15,7 +15,7 @@ const tabs = [
   { id: "projet", label: "Homepage", icon: Home, description: "Transformer un projet en panier" },
   { id: "match", label: "Catalogue", icon: LayoutGrid, description: "Trouver le bon produit" },
   { id: "expert", label: "Fiche produit", icon: FileText, description: "Répondre aux questions" },
-  { id: "complete", label: "Panier", icon: ShoppingCart, description: "Compléter le panier" },
+  { id: "complete", label: "Panier", icon: ShoppingCart, description: "" },
 ]
 
 const renderDemo = (tabId: string, animationProgress: number) => {
@@ -89,7 +89,7 @@ export function DemoSection() {
           trigger: section,
           start: "top top", // Commencer quand le haut de la section atteint le haut de l'écran
           end: `+=${totalScrollDistance}`,
-          scrub: 0.3, // Synchroniser avec le scroll (plus bas = plus fluide)
+          scrub: 0.5, // Synchroniser avec le scroll (plus bas = plus fluide)
           pin: true, // Épingler la section pendant les animations
           anticipatePin: 1, // Anticiper le pin pour éviter les sauts
           pinSpacing: true, // Ajouter de l'espace pour le pin
@@ -204,11 +204,17 @@ export function DemoSection() {
         const segmentSize = demoDurations[index]
         
         // La carte précédente doit être complètement cachée avant que la suivante apparaisse
-        const fadeInStart = startPos
-        const fadeInEnd = startPos + segmentSize * 0.15 // Fade in sur 15% pour plus de fluidité
+        // Pour les cartes suivantes, commencer le fade in un peu avant pour un chevauchement fluide
+        const fadeInStart = index === 0 ? 0 : Math.max(0, startPos - segmentSize * 0.10) // Commencer 10% avant pour chevauchement fluide
+        const fadeInEnd = startPos + segmentSize * 0.20 // Fade in sur 20% pour plus de fluidité
         
-        // S'assurer que la carte est cachée avant son segment
-        mainTL.set(card, { opacity: 0, y: 50, visibility: 'hidden' }, startPos - 0.01)
+        // S'assurer que la carte est cachée avant son segment (sauf la première qui reste visible)
+        if (index > 0) {
+          mainTL.set(card, { opacity: 0, y: 50, visibility: 'hidden' }, startPos - 0.01)
+        } else {
+          // Pour la première carte, s'assurer qu'elle est visible dès le début (position 0)
+          mainTL.set(card, { opacity: 1, y: 0, visibility: 'visible' }, 0)
+        }
 
         // Animation de fade in pour cette démo
         mainTL.to(card,
@@ -216,28 +222,22 @@ export function DemoSection() {
             opacity: 1,
             y: 0,
             visibility: 'visible',
-            ease: "power1.out", // Easing plus doux pour plus de fluidité
+            ease: "power2.out", // Easing plus doux pour plus de fluidité
             duration: fadeInEnd - fadeInStart
           },
           fadeInStart
         )
 
-        // Animation de fade out pour passer à la suivante
+        // Disparition instantanée pour passer à la suivante (pas de fade out)
         if (index < tabs.length - 1) {
-          // Réduire le chevauchement pour les démos 1 et 2 pour avoir le même timing qu'entre 3 et 4
-          const fadeOutPercentage = index < 2 ? 0.10 : 0.15 // 10% pour démos 1-2, 15% pour démo 3
-          const fadeOutStart = endPos - segmentSize * fadeOutPercentage
-          const fadeOutEnd = endPos
-          
-          mainTL.to(card,
+          // Disparaître instantanément à la fin du segment
+          mainTL.set(card,
             {
               opacity: 0,
-              y: -30, // Déplacement réduit pour plus de fluidité
-              visibility: 'hidden',
-              ease: "power1.in", // Easing plus doux pour plus de fluidité
-              duration: fadeOutEnd - fadeOutStart
+              y: 0,
+              visibility: 'hidden'
             },
-            fadeOutStart
+            endPos
           )
         } else {
           // Pour la dernière carte, s'assurer qu'elle reste visible de manière continue
@@ -270,21 +270,29 @@ export function DemoSection() {
     }
   }, []) // Seulement au montage
 
-  // Initialiser les positions des cartes
+  // Initialiser les positions des cartes - seulement pour la carte active
+  // Ne pas forcer les cartes précédentes à être visibles, elles doivent rester cachées après leur fade out
   React.useEffect(() => {
     tabs.forEach((_, index) => {
       const card = cardRefs.current[index]
       if (!card) return
 
       if (index === currentIndex) {
-        gsap.set(card, { opacity: 1, y: 0 })
-      } else if (index < currentIndex) {
-        gsap.set(card, { opacity: 1, y: 0 })
+        gsap.set(card, { opacity: 1, y: 0, visibility: 'visible' })
       } else {
-        gsap.set(card, { opacity: 0, y: 50 })
+        // Ne pas toucher aux cartes inactives - laisser GSAP gérer leur état
+        // Sauf pour l'initialisation de la première carte au montage
       }
     })
   }, [currentIndex])
+  
+  // Initialiser la première carte comme visible dès le montage
+  React.useEffect(() => {
+    const firstCard = cardRefs.current[0]
+    if (firstCard) {
+      gsap.set(firstCard, { opacity: 1, y: 0, visibility: 'visible' })
+    }
+  }, []) // Seulement au montage initial
 
   return (
     <div ref={containerRef}>

@@ -36,7 +36,6 @@ export const categories: Category[] = [
   { id: "chaussures", name: "Chaussures", icon: "👟", productCount: 124 },
   { id: "sacs", name: "Sacs à dos", icon: "🎒", productCount: 89 },
   { id: "vetements", name: "Vêtements", icon: "🧥", productCount: 256 },
-  { id: "accessoires", name: "Accessoires", icon: "🧭", productCount: 178 },
 ]
 
 // Produits chaussures
@@ -295,7 +294,7 @@ export const noaConversations = {
   projet: {
     userMessage: "Je pars une semaine faire le GR20",
     noaResponse: "Le GR20 est un trek exigeant ! Pour une semaine en autonomie, je vous recommande un équipement complet et fiable.",
-    suggestions: ["trail-pro-x", "osprey-atmos-65", "batons-black-diamond"],
+    suggestions: ["trail-pro-x", "osprey-atmos-65"],
   },
   match: {
     userMessage: "Je cherche des chaussures de randonnée milieu de gamme en 42",

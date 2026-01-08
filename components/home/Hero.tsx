@@ -21,7 +21,7 @@ export function Hero() {
   React.useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % rotatingPhrases.length)
-    }, 5000) // Plus lent : 5 secondes
+    }, 3500) // Plus rapide : 3.5 secondes
     
     return () => clearInterval(interval)
   }, [])
@@ -31,7 +31,7 @@ export function Hero() {
       <div className="container relative z-10">
         {/* Large NOA Title */}
         <ScrollReveal>
-          <h1 className="text-[10rem] md:text-[14rem] lg:text-[18rem] font-light tracking-tighter text-gray-900 leading-none font-display">
+          <h1 className="text-[12rem] md:text-[16rem] lg:text-[20rem] font-light text-black font-display" style={{ lineHeight: 1.15, color: '#000000', fontWeight: 300 }}>
             NOA
           </h1>
         </ScrollReveal>
@@ -51,8 +51,8 @@ export function Hero() {
             <div className="absolute inset-0 flex flex-col justify-end pb-10 md:pb-14 lg:pb-16 px-8 md:px-12 lg:px-16 z-10">
               <div className="max-w-4xl">
                 <p 
-                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-normal text-black"
-                  style={{ lineHeight: 1.15 }}
+                  className="text-3xl md:text-4xl lg:text-5xl font-normal text-black font-display"
+                  style={{ lineHeight: 1.15, color: '#000000' }}
                 >
                   Le premier conseiller de vente IA qui
                 </p>
@@ -64,8 +64,8 @@ export function Hero() {
                       animate={{ y: 0, opacity: 1 }}
                       exit={{ y: -20, opacity: 0 }}
                       transition={{ duration: 0.6, ease: "easeInOut" }}
-                      className="absolute top-0 left-0 right-0 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-normal text-black"
-                      style={{ lineHeight: 1.15 }}
+                      className="absolute top-0 left-0 right-0 text-3xl md:text-4xl lg:text-5xl font-normal text-black font-display"
+                      style={{ lineHeight: 1.15, color: '#000000' }}
                     >
                       {rotatingPhrases[currentIndex]}
                     </motion.p>
