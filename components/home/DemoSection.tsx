@@ -52,43 +52,7 @@ export function DemoSection() {
     demoProgressRef.current = demoProgress
   }, [demoProgress])
 
-  // Détection de visibilité pour reset à la première démo
-  React.useEffect(() => {
-    const section = sectionRef.current
-    if (!section) return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting && currentIndexRef.current > 0) {
-            // Section n'est plus visible, reset à la première démo
-            setCurrentIndex(0)
-            setDemoProgress(tabs.map(() => 0))
-            // Réinitialiser les positions des cartes
-            tabs.forEach((_, index) => {
-              const card = cardRefs.current[index]
-              if (!card) return
-              
-              if (index === 0) {
-                gsap.set(card, { opacity: 1, y: 0 })
-              } else {
-                gsap.set(card, { opacity: 0, y: 50 })
-              }
-            })
-          }
-        })
-      },
-      {
-        threshold: 0.1
-      }
-    )
-
-    observer.observe(section)
-
-    return () => {
-      observer.disconnect()
-    }
-  }, [])
+  // Pas de réinitialisation automatique - la démo reste à l'état où elle est
 
   // Configuration GSAP ScrollTrigger avec scrub pour progression automatique
   React.useEffect(() => {
@@ -107,12 +71,12 @@ export function DemoSection() {
       // Calculer la hauteur totale nécessaire pour éviter l'espace vide
       const totalScrollDistance = scrollDistancePerDemo * tabs.length
 
-      // Initialiser toutes les cartes
+      // Initialiser toutes les cartes selon l'état actuel
       tabs.forEach((_, index) => {
         const card = cardRefs.current[index]
         if (!card) return
         
-        if (index === 0) {
+        if (index === currentIndexRef.current) {
           gsap.set(card, { opacity: 1, y: 0, visibility: 'visible' })
         } else {
           gsap.set(card, { opacity: 0, y: 50, visibility: 'hidden' })
@@ -125,7 +89,7 @@ export function DemoSection() {
           trigger: section,
           start: "top top", // Commencer quand le haut de la section atteint le haut de l'écran
           end: `+=${totalScrollDistance}`,
-          scrub: 0.5, // Synchroniser avec le scroll (0.5 = plus fluide, moins réactif)
+          scrub: 0.3, // Synchroniser avec le scroll (plus bas = plus fluide)
           pin: true, // Épingler la section pendant les animations
           anticipatePin: 1, // Anticiper le pin pour éviter les sauts
           pinSpacing: true, // Ajouter de l'espace pour le pin
@@ -155,7 +119,7 @@ export function DemoSection() {
             
             // Durées relatives pour chaque démo (somme = 1.0)
             // Démo 3 (fiche produit) a plus de temps pour lire la réponse
-            const demoDurations = [0.20, 0.20, 0.35, 0.25] // [projet, catalogue, expert, panier]
+            const demoDurations = [0.25, 0.25, 0.30, 0.20] // [projet, catalogue, expert, panier] - plus de temps pour la suggestion NOA
             
             // Calculer les positions cumulatives
             let cumulative = 0
@@ -168,13 +132,17 @@ export function DemoSection() {
               segmentEnds.push(cumulative)
             })
             
-            // Trouver quelle démo est active
+            // Trouver quelle démo est active - logique simple : correspondre à la carte visible
             let demoIndex = 0
             for (let i = 0; i < segmentEnds.length; i++) {
               if (overallProgress < segmentEnds[i]) {
                 demoIndex = i
                 break
               }
+            }
+            // Si on dépasse la fin (overallProgress >= 1.0), on est sur la dernière démo
+            if (overallProgress >= 1.0) {
+              demoIndex = tabs.length - 1
             }
             demoIndex = Math.min(demoIndex, tabs.length - 1)
             
@@ -195,7 +163,7 @@ export function DemoSection() {
               }
             })
             
-            // Mettre à jour l'index de la démo active
+            // Mettre à jour l'index de la démo active - simple : correspondre à la carte visible
             if (demoIndex !== currentIndexRef.current) {
               setCurrentIndex(demoIndex)
             }
@@ -204,19 +172,15 @@ export function DemoSection() {
             setDemoProgress(newDemoProgress)
           },
           onEnter: () => {
-            // Quand on entre dans la section, s'assurer que la première démo est active
-            if (currentIndexRef.current !== 0) {
-              setCurrentIndex(0)
-            }
-            // Réinitialiser le progress de toutes les démos
-            setDemoProgress(tabs.map(() => 0))
+            // Ne pas réinitialiser - garder l'état actuel de la démo
+            // La démo reste à l'état où elle est (probablement la dernière démo)
           },
           markers: false // Débogage : mettre à true pour voir les markers
         }
       })
 
       // Durées relatives pour chaque démo (doit correspondre à celles dans onUpdate)
-      const demoDurations = [0.20, 0.20, 0.35, 0.25] // [projet, catalogue, expert, panier]
+      const demoDurations = [0.25, 0.25, 0.30, 0.20] // [projet, catalogue, expert, panier] - plus de temps pour la suggestion NOA
       
       // Calculer les positions cumulatives
       let cumulative = 0
@@ -241,7 +205,7 @@ export function DemoSection() {
         
         // La carte précédente doit être complètement cachée avant que la suivante apparaisse
         const fadeInStart = startPos
-        const fadeInEnd = startPos + segmentSize * 0.1 // Fade in rapide sur 10%
+        const fadeInEnd = startPos + segmentSize * 0.15 // Fade in sur 15% pour plus de fluidité
         
         // S'assurer que la carte est cachée avant son segment
         mainTL.set(card, { opacity: 0, y: 50, visibility: 'hidden' }, startPos - 0.01)
@@ -252,7 +216,7 @@ export function DemoSection() {
             opacity: 1,
             y: 0,
             visibility: 'visible',
-            ease: "power2.out",
+            ease: "power1.out", // Easing plus doux pour plus de fluidité
             duration: fadeInEnd - fadeInStart
           },
           fadeInStart
@@ -260,15 +224,17 @@ export function DemoSection() {
 
         // Animation de fade out pour passer à la suivante
         if (index < tabs.length - 1) {
-          const fadeOutStart = endPos - segmentSize * 0.1 // Fade out commence 10% avant la fin
+          // Réduire le chevauchement pour les démos 1 et 2 pour avoir le même timing qu'entre 3 et 4
+          const fadeOutPercentage = index < 2 ? 0.10 : 0.15 // 10% pour démos 1-2, 15% pour démo 3
+          const fadeOutStart = endPos - segmentSize * fadeOutPercentage
           const fadeOutEnd = endPos
           
           mainTL.to(card,
             {
               opacity: 0,
-              y: -50,
+              y: -30, // Déplacement réduit pour plus de fluidité
               visibility: 'hidden',
-              ease: "power2.in",
+              ease: "power1.in", // Easing plus doux pour plus de fluidité
               duration: fadeOutEnd - fadeOutStart
             },
             fadeOutStart
@@ -327,7 +293,7 @@ export function DemoSection() {
           {/* Header */}
           <ScrollReveal>
             <div className="text-center mb-8">
-              <p className="text-gray-600 text-lg mb-4">
+              <p className="text-gray-600 text-lg mb-1">
                 À chaque étape du parcours client, NOA accompagne, conseille avec précision et convertit.
               </p>
               <p className="text-gray-500">
@@ -340,8 +306,13 @@ export function DemoSection() {
         {/* Layout avec navigation verticale à gauche */}
         <div className="flex gap-8 max-w-7xl mx-auto" style={{ minHeight: '100vh' }}>
           {/* Navigation verticale à gauche */}
-          <div className="flex-shrink-0 pt-8">
-            <div className="flex flex-col gap-3">
+          <div className="flex-shrink-0 self-center" style={{ marginTop: '-80px' }}>
+            <div className="relative flex flex-col gap-3">
+              {/* Ligne de continuité verticale */}
+              <div 
+                className="absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2"
+                style={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }}
+              />
               {tabs.map((tab, index) => {
                 const Icon = tab.icon
                 const isActive = currentIndex === index
@@ -350,7 +321,7 @@ export function DemoSection() {
                   <button
                     key={tab.id}
                     className={cn(
-                      "flex flex-col items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all min-w-[100px]",
+                      "relative flex flex-col items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all min-w-[100px] z-10",
                       isActive
                         ? "bg-gray-900 text-white"
                         : "bg-white text-gray-600 border border-gray-200 hover:border-gray-300 hover:text-gray-900"

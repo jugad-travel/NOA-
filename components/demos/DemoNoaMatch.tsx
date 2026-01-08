@@ -6,6 +6,7 @@ import { ChevronRight, Star, Sparkles, Filter } from "lucide-react"
 import { SafariWindow } from "./SafariWindow"
 import { cn } from "@/lib/utils"
 import { chaussures, noaConversations, formatPrice } from "@/lib/demo-data"
+import Image from "next/image"
 
 const filters = {
   sizes: [39, 40, 41, 42, 43, 44, 45],
@@ -175,6 +176,17 @@ export function DemoNoaMatch({ animationProgress = 0 }: DemoNoaMatchProps) {
                 const initials = product.brand.substring(0, 2).toUpperCase()
                 const isHighlighted = highlightedProduct === product.id
                 
+                // Mapping des images de chaussures
+                const productImageMap: Record<string, string> = {
+                  "trail-pro-x": "/images/trailprox noires.png",
+                  "speedcross-6": "/images/speed cross 6.png",
+                  "mountain-trek-gtx": "/images/mountaintrekGTX.png",
+                  "terrex-ax4": "/images/Terrex AX4 Mid.png",
+                  "x-ultra-4": "/images/X ultra 4 GTX.png",
+                  "moab-3": "/images/Moab 3 Mid WP.png",
+                }
+                const productImage = productImageMap[product.id]
+                
                 return (
                   <motion.div
                     key={product.id}
@@ -196,11 +208,23 @@ export function DemoNoaMatch({ animationProgress = 0 }: DemoNoaMatchProps) {
                     } : {}}
                   >
                     {/* Product image */}
-                    <div 
-                      className="aspect-square flex items-center justify-center text-sm font-normal text-white relative"
-                      style={{ backgroundColor: product.colors[0]?.hex || "#6b7280" }}
-                    >
-                      {initials}
+                    <div className="aspect-square relative">
+                      {productImage ? (
+                        <Image
+                          src={productImage}
+                          alt={product.name}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 33vw, 200px"
+                        />
+                      ) : (
+                        <div 
+                          className="w-full h-full flex items-center justify-center text-sm font-normal text-white"
+                          style={{ backgroundColor: product.colors[0]?.hex || "#6b7280" }}
+                        >
+                          {initials}
+                        </div>
+                      )}
                       
                       {/* Badges */}
                       {product.isBestSeller && (

@@ -6,6 +6,7 @@ import { ChevronRight, Star, Heart, Share2, Check, Sparkles, ShoppingCart, Truck
 import { SafariWindow } from "./SafariWindow"
 import { cn } from "@/lib/utils"
 import { getProductById, noaConversations, formatPrice } from "@/lib/demo-data"
+import Image from "next/image"
 
 const suggestedQuestions = [
   "Imperméable ?",
@@ -97,47 +98,92 @@ export function DemoNoaExpert({ animationProgress = 0 }: DemoNoaExpertProps) {
         <div className="flex h-[calc(100%-32px)]">
           {/* Left - Product Image */}
           <div className="w-1/2 p-4">
-            <div 
-              className="aspect-square rounded-2xl flex items-center justify-center text-4xl font-normal text-white relative"
-              style={{ backgroundColor: product.colors[selectedColor]?.hex || "#6b7280" }}
-            >
-              {initials}
+            {(() => {
+              // Mapping des images pour trail-pro-x
+              const productImageMap: Record<string, string[]> = {
+                "trail-pro-x": ["/images/trailprox noires.png", "/images/trailprox bleu .png"],
+              }
+              const productImages = productImageMap[product.id] || []
+              const mainImage = productImages[selectedColor !== undefined ? selectedColor : 0] || null
               
-              {/* Badges */}
-              <div className="absolute top-3 left-3 flex flex-col gap-1">
-                {product.isBestSeller && (
-                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-orange-500 text-white font-medium">
-                    Best-seller
-                  </span>
-                )}
-              </div>
-              
-              {/* Actions */}
-              <div className="absolute top-3 right-3 flex flex-col gap-2">
-                <button className="w-8 h-8 rounded-full bg-white/90 backdrop-blur flex items-center justify-center text-gray-600 hover:text-red-500 transition-colors">
-                  <Heart className="w-4 h-4" />
-                </button>
-                <button className="w-8 h-8 rounded-full bg-white/90 backdrop-blur flex items-center justify-center text-gray-600 hover:text-gray-900 transition-colors">
-                  <Share2 className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-            
-            {/* Thumbnails */}
-            <div className="flex gap-2 mt-3">
-              {[0, 1, 2].map((idx) => (
-                <div 
-                  key={idx}
-                  className={cn(
-                    "w-14 h-14 rounded-lg flex items-center justify-center text-xs font-normal text-white cursor-pointer transition-all",
-                    idx === 0 ? "ring-2 ring-gray-900" : "opacity-60 hover:opacity-100"
-                  )}
-                  style={{ backgroundColor: product.colors[0]?.hex || "#6b7280" }}
-                >
-                  {initials}
-                </div>
-              ))}
-            </div>
+              return (
+                <>
+                  <div className="aspect-square rounded-2xl relative overflow-hidden">
+                    {mainImage ? (
+                      <Image
+                        src={mainImage}
+                        alt={product.name}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 50vw, 300px"
+                      />
+                    ) : (
+                      <div 
+                        className="w-full h-full flex items-center justify-center text-4xl font-normal text-white"
+                        style={{ backgroundColor: product.colors[selectedColor]?.hex || "#6b7280" }}
+                      >
+                        {initials}
+                      </div>
+                    )}
+                    
+                    {/* Badges */}
+                    <div className="absolute top-3 left-3 flex flex-col gap-1 z-10">
+                      {product.isBestSeller && (
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-orange-500 text-white font-medium">
+                          Best-seller
+                        </span>
+                      )}
+                    </div>
+                    
+                    {/* Actions */}
+                    <div className="absolute top-3 right-3 flex flex-col gap-2 z-10">
+                      <button className="w-8 h-8 rounded-full bg-white/90 backdrop-blur flex items-center justify-center text-gray-600 hover:text-red-500 transition-colors">
+                        <Heart className="w-4 h-4" />
+                      </button>
+                      <button className="w-8 h-8 rounded-full bg-white/90 backdrop-blur flex items-center justify-center text-gray-600 hover:text-gray-900 transition-colors">
+                        <Share2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+                  
+                  {/* Thumbnails */}
+                  <div className="flex gap-2 mt-3">
+                    {productImages.length > 0 ? (
+                      productImages.map((img, idx) => (
+                        <div 
+                          key={idx}
+                          className={cn(
+                            "w-14 h-14 rounded-lg overflow-hidden cursor-pointer transition-all relative",
+                            selectedColor === idx ? "ring-2 ring-gray-900" : "opacity-60 hover:opacity-100"
+                          )}
+                        >
+                          <Image
+                            src={img}
+                            alt={`${product.name} couleur ${idx + 1}`}
+                            fill
+                            className="object-cover"
+                            sizes="56px"
+                          />
+                        </div>
+                      ))
+                    ) : (
+                      [0, 1, 2].map((idx) => (
+                        <div 
+                          key={idx}
+                          className={cn(
+                            "w-14 h-14 rounded-lg flex items-center justify-center text-xs font-normal text-white cursor-pointer transition-all",
+                            idx === 0 ? "ring-2 ring-gray-900" : "opacity-60 hover:opacity-100"
+                          )}
+                          style={{ backgroundColor: product.colors[0]?.hex || "#6b7280" }}
+                        >
+                          {initials}
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </>
+              )
+            })()}
           </div>
           
           {/* Right - Product Info */}
@@ -196,11 +242,12 @@ export function DemoNoaExpert({ animationProgress = 0 }: DemoNoaExpertProps) {
                     key={size}
                     animate={selectedSize === size ? { scale: [1, 0.95, 1] } : {}}
                     className={cn(
-                      "w-9 h-9 rounded-lg text-xs font-medium transition-all flex items-center justify-center",
+                      "w-9 h-9 rounded-lg text-xs font-medium transition-all flex items-center justify-center leading-none",
                       selectedSize === size
                         ? "bg-gray-900 text-white"
                         : "bg-gray-100 text-gray-700"
                       )}
+                    style={{ lineHeight: '1' }}
                   >
                     {size}
                   </motion.div>

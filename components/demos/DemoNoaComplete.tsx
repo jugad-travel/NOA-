@@ -6,6 +6,7 @@ import { Trash2, Plus, Minus, Sparkles, Check, ShoppingCart, ArrowRight, Truck, 
 import { SafariWindow } from "./SafariWindow"
 import { cn } from "@/lib/utils"
 import { getProductById, getProductsByIds, noaConversations, formatPrice } from "@/lib/demo-data"
+import Image from "next/image"
 
 interface DemoNoaCompleteProps {
   animationProgress?: number // 0 à 1
@@ -13,13 +14,13 @@ interface DemoNoaCompleteProps {
 
 export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps) {
   // Calculer les étapes basées sur le progress - Timing optimisé pour fluidité et visibilité
-  // Étape 1 (0-0.20) : Typing
-  // Étape 2 (0.20-0.50) : Suggestion NOA (temps pour lire)
-  // Étape 3 (0.50-1.0) : Ajout de la suggestion au panier (50% pour bien voir)
+  // Étape 1 (0-0.10) : Typing
+  // Étape 2 (0.10-0.70) : Suggestion NOA (temps pour lire - 60% du temps)
+  // Étape 3 (0.70-1.0) : Ajout de la suggestion au panier (30% pour bien voir)
   
   const cartItemsRef = React.useRef<HTMLDivElement>(null)
-  const chatStep = animationProgress >= 0.20 ? 2 : animationProgress >= 0.08 ? 1 : 0
-  const suggestionAdded = animationProgress >= 0.50
+  const chatStep = animationProgress >= 0.10 ? 2 : animationProgress >= 0.05 ? 1 : 0
+  const suggestionAdded = animationProgress >= 0.70
   
   const suggestedProduct = getProductById(noaConversations.complete.suggestion)!
   
@@ -29,9 +30,9 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
   React.useEffect(() => {
     const cartItems = cartItemsRef.current
     const noaSuggestion = noaSuggestionRef.current
-    if (cartItems && noaSuggestion && animationProgress >= 0.20) {
-      // Calculer le progress de scroll (0 à 1 entre 0.20 et 1.0)
-      const scrollProgress = Math.min(1, (animationProgress - 0.20) / 0.80)
+    if (cartItems && noaSuggestion && animationProgress >= 0.10) {
+      // Calculer le progress de scroll (0 à 1 entre 0.10 et 1.0)
+      const scrollProgress = Math.min(1, (animationProgress - 0.10) / 0.90)
       const suggestionTop = noaSuggestion.offsetTop
       const containerHeight = cartItems.clientHeight
       const suggestionHeight = noaSuggestion.offsetHeight
@@ -97,7 +98,7 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
       <div className="h-[500px] overflow-hidden">
         {/* Header */}
         <div className="px-4 py-3 border-b border-gray-100">
-          <h1 className="text-sm font-normal text-gray-900">Mon panier ({cartItems.length} articles)</h1>
+          <h1 className="text-sm font-normal text-gray-900">Mon panier <span className="text-base text-gray-500 tracking-wide">({cartItems.length} articles)</span></h1>
         </div>
         
         <div className="flex h-[calc(100%-48px)]">
@@ -108,6 +109,14 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
                 {cartItems.map((item, idx) => {
                   const initials = item.product.brand.substring(0, 2).toUpperCase()
                   const isNew = idx === cartItems.length - 1 && suggestionAdded
+                  
+                  // Mapping des images pour les produits du panier
+                  const productImageMap: Record<string, string> = {
+                    "trail-pro-x": "/images/trailprox noires.png",
+                    "osprey-atmos-65": "/images/atmos AG 65.png",
+                    "chaussettes-icebreaker": "/images/Hike + Medium Crew.png",
+                  }
+                  const productImage = productImageMap[item.product.id]
                   
                   return (
                     <motion.div
@@ -122,12 +131,24 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
                       )}
                     >
                       {/* Product image */}
-                      <div 
-                        className="w-16 h-16 rounded-lg flex items-center justify-center text-sm font-normal text-white flex-shrink-0"
-                        style={{ backgroundColor: item.product.colors[0]?.hex || "#6b7280" }}
-                      >
-                        {initials}
-                      </div>
+                      {productImage ? (
+                        <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 relative">
+                          <Image
+                            src={productImage}
+                            alt={item.product.name}
+                            fill
+                            className="object-cover"
+                            sizes="64px"
+                          />
+                        </div>
+                      ) : (
+                        <div 
+                          className="w-16 h-16 rounded-lg flex items-center justify-center text-sm font-normal text-white flex-shrink-0"
+                          style={{ backgroundColor: item.product.colors[0]?.hex || "#6b7280" }}
+                        >
+                          {initials}
+                        </div>
+                      )}
                       
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between">
@@ -259,7 +280,7 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
           </div>
           
           {/* Right - Summary */}
-          <div className="w-56 border-l border-gray-100 p-4 bg-gray-50">
+          <div className="w-72 border-l border-gray-100 p-4 bg-gray-50 min-w-0">
             <h2 className="text-sm font-normal text-gray-900 mb-4">Récapitulatif</h2>
             
             <div className="space-y-2 mb-4">
@@ -309,12 +330,12 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
             {/* Guarantees */}
             <div className="mt-4 space-y-2">
               <div className="flex items-center gap-1.5 text-[10px] text-gray-500">
-                <Truck className="w-3 h-3" />
-                <span>Livraison gratuite dès 100€</span>
+                <Truck className="w-3 h-3 flex-shrink-0" />
+                <span className="break-words">Livraison gratuite dès 100€</span>
               </div>
               <div className="flex items-center gap-1.5 text-[10px] text-gray-500">
-                <Check className="w-3 h-3" />
-                <span>Paiement sécurisé</span>
+                <Check className="w-3 h-3 flex-shrink-0" />
+                <span className="break-words">Paiement sécurisé</span>
               </div>
             </div>
           </div>

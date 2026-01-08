@@ -6,6 +6,7 @@ import { Search, ShoppingBag, User, Menu, ChevronRight, MessageCircle, X, Send, 
 import { SafariWindow } from "./SafariWindow"
 import { cn } from "@/lib/utils"
 import { categories, getProductsByIds, noaConversations, formatPrice } from "@/lib/demo-data"
+import Image from "next/image"
 
 interface DemoNoaProjetProps {
   animationProgress?: number // 0 à 1
@@ -115,39 +116,65 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
         </div>
         
         {/* Hero Banner */}
-        <div className="relative h-32 bg-gradient-to-r from-gray-800 to-gray-600 overflow-hidden">
-          <div className="absolute inset-0 flex items-center px-6">
-            <div>
-              <p className="text-white/70 text-xs mb-1">Nouvelle collection</p>
-              <h1 className="text-white font-normal text-lg mb-2">Équipement Trek 2024</h1>
-              <button className="text-xs bg-white text-gray-900 px-3 py-1.5 rounded-full font-medium hover:bg-gray-100 transition-colors">
-                Découvrir
-              </button>
-            </div>
-          </div>
-          {/* Mountain silhouette decoration */}
-          <div className="absolute bottom-0 right-0 w-48 h-24 opacity-20">
-            <svg viewBox="0 0 200 100" fill="white">
-              <polygon points="0,100 50,40 80,70 120,20 160,60 200,30 200,100" />
-            </svg>
-          </div>
+        <div className="relative h-32 overflow-hidden">
+          <Image
+            src="/images/Bannière démo produit Project.png"
+            alt="Bannière"
+            fill
+            className="object-cover"
+            style={{ objectPosition: 'center 40%' }}
+            sizes="100vw"
+            priority
+          />
         </div>
         
         {/* Categories */}
         <div className="px-4 py-4">
           <h2 className="text-sm font-normal text-gray-900 mb-3">Nos catégories</h2>
           <div className="grid grid-cols-4 gap-2">
-            {categories.map((cat) => (
-              <motion.div
-                key={cat.id}
-                whileHover={{ scale: 1.02 }}
-                className="bg-gray-50 rounded-xl p-3 text-center cursor-pointer hover:bg-gray-100 transition-colors"
-              >
-                <span className="text-xl mb-1 block">{cat.icon}</span>
-                <p className="text-xs font-medium text-gray-900">{cat.name}</p>
-                <p className="text-[10px] text-gray-500">{cat.productCount} articles</p>
-              </motion.div>
-            ))}
+            {categories.map((cat) => {
+              // Mapping des images pour chaque catégorie
+              const categoryImageMap: Record<string, string> = {
+                "chaussures": "/images/Démo produit section chaussures.png",
+                "sacs": "/images/Section sac démo projet .jpg",
+                "vetements": "/images/section vetements démo projet.png",
+              }
+              const categoryImage = categoryImageMap[cat.id]
+              
+              return (
+                <motion.div
+                  key={cat.id}
+                  whileHover={{ scale: 1.02 }}
+                  className={cn(
+                    "rounded-xl overflow-hidden cursor-pointer transition-all relative",
+                    categoryImage ? "h-20" : "bg-gray-50 p-3 text-center hover:bg-gray-100"
+                  )}
+                >
+                  {categoryImage ? (
+                    <>
+                      <Image
+                        src={categoryImage}
+                        alt={cat.name}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 25vw, 200px"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent" />
+                      <div className="absolute bottom-2 left-2 right-2 z-10">
+                        <p className="text-white text-xs font-bold drop-shadow-[0_2px_10px_rgba(0,0,0,1)]" style={{ color: '#ffffff', textShadow: '0 2px 10px rgba(0,0,0,1), 0 0 20px rgba(0,0,0,0.8)' }}>{cat.name}</p>
+                        <p className="text-white text-[10px] font-semibold drop-shadow-[0_2px_10px_rgba(0,0,0,1)]" style={{ color: '#ffffff', textShadow: '0 2px 10px rgba(0,0,0,1), 0 0 20px rgba(0,0,0,0.8)' }}>{cat.productCount} articles</p>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <span className="text-xl mb-1 block">{cat.icon}</span>
+                      <p className="text-xs font-medium text-gray-900">{cat.name}</p>
+                      <p className="text-[10px] text-gray-500">{cat.productCount} articles</p>
+                    </>
+                  )}
+                </motion.div>
+              )
+            })}
           </div>
         </div>
         
