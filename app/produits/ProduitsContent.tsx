@@ -210,19 +210,11 @@ function ProductDemoSection({ product, index, isEven }: ProductDemoSectionProps)
           {/* Content */}
           <ScrollReveal className={cn(!isEven && "lg:order-2")}>
             <div>
-              <div className="flex items-center gap-4 mb-6">
-                <div className={cn(
-                  "w-14 h-14 rounded-2xl bg-gradient-to-br flex items-center justify-center",
-                  product.color
-                )}>
-                  <Icon className={cn("w-7 h-7", product.iconColor)} />
-                </div>
-                <div>
-                  <h2 className="text-3xl md:text-4xl font-bold text-white">
-                    {product.name}
-                  </h2>
-                  <p className="text-brand font-medium">{product.tagline}</p>
-                </div>
+              <div className="mb-6">
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
+                  {product.name}
+                </h2>
+                <p className="text-brand font-medium">{product.tagline}</p>
               </div>
               
               <div className="space-y-4 text-gray-300 mb-8">
@@ -297,13 +289,10 @@ export function ProduitsContent() {
           <ScrollReveal delay={0.1}>
             <div className="space-y-4 text-lg md:text-xl text-gray-300">
               <p>
-                NOA est une suite de conseillers de vente IA, conçus pour intervenir aux moments clés du parcours e-commerce.
+                NOA — Le conseiller de vente IA unique, présent tout au long du parcours client.
               </p>
               <p>
-                Chaque produit NOA répond à un type de situation client précis, sans modifier votre site ni votre tunnel existant.
-              </p>
-              <p>
-                Vous activez les modules dont vous avez besoin, là où ils ont le plus d'impact.
+                NOA accompagne vos visiteurs, du premier besoin exprimé jusqu'à la décision d'achat, avec compréhension contextuelle et recommandations pertinentes à chaque étape.
               </p>
             </div>
           </ScrollReveal>

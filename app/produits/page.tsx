@@ -4,7 +4,7 @@ import { ProduitsContent } from "./ProduitsContent"
 export const metadata: Metadata = {
   title: "La suite NOA - Produits",
   description:
-    "NOA est une suite de conseillers de vente IA, conçus pour intervenir aux moments clés du parcours e-commerce. Découvrez NOA Projet, NOA Match, NOA Expert et NOA Complete.",
+    "NOA — Le conseiller de vente IA unique, présent tout au long du parcours client. NOA accompagne vos visiteurs, du premier besoin exprimé jusqu'à la décision d'achat. Découvrez NOA Projet, NOA Match, NOA Expert et NOA Complete.",
 }
 
 export default function ProduitsPage() {

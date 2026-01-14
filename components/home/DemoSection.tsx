@@ -305,7 +305,7 @@ export function DemoSection() {
                 À chaque étape du parcours client, NOA accompagne, conseille avec précision et convertit.
               </p>
               <p className="text-gray-500">
-                De l'intention floue au panier final, transformez votre site en vendeur digital performant.
+                De l'intention floue au panier final, transformez votre site en y intégrant un vendeur digital performant.
               </p>
             </div>
           </ScrollReveal>

@@ -6,7 +6,6 @@ import { GammeNoa } from "@/components/home/GammeNoa"
 import { Features } from "@/components/home/Features"
 import { Performance } from "@/components/home/Performance"
 import { Integration } from "@/components/home/Integration"
-import { SocialProof } from "@/components/home/SocialProof"
 import { PricingTeaser } from "@/components/home/PricingTeaser"
 import { FooterCTA } from "@/components/home/FooterCTA"
 
@@ -30,7 +29,6 @@ export default function HomePage() {
       </section>
       <Hero />
       <DemoSection />
-      <SocialProof />
       <PainSection />
       <GammeNoa />
       <Features />

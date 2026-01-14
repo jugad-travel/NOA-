@@ -22,7 +22,7 @@ const gammeData = [
   {
     id: "projet",
     name: "NOA Projet",
-    tagline: "Transformer une intention en panier complet",
+    tagline: "Transformer une intention en recommandations",
     location: "Arrivée sur le site – Home & catégories",
     example: "« Je pars une semaine faire le GR20 »",
     icon: Compass,
@@ -129,14 +129,9 @@ export function GammeNoa() {
                         : "border-gray-100"
                     )}
                   >
-                    <div className="flex items-start gap-4 mb-4">
-                      <div className="w-12 h-12 rounded-2xl bg-gray-900 flex items-center justify-center flex-shrink-0">
-                        <Icon className="w-6 h-6 text-white" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-xl font-normal text-gray-900 mb-1">{item.name}</h3>
-                        <p className="text-gray-600 text-sm font-medium">{item.tagline}</p>
-                      </div>
+                    <div className="mb-4">
+                      <h3 className="text-xl font-normal text-gray-900 mb-1">{item.name}</h3>
+                      <p className="text-gray-600 text-sm font-medium">{item.tagline}</p>
                     </div>
                     
                     <div className="space-y-3 mb-4">

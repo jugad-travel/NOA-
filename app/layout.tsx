@@ -94,7 +94,7 @@ const jsonLd = {
         url: "https://noa.ai/logo.png",
       },
       description:
-        "NOA est une suite de conseillers de vente IA pour e-commerce, conçus pour intervenir aux moments clés du parcours client.",
+        "NOA — Le conseiller de vente IA unique, présent tout au long du parcours client. NOA accompagne vos visiteurs, du premier besoin exprimé jusqu'à la décision d'achat.",
       sameAs: [],
     },
     {

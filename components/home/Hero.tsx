@@ -10,9 +10,9 @@ import { ScrollReveal } from "@/components/shared/ScrollReveal"
 const rotatingPhrases = [
   "vend comme en magasin.",
   "accompagne chaque client comme un vrai vendeur.",
-  "comprend le besoin et guide jusqu'à l'achat.",
-  "apporte un conseil expert, contextualisé et fiable.",
-  "explique, compare et rassure avant l'achat.",
+  "comprend le besoin du client et le guide jusqu'à la chat.",
+  "apporte des conseils experts, contextualisés et fiables.",
+  "cherche, compare et explique avant l'achat.",
 ]
 
 export function Hero() {
