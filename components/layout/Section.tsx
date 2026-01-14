@@ -4,7 +4,7 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 
 interface SectionProps extends React.HTMLAttributes<HTMLElement> {
-  variant?: "white" | "gray" | "gradient" | "gradient-soft"
+  variant?: "white" | "gray" | "gradient" | "gradient-soft" | "dark"
   container?: boolean
   padding?: "sm" | "md" | "lg" | "xl"
 }
@@ -21,6 +21,7 @@ const variantStyles = {
   gray: "bg-gray-50 text-gray-700",
   gradient: "bg-gradient-to-r from-brand-cyan via-brand-blue to-brand-orange text-gray-700",
   "gradient-soft": "bg-gradient-to-b from-white to-gray-50 text-gray-700",
+  dark: "bg-gray-900 text-white",
 }
 
 export const Section = React.forwardRef<HTMLElement, SectionProps>(({
