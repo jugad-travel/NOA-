@@ -95,7 +95,7 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
   
   return (
     <SafariWindow url="shop.outdoor-expert.fr/panier" className="w-full">
-      <div className="h-[500px] overflow-hidden">
+      <div className="h-[400px] md:h-[500px] overflow-hidden">
         {/* Header */}
         <div className="px-4 py-3 border-b border-gray-100">
           <h1 className="text-sm font-normal text-gray-900">Mon panier <span className="text-base text-gray-500 tracking-wide">({cartItems.length} articles)</span></h1>

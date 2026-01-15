@@ -36,12 +36,26 @@ const renderDemo = (tabId: string, animationProgress: number) => {
 export function DemoSection() {
   const [currentIndex, setCurrentIndex] = React.useState(0)
   const [demoProgress, setDemoProgress] = React.useState<number[]>(tabs.map(() => 0)) // Progress pour chaque démo (0 à 1)
+  const [isMobile, setIsMobile] = React.useState(false)
   const sectionRef = React.useRef<HTMLElement>(null)
   const cardRefs = React.useRef<(HTMLDivElement | null)[]>([])
   const scrollTriggerRefs = React.useRef<ScrollTrigger[]>([])
   const containerRef = React.useRef<HTMLDivElement>(null)
   const currentIndexRef = React.useRef(currentIndex)
   const demoProgressRef = React.useRef(demoProgress)
+  const isMobileRef = React.useRef(false)
+
+  // Détecter si on est sur mobile
+  React.useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 768 // md breakpoint
+      setIsMobile(mobile)
+      isMobileRef.current = mobile
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
   
   // Mettre à jour les refs quand les états changent
   React.useEffect(() => {
@@ -90,7 +104,7 @@ export function DemoSection() {
           start: "top top", // Commencer quand le haut de la section atteint le haut de l'écran
           end: `+=${totalScrollDistance}`,
           scrub: 0.5, // Synchroniser avec le scroll (plus bas = plus fluide)
-          pin: true, // Épingler la section pendant les animations
+          pin: true, // Pin activé sur mobile et desktop
           anticipatePin: 1, // Anticiper le pin pour éviter les sauts
           pinSpacing: true, // Ajouter de l'espace pour le pin
           pinReparent: false, // Éviter les problèmes de repositionnement
@@ -268,7 +282,7 @@ export function DemoSection() {
       scrollTriggerRefs.current.forEach(st => st?.kill())
       scrollTriggerRefs.current = []
     }
-  }, []) // Seulement au montage
+  }, [isMobile]) // Recréer quand isMobile change
 
   // Initialiser les positions des cartes - seulement pour la carte active
   // Ne pas forcer les cartes précédentes à être visibles, elles doivent rester cachées après leur fade out
@@ -296,7 +310,7 @@ export function DemoSection() {
 
   return (
     <div ref={containerRef}>
-      <Section variant="gray" padding="lg" className="overflow-hidden" ref={sectionRef} style={{ paddingTop: '10vh', paddingBottom: '10vh' }}>
+      <Section variant="gray" padding="lg" className="overflow-hidden" ref={sectionRef} style={{ paddingTop: isMobile ? '4vh' : '10vh', paddingBottom: isMobile ? '4vh' : '10vh' }}>
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <ScrollReveal>
@@ -311,16 +325,30 @@ export function DemoSection() {
           </ScrollReveal>
         </div>
         
-        {/* Layout avec navigation verticale à gauche */}
-        <div className="flex gap-8 max-w-7xl mx-auto" style={{ minHeight: '100vh' }}>
-          {/* Navigation verticale à gauche */}
-          <div className="flex-shrink-0 self-center" style={{ marginTop: '-80px' }}>
-            <div className="relative flex flex-col gap-3">
-              {/* Ligne de continuité verticale */}
-              <div 
-                className="absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2"
-                style={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }}
-              />
+        {/* Layout : vertical sur mobile, horizontal sur desktop */}
+        <div className="flex flex-col md:flex-row gap-4 md:gap-8 max-w-7xl mx-auto" style={{ minHeight: isMobile ? 'auto' : '100vh' }}>
+          {/* Navigation : horizontale en haut sur mobile, verticale à gauche sur desktop */}
+          <div className={cn(
+            "flex-shrink-0",
+            isMobile ? "w-full order-1" : "self-center order-1 md:order-1"
+          )} style={isMobile ? {} : { marginTop: '-80px' }}>
+            <div className={cn(
+              "relative flex gap-2 md:gap-3",
+              isMobile ? "flex-row overflow-x-auto pb-2 scrollbar-hide" : "flex-col"
+            )} style={isMobile ? { WebkitOverflowScrolling: 'touch' } : {}}>
+              {/* Ligne de continuité : horizontale en bas sur mobile, verticale sur desktop */}
+              {!isMobile && (
+                <div 
+                  className="absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2"
+                  style={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }}
+                />
+              )}
+              {isMobile && (
+                <div 
+                  className="absolute bottom-0 left-0 right-0 h-px"
+                  style={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }}
+                />
+              )}
               {tabs.map((tab, index) => {
                 const Icon = tab.icon
                 const isActive = currentIndex === index
@@ -328,15 +356,23 @@ export function DemoSection() {
                 return (
                   <button
                     key={tab.id}
+                    onClick={() => setCurrentIndex(index)}
                     className={cn(
-                      "relative flex flex-col items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all min-w-[100px] z-10",
+                      "relative flex items-center gap-1.5 md:gap-2 rounded-xl text-xs md:text-sm font-medium transition-all z-10 whitespace-nowrap flex-shrink-0",
+                      isMobile 
+                        ? "px-2.5 py-2 flex-row" 
+                        : "px-4 py-3 flex-col min-w-[100px]",
                       isActive
                         ? "bg-gray-900 text-white"
                         : "bg-white text-gray-600 border border-gray-200 hover:border-gray-300 hover:text-gray-900"
                     )}
                   >
-                    <Icon className="w-5 h-5" />
-                    <span>{tab.label}</span>
+                    <Icon className={cn(isMobile ? "w-3.5 h-3.5" : "w-5 h-5")} />
+                    {isMobile ? (
+                      <span className="text-[10px] leading-tight">{tab.label}</span>
+                    ) : (
+                      <span>{tab.label}</span>
+                    )}
                   </button>
                 )
               })}
@@ -344,7 +380,10 @@ export function DemoSection() {
           </div>
           
           {/* Zone des démos */}
-          <div className="flex-1 relative" style={{ minHeight: '600px' }}>
+          <div className={cn(
+            "relative order-2",
+            isMobile ? "w-full" : "flex-1"
+          )} style={{ minHeight: isMobile ? '400px' : '600px' }}>
             {tabs.map((tab, index) => {
               const isActive = index === currentIndex
               const zIndex = isActive ? tabs.length + 1 : tabs.length - index
@@ -370,8 +409,11 @@ export function DemoSection() {
             })}
             
             {/* Description de la démo active */}
-            <div className="absolute bottom-0 left-0 right-0 text-center mb-4">
-              <p className="text-sm text-gray-500">
+            <div className={cn(
+              "text-center",
+              isMobile ? "mt-4 relative" : "absolute bottom-0 left-0 right-0 mb-4"
+            )}>
+              <p className="text-xs md:text-sm text-gray-500">
                 {tabs[currentIndex].description}
               </p>
             </div>

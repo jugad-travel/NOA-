@@ -81,7 +81,7 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
   
   return (
     <SafariWindow url="shop.outdoor-expert.fr" className="w-full">
-      <div className="relative h-[500px] overflow-hidden">
+      <div className="relative h-[400px] md:h-[500px] overflow-hidden">
         {/* Mini Header */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
           <div className="flex items-center gap-2">

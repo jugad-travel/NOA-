@@ -5,6 +5,10 @@ import { motion, useMotionValue, useTransform } from "framer-motion"
 import { ArrowRight, GripVertical } from "lucide-react"
 import { Section } from "@/components/layout/Section"
 import { ScrollReveal } from "@/components/shared/ScrollReveal"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
 
 const comparison = {
   before: {
@@ -32,21 +36,14 @@ const comparison = {
 }
 
 export function PainSection() {
-  const [sliderPosition, setSliderPosition] = React.useState(50)
-  const [isManual, setIsManual] = React.useState(false)
+  const [sliderPosition, setSliderPosition] = React.useState(67) // Position par défaut à 67% (2/3 à gauche)
   const containerRef = React.useRef<HTMLDivElement>(null)
-  const x = useMotionValue(50)
-  const autoSlideRef = React.useRef<NodeJS.Timeout | null>(null)
-  const directionRef = React.useRef<number>(1) // 1 for right, -1 for left
+  const sectionRef = React.useRef<HTMLElement>(null)
+  const x = useMotionValue(0) // Sera initialisé au montage
+  const hasAnimatedRef = React.useRef(false)
 
   const handleDrag = (event: MouseEvent | TouchEvent | PointerEvent) => {
     if (!containerRef.current) return
-    
-    setIsManual(true)
-    if (autoSlideRef.current) {
-      clearInterval(autoSlideRef.current)
-      autoSlideRef.current = null
-    }
     
     const containerWidth = containerRef.current.offsetWidth
     const rect = containerRef.current.getBoundingClientRect()
@@ -57,42 +54,14 @@ export function PainSection() {
     x.set((newPercent / 100) * containerWidth)
   }
 
-  const handleDragStart = () => {
-    setIsManual(true)
-    if (autoSlideRef.current) {
-      clearInterval(autoSlideRef.current)
-      autoSlideRef.current = null
-    }
-  }
-
-  // Auto-slide functionality
+  // Initialiser la position du slider au montage
   React.useEffect(() => {
-    if (!isManual && containerRef.current) {
-      autoSlideRef.current = setInterval(() => {
-        setSliderPosition((prev) => {
-          const newPos = prev + directionRef.current * 0.3 // Move 0.3% per interval
-          const minPos = 20 // Don't go all the way to the left
-          const maxPos = 80 // Don't go all the way to the right
-          
-          if (newPos >= maxPos) {
-            directionRef.current = -1
-            return maxPos
-          } else if (newPos <= minPos) {
-            directionRef.current = 1
-            return minPos
-          }
-          
-          return newPos
-        })
-      }, 30) // Update every 30ms for smooth animation
+    if (containerRef.current) {
+      const initialPosition = (67 / 100) * containerRef.current.offsetWidth
+      x.set(initialPosition)
+      setSliderPosition(67)
     }
-
-    return () => {
-      if (autoSlideRef.current) {
-        clearInterval(autoSlideRef.current)
-      }
-    }
-  }, [isManual])
+  }, [x])
 
   React.useEffect(() => {
     if (containerRef.current) {
@@ -100,9 +69,84 @@ export function PainSection() {
     }
   }, [sliderPosition, x])
 
+  // Animation du slider quand on arrive sur la section
+  React.useEffect(() => {
+    const container = containerRef.current
+    if (!container || hasAnimatedRef.current) return
+
+    let scrollTrigger: ScrollTrigger | null = null
+
+    // Attendre un peu que le DOM soit prêt
+    const timer = setTimeout(() => {
+      if (hasAnimatedRef.current || !container) return
+
+      const animateSlider = () => {
+        if (hasAnimatedRef.current) return
+        hasAnimatedRef.current = true
+
+        const containerWidth = container.offsetWidth
+        const defaultPosition = (67 / 100) * containerWidth
+        const leftPosition = (30 / 100) * containerWidth // Slide vers la gauche à 30%
+
+        // Timeline manuelle pour piloter la MotionValue
+        gsap.timeline()
+          .to({}, {
+            duration: 2,
+            ease: "power2.inOut",
+            onUpdate: function () {
+              const p = this.progress()
+              const current = defaultPosition + (leftPosition - defaultPosition) * p
+              x.set(current)
+              setSliderPosition((current / containerWidth) * 100)
+            },
+          })
+          .to({}, {
+            duration: 2,
+            ease: "power2.inOut",
+            onUpdate: function () {
+              const p = this.progress()
+              const current = leftPosition + (defaultPosition - leftPosition) * p
+              x.set(current)
+              setSliderPosition((current / containerWidth) * 100)
+            },
+          })
+      }
+
+      // Déclencher directement sur le conteneur du slider
+      // Quand le haut du conteneur atteint le centre du viewport
+      scrollTrigger = ScrollTrigger.create({
+        trigger: container,
+        start: "top center", // Déclenchement quand le haut du conteneur atteint le centre du viewport
+        once: true,
+        onEnter: () => {
+          animateSlider()
+        },
+      })
+
+      // Vérifier si le conteneur est déjà visible au montage
+      const rect = container.getBoundingClientRect()
+      const viewportHeight = window.innerHeight
+      const centerPoint = viewportHeight / 2
+      
+      // Si le conteneur est déjà au-dessus du centre du viewport
+      if (rect.top <= centerPoint && rect.bottom > 0) {
+        animateSlider()
+      }
+    }, 500) // Attendre 500ms pour que le ScrollReveal ait le temps de rendre
+
+    return () => {
+      clearTimeout(timer)
+      if (scrollTrigger) {
+        scrollTrigger.kill()
+      }
+    }
+  }, [x])
+
   return (
-    <Section variant="gradient" padding="lg">
-      <div className="max-w-6xl mx-auto">
+    <Section variant="white" padding="lg" className="relative" ref={sectionRef} style={{ paddingBottom: '2vh' }}>
+      {/* Fond gradient qui commence plus bas sur mobile */}
+      <div className="absolute left-0 right-0 bottom-0 top-16 md:top-0 bg-gradient-to-r from-brand-cyan via-brand-blue to-brand-orange" />
+      <div className="max-w-6xl mx-auto relative z-10">
         <ScrollReveal>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center mb-16">
             À chaque étape du parcours d'achat, vos clients hésitent.
@@ -112,11 +156,11 @@ export function PainSection() {
         <ScrollReveal delay={0.1}>
           <div className="relative bg-white rounded-3xl overflow-hidden shadow-2xl" ref={containerRef}>
             {/* Before Section - Avec NOA (left side, fixed) */}
-            <div className="relative min-h-[600px] flex items-center">
-              <div className="w-full bg-white border-r border-green-500/20 p-8 md:p-12">
+            <div className="relative min-h-[500px] flex items-center">
+              <div className="w-full bg-white border-r border-gray-200 px-8 md:px-12 py-2 md:py-4">
                 <div className="max-w-4xl">
-                  <h3 className="text-xl md:text-2xl font-normal text-black mb-8">{comparison.after.title}</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <h3 className="text-xl md:text-2xl font-normal text-black mb-2">{comparison.after.title}</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {comparison.after.items.map((item, index) => (
                       <motion.div
                         key={item.text}
@@ -124,9 +168,9 @@ export function PainSection() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 + index * 0.05 }}
-                        className="flex items-center gap-3 p-4 rounded-lg bg-green-50 border border-green-500/20"
+                        className="flex items-center gap-3 p-4 rounded-lg bg-gray-50 border border-gray-200"
                       >
-                        <ArrowRight className="w-4 h-4 text-green-600 flex-shrink-0" />
+                        <ArrowRight className="w-4 h-4 text-gray-600 flex-shrink-0" />
                         <span className="text-sm md:text-base text-black font-medium">{item.text}</span>
                       </motion.div>
                     ))}
@@ -137,7 +181,7 @@ export function PainSection() {
 
             {/* After Section - E-commerce classique (overlay - full width, slides from right) */}
             <motion.div
-              className="absolute inset-0 bg-white border-l border-red-500/20 overflow-hidden flex items-center"
+              className="absolute inset-0 overflow-hidden"
               style={{
                 clipPath: useTransform(x, (value) => {
                   if (!containerRef.current) return "inset(0 50% 0 0)"
@@ -148,11 +192,19 @@ export function PainSection() {
                 }),
               }}
             >
-              {/* Fixed content positioned at the right of the page */}
-              <div className="w-full pl-8 md:pl-12 pr-8 md:pr-12 py-8 md:py-12">
+              {/* Fond blanc opaque pour masquer le contenu derrière - sans opacity ni blur */}
+              <div className="absolute inset-0 bg-white border-l border-gray-200" />
+              {/* Contenu avec opacity et blur */}
+              <div 
+                className="absolute inset-0 flex items-center"
+                style={{
+                  opacity: 0.4,
+                }}
+              >
+                <div className="w-full pl-8 md:pl-12 pr-8 md:pr-12 py-2 md:py-4">
                 <div className="max-w-4xl ml-auto">
-                  <h3 className="text-xl md:text-2xl font-normal text-black mb-8">{comparison.before.title}</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <h3 className="text-xl md:text-2xl font-normal text-black mb-2">{comparison.before.title}</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {comparison.before.items.map((item, index) => (
                       <motion.div
                         key={item.text}
@@ -160,14 +212,15 @@ export function PainSection() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.3 + index * 0.05 }}
-                        className="flex items-center gap-3 p-4 rounded-lg bg-red-50 border border-red-500/20"
+                        className="flex items-center gap-3 p-4 rounded-lg bg-gray-50 border border-gray-200"
                       >
-                        <ArrowRight className="w-4 h-4 text-red-400 flex-shrink-0" />
-                        <span className="text-sm md:text-base text-red-400">{item.text}</span>
+                        <ArrowRight className="w-4 h-4 text-gray-600 flex-shrink-0" />
+                        <span className="text-sm md:text-base text-gray-600">{item.text}</span>
                       </motion.div>
                     ))}
                   </div>
                 </div>
+              </div>
               </div>
             </motion.div>
 
@@ -185,7 +238,6 @@ export function PainSection() {
               dragElastic={0}
               dragMomentum={false}
               onDrag={handleDrag}
-              onDragStart={handleDragStart}
             >
               {/* Handle Circle - much smaller */}
               <motion.div

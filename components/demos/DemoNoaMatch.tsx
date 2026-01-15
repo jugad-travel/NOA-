@@ -55,7 +55,7 @@ export function DemoNoaMatch({ animationProgress = 0 }: DemoNoaMatchProps) {
   
   return (
     <SafariWindow url="shop.outdoor-expert.fr/chaussures" className="w-full">
-      <div className="h-[500px] overflow-hidden">
+      <div className="h-[400px] md:h-[500px] overflow-hidden">
         {/* Breadcrumb */}
         <div className="px-4 py-2 border-b border-gray-100 flex items-center gap-1 text-[10px] text-gray-500">
           <span className="hover:text-gray-900 cursor-pointer">Accueil</span>
