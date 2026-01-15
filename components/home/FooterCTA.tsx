@@ -25,12 +25,12 @@ export function FooterCTA() {
               </h2>
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link href="/demo">
+                <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo personnalisée NOA">
                   <Button variant="secondary" size="xl" magnetic>
                     Demander une démo personnalisée
                     <ArrowRight className="w-5 h-5" />
                   </Button>
-                </Link>
+                </a>
                 <Link href="/produits">
                   <Button variant="white" size="xl">
                     Découvrir la suite NOA

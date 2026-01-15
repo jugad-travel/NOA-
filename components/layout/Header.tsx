@@ -21,6 +21,7 @@ const navigation = [
   },
   { name: "Intégrations & Tech", href: "/integrations-tech" },
   { name: "Ressources", href: "/ressources" },
+  { name: "À propos", href: "/a-propos" },
 ]
 
 export function Header() {
@@ -122,7 +123,7 @@ export function Header() {
               ))}
               
               {/* CTA Button - always visible, just moves position */}
-              <Link href="/demo">
+              <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo NOA">
                 <button 
                   className={cn(
                     "font-semibold rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-all duration-500",
@@ -131,7 +132,7 @@ export function Header() {
                 >
                   Réserver une démo
                 </button>
-              </Link>
+              </a>
             </div>
             
             {/* Spacer for non-scrolled state to keep nav centered */}
@@ -189,11 +190,11 @@ export function Header() {
                 </div>
               ))}
               <div className="pt-4">
-                <Link href="/demo">
+                <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo NOA">
                   <button className="w-full h-12 px-8 text-sm font-semibold rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-all">
                     Réserver une démo
                   </button>
-                </Link>
+                </a>
               </div>
             </div>
           </motion.div>

@@ -19,8 +19,8 @@ const footerLinks = {
   ],
   entreprise: [
     { name: "Intégrations & Tech", href: "/integrations-tech" },
-    { name: "Démo", href: "/demo" },
-    { name: "Contact", href: "/demo" },
+    { name: "Démo", href: "mailto:parcel.webai@gmail.com?subject=Demande de démo NOA" },
+    { name: "Contact", href: "mailto:parcel.webai@gmail.com?subject=Contact NOA" },
   ],
   legal: [
     { name: "Mentions légales", href: "#" },
@@ -38,19 +38,14 @@ const securityFeatures = [
 
 export function Footer() {
   return (
-    <footer 
-      className="border-t border-white/20"
-      style={{
-        background: "linear-gradient(135deg, #d0f7fb 0%, #83a6ff 40%, #ff966b 100%)"
-      }}
-    >
+    <footer className="bg-dark-300 border-t border-white/5">
       {/* Security Strip */}
-      <div className="border-b border-black/10">
+      <div className="border-b border-white/5">
         <div className="container py-4">
           <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
             {securityFeatures.map((feature) => (
-              <div key={feature.label} className="flex items-center gap-2 text-gray-800">
-                <feature.icon className="w-4 h-4 text-gray-900" />
+              <div key={feature.label} className="flex items-center gap-2 text-gray-400">
+                <feature.icon className="w-4 h-4 text-brand" />
                 <span className="text-sm font-medium">{feature.label}</span>
               </div>
             ))}
@@ -64,27 +59,30 @@ export function Footer() {
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-4 lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-6">
-              <span className="text-3xl font-normal text-gray-900">NOA</span>
+              <div className="w-8 h-8 rounded-lg bg-brand flex items-center justify-center">
+                <span className="text-dark-200 font-bold text-lg">N</span>
+              </div>
+              <span className="text-xl font-bold text-white">NOA</span>
             </Link>
-            <p className="text-gray-700 text-sm mb-6 leading-relaxed">
+            <p className="text-gray-400 text-sm mb-6 leading-relaxed">
               Le premier conseiller de vente IA qui vend comme en magasin.
             </p>
-            <Link href="/demo">
+            <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo NOA">
               <Button variant="primary" size="md" magnetic>
                 Réserver une démo
               </Button>
-            </Link>
+            </a>
           </div>
           
           {/* Produits */}
           <div>
-            <h4 className="text-gray-900 font-normal mb-4">Produits</h4>
+            <h4 className="text-white font-normal mb-4">Produits</h4>
             <ul className="space-y-3">
               {footerLinks.produits.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-gray-700 hover:text-gray-900 transition-colors text-sm"
+                    className="text-gray-400 hover:text-brand transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -95,13 +93,13 @@ export function Footer() {
           
           {/* Ressources */}
           <div>
-            <h4 className="text-gray-900 font-normal mb-4">Ressources</h4>
+            <h4 className="text-white font-normal mb-4">Ressources</h4>
             <ul className="space-y-3">
               {footerLinks.ressources.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-gray-700 hover:text-gray-900 transition-colors text-sm"
+                    className="text-gray-400 hover:text-brand transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -112,13 +110,13 @@ export function Footer() {
           
           {/* Entreprise */}
           <div>
-            <h4 className="text-gray-900 font-normal mb-4">Entreprise</h4>
+            <h4 className="text-white font-normal mb-4">Entreprise</h4>
             <ul className="space-y-3">
               {footerLinks.entreprise.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-gray-700 hover:text-gray-900 transition-colors text-sm"
+                    className="text-gray-400 hover:text-brand transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -129,13 +127,13 @@ export function Footer() {
           
           {/* Légal */}
           <div>
-            <h4 className="text-gray-900 font-normal mb-4">Légal</h4>
+            <h4 className="text-white font-normal mb-4">Légal</h4>
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-gray-700 hover:text-gray-900 transition-colors text-sm"
+                    className="text-gray-400 hover:text-brand transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -146,21 +144,22 @@ export function Footer() {
         </div>
         
         {/* Bottom Bar */}
-        <div className="mt-16 pt-8 border-t border-black/10 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-gray-700 text-sm">
+        <div className="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-gray-500 text-sm">
             © {new Date().getFullYear()} NOA. Tous droits réservés.
           </p>
-          <div className="flex items-center gap-2 text-gray-700 text-sm">
+          <div className="flex items-center gap-2 text-gray-500 text-sm">
             <span>Sécurité & conformité</span>
             <span>•</span>
             <span>RGPD</span>
             <span>•</span>
-            <Link href="/demo" className="hover:text-gray-900 transition-colors">
+            <a href="mailto:parcel.webai@gmail.com?subject=Contact NOA" className="hover:text-brand transition-colors">
               Contact
-            </Link>
+            </a>
           </div>
         </div>
       </div>
     </footer>
   )
 }
+

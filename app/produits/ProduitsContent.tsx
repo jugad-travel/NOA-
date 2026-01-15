@@ -368,12 +368,12 @@ export function ProduitsContent() {
           </ScrollReveal>
           
           <ScrollReveal delay={0.1}>
-            <Link href="/demo">
+            <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo personnalisée NOA">
               <Button variant="primary" size="xl" magnetic>
                 Demander une démo personnalisée
                 <ArrowRight className="w-5 h-5" />
               </Button>
-            </Link>
+            </a>
           </ScrollReveal>
         </div>
       </Section>

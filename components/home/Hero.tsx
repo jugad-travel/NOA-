@@ -94,12 +94,12 @@ export function Hero() {
         {/* CTA Row */}
         <ScrollReveal delay={0.2}>
           <div className="flex justify-center md:justify-start">
-            <Link href="/demo">
+            <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo NOA">
               <Button variant="primary" size="lg" magnetic className="rounded-full">
                 Réserver une démo
                 <ArrowRight className="w-5 h-5" />
               </Button>
-            </Link>
+            </a>
           </div>
         </ScrollReveal>
       </div>

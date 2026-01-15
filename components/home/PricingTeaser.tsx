@@ -71,12 +71,12 @@ export function PricingTeaser() {
         
         <ScrollReveal delay={0.4}>
           <div className="text-center mt-12">
-            <Link href="/demo">
+            <a href="mailto:parcel.webai@gmail.com?subject=Demande de devis personnalisé NOA">
               <Button variant="primary" size="xl" magnetic>
                 Demander un devis personnalisé
                 <ArrowRight className="w-5 h-5" />
               </Button>
-            </Link>
+            </a>
           </div>
         </ScrollReveal>
       </div>
