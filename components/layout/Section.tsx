@@ -7,6 +7,7 @@ interface SectionProps extends React.HTMLAttributes<HTMLElement> {
   variant?: "white" | "gray" | "gradient" | "gradient-soft" | "dark"
   container?: boolean
   padding?: "sm" | "md" | "lg" | "xl"
+  noise?: boolean
 }
 
 const paddingSizes = {
@@ -30,6 +31,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(({
   variant = "white",
   container = true,
   padding = "lg",
+  noise = false,
   ...props
 }, ref) => {
   return (
@@ -39,6 +41,7 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(({
         "relative overflow-hidden",
         variantStyles[variant],
         paddingSizes[padding],
+        noise && "before:absolute before:inset-0 before:opacity-[0.015] before:pointer-events-none before:bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSBiYXNlRnJlcXVlbmN5PSIwLjkiIG51bU9jdGF2ZXM9IjQiIHJlc3VsdD0ibm9pc2UiLz48ZmVDb2xvck1hdHJpeCBpbi0ibm9pc2UiIHR5cGU9InNhdHVyYXRlIiB2YWx1ZXM9IjAiLz48L2ZpbHRlcj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbHRlcj0idXJsKCNub2lzZSkiLz48L3N2Zz4=')] before:bg-repeat",
         className
       )}
       {...props}

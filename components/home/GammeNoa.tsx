@@ -2,159 +2,190 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { motion, AnimatePresence } from "framer-motion"
-import { Compass, Target, BookOpen, ShoppingBag, Home, LayoutGrid, FileText, ShoppingCart, ArrowRight } from "lucide-react"
+import { motion, useInView } from "framer-motion"
+import { Home, LayoutGrid, FileText, ShoppingCart, ArrowRight } from "lucide-react"
 import { Section } from "@/components/layout/Section"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Card } from "@/components/ui/card"
 import { ScrollReveal } from "@/components/shared/ScrollReveal"
 import { cn } from "@/lib/utils"
 
-const parcours = [
-  { id: "home", label: "Home", icon: Home },
-  { id: "categorie", label: "Catégorie", icon: LayoutGrid },
-  { id: "pdp", label: "PDP", icon: FileText },
-  { id: "panier", label: "Panier", icon: ShoppingCart },
+const etapes = [
+  {
+    id: "intention",
+    numero: 1,
+    titre: "Comprendre l'intention",
+    localisation: "Home · Catégories",
+    description: "NOA capte le besoin global",
+    conversation: {
+      user: "Je pars une semaine faire le GR20",
+      noa: "Le GR20 est un trek exigeant ! Pour une semaine en autonomie, je vous recommande un équipement complet et fiable.",
+    },
+    actions: [
+      "Reformule l'intention",
+      "Identifie le contexte d'usage",
+      "Prépare les critères implicites (terrain, durée, technicité)",
+    ],
+    couleur: "green",
+  },
+  {
+    id: "orienter",
+    numero: 2,
+    titre: "Orienter vers les bons produits",
+    localisation: "Catégories · Fiches produits",
+    description: "NOA affine le choix",
+    conversation: {
+      user: "Je cherche des chaussures de randonnée milieu de gamme en 42",
+      noa: "En taille 42, je vous recommande la Trail Pro X de Salomon. C'est notre best-seller avec un excellent rapport qualité-prix pour le terrain mixte.",
+    },
+    actions: [
+      "Filtrage intelligent",
+      "Comparaison utile",
+      "Suppression des options non pertinentes",
+    ],
+    couleur: "blue",
+  },
+  {
+    id: "doutes",
+    numero: 3,
+    titre: "Lever les doutes",
+    localisation: "Fiche produit",
+    description: "NOA répond comme un expert",
+    conversation: {
+      user: "Imperméable ?",
+      noa: "Oui, la Trail Pro X est entièrement imperméable grâce à sa membrane Gore-Tex. Elle vous protège efficacement contre l'eau et l'humidité, même lors de longues randonnées sous la pluie.",
+    },
+    actions: [
+      "Réponses contextualisées",
+      "Basées sur le produit et l'usage initial",
+      "Réassurance avant décision",
+    ],
+    couleur: "purple",
+  },
+  {
+    id: "finaliser",
+    numero: 4,
+    titre: "Finaliser intelligemment",
+    localisation: "Panier · Checkout",
+    description: "NOA complète le panier",
+    conversation: {
+      user: null,
+      noa: "Pour compléter votre équipement GR20, je vous conseille ces chaussettes techniques Mérinos en 42. Elles sont parfaitement compatibles avec vos Trail Pro X.",
+    },
+    actions: [
+      "Cross-sell cohérent",
+      "Zéro rupture de contexte",
+      "Aide à décider, pas à pousser",
+    ],
+    couleur: "black",
+  },
 ]
 
-const gammeData = [
-  {
-    id: "projet",
-    name: "NOA Projet",
-    tagline: "Transformer une intention en recommandations",
-    location: "Arrivée sur le site – Home & catégories",
-    example: "« Je pars une semaine faire le GR20 »",
-    icon: Compass,
-    activeParcours: ["home", "categorie"],
-  },
-  {
-    id: "match",
-    name: "NOA Match",
-    tagline: "Aider à choisir le bon produit",
-    location: "Pages catégories & fiches produits",
-    example: "« Je cherche des chaussures de randonnée milieu de gamme en 42 »",
-    icon: Target,
-    activeParcours: ["categorie", "pdp"],
-  },
-  {
-    id: "expert",
-    name: "NOA Expert",
-    tagline: "Répondre aux questions précises",
-    location: "Fiche produit",
-    example: "« Est-ce que ces chaussures sont adaptées pour la terre battue ? »",
-    icon: BookOpen,
-    activeParcours: ["pdp"],
-  },
-  {
-    id: "complete",
-    name: "NOA Complete",
-    tagline: "Compléter intelligemment le panier",
-    location: "Panier & checkout",
-    example: "« Nous vous conseillons ces chaussettes techniques... »",
-    icon: ShoppingBag,
-    activeParcours: ["panier"],
-  },
-]
+// Styles uniformes et épurés pour toutes les cartes
 
 export function GammeNoa() {
-  const [activeParcours, setActiveParcours] = React.useState("home")
-  
-  const filteredGamme = React.useMemo(() => {
-    return gammeData.filter((item) => item.activeParcours.includes(activeParcours))
-  }, [activeParcours])
-  
+  const sectionRef = React.useRef<HTMLDivElement>(null)
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" })
+
   return (
-    <Section variant="white" padding="xl">
-      <div className="max-w-6xl mx-auto">
+    <Section variant="white" padding="xl" style={{ paddingTop: '6vh' }}>
+      <div className="max-w-5xl mx-auto" ref={sectionRef}>
+        {/* En-tête */}
         <ScrollReveal>
           <div className="text-center mb-12">
             <Badge className="mb-4">La suite NOA</Badge>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal text-gray-900 mb-6 font-display">
-              Une suite de 4 conseillers de vente IA, activés au bon moment
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 font-display">
+              Un seul conseiller IA.
             </h2>
+            <h3 className="text-2xl md:text-3xl font-normal text-gray-700 mb-6">
+              Quatre moments clés du parcours d'achat.
+            </h3>
+            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+              NOA accompagne l'utilisateur de la première intention jusqu'au panier, sans jamais perdre le contexte.
+            </p>
           </div>
         </ScrollReveal>
-        
-        {/* Parcours Switcher */}
-        <ScrollReveal delay={0.1}>
-          <div className="flex flex-wrap items-center justify-center gap-2 mb-12 p-2 bg-gray-50 rounded-2xl border border-gray-200 w-fit mx-auto">
-            <span className="text-gray-500 text-sm px-3 hidden sm:block">Parcours :</span>
-            {parcours.map((p) => (
-              <button
-                key={p.id}
-                onClick={() => setActiveParcours(p.id)}
-                className={cn(
-                  "flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all",
-                  activeParcours === p.id
-                    ? "bg-gray-900 text-white"
-                    : "text-gray-500 hover:text-gray-900 hover:bg-white"
-                )}
+
+        {/* Cartes en grille 2x2 */}
+        <div className="grid grid-cols-2 gap-6 md:gap-8 mb-12 max-w-4xl mx-auto">
+          {etapes.map((etape, index) => {
+            return (
+              <motion.div
+                key={etape.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: index * 0.15 }}
+                className="bg-white rounded-lg border border-gray-200 p-5 md:p-6 transition-all min-h-[500px] flex flex-col hover:shadow-md"
               >
-                <p.icon className="w-4 h-4" />
-                <span>{p.label}</span>
-              </button>
-            ))}
-          </div>
-        </ScrollReveal>
-        
-        {/* Cards Grid */}
-        <div className="grid md:grid-cols-2 gap-6">
-          <AnimatePresence mode="popLayout">
-            {gammeData.map((item) => {
-              const isHighlighted = filteredGamme.includes(item)
-              const Icon = item.icon
-              
-              return (
-                <motion.div
-                  key={item.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ 
-                    opacity: isHighlighted ? 1 : 0.4, 
-                    scale: isHighlighted ? 1 : 0.98,
-                  }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.3 }}
-                  className={cn(
-                    "relative group",
-                    !isHighlighted && "pointer-events-none"
-                  )}
-                >
-                  <Card 
-                    className={cn(
-                      "relative h-full transition-all border-2",
-                      isHighlighted 
-                        ? "border-gray-200 hover:border-gray-400 hover:shadow-lg" 
-                        : "border-gray-100"
-                    )}
-                  >
-                    <div className="mb-4">
-                      <h3 className="text-xl font-normal text-gray-900 mb-1">{item.name}</h3>
-                      <p className="text-gray-600 text-sm font-medium">{item.tagline}</p>
-                    </div>
-                    
-                    <div className="space-y-3 mb-4">
-                      <div className="flex items-start gap-2">
-                        <span className="text-gray-400 text-sm flex-shrink-0">Où :</span>
-                        <span className="text-gray-600 text-sm">{item.location}</span>
+                {/* Numéro et Titre alignés */}
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-8 h-8 rounded-md bg-gray-900 flex items-center justify-center flex-shrink-0 font-semibold text-sm text-white">
+                    {etape.numero}
+                  </div>
+                  <h4 className="text-base md:text-lg font-semibold text-gray-900 flex-1">
+                    {etape.titre}
+                  </h4>
+                </div>
+
+                {/* Localisation */}
+                <div className="mb-3">
+                  <span className="text-xs text-gray-500 font-medium">
+                    {etape.localisation}
+                  </span>
+                </div>
+
+                {/* Description */}
+                <p className="text-xs md:text-sm text-gray-600 mb-4">
+                  {etape.description}
+                </p>
+
+                {/* Conversation - Style chat IA */}
+                <div className="bg-gray-50 rounded-lg p-3 mb-4 flex-1 flex flex-col gap-2 min-h-0">
+                  {etape.conversation.user && (
+                    <div className="flex justify-end items-start gap-1.5">
+                      <div className="bg-gray-900 rounded-2xl rounded-tr-sm px-3 py-2 max-w-[85%]">
+                        <p className="text-xs md:text-sm font-normal leading-tight text-left" style={{ color: '#ffffff' }}>
+                          {etape.conversation.user}
+                        </p>
                       </div>
                     </div>
-                    
-                    {/* Example quote */}
-                    <div className="bg-gray-50 rounded-xl p-4 border border-gray-100">
-                      <p className="text-gray-600 text-sm italic">{item.example}</p>
+                  )}
+                  {!etape.conversation.user && (
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <div className="w-3.5 h-3.5 rounded bg-gray-900 flex items-center justify-center flex-shrink-0">
+                        <span className="text-white text-[7px]">★</span>
+                      </div>
+                      <span className="text-[10px] font-medium text-gray-600">NOA vous suggère</span>
                     </div>
-                  </Card>
-                </motion.div>
-              )
-            })}
-          </AnimatePresence>
+                  )}
+                  <div className="flex justify-start items-start gap-1.5">
+                    <div className="bg-white text-gray-900 rounded-2xl rounded-tl-sm px-3 py-2 max-w-[85%] border border-gray-200">
+                      <p className="text-xs md:text-sm font-normal leading-tight text-left">
+                        {etape.conversation.noa}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Actions */}
+                <ul className="space-y-1.5">
+                  {etape.actions.map((action, actionIndex) => (
+                    <li key={actionIndex} className="flex items-start gap-2">
+                      <div className="w-1 h-1 rounded-full mt-2 flex-shrink-0 bg-gray-400" />
+                      <span className="text-xs md:text-sm leading-relaxed text-gray-700">
+                        {action}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            )
+          })}
         </div>
-        
+
         {/* CTA */}
-        <ScrollReveal delay={0.3}>
-          <div className="text-center mt-12">
+        <ScrollReveal delay={0.4}>
+          <div className="text-center">
             <Link href="/produits">
               <Button variant="primary" size="lg">
                 Voir les démos des 4 produits NOA

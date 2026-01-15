@@ -143,24 +143,24 @@ export function PainSection() {
   }, [x])
 
   return (
-    <Section variant="white" padding="lg" className="relative" ref={sectionRef} style={{ paddingBottom: '2vh' }}>
+    <Section variant="white" padding="lg" className="relative" ref={sectionRef} style={{ paddingBottom: '6vh' }}>
       {/* Fond gradient qui commence plus bas sur mobile */}
       <div className="absolute left-0 right-0 bottom-0 top-16 md:top-0 bg-gradient-to-r from-brand-cyan via-brand-blue to-brand-orange" />
       <div className="max-w-6xl mx-auto relative z-10">
         <ScrollReveal>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center mb-16">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center mb-12 md:mb-16">
             À chaque étape du parcours d'achat, vos clients hésitent.
           </h2>
         </ScrollReveal>
         
         <ScrollReveal delay={0.1}>
-          <div className="relative bg-white rounded-3xl overflow-hidden shadow-2xl" ref={containerRef}>
+          <div className="relative bg-white rounded-3xl overflow-hidden shadow-2xl mb-8 md:mb-12" ref={containerRef}>
             {/* Before Section - Avec NOA (left side, fixed) */}
-            <div className="relative min-h-[500px] flex items-center">
-              <div className="w-full bg-white border-r border-gray-200 px-8 md:px-12 py-2 md:py-4">
-                <div className="max-w-4xl">
-                  <h3 className="text-xl md:text-2xl font-normal text-black mb-2">{comparison.after.title}</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="relative min-h-[350px] md:min-h-[400px] flex items-center">
+              <div className="w-full h-full absolute inset-0 bg-gray-900 border-r border-gray-700 px-6 md:px-10 py-4 md:py-6 flex items-center">
+                <div className="w-full max-w-4xl">
+                  <h3 className="text-xl md:text-2xl font-normal mb-4 md:mb-6" style={{ color: '#ffffff' }}>{comparison.after.title}</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 w-full">
                     {comparison.after.items.map((item, index) => (
                       <motion.div
                         key={item.text}
@@ -168,10 +168,10 @@ export function PainSection() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 + index * 0.05 }}
-                        className="flex items-center gap-3 p-4 rounded-lg bg-gray-50 border border-gray-200"
+                        className="flex items-center gap-3 p-4 md:p-5 rounded-lg bg-gray-50 border border-gray-200"
                       >
                         <ArrowRight className="w-4 h-4 text-gray-600 flex-shrink-0" />
-                        <span className="text-sm md:text-base text-black font-medium">{item.text}</span>
+                        <span className="text-sm md:text-base text-gray-600 break-words leading-relaxed">{item.text}</span>
                       </motion.div>
                     ))}
                   </div>
@@ -201,26 +201,26 @@ export function PainSection() {
                   opacity: 0.4,
                 }}
               >
-                <div className="w-full pl-8 md:pl-12 pr-8 md:pr-12 py-2 md:py-4">
-                <div className="max-w-4xl ml-auto">
-                  <h3 className="text-xl md:text-2xl font-normal text-black mb-2">{comparison.before.title}</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    {comparison.before.items.map((item, index) => (
-                      <motion.div
-                        key={item.text}
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.3 + index * 0.05 }}
-                        className="flex items-center gap-3 p-4 rounded-lg bg-gray-50 border border-gray-200"
-                      >
-                        <ArrowRight className="w-4 h-4 text-gray-600 flex-shrink-0" />
-                        <span className="text-sm md:text-base text-gray-600">{item.text}</span>
-                      </motion.div>
-                    ))}
+                <div className="w-full px-6 md:px-10 py-4 md:py-6">
+                  <div className="w-full max-w-4xl">
+                    <h3 className="text-xl md:text-2xl font-normal text-black mb-4 md:mb-6">{comparison.before.title}</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 w-full">
+                      {comparison.before.items.map((item, index) => (
+                        <motion.div
+                          key={item.text}
+                          initial={{ opacity: 0, y: 10 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: 0.3 + index * 0.05 }}
+                          className="flex items-center gap-3 p-4 md:p-5 rounded-lg bg-gray-50 border border-gray-200"
+                        >
+                          <ArrowRight className="w-4 h-4 text-gray-600 flex-shrink-0" />
+                          <span className="text-sm md:text-base text-gray-600 break-words leading-relaxed">{item.text}</span>
+                        </motion.div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
               </div>
             </motion.div>
 
