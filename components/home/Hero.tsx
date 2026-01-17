@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-import Link from "next/link"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { ArrowRight } from "lucide-react"
@@ -102,12 +101,12 @@ export function Hero() {
         {/* CTA Row */}
         <ScrollReveal delay={0.2}>
           <div className="flex justify-center md:justify-start mt-8 md:mt-12 lg:mt-16">
-            <Link href="/demo">
+            <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo NOA">
               <Button variant="primary" size="lg" magnetic className="rounded-full">
                 Réserver une démo
                 <ArrowRight className="w-5 h-5" />
               </Button>
-            </Link>
+            </a>
           </div>
         </ScrollReveal>
       </div>
