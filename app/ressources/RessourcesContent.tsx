@@ -24,6 +24,31 @@ const blogArticles = [
 export function RessourcesContent() {
   return (
     <div className="pt-20">
+      {/* Hero Section */}
+      <Section variant="white" padding="lg" className="relative overflow-hidden py-8 md:py-12">
+        <div className="max-w-6xl mx-auto relative z-10">
+          {/* Rectangle avec dégradé en arrière-plan */}
+          <div 
+            className="relative rounded-3xl mx-4 md:mx-8 p-8 md:p-10 lg:p-12"
+            style={{
+              background: "linear-gradient(135deg, #d0f7fb 0%, #83a6ff 40%, #ff966b 100%)"
+            }}
+          >
+            <ScrollReveal>
+              <div className="text-center">
+                <Badge className="mb-6 bg-white/90 text-gray-900">Ressources</Badge>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+                  Tout ce dont vous avez besoin pour optimiser votre e-commerce
+                </h1>
+                <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto">
+                  Découvrez nos conseils CRO, études de cas et ressources pour transformer votre expérience d'achat en ligne.
+                </p>
+              </div>
+            </ScrollReveal>
+          </div>
+        </div>
+      </Section>
+
       {/* Blog Section */}
       <Section id="blog" variant="gradient" padding="xl">
         <div className="max-w-6xl mx-auto">

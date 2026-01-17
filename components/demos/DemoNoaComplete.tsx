@@ -138,6 +138,7 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
                             alt={item.product.name}
                             fill
                             className="object-cover"
+                            style={item.product.id === "osprey-atmos-65" ? { objectPosition: "center top" } : undefined}
                             sizes="64px"
                           />
                         </div>
@@ -260,6 +261,7 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
                                 alt={suggestedProduct.name}
                                 fill
                                 className="object-cover"
+                                style={suggestedProduct.id === "osprey-atmos-65" ? { objectPosition: "center top" } : undefined}
                                 sizes="48px"
                               />
                             </div>

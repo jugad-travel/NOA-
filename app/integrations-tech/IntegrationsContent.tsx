@@ -87,7 +87,7 @@ function ArchitecturePreview() {
                   "w-36 h-36 rounded-3xl flex flex-col items-center justify-center gap-2 border transition-all",
                   step.highlight
                     ? "bg-brand/10 border-brand/30 shadow-glow"
-                    : "bg-gray-50 border-gray-200"
+                    : "border-gray-200"
                 )}>
                   <Icon className={cn(
                     "w-8 h-8",
@@ -135,21 +135,28 @@ function ArchitecturePreview() {
 export function IntegrationsContent() {
   return (
     <div className="pt-20">
-      {/* Hero */}
-      <Section variant="dark" padding="xl" noise>
-        <div className="max-w-4xl mx-auto text-center">
-          <ScrollReveal>
-            <Badge className="mb-6 bg-white/10 text-white border-white/20">Intégrations & Tech</Badge>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6" style={{ color: '#ffffff', textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}>
-              Pensé pour s'intégrer à votre écosystème e-commerce
-            </h1>
-          </ScrollReveal>
-          
-          <ScrollReveal delay={0.1}>
-            <p className="text-xl md:text-2xl text-white max-w-3xl mx-auto leading-relaxed" style={{ color: '#ffffff' }}>
-              Architecture <strong className="text-brand">CMS-agnostique</strong> : NOA s'intègre sans modification de votre code, via les APIs natives de votre plateforme.
-            </p>
-          </ScrollReveal>
+      {/* Hero Section */}
+      <Section variant="white" padding="lg" className="relative overflow-hidden py-8 md:py-12">
+        <div className="max-w-6xl mx-auto relative z-10">
+          {/* Rectangle avec dégradé en arrière-plan */}
+          <div 
+            className="relative rounded-3xl mx-4 md:mx-8 p-8 md:p-10 lg:p-12"
+            style={{
+              background: "linear-gradient(135deg, #d0f7fb 0%, #83a6ff 40%, #ff966b 100%)"
+            }}
+          >
+            <ScrollReveal>
+              <div className="text-center">
+                <Badge className="mb-6 bg-white/90 text-gray-900">Intégrations & Tech</Badge>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+                  Pensé pour s'intégrer à votre écosystème e-commerce
+                </h1>
+                <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto">
+                  Architecture CMS-agnostique : NOA s'intègre sans modification de votre code, via les APIs natives de votre plateforme.
+                </p>
+              </div>
+            </ScrollReveal>
+          </div>
         </div>
       </Section>
       
@@ -195,7 +202,8 @@ export function IntegrationsContent() {
                   {platformLogos.map((platform) => (
                     <div
                       key={platform.name}
-                      className="flex items-center gap-3 p-3 rounded-xl bg-gray-50 border border-gray-200 hover:border-brand/30 transition-colors"
+                      className="flex items-center gap-3 p-3 rounded-xl border border-gray-200 hover:border-brand/30 transition-colors"
+                      style={{ backgroundColor: "#fcf2f8" }}
                     >
                       <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center p-2 flex-shrink-0 border border-gray-200">
                         {platform.image ? (
@@ -227,7 +235,8 @@ export function IntegrationsContent() {
                     return (
                       <div
                         key={arch.name}
-                        className="flex items-center gap-4 p-4 rounded-xl bg-gray-50 border border-gray-200 hover:border-brand/30 transition-colors"
+                        className="flex items-center gap-4 p-4 rounded-xl border border-gray-200 hover:border-brand/30 transition-colors"
+                        style={{ backgroundColor: "#fcf2f8" }}
                       >
                         <div className="w-12 h-12 rounded-xl bg-brand/10 flex items-center justify-center flex-shrink-0">
                           <Icon className="w-6 h-6 text-brand" />
@@ -295,7 +304,7 @@ export function IntegrationsContent() {
           
           <ScrollReveal delay={0.3}>
             <div className="mt-12 grid md:grid-cols-3 gap-6">
-              <div className="bg-gray-50 rounded-2xl p-6 border border-gray-200">
+              <div className="rounded-2xl p-6 border border-gray-200" style={{ backgroundColor: "#fcf2f8" }}>
                 <div className="w-12 h-12 rounded-xl bg-brand/10 flex items-center justify-center mb-4 flex-shrink-0">
                   <MessageSquare className="w-6 h-6 text-brand" />
                 </div>
@@ -304,7 +313,7 @@ export function IntegrationsContent() {
                   Interface légère et isolée, compatible avec tous les thèmes. Aucune modification de votre code front-end.
                 </p>
               </div>
-              <div className="bg-gray-50 rounded-2xl p-6 border border-gray-200">
+              <div className="rounded-2xl p-6 border border-gray-200" style={{ backgroundColor: "#fcf2f8" }}>
                 <div className="w-12 h-12 rounded-xl bg-brand/10 flex items-center justify-center mb-4 flex-shrink-0">
                   <Brain className="w-6 h-6 text-brand" />
                 </div>
@@ -313,7 +322,7 @@ export function IntegrationsContent() {
                   Moteur de décision qui interprète l'intention, construit des requêtes métier et génère des réponses explicatives.
                 </p>
               </div>
-              <div className="bg-gray-50 rounded-2xl p-6 border border-gray-200">
+              <div className="rounded-2xl p-6 border border-gray-200" style={{ backgroundColor: "#fcf2f8" }}>
                 <div className="w-12 h-12 rounded-xl bg-brand/10 flex items-center justify-center mb-4 flex-shrink-0">
                   <Network className="w-6 h-6 text-brand" />
                 </div>
@@ -508,7 +517,7 @@ export function IntegrationsContent() {
           <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4" staggerDelay={0.1}>
             {modules.map((mod) => (
               <StaggerItem key={mod.name}>
-                <div className="bg-gray-50 border border-gray-200 rounded-2xl p-5 hover:border-brand/30 transition-colors text-center">
+                <div className="border border-gray-200 rounded-2xl p-5 hover:border-brand/30 transition-colors text-center" style={{ backgroundColor: "#fcf2f8" }}>
                   <h4 className="font-normal mb-1 text-gray-900">{mod.name}</h4>
                   <p className="text-sm text-gray-700">{mod.description}</p>
                 </div>

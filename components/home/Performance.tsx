@@ -2,53 +2,49 @@
 
 import * as React from "react"
 import { motion, useInView } from "framer-motion"
-import { TrendingUp, ShoppingCart, RotateCcw, ArrowRight } from "lucide-react"
 import { Section } from "@/components/layout/Section"
 import { Badge } from "@/components/ui/badge"
 import { ScrollReveal } from "@/components/shared/ScrollReveal"
 
 const metrics = [
   {
-    icon: TrendingUp,
+    value: "4x",
     label: "Taux de conversion",
-    description: "Hausse significative taux de conversion sur les parcours assistés",
+    detail: "12,3% vs 3,1% sans assistance",
   },
   {
-    icon: ShoppingCart,
-    label: "Panier moyen",
-    description: "Augmentation panier moyen sur les achats multi-produits",
+    value: "-47%",
+    label: "Temps de décision",
+    detail: "Achats réalisés plus rapidement",
   },
   {
-    icon: RotateCcw,
-    label: "Retours",
-    description: "Réduction retours liés à une erreur de choix",
+    value: "+25%",
+    label: "Valeur client",
+    detail: "Chez les consommateurs récurrents",
   },
 ]
 
-function AnimatedMetric({ icon: Icon, label, description, index }: { 
-  icon: React.ElementType
+function AnimatedMetric({ value, label, detail, index }: { 
+  value: string
   label: string
-  description: string
+  detail: string
   index: number 
 }) {
   const ref = React.useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true })
+  const isInView = useInView(ref, { once: true, margin: "-50px" })
   
   return (
     <motion.div
       ref={ref}
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.15 }}
-      className="relative group"
+      transition={{ duration: 0.6, delay: index * 0.15 }}
+      className="relative"
     >
-      <div className="absolute inset-0 bg-brand/5 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-      <div className="relative bg-dark-50/50 border border-white/5 rounded-3xl p-8 hover:border-brand/30 transition-colors h-full flex flex-col">
-        <div className="w-16 h-16 rounded-2xl bg-brand/10 flex items-center justify-center mb-6 group-hover:bg-brand/20 transition-colors flex-shrink-0">
-          <Icon className="w-8 h-8 text-brand" />
-        </div>
-        <h3 className="text-xl font-normal text-white mb-3 flex-shrink-0">{label}</h3>
-        <p className="text-gray-400 leading-relaxed flex-grow">{description}</p>
+      <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 hover:shadow-md transition-shadow h-full flex flex-col">
+        <div className="text-4xl md:text-5xl font-semibold text-gray-900 mb-3 flex-shrink-0">{value}</div>
+        <h3 className="text-lg font-semibold text-gray-900 mb-2 flex-shrink-0">{label}</h3>
+        <p className="text-sm text-gray-600 leading-relaxed flex-grow">{detail}</p>
       </div>
     </motion.div>
   )
@@ -56,37 +52,45 @@ function AnimatedMetric({ icon: Icon, label, description, index }: {
 
 export function Performance() {
   return (
-    <Section variant="gradient" padding="xl" noise>
-      <div className="max-w-6xl mx-auto">
+    <Section variant="white" padding="lg" className="pb-4 md:pb-6 relative overflow-hidden">
+      <div className="max-w-6xl mx-auto relative z-10">
         <ScrollReveal>
-          <div className="text-center mb-16">
+          <div className="text-center mb-6">
             <Badge className="mb-4">Performance & ROI</Badge>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
-              Des résultats mesurables
-            </h2>
           </div>
         </ScrollReveal>
         
-        <div className="grid md:grid-cols-3 gap-6 mb-12 items-stretch">
-          {metrics.map((metric, index) => (
-            <AnimatedMetric key={metric.label} {...metric} index={index} />
-          ))}
-        </div>
+        {/* Rectangle avec dégradé en arrière-plan */}
+        <div 
+          className="relative rounded-3xl mx-4 md:mx-8 my-8 md:my-12"
+          style={{
+            background: "linear-gradient(135deg, #d0f7fb 0%, #83a6ff 40%, #ff966b 100%)"
+          }}
+        >
+          <div className="relative z-10 p-8 md:p-12">
+            <ScrollReveal>
+              <div className="text-center mb-12 pt-4 md:pt-8">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+                  Un impact mesurable sur les performances commerciales
+                </h2>
+              </div>
+            </ScrollReveal>
         
-        <ScrollReveal delay={0.4}>
-          <div className="relative">
-            <div className="absolute inset-0 bg-brand/5 rounded-3xl blur-xl" />
-            <div className="relative glass rounded-3xl p-8 md:p-12 text-center">
-              <p className="text-xl md:text-2xl text-white leading-relaxed max-w-3xl mx-auto">
-                Chaque module NOA agit sur un point de friction précis du parcours.
-                <br className="hidden md:block" />
-                <span className="text-brand font-medium">
-                  Leur combinaison permet une amélioration progressive et mesurable de la performance globale.
-                </span>
-              </p>
+            <div className="grid md:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16 items-stretch">
+              {metrics.map((metric, index) => (
+                <AnimatedMetric key={metric.label} {...metric} index={index} />
+              ))}
             </div>
+            
+            <ScrollReveal delay={0.3}>
+              <div className="text-center">
+                <p className="text-sm text-gray-700 font-medium">
+                  Sources : <span className="text-gray-900">Precedence Research (2025)</span>, <span className="text-gray-900">NVIDIA (2025)</span>
+                </p>
+              </div>
+            </ScrollReveal>
           </div>
-        </ScrollReveal>
+        </div>
       </div>
     </Section>
   )

@@ -2,13 +2,13 @@
 
 import * as React from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronDown, Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const navigation = [
-  { name: "Home", href: "/" },
   {
     name: "Produits",
     href: "/produits",
@@ -65,8 +65,26 @@ export function Header() {
               ? "justify-center gap-1" 
               : "justify-between"
           )}>
-            {/* Empty space for layout balance - hidden when scrolled */}
-            {!isScrolled && <div className="w-20" />}
+            {/* Logo - Left side (replaces Home button) */}
+            <Link 
+              href="/" 
+              className={cn(
+                "flex items-center justify-center transition-all duration-500",
+                isScrolled 
+                  ? "rounded-full bg-white shadow-sm hover:bg-gray-50 h-9 px-2" 
+                  : "rounded-none bg-transparent shadow-none hover:opacity-80 h-10",
+                isActive("/") && isScrolled && "bg-gray-100 hover:bg-gray-200"
+              )}
+            >
+              <Image
+                src="/images/Logo-NOA.png"
+                alt="NOA Logo"
+                width={100}
+                height={48}
+                className="object-contain translate-y-0.5"
+                priority
+              />
+            </Link>
             
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-1">
@@ -135,9 +153,6 @@ export function Header() {
               </a>
             </div>
             
-            {/* Spacer for non-scrolled state to keep nav centered */}
-            {!isScrolled && <div className="hidden lg:block w-20" />}
-            
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -161,6 +176,21 @@ export function Header() {
             className="lg:hidden bg-white border-t border-gray-100"
           >
             <div className="container py-6 space-y-4">
+              {/* Mobile Logo */}
+              <Link 
+                href="/" 
+                className="flex items-center mb-4"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <Image
+                  src="/images/Logo-NOA.png"
+                  alt="NOA Logo"
+                  width={120}
+                  height={48}
+                  className="object-contain"
+                />
+              </Link>
+              
               {navigation.map((item) => (
                 <div key={item.name}>
                   <Link

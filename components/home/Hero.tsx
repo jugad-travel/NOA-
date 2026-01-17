@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -10,9 +11,9 @@ import { ScrollReveal } from "@/components/shared/ScrollReveal"
 const rotatingPhrases = [
   "vend comme en magasin.",
   "accompagne chaque client comme un vrai vendeur.",
-  "comprend le besoin du client et le guide jusqu'à la chat.",
-  "apporte des conseils experts, contextualisés et fiables.",
-  "cherche, compare et explique avant l'achat.",
+  "comprend le besoin et guide jusqu'à l'achat.",
+  "apporte un conseil expert, contextualisé et fiable.",
+  "explique, compare et rassure avant l'achat.",
 ]
 
 export function Hero() {
@@ -21,7 +22,7 @@ export function Hero() {
   React.useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % rotatingPhrases.length)
-    }, 3500) // Plus rapide : 3.5 secondes
+    }, 3000) // 3 secondes pour un enchaînement plus rapide
     
     return () => clearInterval(interval)
   }, [])
@@ -31,14 +32,21 @@ export function Hero() {
       <div className="container relative z-10">
         {/* Large NOA Title */}
         <ScrollReveal>
-          <h1 className="text-[12rem] md:text-[16rem] lg:text-[20rem] font-light text-black font-display" style={{ lineHeight: 1.15, color: '#000000', fontWeight: 300 }}>
-            NOA
-          </h1>
+          <div className="h-48 md:h-64 lg:h-80 flex items-start -mb-16 md:-mb-20 lg:-mb-24">
+            <Image
+              src="/images/Logo-NOA.png"
+              alt="NOA Logo"
+              width={600}
+              height={288}
+              className="object-contain h-full w-auto"
+              priority
+            />
+          </div>
         </ScrollReveal>
         
         {/* Hero Image with Gradient and Tagline */}
         <ScrollReveal delay={0.1}>
-          <div className="relative w-full h-72 md:h-96 lg:h-[28rem] rounded-3xl overflow-hidden my-8">
+          <div className="relative w-full h-72 md:h-96 lg:h-[28rem] rounded-3xl overflow-hidden">
             {/* Gradient background */}
             <div 
               className="absolute inset-0"
@@ -51,8 +59,8 @@ export function Hero() {
             <div className="absolute inset-0 flex flex-col justify-end pb-10 md:pb-14 lg:pb-16 px-8 md:px-12 lg:px-16 z-10">
               <div className="max-w-4xl">
                 <p 
-                  className="text-3xl md:text-4xl lg:text-5xl font-normal text-black font-display"
-                  style={{ lineHeight: 1.15, color: '#000000' }}
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-normal text-black"
+                  style={{ lineHeight: 1.15 }}
                 >
                   Le premier conseiller de vente IA qui
                 </p>
@@ -63,9 +71,9 @@ export function Hero() {
                       initial={{ y: 20, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       exit={{ y: -20, opacity: 0 }}
-                      transition={{ duration: 0.6, ease: "easeInOut" }}
-                      className="absolute top-0 left-0 right-0 text-3xl md:text-4xl lg:text-5xl font-normal text-black font-display"
-                      style={{ lineHeight: 1.15, color: '#000000' }}
+                      transition={{ duration: 0.4, ease: "easeInOut" }}
+                      className="absolute top-0 left-0 right-0 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-normal text-black"
+                      style={{ lineHeight: 1.15 }}
                     >
                       {rotatingPhrases[currentIndex]}
                     </motion.p>
@@ -93,13 +101,13 @@ export function Hero() {
         
         {/* CTA Row */}
         <ScrollReveal delay={0.2}>
-          <div className="flex justify-center md:justify-start">
-            <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo NOA">
+          <div className="flex justify-center md:justify-start mt-8 md:mt-12 lg:mt-16">
+            <Link href="/demo">
               <Button variant="primary" size="lg" magnetic className="rounded-full">
                 Réserver une démo
                 <ArrowRight className="w-5 h-5" />
               </Button>
-            </a>
+            </Link>
           </div>
         </ScrollReveal>
       </div>

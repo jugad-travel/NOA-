@@ -25,27 +25,34 @@ import {
 const teamMembers = [
   {
     name: "Vianney Mayaud",
-    role: "Co-fondateur",
-    details: "EDHEC, Fondateur JUGAD TRAVEL",
-    image: "/images/team/vianney-mayaud.jpg",
+    role: "Fondateur",
+    details: "EDHEC, Fondateur ",
+    detailsLink: "https://jugadtravel.com",
+    detailsLinkText: "JUGAD TRAVEL",
+    image: "/images/pdp Vianney  linkedin .png",
   },
   {
     name: "Balthazar Barbry",
     role: "Co-fondateur",
     details: "ESSEC",
-    image: "/images/team/balthazar-barbry.jpg",
+    image: "/images/pdp balthazar barbry linkedin .jpeg",
   },
   {
     name: "Octave Dumont",
     role: "CTO",
     details: "HEC - ENSAE, Data scientist BNP Paribas, ENS Data science competitor",
-    image: "/images/team/octave-dumont.jpg",
+    image: "/images/pdp Octave dumont .jpeg",
   },
   {
     name: "Alexandre Mayaud",
     role: "Senior Advisor",
-    details: "",
-    image: "/images/team/alexandre-mayaud.jpg",
+    details: "Retail tech & IA Entrepreneur . Business Angel . Board Member . Advisor . ex CEO fondateur ",
+    detailsLink: "https://keyneo.com",
+    detailsLinkText: "Keyneo",
+    detailsAfterLink: ", co fondateur ",
+    detailsSecondLink: "https://umitek.fr",
+    detailsSecondLinkText: "Umitek",
+    image: "/images/pdp alexandre .jpeg",
   },
 ]
 
@@ -128,15 +135,27 @@ export function AProposContent() {
   return (
     <div className="pt-20">
       {/* Hero Section */}
-      <Section variant="gradient" padding="xl" className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-cyan/20 via-brand-blue/20 to-brand-orange/20" />
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-          <ScrollReveal>
-            <Badge className="mb-6">À propos de NOA</Badge>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8">
-              Repenser l'expérience d'achat à l'ère de l'IA
-            </h1>
-          </ScrollReveal>
+      <Section variant="white" padding="lg" className="relative overflow-hidden py-8 md:py-12">
+        <div className="max-w-6xl mx-auto relative z-10">
+          {/* Rectangle avec dégradé en arrière-plan */}
+          <div 
+            className="relative rounded-3xl mx-4 md:mx-8 p-8 md:p-10 lg:p-12"
+            style={{
+              background: "linear-gradient(135deg, #d0f7fb 0%, #83a6ff 40%, #ff966b 100%)"
+            }}
+          >
+            <ScrollReveal>
+              <div className="text-center">
+                <Badge className="mb-6 bg-white/90 text-gray-900">À propos de NOA</Badge>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+                  Repenser l'expérience d'achat à l'ère de l'IA
+                </h1>
+                <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto">
+                  Découvrez comment NOA transforme l'expérience d'achat en ligne avec l'intelligence artificielle.
+                </p>
+              </div>
+            </ScrollReveal>
+          </div>
         </div>
       </Section>
 
@@ -154,18 +173,109 @@ export function AProposContent() {
         </div>
       </Section>
 
+      {/* Team Section */}
+      <Section variant="gray" padding="xl">
+        <div className="max-w-6xl mx-auto">
+          <ScrollReveal>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-center">
+              Notre équipe
+            </h2>
+            <p className="text-lg text-gray-600 text-center mb-12 max-w-2xl mx-auto">
+              Une équipe passionnée par l'innovation et l'excellence, dédiée à transformer l'expérience d'achat en ligne.
+            </p>
+          </ScrollReveal>
+          
+          <StaggerContainer className="grid md:grid-cols-2 gap-8" staggerDelay={0.1}>
+            {teamMembers.map((member) => (
+              <StaggerItem key={member.name}>
+                <Card className="h-full p-8 hover:shadow-lg transition-shadow">
+                  <div className="flex flex-col md:flex-row gap-6 items-start">
+                    {/* Photo de profil */}
+                    <div className="flex-shrink-0">
+                      <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gray-200 overflow-hidden relative">
+                        {member.image ? (
+                          <Image
+                            src={member.image}
+                            alt={member.name}
+                            fill
+                            className="object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gradient-to-br from-brand-cyan to-brand-blue flex items-center justify-center text-white text-2xl font-bold">
+                            {member.name.split(' ').map(n => n[0]).join('')}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    
+                    {/* Informations */}
+                    <div className="flex-1">
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                        {member.name}
+                      </h3>
+                      <p className="text-lg font-semibold text-gray-700 mb-3">
+                        {member.role}
+                      </p>
+                      {member.details && (
+                        <p className="text-gray-600">
+                          {member.details}
+                          {member.detailsLink && member.detailsLinkText ? (
+                            <>
+                              <a 
+                                href={member.detailsLink} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="text-brand hover:underline"
+                              >
+                                {member.detailsLinkText}
+                              </a>
+                            </>
+                          ) : member.detailsLink ? (
+                            <>{" "}
+                              <a 
+                                href={member.detailsLink} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="text-brand hover:underline"
+                              >
+                                {member.detailsLink.replace(/^https?:\/\//, '')}
+                              </a>
+                            </>
+                          ) : null}
+                          {member.detailsAfterLink}
+                          {member.detailsSecondLink && member.detailsSecondLinkText ? (
+                            <>
+                              <a 
+                                href={member.detailsSecondLink} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="text-brand hover:underline"
+                              >
+                                {member.detailsSecondLinkText}
+                              </a>
+                            </>
+                          ) : null}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </Card>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+        </div>
+      </Section>
+
       {/* Notre conviction */}
-      <Section variant="gray" padding="lg">
+      <Section variant="gray" padding="lg" className="pt-8 md:pt-12">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
-            <div className="bg-white rounded-3xl p-8 md:p-12 shadow-sm border-l-4 border-brand-blue">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
-                Notre conviction
-              </h2>
-              <p className="text-xl text-gray-700 leading-relaxed font-medium">
-                Un catalogue riche ne crée de valeur que s'il est intelligible, exploitable et activable pour l'utilisateur final.
-              </p>
-            </div>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+              Notre conviction
+            </h2>
+            <p className="text-xl text-gray-700 leading-relaxed font-medium">
+              Un catalogue riche ne crée de valeur que s'il est intelligible, exploitable et activable pour l'utilisateur final.
+            </p>
           </ScrollReveal>
         </div>
       </Section>
@@ -365,63 +475,6 @@ export function AProposContent() {
                   <p className="text-gray-700 text-lg">
                     {item}
                   </p>
-                </Card>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </div>
-      </Section>
-      
-      {/* Team Section */}
-      <Section variant="gray" padding="xl">
-        <div className="max-w-6xl mx-auto">
-          <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-center">
-              Notre équipe
-            </h2>
-            <p className="text-lg text-gray-600 text-center mb-12 max-w-2xl mx-auto">
-              Une équipe passionnée par l'innovation et l'excellence, dédiée à transformer l'expérience d'achat en ligne.
-            </p>
-          </ScrollReveal>
-          
-          <StaggerContainer className="grid md:grid-cols-2 gap-8" staggerDelay={0.1}>
-            {teamMembers.map((member) => (
-              <StaggerItem key={member.name}>
-                <Card className="h-full p-8 hover:shadow-lg transition-shadow">
-                  <div className="flex flex-col md:flex-row gap-6 items-start">
-                    {/* Photo de profil */}
-                    <div className="flex-shrink-0">
-                      <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gray-200 overflow-hidden relative">
-                        {member.image ? (
-                          <Image
-                            src={member.image}
-                            alt={member.name}
-                            fill
-                            className="object-cover"
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-gradient-to-br from-brand-cyan to-brand-blue flex items-center justify-center text-white text-2xl font-bold">
-                            {member.name.split(' ').map(n => n[0]).join('')}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    
-                    {/* Informations */}
-                    <div className="flex-1">
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                        {member.name}
-                      </h3>
-                      <p className="text-lg font-semibold text-gray-700 mb-3">
-                        {member.role}
-                      </p>
-                      {member.details && (
-                        <p className="text-gray-600">
-                          {member.details}
-                        </p>
-                      )}
-                    </div>
-                  </div>
                 </Card>
               </StaggerItem>
             ))}

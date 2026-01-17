@@ -168,7 +168,8 @@ export function PainSection() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 + index * 0.05 }}
-                        className="flex items-center gap-3 p-4 md:p-5 rounded-lg bg-gray-50 border border-gray-200"
+                        className="flex items-center gap-3 p-4 md:p-5 rounded-lg border border-gray-200"
+                        style={{ backgroundColor: "#fcf2f8" }}
                       >
                         <ArrowRight className="w-4 h-4 text-gray-600 flex-shrink-0" />
                         <span className="text-sm md:text-base text-gray-600 break-words leading-relaxed">{item.text}</span>
@@ -212,7 +213,8 @@ export function PainSection() {
                           whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true }}
                           transition={{ delay: 0.3 + index * 0.05 }}
-                          className="flex items-center gap-3 p-4 md:p-5 rounded-lg bg-gray-50 border border-gray-200"
+                          className="flex items-center gap-3 p-4 md:p-5 rounded-lg border border-gray-200"
+                        style={{ backgroundColor: "#fcf2f8" }}
                         >
                           <ArrowRight className="w-4 h-4 text-gray-600 flex-shrink-0" />
                           <span className="text-sm md:text-base text-gray-600 break-words leading-relaxed">{item.text}</span>

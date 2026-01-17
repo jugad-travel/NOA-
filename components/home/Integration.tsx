@@ -43,7 +43,7 @@ const cmsLogos = [
 
 export function Integration() {
   return (
-    <Section variant="white" padding="lg">
+    <Section variant="white" padding="lg" className="pt-4 md:pt-6">
       <div className="max-w-5xl mx-auto">
         <ScrollReveal>
           <div className="text-center mb-12">
@@ -65,7 +65,7 @@ export function Integration() {
                 key={cms.name}
                 className="flex flex-col items-center gap-2 group"
               >
-                <div className="w-20 h-20 rounded-2xl bg-gray-50 border border-gray-200 flex items-center justify-center p-4 group-hover:border-brand-blue/30 group-hover:bg-gray-100 transition-colors">
+                <div className="w-20 h-20 rounded-2xl border border-gray-200 flex items-center justify-center p-4 group-hover:border-brand-blue/30 transition-colors" style={{ backgroundColor: "#fcf2f8" }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#f9e6f0"} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "#fcf2f8"}>
                   <Image
                     src={cms.image}
                     alt={cms.name}

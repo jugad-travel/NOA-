@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Shield, Lock, Server, FileCheck } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
@@ -58,11 +59,14 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10">
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-4 lg:col-span-1">
-            <Link href="/" className="flex items-center gap-2 mb-6">
-              <div className="w-8 h-8 rounded-lg bg-brand flex items-center justify-center">
-                <span className="text-dark-200 font-bold text-lg">N</span>
-              </div>
-              <span className="text-xl font-bold text-white">NOA</span>
+            <Link href="/" className="flex items-center mb-6">
+              <Image
+                src="/images/Logo-NOA.png"
+                alt="NOA Logo"
+                width={120}
+                height={60}
+                className="object-contain"
+              />
             </Link>
             <p className="text-gray-400 text-sm mb-6 leading-relaxed">
               Le premier conseiller de vente IA qui vend comme en magasin.
@@ -145,9 +149,17 @@ export function Footer() {
         
         {/* Bottom Bar */}
         <div className="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-gray-500 text-sm">
-            © {new Date().getFullYear()} NOA. Tous droits réservés.
-          </p>
+          <div className="flex items-center gap-2 text-gray-500 text-sm">
+            <span>© {new Date().getFullYear()}</span>
+            <Image
+              src="/images/Logo-NOA.png"
+              alt="NOA Logo"
+              width={60}
+              height={30}
+              className="object-contain"
+            />
+            <span>Tous droits réservés.</span>
+          </div>
           <div className="flex items-center gap-2 text-gray-500 text-sm">
             <span>Sécurité & conformité</span>
             <span>•</span>

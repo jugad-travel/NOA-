@@ -217,19 +217,19 @@ function ProductDemoSection({ product, index, isEven }: ProductDemoSectionProps)
                 <p className="text-brand font-medium">{product.tagline}</p>
               </div>
               
-              <div className="space-y-4 text-gray-300 mb-8">
+              <div className={cn("space-y-4 mb-8", isEven ? "text-gray-700" : "text-gray-300")}>
                 <p>{product.description}</p>
                 <p>{product.details}</p>
               </div>
               
               {/* Cas typiques */}
               <div className="mb-6">
-                <h4 className="text-sm font-normal text-gray-400 uppercase tracking-wider mb-3">
+                <h4 className={cn("text-sm font-normal uppercase tracking-wider mb-3", isEven ? "text-gray-600" : "text-gray-400")}>
                   Cas typiques
                 </h4>
                 <ul className="space-y-2">
                   {product.casTypiques.map((cas) => (
-                    <li key={cas} className="flex items-start gap-2 text-gray-300">
+                    <li key={cas} className={cn("flex items-start gap-2", isEven ? "text-gray-900" : "text-gray-300")}>
                       <CheckCircle className="w-5 h-5 text-brand flex-shrink-0 mt-0.5" />
                       <span>{cas}</span>
                     </li>
@@ -251,12 +251,6 @@ function ProductDemoSection({ product, index, isEven }: ProductDemoSectionProps)
                 </div>
               </div>
               
-              {/* Objectif */}
-              <div className="bg-brand/5 border border-brand/20 rounded-2xl p-4">
-                <p className="text-brand">
-                  <span className="font-semibold">👉 Objectif :</span> {product.objectif}
-                </p>
-              </div>
             </div>
           </ScrollReveal>
           
@@ -277,25 +271,27 @@ export function ProduitsContent() {
   return (
     <div className="pt-20">
       {/* Hero Section */}
-      <Section variant="gray" padding="xl">
-        <div className="max-w-4xl mx-auto text-center">
-          <ScrollReveal>
-            <Badge className="mb-6">La suite NOA</Badge>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8">
-              La suite NOA
-            </h1>
-          </ScrollReveal>
-          
-          <ScrollReveal delay={0.1}>
-            <div className="space-y-4 text-lg md:text-xl text-gray-300">
-              <p>
-                NOA — Le conseiller de vente IA unique, présent tout au long du parcours client.
-              </p>
-              <p>
-                NOA accompagne vos visiteurs, du premier besoin exprimé jusqu'à la décision d'achat, avec compréhension contextuelle et recommandations pertinentes à chaque étape.
-              </p>
-            </div>
-          </ScrollReveal>
+      <Section variant="white" padding="lg" className="relative overflow-hidden py-8 md:py-12">
+        <div className="max-w-6xl mx-auto relative z-10">
+          {/* Rectangle avec dégradé en arrière-plan */}
+          <div 
+            className="relative rounded-3xl mx-4 md:mx-8 p-8 md:p-10 lg:p-12"
+            style={{
+              background: "linear-gradient(135deg, #d0f7fb 0%, #83a6ff 40%, #ff966b 100%)"
+            }}
+          >
+            <ScrollReveal>
+              <div className="text-center">
+                <Badge className="mb-6 bg-white/90 text-gray-900">La suite NOA</Badge>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+                  Le conseiller de vente IA présent tout au long du parcours client
+                </h1>
+                <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto">
+                  Du premier besoin exprimé jusqu'à la décision d'achat, avec compréhension contextuelle et recommandations pertinentes.
+                </p>
+              </div>
+            </ScrollReveal>
+          </div>
         </div>
       </Section>
       

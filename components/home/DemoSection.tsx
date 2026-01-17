@@ -38,6 +38,7 @@ export function DemoSection() {
   const [demoProgress, setDemoProgress] = React.useState<number[]>(tabs.map(() => 0)) // Progress pour chaque démo (0 à 1)
   const [isMobile, setIsMobile] = React.useState(false)
   const sectionRef = React.useRef<HTMLElement>(null)
+  const subtitleRef = React.useRef<HTMLParagraphElement>(null)
   const cardRefs = React.useRef<(HTMLDivElement | null)[]>([])
   const scrollTriggerRefs = React.useRef<ScrollTrigger[]>([])
   const containerRef = React.useRef<HTMLDivElement>(null)
@@ -71,7 +72,8 @@ export function DemoSection() {
   // Configuration GSAP ScrollTrigger avec scrub pour progression automatique
   React.useEffect(() => {
     const section = sectionRef.current
-    if (!section) return
+    const subtitle = subtitleRef.current
+    if (!section || !subtitle) return
 
     // Attendre que toutes les cartes soient montées
     const timer = setTimeout(() => {
@@ -97,11 +99,21 @@ export function DemoSection() {
         }
       })
 
+      // Calculer la position du sous-titre par rapport au haut de la section
+      const sectionRect = section.getBoundingClientRect()
+      const subtitleRect = subtitle.getBoundingClientRect()
+      const scrollY = window.scrollY || window.pageYOffset
+      const subtitleTop = subtitleRect.top + scrollY
+      const sectionTop = sectionRect.top + scrollY
+      const subtitleOffsetFromSection = subtitleTop - sectionTop
+
       // Créer un ScrollTrigger principal qui gère toute la progression
+      // Quand le sous-titre atteint le haut de l'écran, le haut de la section est à subtitleOffsetFromSection pixels au-dessus
+      // Donc on utilise top+= pour commencer quand le haut de la section + offset atteint le haut de l'écran
       const mainTL = gsap.timeline({
         scrollTrigger: {
           trigger: section,
-          start: "top top", // Commencer quand le haut de la section atteint le haut de l'écran
+          start: `top+=${Math.round(subtitleOffsetFromSection)}px top`, // Commencer quand le sous-titre atteint le haut de l'écran
           end: `+=${totalScrollDistance}`,
           scrub: 0.5, // Synchroniser avec le scroll (plus bas = plus fluide)
           pin: true, // Pin activé sur mobile et desktop
@@ -315,10 +327,13 @@ export function DemoSection() {
           {/* Header */}
           <ScrollReveal>
             <div className="text-center mb-8">
-              <p className="text-gray-600 text-lg mb-1">
-                À chaque étape du parcours client, NOA accompagne, conseille avec précision et convertit.
-              </p>
-              <p className="text-gray-500">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+                NOA accompagne, conseille avec précision et convertit à chaque étape du parcours client.
+              </h2>
+              <p 
+                ref={subtitleRef}
+                className="text-gray-500"
+              >
                 De l'intention floue au panier final, transformez votre site en y intégrant un vendeur digital performant.
               </p>
             </div>
