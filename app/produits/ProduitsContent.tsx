@@ -216,10 +216,10 @@ function ProductDemoSection({ product, index, isEven }: ProductDemoSectionProps)
       <div className="max-w-6xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
-          <ScrollReveal className={cn(!isEven && "lg:order-2")}>
+          <ScrollReveal className={cn(!isEven && "lg:order-2", "relative z-10")}>
             <div>
               <div className="mb-6">
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-2 relative z-10">
                   {product.name}
                 </h2>
                 <p className="text-brand font-medium">{product.tagline}</p>
@@ -263,8 +263,8 @@ function ProductDemoSection({ product, index, isEven }: ProductDemoSectionProps)
           </ScrollReveal>
           
           {/* Demo */}
-          <ScrollReveal delay={0.2} className={cn(!isEven && "lg:order-1")}>
-            <div ref={demoContainerRef}>
+          <ScrollReveal delay={0.2} className={cn(!isEven && "lg:order-1", "relative z-0")}>
+            <div ref={demoContainerRef} className="relative z-0">
               {DemoComponent && <DemoComponent animationProgress={animationProgress} />}
             </div>
           </ScrollReveal>

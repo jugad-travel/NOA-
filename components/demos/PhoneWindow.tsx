@@ -24,12 +24,13 @@ export function PhoneWindow({
       transition={{ duration: 0.5, ease: "easeOut" }}
       className={cn(
         "mx-auto rounded-[2.5rem] shadow-2xl overflow-hidden border-8 border-gray-900 bg-gray-900",
-        "max-w-[375px] w-full", // Taille standard d'un iPhone
+        "max-w-[375px] w-full relative", // Taille standard d'un iPhone + relative pour isoler le stacking
         className
       )}
+      style={{ isolation: 'isolate' }}
     >
       {/* Notch */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-gray-900 rounded-b-2xl z-20" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-gray-900 rounded-b-2xl z-20 pointer-events-none" />
       
       {/* Status bar */}
       <div className="h-8 bg-gray-900 flex items-center justify-between px-4 pt-1 text-white text-[10px] font-medium z-10 relative">
