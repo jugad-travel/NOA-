@@ -34,15 +34,20 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
   // Étape 3 (0.70-1.0) : Ajout de la suggestion au panier (30% pour bien voir)
   
   const cartItemsRef = React.useRef<HTMLDivElement>(null)
-  const chatStep = animationProgress >= 0.10 ? 2 : animationProgress >= 0.05 ? 1 : 0
+  const baseChatStep = animationProgress >= 0.10 ? 2 : animationProgress >= 0.05 ? 1 : 0
+  // Sur mobile, afficher toutes les étapes par défaut (chatStep = 2 pour voir la suggestion)
+  const chatStep = isMobile ? 2 : baseChatStep
   const suggestionAdded = animationProgress >= 0.70
   
   const suggestedProduct = getProductById(noaConversations.complete.suggestion)!
   
   // Scroll synchronisé pour voir la suggestion PARCEL quand elle apparaît
+  // Désactivé sur mobile pour permettre le scroll manuel
   const noaSuggestionRef = React.useRef<HTMLDivElement>(null)
   
   React.useEffect(() => {
+    if (isMobile) return // Pas d'autoscroll sur mobile
+    
     const cartItems = cartItemsRef.current
     const noaSuggestion = noaSuggestionRef.current
     if (cartItems && noaSuggestion && animationProgress >= 0.10) {
@@ -57,11 +62,14 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
       // Scroller progressivement pour voir la suggestion
       cartItems.scrollTop = Math.min(maxScroll, targetScroll * scrollProgress)
     }
-  }, [animationProgress])
+  }, [animationProgress, isMobile])
   
   // Bloquer le scroll manuel dans la fenêtre - le scroll est uniquement programmatique via animationProgress
   // Le scroll de la page fonctionne toujours, même quand le curseur est au-dessus de la fenêtre
+  // Sur mobile, permettre le scroll manuel
   React.useEffect(() => {
+    if (isMobile) return // Sur mobile, permettre le scroll manuel
+    
     const cartItems = cartItemsRef.current
     if (!cartItems) return
     
@@ -84,7 +92,7 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
     return () => {
       cartItems.removeEventListener('wheel', handleWheel)
     }
-  }, [])
+  }, [isMobile])
   
   // Calculer les items du panier
   const cartItems = React.useMemo(() => {

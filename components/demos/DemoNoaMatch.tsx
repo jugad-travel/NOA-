@@ -44,13 +44,17 @@ export function DemoNoaMatch({ animationProgress = 0 }: DemoNoaMatchProps) {
   const baseChatStep = animationProgress >= 0.50 ? 3 : animationProgress >= 0.30 ? 3 : animationProgress >= 0.15 ? 2 : animationProgress >= 0.08 ? 1 : 0
   const chatStep = isMobile ? Math.max(3, baseChatStep) : baseChatStep
   const selectedSize = animationProgress >= 0.30 ? 42 : null
-  const highlightedProduct = animationProgress >= 0.50 ? noaConversations.match.highlightProduct : null
+  // Sur mobile, toujours mettre en avant la Trail Pro X
+  const highlightedProduct = isMobile ? noaConversations.match.highlightProduct : (animationProgress >= 0.50 ? noaConversations.match.highlightProduct : null)
   
   // Le scroll dans les fenêtres est uniquement contrôlé par animationProgress
   // Pas de blocage - le scroll de la page fonctionne toujours
   
   // Scroll synchronisé avec le progress (contrôlé uniquement par le scroll de la page)
+  // Désactivé sur mobile pour permettre le scroll manuel
   React.useEffect(() => {
+    if (isMobile) return // Pas d'autoscroll sur mobile
+    
     const productGrid = productGridRef.current
     if (productGrid && highlightedProduct && animationProgress >= 0.50) {
       // Calculer le scroll basé sur le progress pour voir la carte mise en avant
@@ -66,7 +70,7 @@ export function DemoNoaMatch({ animationProgress = 0 }: DemoNoaMatchProps) {
         productGrid.scrollTop = targetScroll * scrollProgress
       }
     }
-  }, [animationProgress, highlightedProduct])
+  }, [animationProgress, highlightedProduct, isMobile])
   
   return (
     <WindowComponent url="shop.outdoor-expert.fr/chaussures" className="w-full">
@@ -78,8 +82,9 @@ export function DemoNoaMatch({ animationProgress = 0 }: DemoNoaMatchProps) {
           <span className="text-gray-900 font-medium">Chaussures de randonnée</span>
         </div>
         
-        <div className="flex h-[calc(100%-32px)]">
-          {/* Sidebar - Filters + PARCEL */}
+        <div className={cn("flex h-[calc(100%-32px)]", isMobile ? "flex-col" : "")}>
+          {/* Sidebar - Filters + PARCEL - Cachée sur mobile */}
+          {!isMobile && (
           <div ref={sidebarRef} className="w-48 border-r border-gray-100 p-3 flex flex-col gap-4 overflow-hidden">
               {/* Filters */}
             <div>
@@ -178,15 +183,54 @@ export function DemoNoaMatch({ animationProgress = 0 }: DemoNoaMatchProps) {
               </div>
             </div>
           </div>
+          )}
           
           {/* Product Grid */}
-          <div ref={productGridRef} className="flex-1 p-3 overflow-hidden">
+          <div ref={productGridRef} className={cn("p-3", isMobile ? "flex-1 overflow-y-auto" : "flex-1 overflow-hidden")}>
               <div className="flex items-center justify-between mb-3">
               <h1 className="text-sm font-normal text-gray-900">Chaussures de randonnée</h1>
               <span className="text-[10px] text-gray-500">{chaussures.length} produits</span>
             </div>
             
-            <div className="grid grid-cols-3 gap-2">
+            {/* Conversation PARCEL sur mobile - Au-dessus du badge */}
+            {isMobile && (
+              <div className="mb-3 bg-gray-50 rounded-xl p-3">
+                <div className="flex items-center gap-1.5 mb-2">
+                  <div className="w-5 h-5 rounded-md bg-gray-900 flex items-center justify-center">
+                    <Sparkles className="w-2.5 h-2.5 text-white" />
+                  </div>
+                  <span className="text-[10px] font-semibold text-gray-900">PARCEL vous aide</span>
+                </div>
+                
+                <div className="space-y-2">
+                  {/* User message */}
+                  {chatStep >= 1 && (
+                    <div className="bg-white rounded-lg px-2 py-1.5 text-[10px] text-gray-700 border border-gray-200">
+                      {noaConversations.match.userMessage}
+                    </div>
+                  )}
+                  
+                  {/* PARCEL response */}
+                  {chatStep >= 3 && (
+                    <div className="bg-gray-900 text-white rounded-lg px-2 py-1.5 text-[10px]">
+                      {noaConversations.match.noaResponse}
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+            
+            {/* Badge PARCEL suggestion sur mobile */}
+            {isMobile && highlightedProduct && (
+              <div className="mb-3 bg-gray-50 rounded-lg p-2 flex items-center gap-2">
+                <div className="w-5 h-5 rounded-md bg-gray-900 flex items-center justify-center">
+                  <Sparkles className="w-2.5 h-2.5 text-white" />
+                </div>
+                <span className="text-[10px] font-semibold text-gray-900">PARCEL vous recommande</span>
+              </div>
+            )}
+            
+            <div className={cn("grid gap-2", isMobile ? "grid-cols-1" : "grid-cols-3")}>
               {chaussures.map((product) => {
                 const initials = product.brand.substring(0, 2).toUpperCase()
                 const isHighlighted = highlightedProduct === product.id
@@ -223,14 +267,14 @@ export function DemoNoaMatch({ animationProgress = 0 }: DemoNoaMatchProps) {
                     } : {}}
                   >
                     {/* Product image */}
-                    <div className="aspect-square relative">
+                    <div className={cn("relative", isMobile ? "aspect-[4/3]" : "aspect-square")}>
                       {productImage ? (
                         <Image
                           src={productImage}
                           alt={product.name}
                           fill
                           className="object-cover"
-                          sizes="(max-width: 768px) 33vw, 200px"
+                          sizes={isMobile ? "100vw" : "(max-width: 768px) 33vw, 200px"}
                         />
                       ) : (
                         <div 

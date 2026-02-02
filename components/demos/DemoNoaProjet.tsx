@@ -38,11 +38,15 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
   const chatMessagesRef = React.useRef<HTMLDivElement>(null)
   const isChatOpen = isMobile ? true : animationProgress >= 0.08
   const baseChatStep = animationProgress >= 0.60 ? 4 : animationProgress >= 0.50 ? 3 : animationProgress >= 0.35 ? 3 : animationProgress >= 0.25 ? 2 : animationProgress >= 0.15 ? 1 : 0
-  const chatStep = isMobile ? Math.max(3, baseChatStep) : baseChatStep
+  // Sur mobile, afficher toutes les étapes par défaut (chatStep = 4 pour voir les produits)
+  const chatStep = isMobile ? 4 : baseChatStep
   
   // Calculer quels produits sont ajoutés basé sur le progress
   const suggestedProducts = getProductsByIds(noaConversations.projet.suggestions)
   const addedProducts = React.useMemo(() => {
+    // Sur mobile, afficher tous les produits comme ajoutés par défaut
+    if (isMobile) return suggestedProducts.map(p => p.id)
+    
     if (animationProgress < 0.60) return []
     // Ajouter progressivement les produits sur une période plus longue (40% pour bien voir)
     const addProgress = (animationProgress - 0.60) / 0.40 // 0 à 1 entre 0.60 et 1.0
@@ -51,10 +55,13 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
       Math.ceil(addProgress * suggestedProducts.length)
     )
     return suggestedProducts.slice(0, productsToAdd).map(p => p.id)
-  }, [animationProgress, suggestedProducts])
+  }, [animationProgress, suggestedProducts, isMobile])
   
   // Scroll synchronisé avec le progress (contrôlé uniquement par le scroll de la page)
+  // Désactivé sur mobile pour permettre le scroll manuel
   React.useEffect(() => {
+    if (isMobile) return // Pas d'autoscroll sur mobile
+    
     const chatMessages = chatMessagesRef.current
     if (chatMessages && animationProgress >= 0.50) {
       // Calculer le scroll basé sur le progress pour voir les produits et l'ajout au panier
@@ -63,11 +70,14 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
       // Scroller directement mais de manière fluide grâce au scrub de GSAP
       chatMessages.scrollTop = maxScroll * scrollProgress
     }
-  }, [animationProgress])
+  }, [animationProgress, isMobile])
   
   // Bloquer le scroll manuel dans la fenêtre - le scroll est uniquement programmatique via animationProgress
   // Le scroll de la page fonctionne toujours, même quand le curseur est au-dessus de la fenêtre
+  // Sur mobile, permettre le scroll manuel dans le chat
   React.useEffect(() => {
+    if (isMobile) return // Sur mobile, permettre le scroll manuel
+    
     const chatMessages = chatMessagesRef.current
     if (!chatMessages) return
     
@@ -91,7 +101,7 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
     return () => {
       chatMessages.removeEventListener('wheel', handleWheel)
     }
-  }, [])
+  }, [isMobile])
   
   return (
     <WindowComponent url="shop.outdoor-expert.fr" className="w-full">

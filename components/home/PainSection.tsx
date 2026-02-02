@@ -55,9 +55,11 @@ export function PainSection() {
   })
 
   const clipPathTransformVertical = useTransform(y, (value) => {
-    if (!containerVerticalRef.current) return "inset(0 0 50% 0)"
+    if (!containerVerticalRef.current) return "inset(0 0 33% 0)"
     const containerHeight = containerVerticalRef.current.offsetHeight
+    // Si y est à 67% de la hauteur, on veut révéler 67% du haut (cacher 33% du bas)
     const percent = (value / containerHeight) * 100
+    // Le clipPath révèle depuis le haut, donc on cache le bas
     return `inset(0 0 ${100 - percent}% 0)`
   })
 
@@ -253,11 +255,11 @@ export function PainSection() {
           {isMobile ? (
             /* Mobile Layout - Vertical Slider */
             <div className="relative bg-white rounded-3xl overflow-hidden shadow-2xl" ref={containerVerticalRef} style={{ minHeight: '500px' }}>
-              {/* Before Section - Avec PARCEL (top, fixed) */}
-              <div className="relative min-h-[250px] flex items-center">
-                <div className="w-full h-full absolute inset-0 bg-gray-900 border-b border-gray-700 px-4 py-4 flex items-center">
+              {/* Before Section - Avec PARCEL (base layer, full height) */}
+              <div className="absolute inset-0 bg-gray-900 border-b border-gray-700 flex items-center">
+                <div className="w-full px-4 py-4">
                   <div className="w-full">
-                    <h3 className="text-lg font-normal mb-4 text-white">{comparison.after.title}</h3>
+                    <h3 className="text-lg font-normal mb-4 text-white" style={{ color: '#ffffff' }}>{comparison.after.title}</h3>
                     <div className="space-y-2">
                       {comparison.after.items.map((item, index) => (
                         <motion.div
@@ -287,7 +289,7 @@ export function PainSection() {
               >
                 {/* Fond blanc opaque pour masquer le contenu derrière */}
                 <div className="absolute inset-0 bg-white border-t border-gray-200" />
-                {/* Contenu avec opacity */}
+                {/* Contenu avec opacity - Structure identique à "Avec PARCEL" */}
                 <div 
                   className="absolute inset-0 flex items-center"
                   style={{

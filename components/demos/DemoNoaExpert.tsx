@@ -48,7 +48,9 @@ export function DemoNoaExpert({ animationProgress = 0 }: DemoNoaExpertProps) {
   // Calculer les états basés sur le progress
   const selectedColor = animationProgress >= 0.12 ? 0 : undefined // Noir sélectionné à partir de 0.12
   const selectedSize = animationProgress >= 0.25 ? 42 : undefined // Taille 42 sélectionnée à partir de 0.25
-  const chatStep = animationProgress >= 0.60 ? 3 : animationProgress >= 0.50 ? 2 : animationProgress >= 0.40 ? 1 : 0
+  const baseChatStep = animationProgress >= 0.60 ? 3 : animationProgress >= 0.50 ? 2 : animationProgress >= 0.40 ? 1 : 0
+  // Sur mobile, afficher toutes les étapes par défaut (chatStep = 3 pour voir la réponse)
+  const chatStep = isMobile ? 3 : baseChatStep
   const addedToCart = false
   
   const product = getProductById(noaConversations.expert.product)!
@@ -56,7 +58,18 @@ export function DemoNoaExpert({ animationProgress = 0 }: DemoNoaExpertProps) {
   
   // Scroll programmatique pour voir la section questions fréquentes
   // Utilisation de transform sur un wrapper interne pour éviter overflow-y-auto
+  // Désactivé sur mobile pour permettre le scroll manuel
   React.useEffect(() => {
+    if (isMobile) {
+      // Sur mobile, réinitialiser le transform pour permettre le scroll normal
+      const contentWrapper = contentWrapperRef.current
+      if (contentWrapper) {
+        contentWrapper.style.transform = 'none'
+        contentWrapper.style.willChange = 'auto'
+      }
+      return
+    }
+    
     const rightColumn = rightColumnRef.current
     const contentWrapper = contentWrapperRef.current
     const expertSection = expertSectionRef.current
@@ -99,7 +112,7 @@ export function DemoNoaExpert({ animationProgress = 0 }: DemoNoaExpertProps) {
   
   return (
     <WindowComponent url={`shop.outdoor-expert.fr/p/${product.id}`} className="w-full">
-      <div className={cn("", isMobile ? "h-[600px] overflow-y-auto" : "h-[400px] md:h-[500px] overflow-hidden")}>
+      <div className={cn("", isMobile ? "h-[600px] overflow-y-auto" : "h-[400px] md:h-[500px] overflow-hidden")} style={isMobile ? { overflowY: 'auto' } : {}}>
         {/* Breadcrumb */}
         <div className="px-4 py-2 border-b border-gray-100 flex items-center gap-1 text-[10px] text-gray-500">
           <span className="hover:text-gray-900 cursor-pointer">Accueil</span>
@@ -109,9 +122,9 @@ export function DemoNoaExpert({ animationProgress = 0 }: DemoNoaExpertProps) {
           <span className="text-gray-900 font-medium truncate">{product.name}</span>
         </div>
         
-        <div className="flex h-[calc(100%-32px)]">
+        <div className={cn("flex h-[calc(100%-32px)]", isMobile ? "flex-col" : "")}>
           {/* Left - Product Image */}
-          <div className="w-1/2 p-4">
+          <div className={cn("p-4", isMobile ? "w-full" : "w-1/2")}>
             {(() => {
               // Mapping des images pour trail-pro-x
               const productImageMap: Record<string, string[]> = {
@@ -201,8 +214,8 @@ export function DemoNoaExpert({ animationProgress = 0 }: DemoNoaExpertProps) {
           </div>
           
           {/* Right - Product Info */}
-          <div ref={rightColumnRef} className="w-1/2 overflow-hidden relative">
-            <div ref={contentWrapperRef} className="p-4" style={{ willChange: 'transform' }}>
+          <div ref={rightColumnRef} className={cn("relative", isMobile ? "w-full" : "w-1/2 overflow-hidden")}>
+            <div ref={contentWrapperRef} className="p-4" style={isMobile ? {} : { willChange: 'transform' }}>
             {/* Header */}
             <div className="mb-3">
               <p className="text-xs text-gray-500">{product.brand}</p>
