@@ -141,7 +141,7 @@ export function DemoContent() {
               <ScrollReveal>
                 <div className="sticky top-24">
                   <h2 className="text-2xl font-normal text-white mb-6">
-                    Découvrez NOA en action
+                    Découvrez PARCEL en action
                   </h2>
                   
                   <ul className="space-y-4 mb-8">
@@ -164,7 +164,7 @@ export function DemoContent() {
                       </div>
                     </div>
                     <p className="text-gray-400 text-sm">
-                      Notre équipe vous présentera les modules NOA adaptés à votre contexte et répondra à toutes vos questions.
+                      Notre équipe vous présentera les modules PARCEL adaptés à votre contexte et répondra à toutes vos questions.
                     </p>
                   </Card>
                 </div>

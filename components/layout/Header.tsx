@@ -13,10 +13,10 @@ const navigation = [
     name: "Produits",
     href: "/produits",
     children: [
-      { name: "NOA Projet", href: "/produits#noa-projet" },
-      { name: "NOA Match", href: "/produits#noa-match" },
-      { name: "NOA Expert", href: "/produits#noa-expert" },
-      { name: "NOA Complete", href: "/produits#noa-complete" },
+      { name: "PARCEL Projet", href: "/produits#noa-projet" },
+      { name: "PARCEL Match", href: "/produits#noa-match" },
+      { name: "PARCEL Expert", href: "/produits#noa-expert" },
+      { name: "PARCEL Complete", href: "/produits#noa-complete" },
     ],
   },
   { name: "Intégrations & Tech", href: "/integrations-tech" },
@@ -77,8 +77,8 @@ export function Header() {
               )}
             >
               <Image
-                src="/images/Logo-NOA.png"
-                alt="NOA Logo"
+                src="/images/Logo Parcel 02:02:2026.png"
+                alt="PARCEL Logo"
                 width={100}
                 height={48}
                 className="object-contain translate-y-0.5"
@@ -141,7 +141,7 @@ export function Header() {
               ))}
               
               {/* CTA Button - always visible, just moves position */}
-              <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo NOA">
+              <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo PARCEL">
                 <button 
                   className={cn(
                     "font-semibold rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-all duration-500",
@@ -183,8 +183,8 @@ export function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <Image
-                  src="/images/Logo-NOA.png"
-                  alt="NOA Logo"
+                  src="/images/Logo Parcel 02:02:2026.png"
+                  alt="PARCEL Logo"
                   width={120}
                   height={48}
                   className="object-contain"
@@ -220,7 +220,7 @@ export function Header() {
                 </div>
               ))}
               <div className="pt-4">
-                <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo NOA">
+                <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo PARCEL">
                   <button className="w-full h-12 px-8 text-sm font-semibold rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-all">
                     Réserver une démo
                   </button>

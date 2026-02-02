@@ -16,7 +16,7 @@ const etapes = [
     numero: 1,
     titre: "Comprendre l'intention",
     localisation: "Home · Catégories",
-    description: "NOA capte le besoin global",
+    description: "PARCEL capte le besoin global",
     conversation: {
       user: "Je pars une semaine faire le GR20",
       noa: "Le GR20 est un trek exigeant ! Pour une semaine en autonomie, je vous recommande un équipement complet et fiable.",
@@ -33,7 +33,7 @@ const etapes = [
     numero: 2,
     titre: "Orienter vers les bons produits",
     localisation: "Catégories · Fiches produits",
-    description: "NOA affine le choix",
+    description: "PARCEL affine le choix",
     conversation: {
       user: "Je cherche des chaussures de randonnée milieu de gamme en 42",
       noa: "En taille 42, je vous recommande la Trail Pro X de Salomon. C'est notre best-seller avec un excellent rapport qualité-prix pour le terrain mixte.",
@@ -50,7 +50,7 @@ const etapes = [
     numero: 3,
     titre: "Lever les doutes",
     localisation: "Fiche produit",
-    description: "NOA répond comme un expert",
+    description: "PARCEL répond comme un expert",
     conversation: {
       user: "Imperméable ?",
       noa: "Oui, la Trail Pro X est entièrement imperméable grâce à sa membrane Gore-Tex. Elle vous protège efficacement contre l'eau et l'humidité, même lors de longues randonnées sous la pluie.",
@@ -67,7 +67,7 @@ const etapes = [
     numero: 4,
     titre: "Finaliser intelligemment",
     localisation: "Panier · Checkout",
-    description: "NOA complète le panier",
+    description: "PARCEL complète le panier",
     conversation: {
       user: null,
       noa: "Pour compléter votre équipement GR20, je vous conseille ces chaussettes techniques Mérinos en 42. Elles sont parfaitement compatibles avec vos Trail Pro X.",
@@ -93,7 +93,7 @@ export function GammeNoa() {
         {/* En-tête */}
         <ScrollReveal>
           <div className="text-center mb-12">
-            <Badge className="mb-4">La suite NOA</Badge>
+            <Badge className="mb-4">La suite PARCEL</Badge>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 font-display">
               Un seul conseiller IA.
             </h2>
@@ -101,13 +101,13 @@ export function GammeNoa() {
               Quatre moments clés du parcours d'achat.
             </h3>
             <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
-              NOA accompagne l'utilisateur de la première intention jusqu'au panier, sans jamais perdre le contexte.
+              PARCEL accompagne l'utilisateur de la première intention jusqu'au panier, sans jamais perdre le contexte.
             </p>
           </div>
         </ScrollReveal>
 
-        {/* Cartes en grille 2x2 */}
-        <div className="grid grid-cols-2 gap-6 md:gap-8 mb-12 max-w-4xl mx-auto">
+        {/* Cartes en grille 1x1 sur mobile, 2x2 sur desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-12 max-w-4xl mx-auto">
           {etapes.map((etape, index) => {
             return (
               <motion.div
@@ -155,7 +155,7 @@ export function GammeNoa() {
                       <div className="w-3.5 h-3.5 rounded bg-gray-900 flex items-center justify-center flex-shrink-0">
                         <span className="text-white text-[7px]">★</span>
                       </div>
-                      <span className="text-[10px] font-medium text-gray-600">NOA vous suggère</span>
+                      <span className="text-[10px] font-medium text-gray-600">PARCEL vous suggère</span>
                     </div>
                   )}
                   <div className="flex justify-start items-start gap-1.5">
@@ -188,7 +188,7 @@ export function GammeNoa() {
           <div className="text-center">
             <Link href="/produits">
               <Button variant="primary" size="lg">
-                Voir les démos des 4 produits NOA
+                Voir les démos des 4 produits PARCEL
                 <ArrowRight className="w-5 h-5" />
               </Button>
             </Link>

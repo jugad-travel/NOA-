@@ -52,7 +52,7 @@ export function Integration() {
               Une suite modulaire, intégrée à votre stack existante
             </h2>
             <p className="text-xl text-gray-500 max-w-3xl mx-auto">
-              Noa s'installe comme une couche intelligente sur votre stack existante. Compatible avec Shopify, Magento, WordPress, Framer, PrestaShop, WooCommerce, Webflow et les architectures Headless via API.
+              Parcel s'installe comme une couche intelligente sur votre stack existante. Compatible avec Shopify, Magento, WordPress, Framer, PrestaShop, WooCommerce, Webflow et les architectures Headless via API.
             </p>
           </div>
         </ScrollReveal>

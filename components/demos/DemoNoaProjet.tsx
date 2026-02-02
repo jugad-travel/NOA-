@@ -4,6 +4,7 @@ import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Search, ShoppingBag, User, Menu, ChevronRight, MessageCircle, X, Send, Sparkles, ShoppingCart, Check } from "lucide-react"
 import { SafariWindow } from "./SafariWindow"
+import { PhoneWindow } from "./PhoneWindow"
 import { cn } from "@/lib/utils"
 import { categories, getProductsByIds, noaConversations, formatPrice } from "@/lib/demo-data"
 import Image from "next/image"
@@ -13,18 +14,31 @@ interface DemoNoaProjetProps {
 }
 
 export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
+  const [isMobile, setIsMobile] = React.useState(false)
+  
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+  
+  const WindowComponent = isMobile ? PhoneWindow : SafariWindow
   // Calculer les étapes basées sur le progress - Timing optimisé pour fluidité et visibilité
   // Étape 1 (0-0.08) : Chat s'ouvre
   // Étape 2 (0.08-0.15) : Message "Bonjour..." (déjà visible)
   // Étape 3 (0.15-0.25) : Message utilisateur
   // Étape 4 (0.25-0.35) : Typing
-  // Étape 5 (0.35-0.50) : Réponse NOA (message texte seulement - temps pour lire)
+  // Étape 5 (0.35-0.50) : Réponse PARCEL (message texte seulement - temps pour lire)
   // Étape 6 (0.50-0.60) : Produits apparaissent
   // Étape 7 (0.60-1.0) : Ajout au panier (40% pour bien voir chaque produit ajouté)
   
   const chatMessagesRef = React.useRef<HTMLDivElement>(null)
-  const isChatOpen = animationProgress >= 0.08
-  const chatStep = animationProgress >= 0.60 ? 4 : animationProgress >= 0.50 ? 3 : animationProgress >= 0.35 ? 3 : animationProgress >= 0.25 ? 2 : animationProgress >= 0.15 ? 1 : 0
+  const isChatOpen = isMobile ? true : animationProgress >= 0.08
+  const baseChatStep = animationProgress >= 0.60 ? 4 : animationProgress >= 0.50 ? 3 : animationProgress >= 0.35 ? 3 : animationProgress >= 0.25 ? 2 : animationProgress >= 0.15 ? 1 : 0
+  const chatStep = isMobile ? Math.max(3, baseChatStep) : baseChatStep
   
   // Calculer quels produits sont ajoutés basé sur le progress
   const suggestedProducts = getProductsByIds(noaConversations.projet.suggestions)
@@ -80,15 +94,15 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
   }, [])
   
   return (
-    <SafariWindow url="shop.outdoor-expert.fr" className="w-full">
-      <div className="relative h-[400px] md:h-[500px] overflow-hidden">
+    <WindowComponent url="shop.outdoor-expert.fr" className="w-full">
+      <div className={cn("relative", isMobile ? "h-[600px] overflow-y-auto" : "h-[400px] md:h-[500px] overflow-hidden")}>
         {/* Mini Header */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gray-900 flex items-center justify-center">
-              <span className="text-white font-normal text-xs">OE</span>
+        <div className="flex items-center justify-between px-2 sm:px-4 py-2 sm:py-3 border-b border-gray-100">
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-gray-900 flex items-center justify-center">
+              <span className="text-white font-normal text-[10px] sm:text-xs">OE</span>
             </div>
-            <span className="font-semibold text-gray-900 text-sm">Outdoor Expert</span>
+            <span className="font-semibold text-gray-900 text-xs sm:text-sm">Outdoor Expert</span>
           </div>
           
           <div className="hidden sm:flex items-center gap-4 text-xs text-gray-600">
@@ -97,11 +111,11 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
             <span className="hover:text-gray-900 cursor-pointer">Vêtements</span>
           </div>
           
-          <div className="flex items-center gap-3">
-            <Search className="w-4 h-4 text-gray-400" />
-            <User className="w-4 h-4 text-gray-400" />
+          <div className="flex items-center gap-2 sm:gap-3">
+            <Search className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400" />
+            <User className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400" />
             <div className="relative">
-              <ShoppingBag className="w-4 h-4 text-gray-400" />
+              <ShoppingBag className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400" />
               {addedProducts.length > 0 && (
                 <motion.span
                   initial={{ scale: 0 }}
@@ -116,7 +130,7 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
         </div>
         
         {/* Hero Banner */}
-        <div className="relative h-32 overflow-hidden">
+        <div className="relative h-24 sm:h-28 md:h-32 overflow-hidden">
           <Image
             src="/images/Bannière démo produit Project.png"
             alt="Bannière"
@@ -129,9 +143,9 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
         </div>
         
         {/* Categories */}
-        <div className="px-4 py-4">
-          <h2 className="text-sm font-normal text-gray-900 mb-3">Nos catégories</h2>
-          <div className="grid grid-cols-4 gap-2">
+        <div className="px-2 sm:px-4 py-3 sm:py-4">
+          <h2 className="text-xs sm:text-sm font-normal text-gray-900 mb-2 sm:mb-3">Nos catégories</h2>
+          <div className="grid grid-cols-4 gap-1.5 sm:gap-2">
             {categories.map((cat) => {
               // Mapping des images pour chaque catégorie
               const categoryImageMap: Record<string, string> = {
@@ -146,8 +160,8 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
                   key={cat.id}
                   whileHover={{ scale: 1.02 }}
                   className={cn(
-                    "rounded-xl overflow-hidden cursor-pointer transition-all relative",
-                    categoryImage ? "h-20" : "bg-gray-50 p-3 text-center hover:bg-gray-100"
+                    "rounded-lg sm:rounded-xl overflow-hidden cursor-pointer transition-all relative",
+                    categoryImage ? "h-16 sm:h-20" : "bg-gray-50 p-2 sm:p-3 text-center hover:bg-gray-100"
                   )}
                 >
                   {categoryImage ? (
@@ -178,7 +192,7 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
           </div>
         </div>
         
-        {/* NOA Chat Widget - Floating */}
+        {/* PARCEL Chat Widget - Floating */}
         <AnimatePresence>
           {!isChatOpen && (
             <motion.button
@@ -187,9 +201,9 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
               exit={{ scale: 0 }}
               whileHover={{ scale: 1.05 }}
               onClick={() => {}}
-              className="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-gray-900 shadow-lg flex items-center justify-center z-50"
+              className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-900 shadow-lg flex items-center justify-center z-50"
             >
-              <MessageCircle className="w-5 h-5 text-white" />
+              <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
             </motion.button>
           )}
         </AnimatePresence>
@@ -201,16 +215,19 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.95 }}
-              className="absolute bottom-4 right-4 w-72 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden z-50"
+              className={cn(
+                "absolute bottom-3 right-3 sm:bottom-4 sm:right-4 bg-white rounded-xl sm:rounded-2xl shadow-2xl border border-gray-200 overflow-hidden z-50",
+                isMobile ? "w-[calc(100%-1.5rem)]" : "w-72"
+              )}
             >
               {/* Chat Header */}
-              <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-gray-50">
+              <div className="flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 border-b border-gray-100 bg-gray-50">
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 rounded-lg bg-gray-900 flex items-center justify-center">
                     <Sparkles className="w-4 h-4 text-white" />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-gray-900">NOA</p>
+                    <p className="text-sm font-medium text-gray-900">PARCEL</p>
                     <p className="text-[10px] text-gray-500">Conseiller IA</p>
                   </div>
                 </div>
@@ -272,7 +289,7 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
                   )}
                 </AnimatePresence>
                 
-                {/* NOA response (message texte d'abord) */}
+                {/* PARCEL response (message texte d'abord) */}
                 <AnimatePresence>
                   {chatStep >= 3 && (
                     <motion.div
@@ -382,7 +399,7 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
           )}
         </AnimatePresence>
       </div>
-    </SafariWindow>
+    </WindowComponent>
   )
 }
 

@@ -41,7 +41,7 @@ export function NoaChatBubble({
             <Sparkles className="w-4 h-4 text-white" />
           </div>
           <div>
-            <p className="text-sm font-medium text-gray-900">NOA</p>
+            <p className="text-sm font-medium text-gray-900">PARCEL</p>
             <p className="text-[10px] text-gray-500">Assistant IA</p>
           </div>
           <div className="ml-auto flex items-center gap-1">
@@ -127,7 +127,7 @@ export function NoaChatBubble({
             <Sparkles className="w-4 h-4 text-white" />
           </div>
           <div>
-            <p className="text-sm font-medium text-gray-900">NOA vous aide</p>
+            <p className="text-sm font-medium text-gray-900">PARCEL vous aide</p>
           </div>
         </div>
         
@@ -204,7 +204,7 @@ export function NoaChatBubble({
                 <Sparkles className="w-4 h-4 text-white" />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-900">NOA</p>
+                <p className="text-sm font-medium text-gray-900">PARCEL</p>
                 <p className="text-[10px] text-gray-500">Conseiller de vente IA</p>
               </div>
             </div>

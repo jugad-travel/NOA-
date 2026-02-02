@@ -488,9 +488,9 @@ export function ArticleContent() {
                 Prêt à transformer votre e-commerce avec l'IA ?
               </h3>
               <p className="text-lg text-gray-700 mb-6">
-                Découvrez comment NOA peut révolutionner l'expérience d'achat de vos clients.
+                Découvrez comment PARCEL peut révolutionner l'expérience d'achat de vos clients.
               </p>
-              <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo NOA">
+              <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo PARCEL">
                 <Button variant="primary" size="lg">
                   Demander une démo
                   <ArrowRight className="w-5 h-5 ml-2" />

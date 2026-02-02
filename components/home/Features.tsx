@@ -39,7 +39,7 @@ export function Features() {
           <div className="text-center mb-16">
             <Badge className="mb-4 text-white">Fonctionnalités</Badge>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4" style={{ color: '#ffffff' }}>
-              Plus qu'un chatbot : Noa est un moteur de croissance.
+              Plus qu'un chatbot : Parcel est un moteur de croissance.
             </h2>
           </div>
         </ScrollReveal>

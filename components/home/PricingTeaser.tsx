@@ -11,22 +11,22 @@ import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/shared
 
 const modules = [
   {
-    name: "NOA Projet",
+    name: "PARCEL Projet",
     description: "Transformer une intention en panier complet",
     features: ["Page d'accueil", "Catégories larges", "Besoin global"],
   },
   {
-    name: "NOA Match",
+    name: "PARCEL Match",
     description: "Aider à choisir le bon produit",
     features: ["Pages catégories", "Fiches produits", "Tailles & gammes"],
   },
   {
-    name: "NOA Expert",
+    name: "PARCEL Expert",
     description: "Répondre aux questions produit",
     features: ["Fiche produit", "Comparaisons", "Caractéristiques"],
   },
   {
-    name: "NOA Complete",
+    name: "PARCEL Complete",
     description: "Compléter intelligemment le panier",
     features: ["Page panier", "Checkout", "Accessoires"],
   },
@@ -71,7 +71,7 @@ export function PricingTeaser() {
         
         <ScrollReveal delay={0.4}>
           <div className="text-center mt-12">
-            <a href="mailto:parcel.webai@gmail.com?subject=Demande de devis personnalisé NOA">
+            <a href="mailto:parcel.webai@gmail.com?subject=Demande de devis personnalisé PARCEL">
               <Button variant="primary" size="xl" magnetic>
                 Demander un devis personnalisé
                 <ArrowRight className="w-5 h-5" />

@@ -46,10 +46,10 @@ const modernArchitectures = [
 ]
 
 const modules = [
-  { name: "NOA Projet", description: "Intention → Panier" },
-  { name: "NOA Sélection", description: "Aide au choix" },
-  { name: "NOA Conseil", description: "Questions produit" },
-  { name: "NOA Complément", description: "Complétion panier" },
+  { name: "PARCEL Projet", description: "Intention → Panier" },
+  { name: "PARCEL Sélection", description: "Aide au choix" },
+  { name: "PARCEL Conseil", description: "Questions produit" },
+  { name: "PARCEL Complément", description: "Complétion panier" },
 ]
 
 const securityFeatures = [
@@ -65,8 +65,8 @@ function ArchitecturePreview() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   
   const steps = [
-    { label: "Widget NOA", icon: MessageSquare, description: "Interface utilisateur légère" },
-    { label: "NOA Reasoning Engine", icon: Brain, highlight: true, description: "Orchestrateur IA" },
+    { label: "Widget PARCEL", icon: MessageSquare, description: "Interface utilisateur légère" },
+    { label: "PARCEL Reasoning Engine", icon: Brain, highlight: true, description: "Orchestrateur IA" },
     { label: "Storefront API", icon: Network, description: "GraphQL / REST" },
   ]
   
@@ -152,7 +152,7 @@ export function IntegrationsContent() {
                   Pensé pour s'intégrer à votre écosystème e-commerce
                 </h1>
                 <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto">
-                  Architecture CMS-agnostique : NOA s'intègre sans modification de votre code, via les APIs natives de votre plateforme.
+                  Architecture CMS-agnostique : PARCEL s'intègre sans modification de votre code, via les APIs natives de votre plateforme.
                 </p>
               </div>
             </ScrollReveal>
@@ -166,10 +166,10 @@ export function IntegrationsContent() {
           <ScrollReveal>
             <div className="space-y-4 text-lg text-gray-700">
               <p>
-                NOA est une brique applicative indépendante, conçue pour s'intégrer à des environnements e-commerce existants, sans refonte du site ni modification du tunnel de conversion.
+                PARCEL est une brique applicative indépendante, conçue pour s'intégrer à des environnements e-commerce existants, sans refonte du site ni modification du tunnel de conversion.
               </p>
               <p>
-                NOA s'adapte à votre plateforme via des connecteurs natifs (Shopify, Magento, WooCommerce, etc.) et communique via les APIs standards (Storefront API, Admin API, Webhooks).
+                PARCEL s'adapte à votre plateforme via des connecteurs natifs (Shopify, Magento, WooCommerce, etc.) et communique via les APIs standards (Storefront API, Admin API, Webhooks).
               </p>
               <p className="font-medium text-gray-900">
                 L'objectif n'est pas de remplacer vos outils, mais de s'appuyer sur votre stack actuelle.
@@ -188,7 +188,7 @@ export function IntegrationsContent() {
                 Compatibilité plateformes & architectures
               </h2>
               <p className="text-xl text-gray-700">
-                NOA est compatible avec les principales plateformes e-commerce et CMS du marché.
+                PARCEL est compatible avec les principales plateformes e-commerce et CMS du marché.
               </p>
             </div>
           </ScrollReveal>
@@ -252,7 +252,7 @@ export function IntegrationsContent() {
           
           <ScrollReveal delay={0.3}>
             <p className="text-center mt-8 text-lg text-brand">
-              👉 NOA fonctionne aussi bien sur des stacks traditionnelles que sur des architectures modernes.
+              👉 PARCEL fonctionne aussi bien sur des stacks traditionnelles que sur des architectures modernes.
             </p>
           </ScrollReveal>
         </div>
@@ -295,7 +295,7 @@ export function IntegrationsContent() {
                 Intégration transparente et CMS-agnostique
               </h2>
               <p className="text-lg max-w-3xl mx-auto text-gray-700">
-                NOA s'intègre comme une couche intelligente au-dessus de votre stack existante, sans modification de votre code ni de votre tunnel de conversion.
+                PARCEL s'intègre comme une couche intelligente au-dessus de votre stack existante, sans modification de votre code ni de votre tunnel de conversion.
               </p>
             </div>
           </ScrollReveal>
@@ -344,7 +344,7 @@ export function IntegrationsContent() {
               Connexions fonctionnelles
             </h2>
             <p className="text-lg text-center mb-12 max-w-3xl mx-auto" style={{ color: '#d1d5db' }}>
-              NOA s'intègre via les APIs natives de votre plateforme, sans modification de votre infrastructure.
+              PARCEL s'intègre via les APIs natives de votre plateforme, sans modification de votre infrastructure.
             </p>
           </ScrollReveal>
           
@@ -461,7 +461,7 @@ export function IntegrationsContent() {
               
                 <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <p className="mb-3" style={{ color: '#ffffff' }}>NOA interagit avec votre panier via les APIs natives :</p>
+                  <p className="mb-3" style={{ color: '#ffffff' }}>PARCEL interagit avec votre panier via les APIs natives :</p>
                   <ul className="space-y-2 pl-4">
                     <li className="flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-brand flex-shrink-0" />
@@ -509,7 +509,7 @@ export function IntegrationsContent() {
                 Déploiement modulaire
               </h2>
               <p className="text-xl text-gray-700">
-                NOA est structuré en modules indépendants, activables selon vos priorités :
+                PARCEL est structuré en modules indépendants, activables selon vos priorités :
               </p>
             </div>
           </ScrollReveal>
@@ -557,7 +557,7 @@ export function IntegrationsContent() {
                 Moteur de recommandation intelligent
               </h2>
               <p className="text-xl max-w-3xl mx-auto" style={{ color: '#e5e7eb' }}>
-                NOA combine recherche native et intelligence artificielle pour comprendre l'intention et proposer des recommandations pertinentes.
+                PARCEL combine recherche native et intelligence artificielle pour comprendre l'intention et proposer des recommandations pertinentes.
               </p>
             </div>
           </ScrollReveal>
@@ -572,7 +572,7 @@ export function IntegrationsContent() {
                   <h3 className="text-xl font-bold" style={{ color: '#ffffff' }}>Orchestrateur IA</h3>
                 </div>
                 <div className="space-y-3">
-                  <p className="text-sm" style={{ color: '#ffffff' }}>Le moteur NOA :</p>
+                  <p className="text-sm" style={{ color: '#ffffff' }}>Le moteur PARCEL :</p>
                   <ul className="space-y-2 pl-4">
                     <li className="flex items-start gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-brand mt-1.5 flex-shrink-0" />
@@ -667,12 +667,12 @@ export function IntegrationsContent() {
         <div className="max-w-3xl mx-auto text-center">
           <ScrollReveal>
             <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-900">
-              Prêt à intégrer NOA à votre stack ?
+              Prêt à intégrer PARCEL à votre stack ?
             </h2>
           </ScrollReveal>
           
           <ScrollReveal delay={0.1}>
-            <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo technique NOA">
+            <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo technique PARCEL">
               <Button variant="primary" size="xl" magnetic>
                 Demander une démo technique
                 <ArrowRight className="w-5 h-5" />

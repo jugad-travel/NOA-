@@ -17,7 +17,24 @@ export default function HomePage() {
   const heroImageRef = React.useRef<HTMLDivElement>(null)
   
   React.useEffect(() => {
+    // Désactiver complètement l'effet de fade sur mobile
+    const checkMobile = () => {
+      return window.innerWidth < 768
+    }
+    
+    // Si on est sur mobile, garder l'opacité à 1 et ne pas écouter le scroll
+    if (checkMobile()) {
+      setImageOpacity(1)
+      return
+    }
+    
     const handleScroll = () => {
+      // Vérifier à nouveau si on est sur mobile (au cas où la fenêtre a été redimensionnée)
+      if (checkMobile()) {
+        setImageOpacity(1)
+        return
+      }
+      
       if (!heroImageRef.current) return
       
       const rect = heroImageRef.current.getBoundingClientRect()
@@ -50,12 +67,12 @@ export default function HomePage() {
         <div className="w-full px-2 md:px-4 pt-14 md:pt-20 pb-4 md:pb-6">
           <div 
             ref={heroImageRef}
-            className="relative w-full mx-auto transition-opacity duration-300"
+            className="relative w-full mx-auto md:transition-opacity md:duration-300"
             style={{ aspectRatio: '16/9', maxHeight: '90vh', maxWidth: '98vw', opacity: imageOpacity }}
           >
             <Image
               src="/images/NOA au dessu Hero plein écran.png"
-              alt="NOA - Vendre en ligne comme en magasin"
+              alt="PARCEL - Vendre en ligne comme en magasin"
               fill
               className="object-cover rounded-xl md:rounded-2xl"
               priority

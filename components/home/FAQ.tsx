@@ -10,27 +10,27 @@ import { cn } from "@/lib/utils"
 
 const faqs = [
   {
-    question: "Comment NOA s'intègre-t-il à mon site e-commerce existant ?",
-    answer: "NOA s'installe comme une couche intelligente sur votre stack existante, sans refonte du site ni modification du tunnel de conversion. L'intégration se fait via API et est compatible avec les principales plateformes e-commerce.",
+    question: "Comment PARCEL s'intègre-t-il à mon site e-commerce existant ?",
+    answer: "PARCEL s'installe comme une couche intelligente sur votre stack existante, sans refonte du site ni modification du tunnel de conversion. L'intégration se fait via API et est compatible avec les principales plateformes e-commerce.",
   },
   {
-    question: "Quels types de produits NOA peut-il conseiller ?",
-    answer: "NOA est particulièrement efficace pour les catalogues techniques ou à forte profondeur (sport, outdoor, mode, maison, électronique...). Il s'adapte à vos règles métier et exploite vos données produits existantes.",
+    question: "Quels types de produits PARCEL peut-il conseiller ?",
+    answer: "PARCEL est particulièrement efficace pour les catalogues techniques ou à forte profondeur (sport, outdoor, mode, maison, électronique...). Il s'adapte à vos règles métier et exploite vos données produits existantes.",
   },
   {
     question: "Combien de temps prend l'intégration ?",
     answer: "Le déploiement est progressif et modulaire. Chaque module peut être activé indépendamment sur une zone précise du site, avec des premiers résultats mesurables rapidement.",
   },
   {
-    question: "NOA remplace-t-il mon équipe de vente ou service client ?",
-    answer: "NOA ne remplace pas vos équipes, il augmente leur efficacité en prenant en charge le conseil produit en ligne, 24/7. Vos équipes peuvent se concentrer sur les demandes à plus forte valeur ajoutée.",
+    question: "PARCEL remplace-t-il mon équipe de vente ou service client ?",
+    answer: "PARCEL ne remplace pas vos équipes, il augmente leur efficacité en prenant en charge le conseil produit en ligne, 24/7. Vos équipes peuvent se concentrer sur les demandes à plus forte valeur ajoutée.",
   },
   {
     question: "Mes données sont-elles sécurisées ?",
-    answer: "Oui, NOA est conforme RGPD avec un traitement des données strictement nécessaire au service, une isolation des environnements clients et un hébergement sécurisé respectant les politiques IT des grands comptes.",
+    answer: "Oui, PARCEL est conforme RGPD avec un traitement des données strictement nécessaire au service, une isolation des environnements clients et un hébergement sécurisé respectant les politiques IT des grands comptes.",
   },
   {
-    question: "Puis-je mesurer l'impact de NOA sur mes conversions ?",
+    question: "Puis-je mesurer l'impact de PARCEL sur mes conversions ?",
     answer: "Absolument. Chaque module est déployé sur une zone précise du site, fonctionne de manière autonome et peut être mesuré et ajusté séparément. Vous disposez d'indicateurs clairs sur les parcours assistés.",
   },
 ]

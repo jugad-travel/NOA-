@@ -75,6 +75,23 @@ export function DemoSection() {
     const subtitle = subtitleRef.current
     if (!section || !subtitle) return
 
+    // Désactiver ScrollTrigger sur mobile pour éviter les bugs de scroll
+    const isMobile = window.innerWidth < 768
+    if (isMobile) {
+      // Sur mobile, afficher simplement la première démo sans animation de scroll
+      tabs.forEach((_, index) => {
+        const card = cardRefs.current[index]
+        if (card) {
+          if (index === 0) {
+            gsap.set(card, { opacity: 1, y: 0, visibility: 'visible' })
+          } else {
+            gsap.set(card, { opacity: 0, y: 50, visibility: 'hidden' })
+          }
+        }
+      })
+      return
+    }
+
     // Attendre que toutes les cartes soient montées
     const timer = setTimeout(() => {
       // Nettoyer les ScrollTriggers existants
@@ -145,7 +162,7 @@ export function DemoSection() {
             
             // Durées relatives pour chaque démo (somme = 1.0)
             // Démo 3 (fiche produit) a plus de temps pour lire la réponse
-            const demoDurations = [0.25, 0.25, 0.30, 0.20] // [projet, catalogue, expert, panier] - plus de temps pour la suggestion NOA
+            const demoDurations = [0.25, 0.25, 0.30, 0.20] // [projet, catalogue, expert, panier] - plus de temps pour la suggestion PARCEL
             
             // Calculer les positions cumulatives
             let cumulative = 0
@@ -206,7 +223,7 @@ export function DemoSection() {
       })
 
       // Durées relatives pour chaque démo (doit correspondre à celles dans onUpdate)
-      const demoDurations = [0.25, 0.25, 0.30, 0.20] // [projet, catalogue, expert, panier] - plus de temps pour la suggestion NOA
+      const demoDurations = [0.25, 0.25, 0.30, 0.20] // [projet, catalogue, expert, panier] - plus de temps pour la suggestion PARCEL
       
       // Calculer les positions cumulatives
       let cumulative = 0
@@ -322,13 +339,13 @@ export function DemoSection() {
 
   return (
     <div ref={containerRef}>
-      <Section variant="gray" padding="lg" className="overflow-hidden" ref={sectionRef} style={{ paddingTop: isMobile ? '4vh' : '10vh', paddingBottom: isMobile ? '4vh' : '10vh' }}>
+      <Section variant="gray" padding="lg" className={isMobile ? "" : "overflow-hidden"} ref={sectionRef} style={{ paddingTop: isMobile ? '4vh' : '10vh', paddingBottom: isMobile ? '50vh' : '10vh' }}>
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <ScrollReveal>
             <div className="text-center mb-8">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-                NOA accompagne, conseille avec précision et convertit à chaque étape du parcours client.
+                PARCEL accompagne, conseille avec précision et convertit à chaque étape du parcours client.
               </h2>
               <p 
                 ref={subtitleRef}
@@ -341,7 +358,7 @@ export function DemoSection() {
         </div>
         
         {/* Layout : vertical sur mobile, horizontal sur desktop */}
-        <div className="flex flex-col md:flex-row gap-4 md:gap-8 max-w-7xl mx-auto" style={{ minHeight: isMobile ? 'auto' : '100vh' }}>
+        <div className="flex flex-col md:flex-row gap-4 md:gap-8 max-w-7xl mx-auto" style={{ minHeight: isMobile ? 'auto' : '100vh', marginBottom: isMobile ? '8rem' : '0' }}>
           {/* Navigation : horizontale en haut sur mobile, verticale à gauche sur desktop */}
           <div className={cn(
             "flex-shrink-0",
@@ -398,7 +415,7 @@ export function DemoSection() {
           <div className={cn(
             "relative order-2",
             isMobile ? "w-full" : "flex-1"
-          )} style={{ minHeight: isMobile ? '400px' : '600px' }}>
+          )} style={{ minHeight: isMobile ? '500px' : '600px' }}>
             {tabs.map((tab, index) => {
               const isActive = index === currentIndex
               const zIndex = isActive ? tabs.length + 1 : tabs.length - index

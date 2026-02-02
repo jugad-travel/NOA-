@@ -27,14 +27,14 @@ export function Hero() {
   }, [])
   
   return (
-    <section className="relative min-h-[70vh] flex flex-col pt-24 pb-16 overflow-hidden bg-white">
-      <div className="container relative z-10">
-        {/* Large NOA Title */}
+    <section className="relative min-h-[70vh] flex flex-col pt-20 md:pt-24 pb-12 md:pb-16 overflow-hidden bg-white">
+      <div className="container relative z-10 px-4 md:px-6">
+        {/* Large PARCEL Title */}
         <ScrollReveal>
-          <div className="h-48 md:h-64 lg:h-80 flex items-start -mb-16 md:-mb-20 lg:-mb-24">
+          <div className="h-32 sm:h-40 md:h-64 lg:h-80 flex items-start -mb-12 sm:-mb-16 md:-mb-20 lg:-mb-24">
             <Image
-              src="/images/Logo-NOA.png"
-              alt="NOA Logo"
+              src="/images/Logo Parcel 02:02:2026.png"
+              alt="PARCEL Logo"
               width={600}
               height={288}
               className="object-contain h-full w-auto"
@@ -45,7 +45,7 @@ export function Hero() {
         
         {/* Hero Image with Gradient and Tagline */}
         <ScrollReveal delay={0.1}>
-          <div className="relative w-full h-72 md:h-96 lg:h-[28rem] rounded-3xl overflow-hidden">
+          <div className="relative w-full h-64 sm:h-80 md:h-96 lg:h-[28rem] rounded-2xl md:rounded-3xl overflow-hidden">
             {/* Gradient background */}
             <div 
               className="absolute inset-0"
@@ -55,7 +55,7 @@ export function Hero() {
             />
             
             {/* Tagline inside gradient - Left aligned, positioned lower */}
-            <div className="absolute inset-0 flex flex-col justify-end pb-10 md:pb-14 lg:pb-16 px-8 md:px-12 lg:px-16 z-10">
+            <div className="absolute inset-0 flex flex-col justify-end pb-6 sm:pb-8 md:pb-14 lg:pb-16 px-4 sm:px-6 md:px-12 lg:px-16 z-10">
               <div className="max-w-4xl">
                 <p 
                   className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-normal text-black"
@@ -100,8 +100,8 @@ export function Hero() {
         
         {/* CTA Row */}
         <ScrollReveal delay={0.2}>
-          <div className="flex justify-center md:justify-start mt-8 md:mt-12 lg:mt-16">
-            <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo NOA">
+          <div className="flex justify-center md:justify-start mt-6 sm:mt-8 md:mt-12 lg:mt-16">
+            <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo PARCEL">
               <Button variant="primary" size="lg" magnetic className="rounded-full">
                 Réserver une démo
                 <ArrowRight className="w-5 h-5" />

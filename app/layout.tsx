@@ -19,11 +19,11 @@ const manrope = Manrope({
 
 export const metadata: Metadata = {
   title: {
-    default: "NOA - Le premier conseiller de vente IA qui vend comme en magasin",
-    template: "%s | NOA",
+    default: "PARCEL - Le premier conseiller de vente IA qui vend comme en magasin",
+    template: "%s | PARCEL",
   },
   description:
-    "À chaque étape du parcours client, NOA accompagne, conseille avec précision et convertit. Transformez votre site en vendeur digital performant.",
+    "À chaque étape du parcours client, PARCEL accompagne, conseille avec précision et convertit. Transformez votre site en vendeur digital performant.",
   keywords: [
     "conseiller de vente IA",
     "e-commerce",
@@ -31,13 +31,13 @@ export const metadata: Metadata = {
     "chatbot",
     "intelligence artificielle",
     "vente en ligne",
-    "NOA",
+    "PARCEL",
     "panier moyen",
     "CRO",
   ],
-  authors: [{ name: "NOA" }],
-  creator: "NOA",
-  publisher: "NOA",
+  authors: [{ name: "PARCEL" }],
+  creator: "PARCEL",
+  publisher: "PARCEL",
   robots: {
     index: true,
     follow: true,
@@ -53,24 +53,24 @@ export const metadata: Metadata = {
     type: "website",
     locale: "fr_FR",
     url: "https://noa.ai",
-    siteName: "NOA",
-    title: "NOA - Le premier conseiller de vente IA qui vend comme en magasin",
+    siteName: "PARCEL",
+    title: "PARCEL - Le premier conseiller de vente IA qui vend comme en magasin",
     description:
-      "À chaque étape du parcours client, NOA accompagne, conseille avec précision et convertit. Transformez votre site en vendeur digital performant.",
+      "À chaque étape du parcours client, PARCEL accompagne, conseille avec précision et convertit. Transformez votre site en vendeur digital performant.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "NOA - Conseiller de vente IA",
+        alt: "PARCEL - Conseiller de vente IA",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "NOA - Le premier conseiller de vente IA qui vend comme en magasin",
+    title: "PARCEL - Le premier conseiller de vente IA qui vend comme en magasin",
     description:
-      "À chaque étape du parcours client, NOA accompagne, conseille avec précision et convertit.",
+      "À chaque étape du parcours client, PARCEL accompagne, conseille avec précision et convertit.",
     images: ["/og-image.png"],
   },
   icons: {
@@ -87,25 +87,25 @@ const jsonLd = {
     {
       "@type": "Organization",
       "@id": "https://noa.ai/#organization",
-      name: "NOA",
+      name: "PARCEL",
       url: "https://noa.ai",
       logo: {
         "@type": "ImageObject",
         url: "https://noa.ai/logo.png",
       },
       description:
-        "NOA — Le conseiller de vente IA unique, présent tout au long du parcours client. NOA accompagne vos visiteurs, du premier besoin exprimé jusqu'à la décision d'achat.",
+        "PARCEL — Le conseiller de vente IA unique, présent tout au long du parcours client. PARCEL accompagne vos visiteurs, du premier besoin exprimé jusqu'à la décision d'achat.",
       sameAs: [],
     },
     {
       "@type": "Product",
       "@id": "https://noa.ai/#product",
-      name: "NOA - Suite de conseillers de vente IA",
+      name: "PARCEL - Suite de conseillers de vente IA",
       description:
-        "Suite de 4 conseillers de vente IA : NOA Projet, NOA Match, NOA Expert, NOA Complete. Compatible Shopify, Magento, WooCommerce.",
+        "Suite de 4 conseillers de vente IA : PARCEL Projet, PARCEL Match, PARCEL Expert, PARCEL Complete. Compatible Shopify, Magento, WooCommerce.",
       brand: {
         "@type": "Brand",
-        name: "NOA",
+        name: "PARCEL",
       },
       offers: {
         "@type": "Offer",
@@ -120,7 +120,7 @@ const jsonLd = {
       "@type": "WebSite",
       "@id": "https://noa.ai/#website",
       url: "https://noa.ai",
-      name: "NOA",
+      name: "PARCEL",
       publisher: {
         "@id": "https://noa.ai/#organization",
       },

@@ -62,21 +62,21 @@ export function Performance() {
         
         {/* Rectangle avec dégradé en arrière-plan */}
         <div 
-          className="relative rounded-3xl mx-4 md:mx-8 my-8 md:my-12"
+          className="relative rounded-2xl md:rounded-3xl mx-2 sm:mx-4 md:mx-8 my-6 sm:my-8 md:my-12"
           style={{
             background: "linear-gradient(135deg, #d0f7fb 0%, #83a6ff 40%, #ff966b 100%)"
           }}
         >
-          <div className="relative z-10 p-8 md:p-12">
+          <div className="relative z-10 p-4 sm:p-6 md:p-8 lg:p-12">
             <ScrollReveal>
-              <div className="text-center mb-12 pt-4 md:pt-8">
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+              <div className="text-center mb-8 sm:mb-10 md:mb-12 pt-2 sm:pt-4 md:pt-8">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
                   Un impact mesurable sur les performances commerciales
                 </h2>
               </div>
             </ScrollReveal>
         
-            <div className="grid md:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16 items-stretch">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mb-8 sm:mb-12 md:mb-16 items-stretch">
               {metrics.map((metric, index) => (
                 <AnimatedMetric key={metric.label} {...metric} index={index} />
               ))}

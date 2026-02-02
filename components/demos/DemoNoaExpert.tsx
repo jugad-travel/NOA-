@@ -4,6 +4,7 @@ import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronRight, Star, Heart, Share2, Check, Sparkles, ShoppingCart, Truck, Shield, RotateCcw } from "lucide-react"
 import { SafariWindow } from "./SafariWindow"
+import { PhoneWindow } from "./PhoneWindow"
 import { cn } from "@/lib/utils"
 import { getProductById, noaConversations, formatPrice } from "@/lib/demo-data"
 import Image from "next/image"
@@ -19,6 +20,19 @@ interface DemoNoaExpertProps {
 }
 
 export function DemoNoaExpert({ animationProgress = 0 }: DemoNoaExpertProps) {
+  const [isMobile, setIsMobile] = React.useState(false)
+  
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+  
+  const WindowComponent = isMobile ? PhoneWindow : SafariWindow
+  
   // Séquence d'animation basée sur le progress
   // Étape 1 (0-0.12) : Sélection couleur noir
   // Étape 2 (0.12-0.25) : Sélection taille 42
@@ -84,8 +98,8 @@ export function DemoNoaExpert({ animationProgress = 0 }: DemoNoaExpertProps) {
   
   
   return (
-    <SafariWindow url={`shop.outdoor-expert.fr/p/${product.id}`} className="w-full">
-      <div className="h-[400px] md:h-[500px] overflow-hidden">
+    <WindowComponent url={`shop.outdoor-expert.fr/p/${product.id}`} className="w-full">
+      <div className={cn("", isMobile ? "h-[600px] overflow-y-auto" : "h-[400px] md:h-[500px] overflow-hidden")}>
         {/* Breadcrumb */}
         <div className="px-4 py-2 border-b border-gray-100 flex items-center gap-1 text-[10px] text-gray-500">
           <span className="hover:text-gray-900 cursor-pointer">Accueil</span>
@@ -293,7 +307,7 @@ export function DemoNoaExpert({ animationProgress = 0 }: DemoNoaExpertProps) {
               </div>
             </div>
             
-            {/* NOA Expert Section */}
+            {/* PARCEL Expert Section */}
             <div ref={expertSectionRef} className="mt-4 bg-gray-50 rounded-xl p-3">
               <div className="flex items-center gap-1.5 mb-2">
                 <div className="w-5 h-5 rounded-md bg-gray-900 flex items-center justify-center">
@@ -357,7 +371,7 @@ export function DemoNoaExpert({ animationProgress = 0 }: DemoNoaExpertProps) {
           </div>
         </div>
       </div>
-    </SafariWindow>
+    </WindowComponent>
   )
 }
 

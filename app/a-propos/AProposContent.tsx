@@ -146,12 +146,12 @@ export function AProposContent() {
           >
             <ScrollReveal>
               <div className="text-center">
-                <Badge className="mb-6 bg-white/90 text-gray-900">À propos de NOA</Badge>
+                <Badge className="mb-6 bg-white/90 text-gray-900">À propos de PARCEL</Badge>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
                   Repenser l'expérience d'achat à l'ère de l'IA
                 </h1>
                 <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto">
-                  Découvrez comment NOA transforme l'expérience d'achat en ligne avec l'intelligence artificielle.
+                  Découvrez comment PARCEL transforme l'expérience d'achat en ligne avec l'intelligence artificielle.
                 </p>
               </div>
             </ScrollReveal>
@@ -164,10 +164,10 @@ export function AProposContent() {
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
             <p className="text-xl md:text-2xl text-gray-700 leading-relaxed mb-6">
-              NOA est une solution SaaS d'intelligence artificielle conçue pour transformer la manière dont les clients interagissent avec les catalogues e-commerce.
+              PARCEL est une solution SaaS d'intelligence artificielle conçue pour transformer la manière dont les clients interagissent avec les catalogues e-commerce.
             </p>
             <p className="text-lg text-gray-600 leading-relaxed">
-              Là où les sites marchands reposent encore majoritairement sur des interfaces de navigation statiques (recherche par mots-clés, filtres, comparateurs figés), NOA introduit une logique conversationnelle, contextuelle et orientée décision.
+              Là où les sites marchands reposent encore majoritairement sur des interfaces de navigation statiques (recherche par mots-clés, filtres, comparateurs figés), PARCEL introduit une logique conversationnelle, contextuelle et orientée décision.
             </p>
           </ScrollReveal>
         </div>
@@ -330,10 +330,10 @@ export function AProposContent() {
               Notre réponse
             </h2>
             <p className="text-lg text-white/90 text-center mb-8 max-w-3xl mx-auto">
-              NOA agit comme un assistant d'achat intelligent, directement intégré au site e-commerce.
+              PARCEL agit comme un assistant d'achat intelligent, directement intégré au site e-commerce.
             </p>
             <p className="text-base text-white/80 text-center mb-12 max-w-2xl mx-auto">
-              La solution permet à l'utilisateur de formuler ses besoins en langage naturel (usage, contraintes, budget, préférences), pendant que NOA :
+              La solution permet à l'utilisateur de formuler ses besoins en langage naturel (usage, contraintes, budget, préférences), pendant que PARCEL :
             </p>
           </ScrollReveal>
           
@@ -377,7 +377,7 @@ export function AProposContent() {
                 Une IA conçue pour les marchands
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                NOA n'est pas un chatbot générique. C'est une infrastructure IA métier, pensée pour s'adapter aux réalités opérationnelles du e-commerce.
+                PARCEL n'est pas un chatbot générique. C'est une infrastructure IA métier, pensée pour s'adapter aux réalités opérationnelles du e-commerce.
               </p>
             </div>
           </ScrollReveal>
@@ -405,19 +405,19 @@ export function AProposContent() {
           <ScrollReveal delay={0.3}>
             <div className="mt-12 text-center">
               <p className="text-lg text-gray-700">
-                NOA s'inscrit comme une brique technologique complémentaire, non intrusive, et orientée performance.
+                PARCEL s'inscrit comme une brique technologique complémentaire, non intrusive, et orientée performance.
               </p>
             </div>
           </ScrollReveal>
         </div>
       </Section>
 
-      {/* Ce que NOA apporte */}
+      {/* Ce que PARCEL apporte */}
       <Section variant="gray" padding="lg">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
-              Ce que NOA apporte concrètement
+              Ce que PARCEL apporte concrètement
             </h2>
           </ScrollReveal>
           
@@ -451,19 +451,19 @@ export function AProposContent() {
                 Nous croyons que le futur du e-commerce ne se jouera pas uniquement sur le prix ou la vitesse de livraison, mais sur la capacité à guider, conseiller et décider avec le client.
               </p>
               <p className="text-lg md:text-xl text-white leading-relaxed">
-                NOA s'inscrit dans cette transition : faire évoluer les sites marchands d'une logique de vitrine statique vers une expérience d'achat assistée par l'IA, plus humaine, plus efficace et plus intelligente.
+                PARCEL s'inscrit dans cette transition : faire évoluer les sites marchands d'une logique de vitrine statique vers une expérience d'achat assistée par l'IA, plus humaine, plus efficace et plus intelligente.
               </p>
             </div>
           </ScrollReveal>
         </div>
       </Section>
 
-      {/* NOA, en résumé */}
+      {/* PARCEL, en résumé */}
       <Section variant="white" padding="lg">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
-              NOA, en résumé
+              PARCEL, en résumé
             </h2>
           </ScrollReveal>
           

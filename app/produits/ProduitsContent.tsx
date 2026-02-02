@@ -28,9 +28,9 @@ gsap.registerPlugin(ScrollTrigger)
 const products = [
   {
     id: "noa-projet",
-    name: "NOA Projet",
+    name: "PARCEL Projet",
     tagline: "Transformer une intention en panier complet",
-    description: "NOA Projet intervient dès l'arrivée sur le site, lorsque le client exprime un besoin global ou un projet, sans savoir précisément quels produits acheter.",
+    description: "PARCEL Projet intervient dès l'arrivée sur le site, lorsque le client exprime un besoin global ou un projet, sans savoir précisément quels produits acheter.",
     details: "Il capte l'intention en langage naturel, qualifie le contexte (durée, usage, niveau, contraintes) et structure le besoin en une sélection cohérente de produits.",
     casTypiques: [
       "Équipement pour un trek, un sport, un projet maison",
@@ -46,9 +46,9 @@ const products = [
   },
   {
     id: "noa-match",
-    name: "NOA Match",
+    name: "PARCEL Match",
     tagline: "Aider à choisir le bon produit",
-    description: "NOA Match intervient lorsque le client connaît le type de produit recherché, mais hésite entre plusieurs options.",
+    description: "PARCEL Match intervient lorsque le client connaît le type de produit recherché, mais hésite entre plusieurs options.",
     details: "Il pose les questions techniques pertinentes, applique vos règles métier (tailles, usages, budgets, compatibilités) et oriente vers le choix le plus adapté.",
     casTypiques: [
       "Choix de taille, de gamme ou de marque",
@@ -64,9 +64,9 @@ const products = [
   },
   {
     id: "noa-expert",
-    name: "NOA Expert",
+    name: "PARCEL Expert",
     tagline: "Répondre aux questions produit au moment décisif",
-    description: "NOA Expert agit comme un vendeur expert sur une fiche produit précise.",
+    description: "PARCEL Expert agit comme un vendeur expert sur une fiche produit précise.",
     details: "Il répond aux questions détaillées, explique les caractéristiques clés, compare avec des alternatives proches et aide le client à confirmer son choix.",
     casTypiques: [
       "Comparaison entre deux modèles",
@@ -82,9 +82,9 @@ const products = [
   },
   {
     id: "noa-complete",
-    name: "NOA Complete",
+    name: "PARCEL Complete",
     tagline: "Compléter intelligemment le panier",
-    description: "NOA Complete intervient en fin de parcours, lorsque le panier est constitué.",
+    description: "PARCEL Complete intervient en fin de parcours, lorsque le panier est constitué.",
     details: "Il analyse le contenu du panier, comprend le besoin global initial et identifie les produits manquants ou utiles, en expliquant clairement chaque recommandation.",
     casTypiques: [
       "Panier incomplet",
@@ -102,10 +102,10 @@ const products = [
 ]
 
 const parcoursSteps = [
-  { id: "home", label: "Home", icon: Home, product: "NOA Projet" },
-  { id: "categorie", label: "Catégorie", icon: LayoutGrid, product: "NOA Projet / Match" },
-  { id: "pdp", label: "Fiche produit", icon: FileText, product: "NOA Match / Expert" },
-  { id: "panier", label: "Panier", icon: ShoppingCart, product: "NOA Complete" },
+  { id: "home", label: "Home", icon: Home, product: "PARCEL Projet" },
+  { id: "categorie", label: "Catégorie", icon: LayoutGrid, product: "PARCEL Projet / Match" },
+  { id: "pdp", label: "Fiche produit", icon: FileText, product: "PARCEL Match / Expert" },
+  { id: "panier", label: "Panier", icon: ShoppingCart, product: "PARCEL Complete" },
 ]
 
 interface ProductDemoSectionProps {
@@ -128,6 +128,14 @@ function ProductDemoSection({ product, index, isEven }: ProductDemoSectionProps)
 
     const viewportHeight = window.innerHeight
     const scrollDistance = viewportHeight * 2.0 // Distance de scroll pour chaque démo
+
+    // Désactiver ScrollTrigger sur mobile pour éviter les bugs de scroll
+    const isMobile = window.innerWidth < 768
+    if (isMobile) {
+      // Sur mobile, afficher simplement la démo sans animation de scroll
+      setAnimationProgress(1)
+      return
+    }
 
     // Nettoyer le ScrollTrigger existant
     if (scrollTriggerRef.current) {
@@ -282,7 +290,7 @@ export function ProduitsContent() {
           >
             <ScrollReveal>
               <div className="text-center">
-                <Badge className="mb-6 bg-white/90 text-gray-900">La suite NOA</Badge>
+                <Badge className="mb-6 bg-white/90 text-gray-900">La suite PARCEL</Badge>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
                   Le conseiller de vente IA présent tout au long du parcours client
                 </h1>
@@ -301,7 +309,7 @@ export function ProduitsContent() {
           <ScrollReveal>
             <div className="text-center mb-12">
               <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-                Vue d'ensemble de la gamme NOA
+                Vue d'ensemble de la gamme PARCEL
               </h2>
               <p className="text-xl text-gray-400">
                 Une logique simple : le bon conseiller, au bon moment.
@@ -355,7 +363,7 @@ export function ProduitsContent() {
           <ScrollReveal>
             <div className="space-y-4 text-lg text-gray-300 mb-8">
               <p>
-                Vous pouvez activer un ou plusieurs modules NOA, selon vos priorités business.
+                Vous pouvez activer un ou plusieurs modules PARCEL, selon vos priorités business.
               </p>
               <p>
                 Chaque déploiement est progressif et mesurable.
@@ -364,7 +372,7 @@ export function ProduitsContent() {
           </ScrollReveal>
           
           <ScrollReveal delay={0.1}>
-            <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo personnalisée NOA">
+            <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo personnalisée PARCEL">
               <Button variant="primary" size="xl" magnetic>
                 Demander une démo personnalisée
                 <ArrowRight className="w-5 h-5" />

@@ -4,6 +4,7 @@ import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronRight, Star, Sparkles, Filter } from "lucide-react"
 import { SafariWindow } from "./SafariWindow"
+import { PhoneWindow } from "./PhoneWindow"
 import { cn } from "@/lib/utils"
 import { chaussures, noaConversations, formatPrice } from "@/lib/demo-data"
 import Image from "next/image"
@@ -19,15 +20,29 @@ interface DemoNoaMatchProps {
 }
 
 export function DemoNoaMatch({ animationProgress = 0 }: DemoNoaMatchProps) {
+  const [isMobile, setIsMobile] = React.useState(false)
+  
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+  
+  const WindowComponent = isMobile ? PhoneWindow : SafariWindow
+  
   // Calculer les étapes basées sur le progress - Timing optimisé pour fluidité et visibilité
   // Étape 1 (0-0.15) : Message utilisateur "Je cherche des chaussures..."
   // Étape 2 (0.15-0.30) : Typing
-  // Étape 3 (0.30-0.50) : Réponse NOA + sélection taille 42 (temps pour lire)
+  // Étape 3 (0.30-0.50) : Réponse PARCEL + sélection taille 42 (temps pour lire)
   // Étape 4 (0.50-1.0) : Carte produit s'encadre en bleu (50% pour bien voir)
   
   const productGridRef = React.useRef<HTMLDivElement>(null)
   const sidebarRef = React.useRef<HTMLDivElement>(null)
-  const chatStep = animationProgress >= 0.50 ? 3 : animationProgress >= 0.30 ? 3 : animationProgress >= 0.15 ? 2 : animationProgress >= 0.08 ? 1 : 0
+  const baseChatStep = animationProgress >= 0.50 ? 3 : animationProgress >= 0.30 ? 3 : animationProgress >= 0.15 ? 2 : animationProgress >= 0.08 ? 1 : 0
+  const chatStep = isMobile ? Math.max(3, baseChatStep) : baseChatStep
   const selectedSize = animationProgress >= 0.30 ? 42 : null
   const highlightedProduct = animationProgress >= 0.50 ? noaConversations.match.highlightProduct : null
   
@@ -54,8 +69,8 @@ export function DemoNoaMatch({ animationProgress = 0 }: DemoNoaMatchProps) {
   }, [animationProgress, highlightedProduct])
   
   return (
-    <SafariWindow url="shop.outdoor-expert.fr/chaussures" className="w-full">
-      <div className="h-[400px] md:h-[500px] overflow-hidden">
+    <WindowComponent url="shop.outdoor-expert.fr/chaussures" className="w-full">
+      <div className={cn("", isMobile ? "h-[600px] overflow-y-auto" : "h-[400px] md:h-[500px] overflow-hidden")}>
         {/* Breadcrumb */}
         <div className="px-4 py-2 border-b border-gray-100 flex items-center gap-1 text-[10px] text-gray-500">
           <span className="hover:text-gray-900 cursor-pointer">Accueil</span>
@@ -64,7 +79,7 @@ export function DemoNoaMatch({ animationProgress = 0 }: DemoNoaMatchProps) {
         </div>
         
         <div className="flex h-[calc(100%-32px)]">
-          {/* Sidebar - Filters + NOA */}
+          {/* Sidebar - Filters + PARCEL */}
           <div ref={sidebarRef} className="w-48 border-r border-gray-100 p-3 flex flex-col gap-4 overflow-hidden">
               {/* Filters */}
             <div>
@@ -107,13 +122,13 @@ export function DemoNoaMatch({ animationProgress = 0 }: DemoNoaMatchProps) {
               </div>
             </div>
             
-            {/* NOA Assistant */}
+            {/* PARCEL Assistant */}
             <div className="bg-gray-50 rounded-xl p-3 flex-1">
               <div className="flex items-center gap-1.5 mb-2">
                 <div className="w-5 h-5 rounded-md bg-gray-900 flex items-center justify-center">
                   <Sparkles className="w-2.5 h-2.5 text-white" />
                 </div>
-                <span className="text-[10px] font-semibold text-gray-900">NOA vous aide</span>
+                <span className="text-[10px] font-semibold text-gray-900">PARCEL vous aide</span>
               </div>
               
               <div className="space-y-2">
@@ -148,7 +163,7 @@ export function DemoNoaMatch({ animationProgress = 0 }: DemoNoaMatchProps) {
                   )}
                 </AnimatePresence>
                 
-                {/* NOA response */}
+                {/* PARCEL response */}
                 <AnimatePresence>
                   {chatStep >= 3 && (
                     <motion.div
@@ -272,7 +287,7 @@ export function DemoNoaMatch({ animationProgress = 0 }: DemoNoaMatchProps) {
           </div>
         </div>
       </div>
-    </SafariWindow>
+    </WindowComponent>
   )
 }
 

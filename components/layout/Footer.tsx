@@ -8,10 +8,10 @@ import { Button } from "@/components/ui/button"
 
 const footerLinks = {
   produits: [
-    { name: "NOA Projet", href: "/produits#noa-projet" },
-    { name: "NOA Match", href: "/produits#noa-match" },
-    { name: "NOA Expert", href: "/produits#noa-expert" },
-    { name: "NOA Complete", href: "/produits#noa-complete" },
+    { name: "PARCEL Projet", href: "/produits#noa-projet" },
+    { name: "PARCEL Match", href: "/produits#noa-match" },
+    { name: "PARCEL Expert", href: "/produits#noa-expert" },
+    { name: "PARCEL Complete", href: "/produits#noa-complete" },
   ],
   ressources: [
     { name: "Blog", href: "/ressources#blog" },
@@ -20,8 +20,8 @@ const footerLinks = {
   ],
   entreprise: [
     { name: "Intégrations & Tech", href: "/integrations-tech" },
-    { name: "Démo", href: "mailto:parcel.webai@gmail.com?subject=Demande de démo NOA" },
-    { name: "Contact", href: "mailto:parcel.webai@gmail.com?subject=Contact NOA" },
+    { name: "Démo", href: "mailto:parcel.webai@gmail.com?subject=Demande de démo PARCEL" },
+    { name: "Contact", href: "mailto:parcel.webai@gmail.com?subject=Contact PARCEL" },
   ],
   legal: [
     { name: "Mentions légales", href: "#" },
@@ -61,8 +61,8 @@ export function Footer() {
           <div className="col-span-2 md:col-span-4 lg:col-span-1">
             <Link href="/" className="flex items-center mb-6">
               <Image
-                src="/images/Logo-NOA.png"
-                alt="NOA Logo"
+                src="/images/Logo Parcel 02:02:2026.png"
+                alt="PARCEL Logo"
                 width={120}
                 height={60}
                 className="object-contain"
@@ -71,7 +71,7 @@ export function Footer() {
             <p className="text-gray-400 text-sm mb-6 leading-relaxed">
               Le premier conseiller de vente IA qui vend comme en magasin.
             </p>
-            <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo NOA">
+            <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo PARCEL">
               <Button variant="primary" size="md" magnetic>
                 Réserver une démo
               </Button>
@@ -152,8 +152,8 @@ export function Footer() {
           <div className="flex items-center gap-2 text-gray-500 text-sm">
             <span>© {new Date().getFullYear()}</span>
             <Image
-              src="/images/Logo-NOA.png"
-              alt="NOA Logo"
+              src="/images/Logo Parcel 02:02:2026.png"
+              alt="PARCEL Logo"
               width={60}
               height={30}
               className="object-contain"
@@ -165,7 +165,7 @@ export function Footer() {
             <span>•</span>
             <span>RGPD</span>
             <span>•</span>
-            <a href="mailto:parcel.webai@gmail.com?subject=Contact NOA" className="hover:text-brand transition-colors">
+            <a href="mailto:parcel.webai@gmail.com?subject=Contact PARCEL" className="hover:text-brand transition-colors">
               Contact
             </a>
           </div>

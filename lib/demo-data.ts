@@ -1,4 +1,4 @@
-// Données réalistes pour les démos NOA - Univers Outdoor/Randonnée
+// Données réalistes pour les démos PARCEL - Univers Outdoor/Randonnée
 
 export interface Product {
   id: string
@@ -281,7 +281,7 @@ export const accessoires: Product[] = [
   },
 ]
 
-// Produits complémentaires suggérés par NOA
+// Produits complémentaires suggérés par PARCEL
 export const complementaryProducts: Record<string, string[]> = {
   "trail-pro-x": ["chaussettes-icebreaker", "batons-black-diamond"],
   "mountain-trek-gtx": ["chaussettes-icebreaker", "batons-black-diamond", "frontale-petzl"],
@@ -289,7 +289,7 @@ export const complementaryProducts: Record<string, string[]> = {
   "osprey-atmos-65": ["frontale-petzl", "gourde-hydrapak"],
 }
 
-// Messages de conversation NOA pour chaque démo
+// Messages de conversation PARCEL pour chaque démo
 export const noaConversations = {
   projet: {
     userMessage: "Je pars une semaine faire le GR20",
