@@ -3,6 +3,7 @@
 import * as React from "react"
 import Image from "next/image"
 import { Hero } from "@/components/home/Hero"
+import { HeroAnimation } from "@/components/home/HeroAnimation"
 import { DemoSection } from "@/components/home/DemoSection"
 import { PainSection } from "@/components/home/PainSection"
 import { GammeNoa } from "@/components/home/GammeNoa"
@@ -78,6 +79,8 @@ export default function HomePage() {
               priority
               quality={90}
             />
+            {/* Animation flottante */}
+            <HeroAnimation />
           </div>
         </div>
       </section>
