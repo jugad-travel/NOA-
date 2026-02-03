@@ -45,6 +45,8 @@ export function PainSection() {
   const x = useMotionValue(0) // Sera initialisé au montage
   const y = useMotionValue(0) // Pour le slider vertical sur mobile
   const hasAnimatedRef = React.useRef(false)
+  const timelineRef = React.useRef<gsap.core.Timeline | null>(null)
+  const userHasInteractedRef = React.useRef(false)
 
   // Hooks doivent être appelés avant tout return conditionnel
   const clipPathTransform = useTransform(x, (value) => {
@@ -98,6 +100,13 @@ export function PainSection() {
   const handleDragVertical = (event: MouseEvent | TouchEvent | PointerEvent) => {
     if (!containerVerticalRef.current) return
     
+    // Arrêter l'animation automatique si l'utilisateur interagit
+    if (timelineRef.current) {
+      timelineRef.current.kill()
+      timelineRef.current = null
+    }
+    userHasInteractedRef.current = true
+    
     const containerHeight = containerVerticalRef.current.offsetHeight
     const rect = containerVerticalRef.current.getBoundingClientRect()
     const clientY = 'touches' in event ? event.touches[0].clientY : (event as MouseEvent).clientY
@@ -107,28 +116,28 @@ export function PainSection() {
     y.set((newPercent / 100) * containerHeight)
   }
 
-  // Initialiser la position du slider au montage
+  // Initialiser la position du slider au montage - Seulement si pas déjà initialisé
   React.useEffect(() => {
-    if (containerRef.current) {
+    if (containerRef.current && sliderPosition === 67) {
       const initialPosition = (67 / 100) * containerRef.current.offsetWidth
       x.set(initialPosition)
-      setSliderPosition(67)
     }
-    if (containerVerticalRef.current) {
+    if (containerVerticalRef.current && sliderPositionVertical === 67 && !userHasInteractedRef.current) {
       const initialPosition = (67 / 100) * containerVerticalRef.current.offsetHeight
       y.set(initialPosition)
-      setSliderPositionVertical(67)
     }
-  }, [x, y])
+  }, [x, y, sliderPosition, sliderPositionVertical])
 
+  // Synchroniser la position - mais seulement si pas d'animation en cours sur mobile
   React.useEffect(() => {
     if (containerRef.current) {
       x.set((sliderPosition / 100) * containerRef.current.offsetWidth)
     }
-    if (containerVerticalRef.current) {
+    // Sur mobile, ne synchroniser que si l'utilisateur a interagi (pas d'animation en cours)
+    if (containerVerticalRef.current && (userHasInteractedRef.current || !isMobile)) {
       y.set((sliderPositionVertical / 100) * containerVerticalRef.current.offsetHeight)
     }
-  }, [sliderPosition, sliderPositionVertical, x, y])
+  }, [sliderPosition, sliderPositionVertical, x, y, isMobile])
 
   // Animation du slider quand on arrive sur la section
   React.useEffect(() => {
@@ -141,7 +150,11 @@ export function PainSection() {
     // Désactiver ScrollTrigger sur mobile pour éviter les bugs de scroll
     const isMobile = window.innerWidth < 768
     if (isMobile && containerVertical) {
-      // Sur mobile, afficher simplement l'animation verticale sans ScrollTrigger
+      // Sur mobile, ne lancer l'animation automatique que si l'utilisateur n'a pas interagi
+      if (userHasInteractedRef.current) {
+        return () => {} // Si l'utilisateur a interagi, ne pas lancer l'animation
+      }
+      
       if (hasAnimatedRef.current) {
         return () => {} // Retourner une fonction de cleanup vide
       }
@@ -156,6 +169,11 @@ export function PainSection() {
           duration: 2,
           ease: "power2.inOut",
           onUpdate: function () {
+            // Ne pas modifier si l'utilisateur a interagi
+            if (userHasInteractedRef.current) {
+              timeline.kill()
+              return
+            }
             const p = this.progress()
             const current = defaultPosition + (topPosition - defaultPosition) * p
             y.set(current)
@@ -163,8 +181,13 @@ export function PainSection() {
           },
         })
       
+      timelineRef.current = timeline
+      
       return () => {
-        timeline.kill()
+        if (timelineRef.current) {
+          timelineRef.current.kill()
+          timelineRef.current = null
+        }
       }
     }
     

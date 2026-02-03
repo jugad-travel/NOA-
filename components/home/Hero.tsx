@@ -8,11 +8,12 @@ import { Button } from "@/components/ui/button"
 import { ScrollReveal } from "@/components/shared/ScrollReveal"
 
 const rotatingPhrases = [
-  "vend comme en magasin.",
+  "augmente la conversion sans friction.",
   "accompagne chaque client comme un vrai vendeur.",
   "comprend le besoin et guide jusqu'à l'achat.",
   "apporte un conseil expert, contextualisé et fiable.",
   "explique, compare et rassure avant l'achat.",
+  "qui décide avec vos règles business.",
 ]
 
 export function Hero() {
