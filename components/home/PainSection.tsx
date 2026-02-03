@@ -125,15 +125,20 @@ export function PainSection() {
       const initialPosition = (67 / 100) * containerRef.current.offsetWidth
       x.set(initialPosition)
     }
-    // Sur mobile, ne réinitialiser que si l'utilisateur n'a jamais interagi
-    if (containerVerticalRef.current && sliderPositionVertical === 67 && !userHasInteractedRef.current) {
+    // Sur mobile, ne réinitialiser que si l'utilisateur n'a jamais interagi ET que y est à 0 (pas encore initialisé)
+    if (containerVerticalRef.current && !userHasInteractedRef.current) {
       const isMobileCheck = window.innerWidth < 768
       if (isMobileCheck) {
-        const initialPosition = (67 / 100) * containerVerticalRef.current.offsetHeight
-        y.set(initialPosition)
+        const currentY = y.get()
+        // Seulement initialiser si y est à 0 (pas encore initialisé)
+        if (currentY === 0) {
+          const initialPosition = (67 / 100) * containerVerticalRef.current.offsetHeight
+          y.set(initialPosition)
+          lastYValueRef.current = initialPosition
+        }
       }
     }
-  }, [x, y, sliderPosition, sliderPositionVertical])
+  }, [x, y, sliderPosition])
 
   // Synchroniser la position - mais seulement si pas d'animation en cours sur mobile
   React.useEffect(() => {
@@ -145,16 +150,13 @@ export function PainSection() {
     if (containerVerticalRef.current) {
       const isMobileCheck = window.innerWidth < 768
       if (!isMobileCheck || userHasInteractedRef.current) {
-        const newYValue = (sliderPositionVertical / 100) * containerVerticalRef.current.offsetHeight
-        // Ne pas réinitialiser si l'utilisateur a interagi et que la nouvelle valeur serait très différente (probablement une réinitialisation non désirée)
-        if (userHasInteractedRef.current && lastYValueRef.current !== null) {
-          const diff = Math.abs(newYValue - lastYValueRef.current)
-          const containerHeight = containerVerticalRef.current.offsetHeight
-          // Si la différence est trop grande (plus de 20% de la hauteur), c'est probablement une réinitialisation non désirée
-          if (diff > containerHeight * 0.2) {
-            return // Ne pas synchroniser pour éviter la réinitialisation
-          }
+        // Sur mobile, si l'utilisateur a interagi, NE JAMAIS réinitialiser y à partir de sliderPositionVertical
+        // car cela peut causer des réinitialisations non désirées lors du scroll
+        if (isMobileCheck && userHasInteractedRef.current) {
+          // Ne pas synchroniser - garder la valeur actuelle de y
+          return
         }
+        const newYValue = (sliderPositionVertical / 100) * containerVerticalRef.current.offsetHeight
         y.set(newYValue)
         lastYValueRef.current = newYValue
       }
@@ -376,6 +378,16 @@ export function PainSection() {
                 dragElastic={0}
                 dragMomentum={false}
                 onDrag={handleDragVertical}
+                onDragEnd={() => {
+                  // Sauvegarder la position finale après le drag
+                  if (containerVerticalRef.current) {
+                    const currentY = y.get()
+                    lastYValueRef.current = currentY
+                    const containerHeight = containerVerticalRef.current.offsetHeight
+                    const percent = (currentY / containerHeight) * 100
+                    setSliderPositionVertical(percent)
+                  }
+                }}
               >
                 {/* Handle Circle */}
                 <motion.div
