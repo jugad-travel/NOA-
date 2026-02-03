@@ -415,7 +415,7 @@ export function DemoSection() {
           <div className={cn(
             "relative order-2",
             isMobile ? "w-full" : "flex-1"
-          )} style={{ minHeight: isMobile ? '500px' : '600px' }}>
+          )} style={{ minHeight: isMobile ? '500px' : '600px', marginTop: isMobile ? '0' : '4rem' }}>
             {tabs.map((tab, index) => {
               const isActive = index === currentIndex
               const zIndex = isActive ? tabs.length + 1 : tabs.length - index
