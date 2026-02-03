@@ -47,6 +47,7 @@ export function PainSection() {
   const hasAnimatedRef = React.useRef(false)
   const timelineRef = React.useRef<gsap.core.Timeline | null>(null)
   const userHasInteractedRef = React.useRef(false)
+  const lastYValueRef = React.useRef<number | null>(null) // Garder la dernière valeur de y pour éviter les réinitialisations
 
   // Hooks doivent être appelés avant tout return conditionnel
   const clipPathTransform = useTransform(x, (value) => {
@@ -111,9 +112,11 @@ export function PainSection() {
     const rect = containerVerticalRef.current.getBoundingClientRect()
     const clientY = 'touches' in event ? event.touches[0].clientY : (event as MouseEvent).clientY
     const newPercent = Math.max(0, Math.min(100, ((clientY - rect.top) / containerHeight) * 100))
+    const newYValue = (newPercent / 100) * containerHeight
     
     setSliderPositionVertical(newPercent)
-    y.set((newPercent / 100) * containerHeight)
+    y.set(newYValue)
+    lastYValueRef.current = newYValue // Sauvegarder la valeur
   }
 
   // Initialiser la position du slider au montage - Seulement si pas déjà initialisé
@@ -142,7 +145,18 @@ export function PainSection() {
     if (containerVerticalRef.current) {
       const isMobileCheck = window.innerWidth < 768
       if (!isMobileCheck || userHasInteractedRef.current) {
-        y.set((sliderPositionVertical / 100) * containerVerticalRef.current.offsetHeight)
+        const newYValue = (sliderPositionVertical / 100) * containerVerticalRef.current.offsetHeight
+        // Ne pas réinitialiser si l'utilisateur a interagi et que la nouvelle valeur serait très différente (probablement une réinitialisation non désirée)
+        if (userHasInteractedRef.current && lastYValueRef.current !== null) {
+          const diff = Math.abs(newYValue - lastYValueRef.current)
+          const containerHeight = containerVerticalRef.current.offsetHeight
+          // Si la différence est trop grande (plus de 20% de la hauteur), c'est probablement une réinitialisation non désirée
+          if (diff > containerHeight * 0.2) {
+            return // Ne pas synchroniser pour éviter la réinitialisation
+          }
+        }
+        y.set(newYValue)
+        lastYValueRef.current = newYValue
       }
     }
   }, [sliderPosition, sliderPositionVertical, x, y])
