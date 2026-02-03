@@ -122,9 +122,13 @@ export function PainSection() {
       const initialPosition = (67 / 100) * containerRef.current.offsetWidth
       x.set(initialPosition)
     }
+    // Sur mobile, ne réinitialiser que si l'utilisateur n'a jamais interagi
     if (containerVerticalRef.current && sliderPositionVertical === 67 && !userHasInteractedRef.current) {
-      const initialPosition = (67 / 100) * containerVerticalRef.current.offsetHeight
-      y.set(initialPosition)
+      const isMobileCheck = window.innerWidth < 768
+      if (isMobileCheck) {
+        const initialPosition = (67 / 100) * containerVerticalRef.current.offsetHeight
+        y.set(initialPosition)
+      }
     }
   }, [x, y, sliderPosition, sliderPositionVertical])
 
@@ -133,11 +137,15 @@ export function PainSection() {
     if (containerRef.current) {
       x.set((sliderPosition / 100) * containerRef.current.offsetWidth)
     }
-    // Sur mobile, ne synchroniser que si l'utilisateur a interagi (pas d'animation en cours)
-    if (containerVerticalRef.current && (userHasInteractedRef.current || !isMobile)) {
-      y.set((sliderPositionVertical / 100) * containerVerticalRef.current.offsetHeight)
+    // Sur mobile, ne synchroniser QUE si l'utilisateur a interagi (pas d'animation en cours)
+    // Sur desktop, toujours synchroniser
+    if (containerVerticalRef.current) {
+      const isMobileCheck = window.innerWidth < 768
+      if (!isMobileCheck || userHasInteractedRef.current) {
+        y.set((sliderPositionVertical / 100) * containerVerticalRef.current.offsetHeight)
+      }
     }
-  }, [sliderPosition, sliderPositionVertical, x, y, isMobile])
+  }, [sliderPosition, sliderPositionVertical, x, y])
 
   // Animation du slider quand on arrive sur la section
   React.useEffect(() => {
