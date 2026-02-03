@@ -48,7 +48,7 @@ export function PainSection() {
   const timelineRef = React.useRef<gsap.core.Timeline | null>(null)
   const userHasInteractedRef = React.useRef(false)
   const lastYValueRef = React.useRef<number | null>(null) // Garder la dernière valeur de y pour éviter les réinitialisations
-  const dragConstraintsRef = React.useRef<{ top: number; bottom: number } | null>(null) // Contraintes de drag fixes
+  const [dragConstraints, setDragConstraints] = React.useState<{ top: number; bottom: number } | null>(null) // Contraintes de drag fixes
 
   // Hooks doivent être appelés avant tout return conditionnel
   const clipPathTransform = useTransform(x, (value) => {
@@ -116,11 +116,11 @@ export function PainSection() {
     const newYValue = (newPercent / 100) * containerHeight
     
     // Sauvegarder les contraintes au début du drag pour éviter les réinitialisations lors du scroll
-    if (!dragConstraintsRef.current) {
-      dragConstraintsRef.current = {
+    if (!dragConstraints) {
+      setDragConstraints({
         top: 0,
         bottom: containerHeight - 1
-      }
+      })
     }
     
     setSliderPositionVertical(newPercent)
@@ -383,31 +383,17 @@ export function PainSection() {
                   y: yTransform,
                 }}
                 drag="y"
-                dragConstraints={() => {
-                  // Utiliser des contraintes fixes pour éviter les réinitialisations lors du scroll
-                  if (containerVerticalRef.current && dragConstraintsRef.current) {
-                    return dragConstraintsRef.current
-                  }
-                  if (containerVerticalRef.current) {
-                    const containerHeight = containerVerticalRef.current.offsetHeight
-                    dragConstraintsRef.current = {
-                      top: 0,
-                      bottom: containerHeight - 1
-                    }
-                    return dragConstraintsRef.current
-                  }
-                  return { top: 0, bottom: 0 }
-                }}
+                dragConstraints={dragConstraints || containerVerticalRef}
                 dragElastic={0}
                 dragMomentum={false}
                 onDragStart={() => {
                   // Initialiser les contraintes au début du drag
-                  if (containerVerticalRef.current) {
+                  if (containerVerticalRef.current && !dragConstraints) {
                     const containerHeight = containerVerticalRef.current.offsetHeight
-                    dragConstraintsRef.current = {
+                    setDragConstraints({
                       top: 0,
                       bottom: containerHeight - 1
-                    }
+                    })
                   }
                 }}
                 onDrag={handleDragVertical}
@@ -420,9 +406,11 @@ export function PainSection() {
                     const percent = (currentY / containerHeight) * 100
                     setSliderPositionVertical(percent)
                     // Maintenir les contraintes pour éviter les réinitialisations
-                    dragConstraintsRef.current = {
-                      top: 0,
-                      bottom: containerHeight - 1
+                    if (!dragConstraints) {
+                      setDragConstraints({
+                        top: 0,
+                        bottom: containerHeight - 1
+                      })
                     }
                   }
                 }}
