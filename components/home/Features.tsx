@@ -3,7 +3,6 @@
 import * as React from "react"
 import { Section } from "@/components/layout/Section"
 import { Badge } from "@/components/ui/badge"
-import { Card } from "@/components/ui/card"
 import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/shared/ScrollReveal"
 import { BarChart3 } from "lucide-react"
 
@@ -31,14 +30,14 @@ export function Features() {
         <StaggerContainer className="space-y-4" staggerDelay={0.1}>
           {apports.map((apport, index) => (
             <StaggerItem key={index}>
-              <Card className="p-6" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', borderColor: 'rgba(255, 255, 255, 0.2)' }}>
+              <div className="p-6 rounded-2xl bg-white/10 border border-white/20">
                 <div className="flex items-start gap-4">
                   <BarChart3 className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
                   <p className="text-gray-900 text-lg">
                     {apport}
                   </p>
                 </div>
-              </Card>
+              </div>
             </StaggerItem>
           ))}
         </StaggerContainer>
