@@ -30,7 +30,7 @@ export function BusinessRulesSection() {
               Coté marchand : Parcel arbitre chaque recommandation selon vos règles business.
             </h2>
             <p className="text-gray-500 max-w-3xl mx-auto" style={{ color: '#ffffff' }}>
-              Notre agent s'appuie sur une couche de décision structurée qui arbitre chaque réponse selon :
+              Notre agent s'appuie sur une couche de décision structurée qui arbitre chaque réponse.
             </p>
           </div>
         </ScrollReveal>
