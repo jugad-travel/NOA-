@@ -5,19 +5,18 @@ import { Section } from "@/components/layout/Section"
 import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/shared/ScrollReveal"
 import { Card } from "@/components/ui/card"
 
-const rules = [
-  {
-    title: "Contexte et projet du client",
-    description: "PARCEL comprend le besoin spécifique de chaque client et adapte ses recommandations en conséquence.",
-  },
-  {
-    title: "Règles métier explicites",
-    description: "Chaque décision respecte les règles business que vous avez établies au préalable avec notre équipe.",
-  },
-  {
-    title: "Contraintes réelles et pilotables",
-    description: "Stock, prix, priorités commerciales... PARCEL arbitre selon vos contraintes opérationnelles.",
-  },
+const merchantControls = [
+  "Contraintes produit",
+  "Priorités commerciales",
+  "Objectifs de marge et de rotation",
+  "Règles logistiques",
+  "Exclusions métier non négociables",
+]
+
+const ruleCharacteristics = [
+  { number: "01", label: "Formalisée", color: "bg-gray-700" },
+  { number: "02", label: "Paramétrables", color: "bg-gray-700" },
+  { number: "03", label: "Auditables", color: "bg-gray-700" },
 ]
 
 export function BusinessRulesSection() {
@@ -35,23 +34,53 @@ export function BusinessRulesSection() {
           </div>
         </ScrollReveal>
 
-        {/* Cartes explicatives */}
-        <StaggerContainer className="grid md:grid-cols-3 gap-6 mb-16" staggerDelay={0.1}>
-          {rules.map((rule) => (
-            <StaggerItem key={rule.title}>
-              <Card glow className="h-full">
-                <div>
-                  <h3 className="text-lg font-normal text-white mb-2">
-                    {rule.title}
-                  </h3>
-                  <p className="text-gray-400">
-                    {rule.description}
-                  </p>
-                </div>
-              </Card>
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
+        {/* Contenu en deux colonnes */}
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 mb-16">
+          {/* Colonne gauche - Contrôles du marchand */}
+          <ScrollReveal delay={0.1}>
+            <div>
+              <h3 className="text-xl md:text-2xl font-semibold mb-6" style={{ color: '#ffffff' }}>
+                Le marchand garde le contrôle sur les :
+              </h3>
+              <div className="space-y-3">
+                {merchantControls.map((control, index) => (
+                  <div
+                    key={index}
+                    className="bg-gray-800 rounded-xl px-4 py-3 border border-gray-700"
+                  >
+                    <p className="text-base md:text-lg" style={{ color: '#ffffff' }}>
+                      {control}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </ScrollReveal>
+
+          {/* Colonne droite - Caractéristiques des règles */}
+          <ScrollReveal delay={0.2}>
+            <div className="md:grid md:grid-rows-[auto_1fr] md:h-full">
+              <h3 className="text-xl md:text-2xl font-semibold mb-6" style={{ color: '#ffffff' }}>
+                Ces règles sont :
+              </h3>
+              <div className="space-y-4 md:flex md:flex-col md:justify-center">
+                {ruleCharacteristics.map((characteristic, index) => (
+                  <div
+                    key={index}
+                    className={`${characteristic.color} rounded-xl px-4 py-3 flex items-center gap-3 border border-gray-600`}
+                  >
+                    <span className="text-white font-bold text-lg md:text-xl">
+                      {characteristic.number}.
+                    </span>
+                    <span className="text-white font-semibold text-base md:text-lg">
+                      {characteristic.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </ScrollReveal>
+        </div>
 
         {/* Résultat */}
         <ScrollReveal delay={0.2}>
