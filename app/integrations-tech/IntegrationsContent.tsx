@@ -160,27 +160,8 @@ export function IntegrationsContent() {
         </div>
       </Section>
       
-      {/* Introduction détaillée */}
-      <Section variant="white" padding="lg">
-        <div className="max-w-4xl mx-auto">
-          <ScrollReveal>
-            <div className="space-y-4 text-lg text-gray-700">
-              <p>
-                PARCEL est une brique applicative indépendante, conçue pour s'intégrer à des environnements e-commerce existants, sans refonte du site ni modification du tunnel de conversion.
-              </p>
-              <p>
-                PARCEL s'adapte à votre plateforme via des connecteurs natifs (Shopify, Magento, WooCommerce, etc.) et communique via les APIs standards (Storefront API, Admin API, Webhooks).
-              </p>
-              <p className="font-medium text-gray-900">
-                L'objectif n'est pas de remplacer vos outils, mais de s'appuyer sur votre stack actuelle.
-              </p>
-            </div>
-          </ScrollReveal>
-        </div>
-      </Section>
-      
       {/* Compatibilité plateformes */}
-      <Section variant="white" padding="lg">
+      <Section variant="white" padding="lg" className="pt-12 md:pt-16">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
             <div className="text-center mb-12">
@@ -252,7 +233,7 @@ export function IntegrationsContent() {
           
           <ScrollReveal delay={0.3}>
             <p className="text-center mt-8 text-lg text-brand">
-              👉 PARCEL fonctionne aussi bien sur des stacks traditionnelles que sur des architectures modernes.
+              PARCEL fonctionne aussi bien sur des stacks traditionnelles que sur des architectures modernes.
             </p>
           </ScrollReveal>
         </div>

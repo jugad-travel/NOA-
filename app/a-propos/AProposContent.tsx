@@ -25,7 +25,7 @@ import {
 const teamMembers = [
   {
     name: "Vianney Mayaud",
-    role: "Fondateur",
+    role: "Co-fondateur",
     details: "EDHEC, Fondateur ",
     detailsLink: "https://jugadtravel.com",
     detailsLinkText: "JUGAD TRAVEL",
@@ -39,7 +39,7 @@ const teamMembers = [
   },
   {
     name: "Octave Dumont",
-    role: "CTO",
+    role: "Co-fondateur, CTO",
     details: "HEC - ENSAE, Data scientist BNP Paribas, ENS Data science competitor",
     image: "/images/pdp Octave dumont .jpeg",
   },
@@ -270,10 +270,10 @@ export function AProposContent() {
       <Section variant="gray" padding="lg" className="pt-8 md:pt-12">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 text-center">
               Notre conviction
             </h2>
-            <p className="text-xl text-gray-700 leading-relaxed font-medium">
+            <p className="text-xl text-gray-700 leading-relaxed font-medium text-center">
               Un catalogue riche ne crée de valeur que s'il est intelligible, exploitable et activable pour l'utilisateur final.
             </p>
           </ScrollReveal>
