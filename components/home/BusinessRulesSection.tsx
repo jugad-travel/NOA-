@@ -11,6 +11,7 @@ const merchantControls = [
   "Objectifs de marge et de rotation",
   "Règles logistiques",
   "Exclusions métier non négociables",
+  "Stratégie de pricing",
 ]
 
 const ruleCharacteristics = [
@@ -34,21 +35,20 @@ export function BusinessRulesSection() {
           </div>
         </ScrollReveal>
 
-        {/* Contenu en deux colonnes */}
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12 mb-16">
-          {/* Colonne gauche - Contrôles du marchand */}
+        {/* Contenu unifié avec cartes */}
+        <div className="mb-16">
           <ScrollReveal delay={0.1}>
-            <div>
-              <h3 className="text-xl md:text-2xl font-semibold mb-6 text-center" style={{ color: '#ffffff' }}>
+            <div className="max-w-4xl mx-auto">
+              <h3 className="text-xl md:text-2xl font-semibold mb-8 text-center" style={{ color: '#ffffff' }}>
                 Le marchand garde le contrôle sur les :
               </h3>
-              <div className="space-y-3">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
                 {merchantControls.map((control, index) => (
                   <div
                     key={index}
-                    className="bg-gray-800 rounded-xl px-4 py-3 border border-gray-700"
+                    className="bg-white/10 backdrop-blur-sm rounded-xl px-5 py-4 border border-white/20 hover:bg-white/15 transition-all"
                   >
-                    <p className="text-base md:text-lg" style={{ color: '#ffffff' }}>
+                    <p className="text-base md:text-lg text-center" style={{ color: '#ffffff' }}>
                       {control}
                     </p>
                   </div>
@@ -57,21 +57,19 @@ export function BusinessRulesSection() {
             </div>
           </ScrollReveal>
 
-          {/* Colonne droite - Caractéristiques des règles */}
           <ScrollReveal delay={0.2}>
-            <div className="md:grid md:grid-rows-[auto_1fr] md:h-full">
-              <h3 className="text-xl md:text-2xl font-semibold mb-6 text-center" style={{ color: '#ffffff' }}>
+            <div className="max-w-2xl mx-auto">
+              <h3 className="text-xl md:text-2xl font-semibold mb-8 text-center" style={{ color: '#ffffff' }}>
                 Ces règles sont :
               </h3>
-              <div className="space-y-4 md:flex md:flex-col md:justify-center">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 {ruleCharacteristics.map((characteristic, index) => (
                   <div
                     key={index}
-                    className="rounded-xl px-4 py-3 flex items-center gap-3 border border-gray-200"
-                    style={{ backgroundColor: "#fcf2f8" }}
+                    className="bg-white rounded-xl px-6 py-4 flex items-center justify-center gap-2 shadow-lg"
                   >
-                    <span className="text-gray-900 font-bold text-lg md:text-xl">
-                      {characteristic.number}.
+                    <span className="text-gray-900 font-bold text-xl">
+                      {characteristic.number}
                     </span>
                     <span className="text-gray-900 font-semibold text-base md:text-lg">
                       {characteristic.label}

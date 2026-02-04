@@ -155,18 +155,18 @@ export function AProposContent() {
       </Section>
 
       {/* Introduction */}
-      <Section variant="white" padding="lg">
+      <Section variant="white" padding="lg" className="pb-2">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
             <p className="text-xl md:text-2xl text-gray-700 leading-relaxed text-center">
-              Là où le e-commerce s'est historiquement concentré sur le trafic, le pricing et la logistique, Parcel s'attaque à ce qui reste le principal angle mort de la vente en ligne : <span className="font-bold text-gray-900">l'aide réelle à la décision.</span>
+              Parcel s'attaque à l'angle mort de la vente en ligne : <span className="font-bold text-gray-900">l'aide réelle à la décision.</span>
             </p>
           </ScrollReveal>
         </div>
       </Section>
 
       {/* Team Section - GARDÉE INTACTE */}
-      <Section variant="white" padding="xl">
+      <Section variant="white" padding="xl" className="pt-4">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-center">
@@ -296,11 +296,8 @@ export function AProposContent() {
           
           <ScrollReveal delay={0.3}>
             <div className="mt-12 text-center">
-              <p className="text-xl text-gray-700 font-semibold mb-2">
-                Face à cette complexité, les parcours reposent encore majoritairement sur des mécaniques statiques.
-              </p>
-              <p className="text-lg text-gray-600 italic">
-                Le client est alors seul face au choix, ce qui génère hésitation, abandon et décisions sous-optimales.
+              <p className="text-xl text-gray-700 font-semibold">
+                Résultat : hésitation, abandon et décisions sous-optimales.
               </p>
             </div>
           </ScrollReveal>
@@ -332,6 +329,22 @@ export function AProposContent() {
             <p className="text-xl text-gray-900 font-semibold mt-8 text-center">
               Le e-commerce performant est celui qui sait orchestrer intelligemment cette dualité.
             </p>
+          </ScrollReveal>
+        </div>
+      </Section>
+
+      {/* Notre objectif */}
+      <Section variant="dark" padding="lg">
+        <div className="max-w-4xl mx-auto">
+          <ScrollReveal>
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center" style={{ color: '#ffffff' }}>
+              NOTRE OBJECTIF :
+            </h2>
+            <div className="bg-gray-700 rounded-xl p-6 md:p-8">
+              <p className="text-white text-lg md:text-xl leading-relaxed" style={{ color: '#ffffff' }}>
+                Redonner au <strong>client</strong> en ligne l'<strong>expérience d'achat</strong> qu'il va chercher <strong>en magasin</strong> tout en permettant au <strong>marchand</strong> de piloter clairement ses <strong>priorités business.</strong>
+              </p>
+            </div>
           </ScrollReveal>
         </div>
       </Section>
