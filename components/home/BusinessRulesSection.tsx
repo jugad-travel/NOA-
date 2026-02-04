@@ -14,9 +14,9 @@ const merchantControls = [
 ]
 
 const ruleCharacteristics = [
-  { number: "01", label: "Formalisée", color: "bg-gray-700" },
-  { number: "02", label: "Paramétrables", color: "bg-gray-700" },
-  { number: "03", label: "Auditables", color: "bg-gray-700" },
+  { number: "01", label: "Formalisée" },
+  { number: "02", label: "Paramétrables" },
+  { number: "03", label: "Auditables" },
 ]
 
 export function BusinessRulesSection() {
@@ -39,7 +39,7 @@ export function BusinessRulesSection() {
           {/* Colonne gauche - Contrôles du marchand */}
           <ScrollReveal delay={0.1}>
             <div>
-              <h3 className="text-xl md:text-2xl font-semibold mb-6" style={{ color: '#ffffff' }}>
+              <h3 className="text-xl md:text-2xl font-semibold mb-6 text-center" style={{ color: '#ffffff' }}>
                 Le marchand garde le contrôle sur les :
               </h3>
               <div className="space-y-3">
@@ -60,19 +60,20 @@ export function BusinessRulesSection() {
           {/* Colonne droite - Caractéristiques des règles */}
           <ScrollReveal delay={0.2}>
             <div className="md:grid md:grid-rows-[auto_1fr] md:h-full">
-              <h3 className="text-xl md:text-2xl font-semibold mb-6" style={{ color: '#ffffff' }}>
+              <h3 className="text-xl md:text-2xl font-semibold mb-6 text-center" style={{ color: '#ffffff' }}>
                 Ces règles sont :
               </h3>
               <div className="space-y-4 md:flex md:flex-col md:justify-center">
                 {ruleCharacteristics.map((characteristic, index) => (
                   <div
                     key={index}
-                    className={`${characteristic.color} rounded-xl px-4 py-3 flex items-center gap-3 border border-gray-600`}
+                    className="rounded-xl px-4 py-3 flex items-center gap-3 border border-gray-200"
+                    style={{ backgroundColor: "#fcf2f8" }}
                   >
-                    <span className="text-white font-bold text-lg md:text-xl">
+                    <span className="text-gray-900 font-bold text-lg md:text-xl">
                       {characteristic.number}.
                     </span>
-                    <span className="text-white font-semibold text-base md:text-lg">
+                    <span className="text-gray-900 font-semibold text-base md:text-lg">
                       {characteristic.label}
                     </span>
                   </div>
@@ -86,7 +87,7 @@ export function BusinessRulesSection() {
         <ScrollReveal delay={0.2}>
           <div className="text-center mb-12">
             <p className="text-xl md:text-2xl font-semibold" style={{ color: '#ffffff' }}>
-              Résultat : on arbitre comme un vendeur humain, mais de façon cohérente, mesurable et scalable.
+              Résultat : Parcel arbitre comme un vendeur humain, mais de façon cohérente, mesurable et scalable.
             </p>
           </div>
         </ScrollReveal>

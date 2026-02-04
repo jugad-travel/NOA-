@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronRight, Star, Sparkles, Filter } from "lucide-react"
+import { ChevronRight, Star, Filter } from "lucide-react"
 import { SafariWindow } from "./SafariWindow"
 import { PhoneWindow } from "./PhoneWindow"
 import { cn } from "@/lib/utils"
@@ -130,8 +130,14 @@ export function DemoNoaMatch({ animationProgress = 0 }: DemoNoaMatchProps) {
             {/* PARCEL Assistant */}
             <div className="bg-gray-50 rounded-xl p-3 flex-1">
               <div className="flex items-center gap-1.5 mb-2">
-                <div className="w-5 h-5 rounded-md bg-gray-900 flex items-center justify-center">
-                  <Sparkles className="w-2.5 h-2.5 text-white" />
+                <div className="w-5 h-5 rounded-md bg-gray-200 flex items-center justify-center p-0 overflow-hidden">
+                  <Image 
+                    src="/images/Logo Parcel sans écriture.png"
+                    alt="PARCEL"
+                    width={22}
+                    height={22}
+                    className="object-contain"
+                  />
                 </div>
                 <span className="text-[10px] font-semibold text-gray-900">PARCEL vous aide</span>
               </div>
@@ -196,8 +202,14 @@ export function DemoNoaMatch({ animationProgress = 0 }: DemoNoaMatchProps) {
             {isMobile && (
               <div className="mb-3 bg-gray-50 rounded-xl p-3">
                 <div className="flex items-center gap-1.5 mb-2">
-                  <div className="w-5 h-5 rounded-md bg-gray-900 flex items-center justify-center">
-                    <Sparkles className="w-2.5 h-2.5 text-white" />
+                  <div className="w-5 h-5 rounded-md bg-gray-200 flex items-center justify-center p-1">
+                    <Image 
+                      src="/images/Logo Parcel sans écriture.png"
+                      alt="PARCEL"
+                      width={14}
+                      height={14}
+                      className="object-contain"
+                    />
                   </div>
                   <span className="text-[10px] font-semibold text-gray-900">PARCEL vous aide</span>
                 </div>
@@ -223,8 +235,14 @@ export function DemoNoaMatch({ animationProgress = 0 }: DemoNoaMatchProps) {
             {/* Badge PARCEL suggestion sur mobile */}
             {isMobile && highlightedProduct && (
               <div className="mb-3 bg-gray-50 rounded-lg p-2 flex items-center gap-2">
-                <div className="w-5 h-5 rounded-md bg-gray-900 flex items-center justify-center">
-                  <Sparkles className="w-2.5 h-2.5 text-white" />
+                <div className="w-5 h-5 rounded-md bg-gray-200 flex items-center justify-center p-0 overflow-hidden">
+                  <Image 
+                    src="/images/Logo Parcel sans écriture.png"
+                    alt="PARCEL"
+                    width={22}
+                    height={22}
+                    className="object-contain"
+                  />
                 </div>
                 <span className="text-[10px] font-semibold text-gray-900">PARCEL vous recommande</span>
               </div>
@@ -302,9 +320,15 @@ export function DemoNoaMatch({ animationProgress = 0 }: DemoNoaMatchProps) {
                         <motion.div
                           initial={{ opacity: 0, scale: 0 }}
                           animate={{ opacity: 1, scale: 1 }}
-                          className="absolute top-1 right-1 w-5 h-5 rounded-full bg-gray-900 flex items-center justify-center"
+                          className="absolute top-1 right-1 w-5 h-5 rounded-full bg-gray-200 flex items-center justify-center p-0 overflow-hidden"
                         >
-                          <Sparkles className="w-3 h-3 text-white" />
+                          <Image 
+                            src="/images/Logo Parcel sans écriture.png"
+                            alt="PARCEL"
+                            width={22}
+                            height={22}
+                            className="object-contain"
+                          />
                         </motion.div>
                       )}
                     </div>

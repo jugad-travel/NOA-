@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronRight, Star, Heart, Share2, Check, Sparkles, ShoppingCart, Truck, Shield, RotateCcw } from "lucide-react"
+import { ChevronRight, Star, Heart, Share2, Check, ShoppingCart, Truck, Shield, RotateCcw } from "lucide-react"
 import { SafariWindow } from "./SafariWindow"
 import { PhoneWindow } from "./PhoneWindow"
 import { cn } from "@/lib/utils"
@@ -323,8 +323,14 @@ export function DemoNoaExpert({ animationProgress = 0 }: DemoNoaExpertProps) {
             {/* PARCEL Expert Section */}
             <div ref={expertSectionRef} className="mt-4 bg-gray-50 rounded-xl p-3">
               <div className="flex items-center gap-1.5 mb-2">
-                <div className="w-5 h-5 rounded-md bg-gray-900 flex items-center justify-center">
-                  <Sparkles className="w-2.5 h-2.5 text-white" />
+                <div className="w-5 h-5 rounded-md bg-gray-200 flex items-center justify-center p-0 overflow-hidden">
+                  <Image 
+                    src="/images/Logo Parcel sans écriture.png"
+                    alt="PARCEL"
+                    width={22}
+                    height={22}
+                    className="object-contain"
+                  />
                 </div>
                 <span className="text-[10px] font-semibold text-gray-900">Questions fréquentes</span>
               </div>

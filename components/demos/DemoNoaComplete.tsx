@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Trash2, Plus, Minus, Sparkles, Check, ShoppingCart, ArrowRight, Truck, CreditCard, Menu } from "lucide-react"
+import { Trash2, Plus, Minus, Check, ShoppingCart, ArrowRight, Truck, CreditCard, Menu } from "lucide-react"
 import { SafariWindow } from "./SafariWindow"
 import { PhoneWindow } from "./PhoneWindow"
 import { cn } from "@/lib/utils"
@@ -124,7 +124,7 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
             {/* Mobile Header with PARCEL logo */}
             <div className="px-3 py-2 border-b border-gray-100 flex items-center justify-between bg-white">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-gray-900 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
                   <span className="text-white text-xs font-bold">N</span>
                 </div>
                 <span className="text-sm font-semibold text-gray-900">Parcel</span>
@@ -247,8 +247,14 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
                   className="mt-4 bg-gray-50 rounded-xl p-3"
                 >
                   <div className="flex items-center gap-1.5 mb-2">
-                    <div className="w-5 h-5 rounded-md bg-gray-900 flex items-center justify-center">
-                      <Sparkles className="w-2.5 h-2.5 text-white" />
+                    <div className="w-5 h-5 rounded-md bg-gray-200 flex items-center justify-center p-0 overflow-hidden">
+                      <Image 
+                        src="/images/Logo Parcel sans écriture.png"
+                        alt="PARCEL"
+                        width={22}
+                        height={22}
+                        className="object-contain"
+                      />
                     </div>
                     <span className="text-[10px] font-semibold text-gray-900">PARCEL vous suggère</span>
                   </div>
@@ -545,8 +551,14 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
                         className="mt-4 bg-gray-50 rounded-xl p-3"
                       >
                         <div className="flex items-center gap-1.5 mb-2">
-                          <div className="w-5 h-5 rounded-md bg-gray-900 flex items-center justify-center">
-                            <Sparkles className="w-2.5 h-2.5 text-white" />
+                          <div className="w-5 h-5 rounded-md bg-gray-200 flex items-center justify-center p-0 overflow-hidden">
+                            <Image 
+                              src="/images/Logo Parcel sans écriture.png"
+                              alt="PARCEL"
+                              width={22}
+                              height={22}
+                              className="object-contain"
+                            />
                           </div>
                           <span className="text-[10px] font-semibold text-gray-900">PARCEL vous suggère</span>
                         </div>

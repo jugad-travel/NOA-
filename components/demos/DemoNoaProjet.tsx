@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Search, ShoppingBag, User, Menu, ChevronRight, MessageCircle, X, Send, Sparkles, ShoppingCart, Check } from "lucide-react"
+import { Search, ShoppingBag, User, Menu, ChevronRight, MessageCircle, X, Send, ShoppingCart, Check } from "lucide-react"
 import { SafariWindow } from "./SafariWindow"
 import { PhoneWindow } from "./PhoneWindow"
 import { cn } from "@/lib/utils"
@@ -109,7 +109,7 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
         {/* Mini Header */}
         <div className="flex items-center justify-between px-2 sm:px-4 py-2 sm:py-3 border-b border-gray-100">
           <div className="flex items-center gap-1.5 sm:gap-2">
-            <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-gray-900 flex items-center justify-center">
+            <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-gray-200 flex items-center justify-center">
               <span className="text-white font-normal text-[10px] sm:text-xs">OE</span>
             </div>
             <span className="font-semibold text-gray-900 text-xs sm:text-sm">Outdoor Expert</span>
@@ -233,8 +233,14 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
               {/* Chat Header */}
               <div className="flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 border-b border-gray-100 bg-gray-50">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-gray-900 flex items-center justify-center">
-                    <Sparkles className="w-4 h-4 text-white" />
+                  <div className="w-8 h-8 rounded-lg bg-gray-200 flex items-center justify-center p-0 overflow-hidden">
+                    <Image 
+                      src="/images/Logo Parcel sans écriture.png"
+                      alt="PARCEL"
+                      width={36}
+                      height={36}
+                      className="object-contain"
+                    />
                   </div>
                   <div>
                     <p className="text-sm font-medium text-gray-900">PARCEL</p>
@@ -253,8 +259,14 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
               <div ref={chatMessagesRef} className="p-3 space-y-3 h-56 overflow-y-auto" style={{ scrollBehavior: 'auto' }}>
                 {/* Welcome message */}
                 <div className="flex gap-2">
-                  <div className="w-6 h-6 rounded-full bg-gray-900 flex items-center justify-center flex-shrink-0">
-                    <Sparkles className="w-3 h-3 text-white" />
+                  <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0 p-0 overflow-hidden">
+                    <Image 
+                      src="/images/Logo Parcel sans écriture.png"
+                      alt="PARCEL"
+                      width={27}
+                      height={27}
+                      className="object-contain"
+                    />
                   </div>
                   <div className="bg-gray-100 rounded-2xl rounded-tl-sm px-3 py-2 text-xs text-gray-700">
                     Bonjour ! Comment puis-je vous aider ?
@@ -285,8 +297,14 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
                       exit={{ opacity: 0 }}
                       className="flex gap-2"
                     >
-                      <div className="w-6 h-6 rounded-full bg-gray-900 flex items-center justify-center flex-shrink-0">
-                        <Sparkles className="w-3 h-3 text-white" />
+                      <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0 p-0 overflow-hidden">
+                        <Image 
+                          src="/images/Logo Parcel sans écriture.png"
+                          alt="PARCEL"
+                          width={27}
+                          height={27}
+                          className="object-contain"
+                        />
                       </div>
                       <div className="bg-gray-100 rounded-2xl rounded-tl-sm px-3 py-2">
                         <div className="flex gap-1">
@@ -308,8 +326,14 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
                       className="space-y-2"
                     >
                       <div className="flex gap-2">
-                        <div className="w-6 h-6 rounded-full bg-gray-900 flex items-center justify-center flex-shrink-0">
-                          <Sparkles className="w-3 h-3 text-white" />
+                        <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0 p-0 overflow-hidden">
+                          <Image 
+                            src="/images/Logo Parcel sans écriture.png"
+                            alt="PARCEL"
+                            width={27}
+                            height={27}
+                            className="object-contain"
+                          />
                         </div>
                         <div className="bg-gray-100 rounded-2xl rounded-tl-sm px-3 py-2 text-xs text-gray-700">
                           {noaConversations.projet.noaResponse}
@@ -400,7 +424,7 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
                     className="flex-1 bg-transparent text-xs text-gray-700 placeholder:text-gray-400 outline-none"
                     readOnly
                   />
-                  <button className="w-6 h-6 rounded-lg bg-gray-900 flex items-center justify-center">
+                  <button className="w-6 h-6 rounded-lg bg-gray-200 flex items-center justify-center">
                     <Send className="w-3 h-3 text-white" />
                   </button>
                 </div>

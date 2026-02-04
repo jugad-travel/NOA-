@@ -293,7 +293,7 @@ export const complementaryProducts: Record<string, string[]> = {
 export const noaConversations = {
   projet: {
     userMessage: "Je pars une semaine faire le GR20",
-    noaResponse: "Le GR20 est un trek exigeant ! Pour une semaine en autonomie, je vous recommande un équipement complet et fiable.",
+    noaResponse: "Le GR20 est un trek exigeant ! Pour une semaine, selon votre profil, je vous recommande cet équipement complet et fiable : ",
     suggestions: ["trail-pro-x", "osprey-atmos-65"],
   },
   match: {
