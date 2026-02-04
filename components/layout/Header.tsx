@@ -13,6 +13,7 @@ const navigation = [
     name: "Produits",
     href: "/produits",
     children: [
+      { name: "Tous les produits", href: "/produits" },
       { name: "PARCEL Projet", href: "/produits#noa-projet" },
       { name: "PARCEL Match", href: "/produits#noa-match" },
       { name: "PARCEL Expert", href: "/produits#noa-expert" },

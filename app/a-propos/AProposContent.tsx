@@ -19,7 +19,10 @@ import {
   Layers,
   Plug,
   Lightbulb,
-  Users
+  Users,
+  MessageSquare,
+  Settings,
+  BarChart3
 } from "lucide-react"
 
 const teamMembers = [
@@ -58,41 +61,33 @@ const teamMembers = [
 
 const constats = [
   {
-    icon: Database,
     title: "Catalogues toujours plus vastes",
-    description: "Techniques et difficiles à exploiter",
+    subtitle: "Souvent techniques ou complexes",
   },
   {
-    icon: Users,
-    title: "Parcours peu personnalisés",
-    description: "Malgré une abondance de données",
+    title: "Riches en données",
+    subtitle: "Mais pauvres en guidance",
   },
   {
-    icon: TrendingUp,
-    title: "Dépendance à l'acquisition payante",
-    description: "Pour compenser des taux de conversion insuffisants",
+    title: "Parcours statiques",
+    subtitle: "Recherche, filtres, comparateurs figés",
   },
 ]
 
 const reponses = [
   {
-    icon: Brain,
     text: "Interprète l'intention réelle derrière la demande",
   },
   {
-    icon: Zap,
     text: "Analyse le catalogue en temps réel",
   },
   {
-    icon: Target,
     text: "Compare, score et hiérarchise les produits pertinents",
   },
   {
-    icon: Lightbulb,
     text: "Explique ses recommandations de manière compréhensible",
   },
   {
-    icon: ShoppingCart,
     text: "Déclenche des actions concrètes (navigation, ajout au panier, sélection de variantes)",
   },
 ]
@@ -117,18 +112,18 @@ const caracteristiques = [
 ]
 
 const apports = [
-  "Augmentation du taux de conversion",
-  "Amélioration de la qualité des paniers (meilleure adéquation produit / besoin)",
-  "Réduction des abandons liés à l'hésitation ou à la surcharge d'information",
-  "Valorisation intelligente des données catalogue existantes",
-  "Meilleure compréhension des intentions clients (insights exploitables)",
+  "Meilleure conversion, pilotée par la décision",
+  "Paniers plus cohérents, alignés avec les besoins réels",
+  "Réduction des abandons liés à l'hésitation",
+  "Valorisation intelligente des données catalogue",
+  "Insights exploitables sur les intentions clients",
 ]
 
 const resume = [
-  "Un assistant d'achat IA intégré au e-commerce",
-  "Une technologie orientée conversion et compréhension client",
-  "Une approche pragmatique, compatible avec les stacks existantes",
-  "Une vision claire : remettre l'intelligence au cœur du parcours d'achat",
+  "Un vendeur digital intégré au e-commerce",
+  "Une IA orientée décision, pas simple conversation",
+  "Une technologie gouvernée par les règles business du marchand",
+  "Une brique compatible avec les stacks existantes",
 ]
 
 export function AProposContent() {
@@ -163,18 +158,15 @@ export function AProposContent() {
       <Section variant="white" padding="lg">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
-            <p className="text-xl md:text-2xl text-gray-700 leading-relaxed mb-6">
-              PARCEL est une solution SaaS d'intelligence artificielle conçue pour transformer la manière dont les clients interagissent avec les catalogues e-commerce.
-            </p>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              Là où les sites marchands reposent encore majoritairement sur des interfaces de navigation statiques (recherche par mots-clés, filtres, comparateurs figés), PARCEL introduit une logique conversationnelle, contextuelle et orientée décision.
+            <p className="text-xl md:text-2xl text-gray-700 leading-relaxed text-center">
+              Là où le e-commerce s'est historiquement concentré sur le trafic, le pricing et la logistique, Parcel s'attaque à ce qui reste le principal angle mort de la vente en ligne : <span className="font-bold text-gray-900">l'aide réelle à la décision.</span>
             </p>
           </ScrollReveal>
         </div>
       </Section>
 
-      {/* Team Section */}
-      <Section variant="gray" padding="xl">
+      {/* Team Section - GARDÉE INTACTE */}
+      <Section variant="white" padding="xl">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-center">
@@ -266,86 +258,114 @@ export function AProposContent() {
         </div>
       </Section>
 
-      {/* Notre conviction */}
-      <Section variant="gray" padding="lg" className="pt-8 md:pt-12">
-        <div className="max-w-4xl mx-auto">
-          <ScrollReveal>
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 text-center">
-              Notre conviction
-            </h2>
-            <p className="text-xl text-gray-700 leading-relaxed font-medium text-center">
-              Un catalogue riche ne crée de valeur que s'il est intelligible, exploitable et activable pour l'utilisateur final.
-            </p>
-          </ScrollReveal>
-        </div>
-      </Section>
-
       {/* Le constat */}
-      <Section variant="white" padding="lg">
+      <Section variant="gray" padding="lg">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-center">
               Le constat
             </h2>
-            <p className="text-lg text-gray-600 text-center mb-12 max-w-3xl mx-auto">
-              Les e-commerçants font face à trois limites structurelles :
+            <p className="text-lg text-gray-600 text-center mb-8 max-w-3xl mx-auto">
+              Aujourd'hui, les catalogues e-commerce sont :
             </p>
           </ScrollReveal>
           
-          <StaggerContainer className="grid md:grid-cols-3 gap-6" staggerDelay={0.1}>
-            {constats.map((constat) => {
-              const Icon = constat.icon
-              return (
-                <StaggerItem key={constat.title}>
-                  <Card className="h-full p-6 text-center">
-                    <div className="w-16 h-16 rounded-2xl bg-red-50 flex items-center justify-center mx-auto mb-4">
-                      <Icon className="w-8 h-8 text-red-600" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                      {constat.title}
-                    </h3>
-                    <p className="text-gray-600">
-                      {constat.description}
-                    </p>
-                  </Card>
-                </StaggerItem>
-              )
-            })}
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" staggerDelay={0.1}>
+            {constats.map((constat, index) => (
+              <StaggerItem key={index}>
+                <Card className="h-full p-6 text-center">
+                  <div className="w-16 h-16 rounded-2xl bg-red-50 flex items-center justify-center mx-auto mb-4">
+                    <Image 
+                      src="/images/Logo Parcel sans écriture.png"
+                      alt="PARCEL"
+                      width={40}
+                      height={40}
+                      className="object-contain"
+                    />
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    {constat.title}
+                  </h3>
+                  <p className="text-gray-600">
+                    {constat.subtitle}
+                  </p>
+                </Card>
+              </StaggerItem>
+            ))}
           </StaggerContainer>
           
           <ScrollReveal delay={0.3}>
-            <p className="text-center text-gray-600 mt-8 italic">
-              Dans ce contexte, le client est souvent laissé seul face à la complexité de l'offre.
+            <div className="mt-12 text-center">
+              <p className="text-xl text-gray-700 font-semibold mb-2">
+                Face à cette complexité, les parcours reposent encore majoritairement sur des mécaniques statiques.
+              </p>
+              <p className="text-lg text-gray-600 italic">
+                Le client est alors seul face au choix, ce qui génère hésitation, abandon et décisions sous-optimales.
+              </p>
+            </div>
+          </ScrollReveal>
+        </div>
+      </Section>
+
+      {/* Notre conviction */}
+      <Section variant="white" padding="lg" className="pt-8 md:pt-12 pb-4">
+        <div className="max-w-6xl mx-auto">
+          <ScrollReveal>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">
+              Notre conviction
+            </h2>
+            <p className="text-xl md:text-2xl text-gray-700 leading-relaxed text-center mb-8">
+              Une décision d'achat est toujours le résultat de la rencontre entre deux logiques complémentaires :
+            </p>
+            <div className="grid md:grid-cols-2 gap-6">
+              <Card className="p-6">
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  Le client, avec son projet, ses usages, ses contraintes et ses doutes.
+                </p>
+              </Card>
+              <Card className="p-6">
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  Le marchand, avec sa stratégie commerciale, ses règles métier, ses contraintes de stock, de marge et de logistique.
+                </p>
+              </Card>
+            </div>
+            <p className="text-xl text-gray-900 font-semibold mt-8 text-center">
+              Le e-commerce performant est celui qui sait orchestrer intelligemment cette dualité.
             </p>
           </ScrollReveal>
         </div>
       </Section>
 
       {/* Notre réponse */}
-      <Section variant="gradient" padding="lg" className="relative overflow-hidden">
+      <Section variant="gradient" padding="lg" className="relative overflow-hidden pt-8">
         <div className="absolute inset-0 bg-gradient-to-r from-brand-cyan/10 via-brand-blue/10 to-brand-orange/10" />
         <div className="max-w-6xl mx-auto relative z-10">
           <ScrollReveal>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 text-center">
               Notre réponse
             </h2>
-            <p className="text-lg text-white/90 text-center mb-8 max-w-3xl mx-auto">
-              PARCEL agit comme un assistant d'achat intelligent, directement intégré au site e-commerce.
+            <p className="text-lg text-white/90 text-center mb-2 max-w-3xl mx-auto">
+              Parcel n'est pas un chatbot générique.
             </p>
             <p className="text-base text-white/80 text-center mb-12 max-w-2xl mx-auto">
-              La solution permet à l'utilisateur de formuler ses besoins en langage naturel (usage, contraintes, budget, préférences), pendant que PARCEL :
+              C'est une infrastructure de décision commerciale, conçue pour :
             </p>
           </ScrollReveal>
           
           <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto" staggerDelay={0.1}>
             {reponses.map((reponse, index) => {
-              const Icon = reponse.icon
               return (
                 <StaggerItem key={index}>
                   <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-7 border border-white/20 hover:bg-white/15 hover:border-white/30 transition-all h-full flex flex-col shadow-lg">
                     <div className="flex flex-col items-center text-center gap-4 h-full">
-                      <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0 shadow-sm">
-                        <Icon className="w-7 h-7 text-white" />
+                      <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0 shadow-sm p-2 overflow-hidden">
+                        <Image 
+                          src="/images/Logo Parcel sans écriture.png"
+                          alt="PARCEL"
+                          width={40}
+                          height={40}
+                          className="object-contain"
+                        />
                       </div>
                       <p className="text-white flex-1 text-base md:text-lg leading-relaxed font-medium">
                         {reponse.text}
@@ -359,25 +379,101 @@ export function AProposContent() {
           
           <ScrollReveal delay={0.4}>
             <div className="mt-12 text-center">
-              <p className="text-xl text-white font-semibold">
-                Le résultat : une expérience d'achat plus fluide, plus rassurante et plus efficace.
+              <p className="text-lg text-white/90">
+                Le tout sans jamais perdre le contexte, du premier besoin jusqu'à la décision finale.
               </p>
             </div>
           </ScrollReveal>
         </div>
       </Section>
 
-      {/* Une IA conçue pour les marchands */}
+      {/* Côté client / Côté marchand */}
       <Section variant="white" padding="lg">
+        <div className="max-w-6xl mx-auto">
+          <ScrollReveal>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
+              Une IA pensée pour le client…<br />et gouvernée par le marchand.
+            </h2>
+          </ScrollReveal>
+          
+          <div className="grid md:grid-cols-2 gap-8 mt-12">
+            <ScrollReveal delay={0.1}>
+              <Card className="h-full p-8 bg-gradient-to-br from-blue-50 to-cyan-50 border-blue-200">
+                <div className="flex items-center gap-3 mb-6">
+                  <MessageSquare className="w-8 h-8 text-blue-600" />
+                  <h3 className="text-2xl font-bold text-gray-900">Côté client</h3>
+                </div>
+                <p className="text-lg text-gray-700 mb-4">
+                  Parcel agit comme un vendeur digital :
+                </p>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700">il guide</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700">il compare</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700">il rassure</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700">il aide à décider</span>
+                  </li>
+                </ul>
+              </Card>
+            </ScrollReveal>
+
+            <ScrollReveal delay={0.2}>
+              <Card className="h-full p-8 bg-gradient-to-br from-purple-50 to-pink-50 border-purple-200">
+                <div className="flex items-center gap-3 mb-6">
+                  <Settings className="w-8 h-8 text-purple-600" />
+                  <h3 className="text-2xl font-bold text-gray-900">Côté marchand</h3>
+                </div>
+                <p className="text-lg text-gray-700 mb-4">
+                  Parcel est un moteur entièrement gouvernable :
+                </p>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700">règles métier explicites</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700">priorités commerciales paramétrables</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700">contraintes produits, stock et logistique intégrées</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700">décisions auditables et explicables</span>
+                  </li>
+                </ul>
+                <p className="text-lg text-gray-900 font-semibold mt-6">
+                  Le marchand ne délègue pas sa stratégie à l'IA. Il la formalise et la rend exécutable à grande échelle.
+                </p>
+              </Card>
+            </ScrollReveal>
+          </div>
+        </div>
+      </Section>
+
+      {/* Une brique technologique */}
+      <Section variant="gray" padding="lg">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
             <div className="text-center mb-12">
               <Badge className="mb-4">Technologie</Badge>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Une IA conçue pour les marchands
+                Une brique technologique, pas une refonte
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                PARCEL n'est pas un chatbot générique. C'est une infrastructure IA métier, pensée pour s'adapter aux réalités opérationnelles du e-commerce.
+                Parcel s'intègre de manière fluide aux stacks e-commerce existantes.
               </p>
             </div>
           </ScrollReveal>
@@ -404,20 +500,20 @@ export function AProposContent() {
           
           <ScrollReveal delay={0.3}>
             <div className="mt-12 text-center">
-              <p className="text-lg text-gray-700">
-                PARCEL s'inscrit comme une brique technologique complémentaire, non intrusive, et orientée performance.
+              <p className="text-xl text-gray-900 font-semibold">
+                Parcel complète l'existant. Il ne le remplace pas.
               </p>
             </div>
           </ScrollReveal>
         </div>
       </Section>
 
-      {/* Ce que PARCEL apporte */}
-      <Section variant="gray" padding="lg">
+      {/* Ce que Parcel apporte */}
+      <Section variant="white" padding="lg">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
-              Ce que PARCEL apporte concrètement
+              Ce que Parcel apporte concrètement
             </h2>
           </ScrollReveal>
           
@@ -426,7 +522,7 @@ export function AProposContent() {
               <StaggerItem key={index}>
                 <Card className="p-6">
                   <div className="flex items-start gap-4">
-                    <CheckCircle2 className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
+                    <BarChart3 className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
                     <p className="text-gray-700 text-lg">
                       {apport}
                     </p>
@@ -448,22 +544,25 @@ export function AProposContent() {
             </h2>
             <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-white/20">
               <p className="text-lg md:text-xl text-white leading-relaxed mb-6">
-                Nous croyons que le futur du e-commerce ne se jouera pas uniquement sur le prix ou la vitesse de livraison, mais sur la capacité à guider, conseiller et décider avec le client.
+                Nous sommes convaincus que le futur du e-commerce ne se jouera pas uniquement sur le prix ou la vitesse de livraison.
               </p>
-              <p className="text-lg md:text-xl text-white leading-relaxed">
-                PARCEL s'inscrit dans cette transition : faire évoluer les sites marchands d'une logique de vitrine statique vers une expérience d'achat assistée par l'IA, plus humaine, plus efficace et plus intelligente.
+              <p className="text-lg md:text-xl text-white leading-relaxed mb-6">
+                Il se jouera sur la capacité des sites marchands à comprendre, guider, arbitrer et décider avec leurs clients.
+              </p>
+              <p className="text-lg md:text-xl text-white leading-relaxed font-semibold">
+                Parcel s'inscrit dans cette transition : faire évoluer le e-commerce d'une logique de vitrine statique vers une vente assistée, gouvernée et intelligible.
               </p>
             </div>
           </ScrollReveal>
         </div>
       </Section>
 
-      {/* PARCEL, en résumé */}
-      <Section variant="white" padding="lg">
+      {/* Parcel, en résumé */}
+      <Section variant="gray" padding="lg">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
-              PARCEL, en résumé
+              Parcel, en résumé
             </h2>
           </ScrollReveal>
           
@@ -481,7 +580,7 @@ export function AProposContent() {
           </StaggerContainer>
         </div>
       </Section>
+
     </div>
   )
 }
-

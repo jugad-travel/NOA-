@@ -1,40 +1,24 @@
 "use client"
 
 import * as React from "react"
-import { motion } from "framer-motion"
-import { Brain, Zap, ShoppingCart, TrendingUp } from "lucide-react"
 import { Section } from "@/components/layout/Section"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
 import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/shared/ScrollReveal"
+import { BarChart3 } from "lucide-react"
 
-const features = [
-  {
-    icon: Brain,
-    title: "Business Intelligence Conversationnelle",
-    benefit: "Comprend les besoins complexes (ex: \"Je prépare un marathon\").",
-  },
-  {
-    icon: Zap,
-    title: "Connexion Catalogue Live",
-    benefit: "Recherche et suggère les produits en stock en temps réel.",
-  },
-  {
-    icon: ShoppingCart,
-    title: "Ajout au Panier Natif",
-    benefit: "Réduit les frictions : le conseiller remplit le panier pour le client.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Upsell Contextuel",
-    benefit: "Suggère l'accessoire indispensable, jamais le superflu.",
-  },
+const apports = [
+  "Meilleure conversion, pilotée par la décision",
+  "Paniers plus cohérents, alignés avec les besoins réels",
+  "Réduction des abandons liés à l'hésitation",
+  "Valorisation intelligente des données catalogue",
+  "Insights exploitables sur les intentions clients",
 ]
 
 export function Features() {
   return (
     <Section variant="dark" padding="lg">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-3xl mx-auto">
         <ScrollReveal>
           <div className="text-center mb-16">
             <Badge className="mb-4 text-white">Fonctionnalités</Badge>
@@ -44,24 +28,19 @@ export function Features() {
           </div>
         </ScrollReveal>
         
-        <StaggerContainer className="grid md:grid-cols-2 gap-6" staggerDelay={0.1}>
-          {features.map((feature, index) => {
-            const Icon = feature.icon
-            return (
-              <StaggerItem key={feature.title}>
-                <Card glow className="h-full">
-                  <div>
-                    <h3 className="text-lg font-normal text-white mb-2">
-                      {feature.title}
-                    </h3>
-                    <p className="text-gray-400">
-                      {feature.benefit}
-                    </p>
-                  </div>
-                </Card>
-              </StaggerItem>
-            )
-          })}
+        <StaggerContainer className="space-y-4" staggerDelay={0.1}>
+          {apports.map((apport, index) => (
+            <StaggerItem key={index}>
+              <Card className="p-6" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', borderColor: 'rgba(255, 255, 255, 0.2)' }}>
+                <div className="flex items-start gap-4">
+                  <BarChart3 className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
+                  <p className="text-gray-900 text-lg">
+                    {apport}
+                  </p>
+                </div>
+              </Card>
+            </StaggerItem>
+          ))}
         </StaggerContainer>
       </div>
     </Section>
