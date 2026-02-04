@@ -251,8 +251,14 @@ export function NoaChatBubble({
                   )}
                 >
                   {msg.type === "noa" && (
-                    <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
-                      <Sparkles className="w-3 h-3 text-white" />
+                    <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0 p-0 overflow-hidden">
+                      <Image 
+                        src="/images/Logo Parcel sans écriture.png"
+                        alt="PARCEL"
+                        width={27}
+                        height={27}
+                        className="object-contain"
+                      />
                     </div>
                   )}
                   <div className={cn(
@@ -268,8 +274,14 @@ export function NoaChatBubble({
               
               {isTyping && (
                 <div className="flex gap-2">
-                  <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
-                    <Sparkles className="w-3 h-3 text-white" />
+                  <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0 p-0 overflow-hidden">
+                    <Image 
+                      src="/images/Logo Parcel sans écriture.png"
+                      alt="PARCEL"
+                      width={27}
+                      height={27}
+                      className="object-contain"
+                    />
                   </div>
                   <div className="bg-gray-900 rounded-2xl rounded-tl-sm px-3 py-2">
                     <div className="flex gap-1">
