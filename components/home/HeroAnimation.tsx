@@ -6,6 +6,33 @@ import Image from "next/image"
 import { Plus, Check } from "lucide-react"
 import { cn } from "@/lib/utils"
 
+const examples = [
+  {
+    userMessage: "Machine café sans capsules, fiable, usage quotidien.",
+    response: "Pour un usage quotidien, je vous recommande ces machines à café sans capsules, fiables et durables :",
+    products: [
+      { id: "machine-cafe-1", name: "Expresso Pro", price: 299, image: "/images/machine-cafe-1.jpg" },
+      { id: "machine-cafe-2", name: "Barista Classic", price: 249, image: "/images/machine-cafe-2.jpg" }
+    ]
+  },
+  {
+    userMessage: "Je pars 2 semaines faire le gr20 avec un ami",
+    response: "Le GR20 est un trek exigeant ! Pour une semaine en autonomie, je vous recommande cet équipement complet et fiable :",
+    products: [
+      { id: "trail-pro-x", name: "Trail Pro X", price: 149, image: "/images/trailprox noires.png" },
+      { id: "atmos-ag-65", name: "Atmos AG 65", price: 280, image: "/images/atmos AG 65.png", objectPosition: "22% center" }
+    ]
+  },
+  {
+    userMessage: "Matelas ferme, dos sensible, usage quotidien.",
+    response: "Pour un dos sensible, je vous recommande ces matelas fermes, conçus pour un usage quotidien et un confort optimal :",
+    products: [
+      { id: "matelas-1", name: "Confort Dos", price: 599, image: "/images/matelas-1.png" },
+      { id: "matelas-2", name: "Ortho Premium", price: 799, image: "/images/matelas-2.png" }
+    ]
+  }
+]
+
 export function HeroAnimation() {
   const [showAnimation, setShowAnimation] = React.useState(true)
   const [textIndex, setTextIndex] = React.useState(0)
@@ -13,14 +40,11 @@ export function HeroAnimation() {
   const [showMessage, setShowMessage] = React.useState(false)
   const [isMobile, setIsMobile] = React.useState(false)
   const [addedToCart, setAddedToCart] = React.useState<string | null>(null)
+  const [currentExampleIndex, setCurrentExampleIndex] = React.useState(0)
   
-  const fullText = "Je pars 2 semaines faire le gr20 avec un ami"
+  const currentExample = examples[currentExampleIndex]
+  const fullText = currentExample.userMessage
   const displayedText = fullText.substring(0, textIndex)
-  
-  const products = [
-    { id: "trail-pro-x", name: "Trail Pro X", price: 149, image: "/images/trailprox noires.png" },
-    { id: "atmos-ag-65", name: "Atmos AG 65", price: 280, image: "/images/atmos AG 65.png", objectPosition: "22% center" }
-  ]
   
   // Détecter si on est sur mobile
   React.useEffect(() => {
@@ -66,12 +90,12 @@ export function HeroAnimation() {
       
       // Phase 4: Animation d'ajout au panier (premier produit)
       if (!isRunning) return
-      setAddedToCart("trail-pro-x")
+      setAddedToCart(currentExample.products[0].id)
       await new Promise(resolve => setTimeout(resolve, 800))
       
       // Phase 5: Animation d'ajout au panier (deuxième produit)
       if (!isRunning) return
-      setAddedToCart("atmos-ag-65")
+      setAddedToCart(currentExample.products[1].id)
       await new Promise(resolve => setTimeout(resolve, 1200))
       
       // Phase 6: Réinitialiser l'état d'ajout au panier
@@ -84,8 +108,9 @@ export function HeroAnimation() {
       setShowAnimation(false)
       await new Promise(resolve => setTimeout(resolve, 500))
       
-      // Phase 8: Réinitialiser et recommencer immédiatement
+      // Phase 8: Réinitialiser et passer à l'exemple suivant
       if (!isRunning) return
+      setCurrentExampleIndex((prev) => (prev + 1) % examples.length)
       setShowAnimation(true)
       setTextIndex(0)
       setShowProducts(false)
@@ -95,7 +120,7 @@ export function HeroAnimation() {
       // Attendre un court délai avant de redémarrer
       await new Promise(resolve => setTimeout(resolve, 500))
       
-      // Redémarrer immédiatement
+      // Redémarrer immédiatement avec le nouvel exemple
       if (isRunning) {
         sequence()
       }
@@ -110,7 +135,7 @@ export function HeroAnimation() {
       isRunning = false
       clearTimeout(timer)
     }
-  }, [fullText])
+  }, [currentExampleIndex])
   
   return (
     <div className="absolute inset-0 pointer-events-none z-20">
@@ -178,21 +203,21 @@ export function HeroAnimation() {
                   className="bg-white/95 backdrop-blur-sm rounded-xl shadow-xl px-3 py-2.5 md:px-4 md:py-3 w-[200px] md:w-[240px] flex-shrink-0"
                 >
                   <p className="text-[10px] md:text-xs text-gray-700 leading-relaxed">
-                    Le GR20 est un trek exigeant ! Pour une semaine en autonomie, je vous recommande cet équipement complet et fiable :
+                    {currentExample.response}
                   </p>
                 </motion.div>
                 
                 {/* Produits - À droite, côte à côte - Position fixe, pas de x ni scale */}
                 <div className="flex flex-row gap-2 md:gap-3 flex-shrink-0">
-                  {products.map((product, index) => (
+                  {currentExample.products.map((product, index) => (
                     <motion.div
                       key={product.id}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: showProducts ? 1 : 0 }}
                       transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                      className="bg-white rounded-xl shadow-xl overflow-hidden w-[100px] md:w-[120px]"
+                      className="bg-white rounded-xl shadow-xl overflow-hidden w-[100px] md:w-[120px] flex flex-col"
                     >
-                      <div className="relative w-full aspect-square">
+                      <div className="relative w-full aspect-square flex-shrink-0">
                         <Image
                           src={product.image}
                           alt={product.name}
@@ -201,14 +226,14 @@ export function HeroAnimation() {
                           style={product.objectPosition ? { objectPosition: product.objectPosition } : undefined}
                         />
                       </div>
-                      <div className="p-2 md:p-2.5">
-                        <p className="text-xs md:text-sm font-semibold text-gray-900 mb-1">{product.name}</p>
-                        <p className="text-[10px] md:text-xs font-bold text-gray-900 mb-2">{product.price}€</p>
+                      <div className="p-2 md:p-2.5 flex flex-col flex-1 min-h-0">
+                        <p className="text-xs md:text-sm font-semibold text-gray-900 mb-1 line-clamp-2 flex-shrink-0">{product.name}</p>
+                        <p className="text-[10px] md:text-xs font-bold text-gray-900 mb-2 flex-shrink-0">{product.price}€</p>
                         <motion.button
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                           className={cn(
-                            "w-full h-6 md:h-7 rounded-lg text-[9px] md:text-[10px] font-medium flex items-center justify-center gap-1 transition-all",
+                            "w-full h-6 md:h-7 rounded-lg text-[9px] md:text-[10px] font-medium flex items-center justify-center gap-1 transition-all mt-auto flex-shrink-0",
                             addedToCart === product.id
                               ? "bg-green-500 text-white"
                               : "bg-gray-900 text-white hover:bg-gray-800"
