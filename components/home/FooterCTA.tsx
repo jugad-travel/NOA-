@@ -31,7 +31,12 @@ export function FooterCTA() {
                     <ArrowRight className="w-5 h-5" />
                   </Button>
                 </a>
-                <Link href="/produits">
+                <Link href="/produits" onClick={(e) => {
+                  if (window.location.pathname === '/produits') {
+                    e.preventDefault()
+                    window.scrollTo({ top: 0, behavior: 'smooth' })
+                  }
+                }}>
                   <Button variant="white" size="xl">
                     Découvrir la suite PARCEL
                   </Button>

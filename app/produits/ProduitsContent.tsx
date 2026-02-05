@@ -358,26 +358,39 @@ export function ProduitsContent() {
       })}
       
       {/* CTA Section */}
-      <Section variant="gray" padding="xl">
-        <div className="max-w-3xl mx-auto text-center">
+      <Section variant="white" padding="xl">
+        <div className="max-w-4xl mx-auto">
           <ScrollReveal>
-            <div className="space-y-4 text-lg text-gray-300 mb-8">
-              <p>
-                Vous pouvez activer un ou plusieurs modules PARCEL, selon vos priorités business.
-              </p>
-              <p>
-                Chaque déploiement est progressif et mesurable.
-              </p>
+            <div className="relative">
+              {/* Gradient background */}
+              <div 
+                className="rounded-3xl p-8 md:p-16 text-center"
+                style={{
+                  background: "linear-gradient(135deg, #d0f7fb 0%, #83a6ff 50%, #ff966b 100%)"
+                }}
+              >
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal text-gray-900 mb-8 font-display">
+                  Prêt à activer votre nouveau conseiller de vente digital ?
+                </h2>
+                
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                  <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo personnalisée PARCEL">
+                    <Button variant="secondary" size="xl" magnetic>
+                      Demander une démo personnalisée
+                      <ArrowRight className="w-5 h-5" />
+                    </Button>
+                  </a>
+                  <Link href="/produits" onClick={(e) => {
+                    e.preventDefault()
+                    window.scrollTo({ top: 0, behavior: 'smooth' })
+                  }}>
+                    <Button variant="white" size="xl">
+                      Découvrir la suite PARCEL
+                    </Button>
+                  </Link>
+                </div>
+              </div>
             </div>
-          </ScrollReveal>
-          
-          <ScrollReveal delay={0.1}>
-            <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo personnalisée PARCEL">
-              <Button variant="primary" size="xl" magnetic>
-                Demander une démo personnalisée
-                <ArrowRight className="w-5 h-5" />
-              </Button>
-            </a>
           </ScrollReveal>
         </div>
       </Section>

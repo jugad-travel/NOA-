@@ -193,9 +193,9 @@ export function DemoNoaMatch({ animationProgress = 0 }: DemoNoaMatchProps) {
           
           {/* Product Grid */}
           <div ref={productGridRef} className={cn("p-3", isMobile ? "flex-1 overflow-y-auto" : "flex-1 overflow-hidden")}>
-              <div className="flex items-center justify-between mb-3">
-              <h1 className="text-sm font-normal text-gray-900">Chaussures de randonnée</h1>
-              <span className="text-[10px] text-gray-500">{chaussures.length} produits</span>
+              <div className="flex items-center justify-between mb-3 gap-2 min-w-0">
+              <div className="text-gray-900 flex-1 min-w-0" style={{ fontSize: '31px', fontWeight: 400, lineHeight: '1.2' }}>Chaussures de randonnée</div>
+              <span className="text-[10px] text-gray-500 flex-shrink-0">{chaussures.length} produits</span>
             </div>
             
             {/* Conversation PARCEL sur mobile - Au-dessus du badge */}

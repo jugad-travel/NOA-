@@ -446,9 +446,9 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
               <h1 className="text-sm font-normal text-gray-900">Mon panier <span className="text-base text-gray-500 tracking-wide">({cartItems.length} articles)</span></h1>
             </div>
             
-            <div className="flex h-[calc(100%-48px)]">
+            <div className="flex h-[calc(100%-48px)] min-w-0">
               {/* Left - Cart Items */}
-              <div ref={cartItemsRef} className="flex-1 p-4 overflow-y-auto">
+              <div ref={cartItemsRef} className="flex-1 p-3 xl:p-4 overflow-y-auto min-w-0">
                 <div className="space-y-3">
                   <AnimatePresence>
                     {cartItems.map((item, idx) => {
@@ -658,7 +658,7 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
               </div>
               
               {/* Right - Summary */}
-              <div className="w-72 border-l border-gray-100 p-4 bg-gray-50 min-w-0">
+              <div className="w-64 xl:w-72 border-l border-gray-100 p-3 xl:p-4 bg-gray-50 min-w-0 flex-shrink-0">
                 <h2 className="text-sm font-normal text-gray-900 mb-4">Récapitulatif</h2>
                 
                 <div className="space-y-2 mb-4">

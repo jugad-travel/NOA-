@@ -109,13 +109,37 @@ export function GammeNoa() {
         {/* Cartes en grille 1x1 sur mobile, 2x2 sur desktop */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-12 max-w-4xl mx-auto">
           {etapes.map((etape, index) => {
+            const cardRef = React.useRef<HTMLDivElement>(null)
+            const isCardInView = useInView(cardRef, {
+              margin: "-40% 0px -40% 0px", // La carte est mise en avant quand elle est au centre du viewport
+              once: false,
+            })
+
             return (
               <motion.div
                 key={etape.id}
+                ref={cardRef}
                 initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.15 }}
-                className="bg-white rounded-lg border border-gray-200 p-5 md:p-6 transition-all min-h-[500px] flex flex-col hover:shadow-md"
+                animate={
+                  isInView
+                    ? {
+                        opacity: isCardInView ? 1 : 0.7,
+                        y: 0,
+                        scale: isCardInView ? 1 : 0.98,
+                      }
+                    : { opacity: 0, y: 30 }
+                }
+                transition={{ 
+                  duration: 0.5, 
+                  ease: [0.25, 0.1, 0.25, 1],
+                  opacity: { duration: 0.4 },
+                  scale: { duration: 0.4 }
+                }}
+                className={`bg-white rounded-lg border p-5 md:p-6 min-h-[500px] flex flex-col ${
+                  isCardInView
+                    ? "border-gray-900 shadow-lg"
+                    : "border-gray-200 hover:shadow-md"
+                }`}
               >
                 {/* Numéro et Titre alignés */}
                 <div className="flex items-center gap-3 mb-4">
