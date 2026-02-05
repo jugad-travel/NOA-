@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://noa.ai'
+  const baseUrl = 'https://parcel-ia.com'
   
   return [
     {

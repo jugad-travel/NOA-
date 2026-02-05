@@ -171,14 +171,15 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
                     >
                       {/* Product image */}
                       {productImage ? (
-                        <div className="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 relative">
+                            <div className="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 relative">
                           <Image
                             src={productImage}
                             alt={item.product.name}
                             fill
                             className="object-cover"
-                            style={item.product.id === "osprey-atmos-65" ? { objectPosition: "center top" } : undefined}
-                            sizes="80px"
+                            style={item.product.id === "osprey-atmos-65" ? { objectPosition: "22% center" } : undefined}
+                            sizes="(max-width: 768px) 80px, 160px"
+                            unoptimized
                           />
                         </div>
                       ) : (
@@ -305,8 +306,9 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
                                 alt={suggestedProduct.name}
                                 fill
                                 className="object-cover"
-                                style={suggestedProduct.id === "osprey-atmos-65" ? { objectPosition: "center top" } : undefined}
-                                sizes="48px"
+                                style={suggestedProduct.id === "osprey-atmos-65" ? { objectPosition: "22% center" } : undefined}
+                                sizes="(max-width: 768px) 48px, 96px"
+                                unoptimized
                               />
                             </div>
                           ) : (
@@ -481,8 +483,9 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
                                 alt={item.product.name}
                                 fill
                                 className="object-cover"
-                                style={item.product.id === "osprey-atmos-65" ? { objectPosition: "center top" } : undefined}
-                                sizes="64px"
+                                style={item.product.id === "osprey-atmos-65" ? { objectPosition: "22% center" } : undefined}
+                                sizes="(max-width: 768px) 64px, 128px"
+                                unoptimized
                               />
                             </div>
                           ) : (
@@ -609,8 +612,9 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
                                       alt={suggestedProduct.name}
                                       fill
                                       className="object-cover"
-                                      style={suggestedProduct.id === "osprey-atmos-65" ? { objectPosition: "center top" } : undefined}
-                                      sizes="48px"
+                                      style={suggestedProduct.id === "osprey-atmos-65" ? { objectPosition: "22% center" } : undefined}
+                                      sizes="(max-width: 768px) 48px, 96px"
+                                      unoptimized
                                     />
                                   </div>
                                 ) : (

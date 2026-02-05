@@ -194,6 +194,7 @@ export function HeroAnimation() {
                         alt="Atmos AG 65"
                         fill
                         className="object-cover"
+                        style={{ objectPosition: '22% center' }}
                       />
                     </div>
                     <div className="p-2 md:p-2.5">

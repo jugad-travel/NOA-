@@ -377,7 +377,7 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
                                     alt={product.name}
                                     fill
                                     className="object-cover"
-                                    style={product.id === "osprey-atmos-65" ? { objectPosition: "center top" } : undefined}
+                                    style={product.id === "osprey-atmos-65" ? { objectPosition: "22% center" } : undefined}
                                     sizes="40px"
                                   />
                                 </div>

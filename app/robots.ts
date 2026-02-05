@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/api/', '/admin/'],
     },
-    sitemap: 'https://noa.ai/sitemap.xml',
+    sitemap: 'https://parcel-ia.com/sitemap.xml',
   }
 }
 

@@ -52,14 +52,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    url: "https://noa.ai",
+    url: "https://parcel-ia.com",
     siteName: "PARCEL",
     title: "PARCEL - Le premier conseiller de vente IA qui vend comme en magasin",
     description:
       "À chaque étape du parcours client, PARCEL accompagne, conseille avec précision et convertit. Transformez votre site en vendeur digital performant.",
     images: [
       {
-        url: "/og-image.png",
+        url: "/images/Logo Parcel sans écriture.png",
         width: 1200,
         height: 630,
         alt: "PARCEL - Conseiller de vente IA",
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     title: "PARCEL - Le premier conseiller de vente IA qui vend comme en magasin",
     description:
       "À chaque étape du parcours client, PARCEL accompagne, conseille avec précision et convertit.",
-    images: ["/og-image.png"],
+    images: ["/images/Logo Parcel sans écriture.png"],
   },
   icons: {
     icon: "/favicon.ico",
@@ -86,12 +86,12 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "Organization",
-      "@id": "https://noa.ai/#organization",
+      "@id": "https://parcel-ia.com/#organization",
       name: "PARCEL",
-      url: "https://noa.ai",
+      url: "https://parcel-ia.com",
       logo: {
         "@type": "ImageObject",
-        url: "https://noa.ai/logo.png",
+        url: "https://parcel-ia.com/images/Logo Parcel sans écriture.png",
       },
       description:
         "PARCEL — Le conseiller de vente IA unique, présent tout au long du parcours client. PARCEL accompagne vos visiteurs, du premier besoin exprimé jusqu'à la décision d'achat.",
@@ -99,7 +99,7 @@ const jsonLd = {
     },
     {
       "@type": "Product",
-      "@id": "https://noa.ai/#product",
+      "@id": "https://parcel-ia.com/#product",
       name: "PARCEL - Suite de conseillers de vente IA",
       description:
         "Suite de 4 conseillers de vente IA : PARCEL Projet, PARCEL Match, PARCEL Expert, PARCEL Complete. Compatible Shopify, Magento, WooCommerce.",
@@ -112,17 +112,17 @@ const jsonLd = {
         availability: "https://schema.org/InStock",
         priceCurrency: "EUR",
         seller: {
-          "@id": "https://noa.ai/#organization",
+          "@id": "https://parcel-ia.com/#organization",
         },
       },
     },
     {
       "@type": "WebSite",
-      "@id": "https://noa.ai/#website",
-      url: "https://noa.ai",
+      "@id": "https://parcel-ia.com/#website",
+      url: "https://parcel-ia.com",
       name: "PARCEL",
       publisher: {
-        "@id": "https://noa.ai/#organization",
+        "@id": "https://parcel-ia.com/#organization",
       },
     },
   ],
