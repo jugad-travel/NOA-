@@ -3,6 +3,7 @@
 import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
+import { Plus, Check } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 export function HeroAnimation() {
@@ -11,9 +12,15 @@ export function HeroAnimation() {
   const [showProducts, setShowProducts] = React.useState(false)
   const [showMessage, setShowMessage] = React.useState(false)
   const [isMobile, setIsMobile] = React.useState(false)
+  const [addedToCart, setAddedToCart] = React.useState<string | null>(null)
   
   const fullText = "Je pars 2 semaines faire le gr20 avec un ami"
   const displayedText = fullText.substring(0, textIndex)
+  
+  const products = [
+    { id: "trail-pro-x", name: "Trail Pro X", price: 149, image: "/images/trailprox noires.png" },
+    { id: "atmos-ag-65", name: "Atmos AG 65", price: 280, image: "/images/atmos AG 65.png", objectPosition: "22% center" }
+  ]
   
   // Détecter si on est sur mobile
   React.useEffect(() => {
@@ -55,19 +62,35 @@ export function HeroAnimation() {
       // Phase 3: Afficher les produits (sans remonter)
       if (!isRunning) return
       setShowProducts(true)
-      await new Promise(resolve => setTimeout(resolve, 5000))
+      await new Promise(resolve => setTimeout(resolve, 4000))
       
-      // Phase 4: Fade out
+      // Phase 4: Animation d'ajout au panier (premier produit)
+      if (!isRunning) return
+      setAddedToCart("trail-pro-x")
+      await new Promise(resolve => setTimeout(resolve, 800))
+      
+      // Phase 5: Animation d'ajout au panier (deuxième produit)
+      if (!isRunning) return
+      setAddedToCart("atmos-ag-65")
+      await new Promise(resolve => setTimeout(resolve, 1200))
+      
+      // Phase 6: Réinitialiser l'état d'ajout au panier
+      if (!isRunning) return
+      setAddedToCart(null)
+      await new Promise(resolve => setTimeout(resolve, 500))
+      
+      // Phase 7: Fade out
       if (!isRunning) return
       setShowAnimation(false)
       await new Promise(resolve => setTimeout(resolve, 500))
       
-      // Phase 5: Réinitialiser et recommencer immédiatement
+      // Phase 8: Réinitialiser et recommencer immédiatement
       if (!isRunning) return
       setShowAnimation(true)
       setTextIndex(0)
       setShowProducts(false)
       setShowMessage(false)
+      setAddedToCart(null)
       
       // Attendre un court délai avant de redémarrer
       await new Promise(resolve => setTimeout(resolve, 500))
@@ -161,46 +184,51 @@ export function HeroAnimation() {
                 
                 {/* Produits - À droite, côte à côte - Position fixe, pas de x ni scale */}
                 <div className="flex flex-row gap-2 md:gap-3 flex-shrink-0">
-                  {/* Trail Pro X */}
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: showProducts ? 1 : 0 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                    className="bg-white rounded-xl shadow-xl overflow-hidden w-[100px] md:w-[120px]"
-                  >
-                    <div className="relative w-full aspect-square">
-                      <Image
-                        src="/images/trailprox noires.png"
-                        alt="Trail Pro X"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div className="p-2 md:p-2.5">
-                      <p className="text-xs md:text-sm font-semibold text-gray-900">Trail Pro X</p>
-                    </div>
-                  </motion.div>
-                  
-                  {/* Atmos AG 65 */}
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: showProducts ? 1 : 0 }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
-                    className="bg-white rounded-xl shadow-xl overflow-hidden w-[100px] md:w-[120px]"
-                  >
-                    <div className="relative w-full aspect-square">
-                      <Image
-                        src="/images/atmos AG 65.png"
-                        alt="Atmos AG 65"
-                        fill
-                        className="object-cover"
-                        style={{ objectPosition: '22% center' }}
-                      />
-                    </div>
-                    <div className="p-2 md:p-2.5">
-                      <p className="text-xs md:text-sm font-semibold text-gray-900">Atmos AG 65</p>
-                    </div>
-                  </motion.div>
+                  {products.map((product, index) => (
+                    <motion.div
+                      key={product.id}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: showProducts ? 1 : 0 }}
+                      transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+                      className="bg-white rounded-xl shadow-xl overflow-hidden w-[100px] md:w-[120px]"
+                    >
+                      <div className="relative w-full aspect-square">
+                        <Image
+                          src={product.image}
+                          alt={product.name}
+                          fill
+                          className="object-cover"
+                          style={product.objectPosition ? { objectPosition: product.objectPosition } : undefined}
+                        />
+                      </div>
+                      <div className="p-2 md:p-2.5">
+                        <p className="text-xs md:text-sm font-semibold text-gray-900 mb-1">{product.name}</p>
+                        <p className="text-[10px] md:text-xs font-bold text-gray-900 mb-2">{product.price}€</p>
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className={cn(
+                            "w-full h-6 md:h-7 rounded-lg text-[9px] md:text-[10px] font-medium flex items-center justify-center gap-1 transition-all",
+                            addedToCart === product.id
+                              ? "bg-green-500 text-white"
+                              : "bg-gray-900 text-white hover:bg-gray-800"
+                          )}
+                        >
+                          {addedToCart === product.id ? (
+                            <>
+                              <Check className="w-3 h-3" />
+                              <span>Ajouté</span>
+                            </>
+                          ) : (
+                            <>
+                              <Plus className="w-3 h-3" />
+                              <span>Ajouter</span>
+                            </>
+                          )}
+                        </motion.button>
+                      </div>
+                    </motion.div>
+                  ))}
                 </div>
               </div>
             </motion.div>
