@@ -173,7 +173,7 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
                       {productImage ? (
                             <div className="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 relative">
                           <Image
-                            src={productImage}
+                            src={productImage.replace(/ /g, '%20').replace(/\+/g, '%2B')}
                             alt={item.product.name}
                             fill
                             className="object-cover"
@@ -302,7 +302,7 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
                           return productImage ? (
                             <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 relative">
                               <Image
-                                src={productImage}
+                                src={productImage.replace(/ /g, '%20').replace(/\+/g, '%2B')}
                                 alt={suggestedProduct.name}
                                 fill
                                 className="object-cover"
@@ -479,7 +479,7 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
                           {productImage ? (
                             <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 relative">
                               <Image
-                                src={productImage}
+                                src={productImage.replace(/ /g, '%20').replace(/\+/g, '%2B')}
                                 alt={item.product.name}
                                 fill
                                 className="object-cover"
@@ -608,7 +608,7 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
                                 return productImage ? (
                                   <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 relative">
                                     <Image
-                                      src={productImage}
+                                      src={productImage.replace(/ /g, '%20').replace(/\+/g, '%2B')}
                                       alt={suggestedProduct.name}
                                       fill
                                       className="object-cover"
