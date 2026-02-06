@@ -90,6 +90,9 @@ const reponses = [
   {
     text: "Déclenche des actions concrètes (navigation, ajout au panier, sélection de variantes)",
   },
+  {
+    text: "Arbitre selon les règles business et contraintes du marchand",
+  },
 ]
 
 const caracteristiques = [
@@ -315,13 +318,13 @@ export function AProposContent() {
               Une décision d'achat est toujours le résultat de la rencontre entre deux logiques complémentaires :
             </p>
             <div className="grid md:grid-cols-2 gap-6">
-              <Card className="p-6">
-                <p className="text-lg text-gray-700 leading-relaxed">
+              <Card className="p-6 bg-gray-900 border-gray-900">
+                <p className="text-lg leading-relaxed" style={{ color: '#ffffff' }}>
                   Le client, avec son projet, ses usages, ses contraintes et ses doutes.
                 </p>
               </Card>
-              <Card className="p-6">
-                <p className="text-lg text-gray-700 leading-relaxed">
+              <Card className="p-6 bg-gray-900 border-gray-900">
+                <p className="text-lg leading-relaxed" style={{ color: '#ffffff' }}>
                   Le marchand, avec sa stratégie commerciale, ses règles métier, ses contraintes de stock, de marge et de logistique.
                 </p>
               </Card>
@@ -369,17 +372,15 @@ export function AProposContent() {
             {reponses.map((reponse, index) => {
               return (
                 <StaggerItem key={index}>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-7 border border-white/20 hover:bg-white/15 hover:border-white/30 transition-all h-full flex flex-col shadow-lg">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 md:p-5 border border-white/20 hover:bg-white/15 hover:border-white/30 transition-all h-full flex flex-col shadow-lg">
                     <div className="flex flex-col items-center text-center gap-4 h-full">
-                      <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0 shadow-sm p-2 overflow-hidden">
-                        <Image 
-                          src="/images/Logo Parcel sans écriture.png"
-                          alt="PARCEL"
-                          width={40}
-                          height={40}
-                          className="object-contain"
-                        />
-                      </div>
+                      <Image 
+                        src="/images/Logo Parcel 02:02:2026.png"
+                        alt="PARCEL"
+                        width={120}
+                        height={120}
+                        className="object-contain flex-shrink-0"
+                      />
                       <p className="text-white flex-1 text-base md:text-lg leading-relaxed font-medium">
                         {reponse.text}
                       </p>

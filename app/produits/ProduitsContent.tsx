@@ -304,40 +304,47 @@ export function ProduitsContent() {
       </Section>
       
       {/* Vue d'ensemble */}
-      <Section variant="gradient" padding="lg">
+      <Section variant="white" padding="lg">
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
             <div className="text-center mb-12">
-              <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-                Vue d'ensemble de la gamme PARCEL
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-12">
+                Parcel réconcilie IA conversationnelle et décision commerciale réelle.
               </h2>
-              <p className="text-xl text-gray-400">
-                Une logique simple : le bon conseiller, au bon moment.
-              </p>
             </div>
           </ScrollReveal>
           
-          {/* Parcours horizontal */}
+          {/* Deux cartes */}
           <ScrollReveal delay={0.1}>
-            <div className="relative overflow-x-auto pb-4">
-              <div className="flex items-center justify-between min-w-[600px] gap-4 px-4">
-                {parcoursSteps.map((step, index) => {
-                  const Icon = step.icon
-                  return (
-                    <React.Fragment key={step.id}>
-                      <div className="flex flex-col items-center gap-3">
-                        <div className="w-16 h-16 rounded-2xl bg-dark-50 border border-white/10 flex items-center justify-center">
-                          <Icon className="w-7 h-7 text-brand" />
-                        </div>
-                        <span className="text-white font-medium">{step.label}</span>
-                        <span className="text-xs text-gray-500 text-center">{step.product}</span>
-                      </div>
-                      {index < parcoursSteps.length - 1 && (
-                        <div className="flex-1 h-px bg-gradient-to-r from-brand/50 to-brand/20 min-w-[40px]" />
-                      )}
-                    </React.Fragment>
-                  )
-                })}
+            <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+              {/* Carte 01 */}
+              <div className="bg-gray-100 rounded-2xl p-6 md:p-8">
+                <div className="flex flex-col gap-4">
+                  <div className="text-2xl md:text-3xl font-bold text-gray-900">
+                    01.
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                    Un vendeur digital pour le client
+                  </h3>
+                  <p className="text-base md:text-lg text-gray-700 leading-relaxed">
+                    qui intervient sans perte de contexte sur l'ensemble du tunnel de vente
+                  </p>
+                </div>
+              </div>
+              
+              {/* Carte 02 */}
+              <div className="bg-pink-50 rounded-2xl p-6 md:p-8">
+                <div className="flex flex-col gap-4">
+                  <div className="text-2xl md:text-3xl font-bold text-gray-900">
+                    02.
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">
+                    Un moteur gouverné pour le marchand.
+                  </h3>
+                  <p className="text-base md:text-lg text-gray-700 leading-relaxed">
+                    qui applique ses règles métier, priorités commerciales et contraintes opérationnelles
+                  </p>
+                </div>
               </div>
             </div>
           </ScrollReveal>

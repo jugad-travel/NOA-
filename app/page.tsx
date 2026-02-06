@@ -6,6 +6,7 @@ import { Hero } from "@/components/home/Hero"
 import { HeroAnimation } from "@/components/home/HeroAnimation"
 import { DemoSection } from "@/components/home/DemoSection"
 import { BusinessRulesSection } from "@/components/home/BusinessRulesSection"
+import { ReconciliationSection } from "@/components/home/ReconciliationSection"
 import { PainSection } from "@/components/home/PainSection"
 import { GammeNoa } from "@/components/home/GammeNoa"
 import { Features } from "@/components/home/Features"
@@ -88,6 +89,7 @@ export default function HomePage() {
       <Hero />
       <DemoSection />
       <BusinessRulesSection />
+      <ReconciliationSection />
       <PainSection />
       <GammeNoa />
       <Features />
