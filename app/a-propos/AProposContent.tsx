@@ -65,8 +65,8 @@ const constats = [
     subtitle: "Souvent techniques ou complexes",
   },
   {
-    title: "Riches en données",
-    subtitle: "Mais pauvres en guidance",
+    title: "Les catalogues sont riches en données",
+    subtitle: "mais pauvres en accompagnement",
   },
   {
     title: "Parcours statiques",
@@ -268,9 +268,6 @@ export function AProposContent() {
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-center">
               Le constat
             </h2>
-            <p className="text-lg text-gray-600 text-center mb-8 max-w-3xl mx-auto">
-              Aujourd'hui, les catalogues e-commerce sont :
-            </p>
           </ScrollReveal>
           
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" staggerDelay={0.1}>
@@ -413,8 +410,7 @@ export function AProposContent() {
           <div className="grid md:grid-cols-2 gap-8 mt-12">
             <ScrollReveal delay={0.1}>
               <Card className="h-full p-8 bg-gradient-to-br from-blue-50 to-cyan-50 border-blue-200">
-                <div className="flex items-center gap-3 mb-6">
-                  <MessageSquare className="w-8 h-8 text-blue-600" />
+                <div className="mb-6">
                   <h3 className="text-2xl font-bold text-gray-900">Côté client</h3>
                 </div>
                 <p className="text-lg text-gray-700 mb-4">
@@ -443,8 +439,7 @@ export function AProposContent() {
 
             <ScrollReveal delay={0.2}>
               <Card className="h-full p-8 bg-gradient-to-br from-purple-50 to-pink-50 border-purple-200">
-                <div className="flex items-center gap-3 mb-6">
-                  <Settings className="w-8 h-8 text-purple-600" />
+                <div className="mb-6">
                   <h3 className="text-2xl font-bold text-gray-900">Côté marchand</h3>
                 </div>
                 <p className="text-lg text-gray-700 mb-4">

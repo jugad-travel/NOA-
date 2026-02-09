@@ -16,6 +16,7 @@ interface DemoNoaCompleteProps {
 export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps) {
   const [isMobile, setIsMobile] = React.useState(false)
   const [showSummary, setShowSummary] = React.useState(false)
+  const [showNotification, setShowNotification] = React.useState(false)
   
   React.useEffect(() => {
     const checkMobile = () => {
@@ -38,6 +39,19 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
   // Sur mobile, afficher toutes les étapes par défaut (chatStep = 2 pour voir la suggestion)
   const chatStep = isMobile ? 2 : baseChatStep
   const suggestionAdded = animationProgress >= 0.70
+  
+  // Afficher la notification lors de l'ajout au panier
+  const previousSuggestionAdded = React.useRef(false)
+  React.useEffect(() => {
+    if (suggestionAdded && !previousSuggestionAdded.current) {
+      setShowNotification(true)
+      const timer = setTimeout(() => {
+        setShowNotification(false)
+      }, 2500)
+      previousSuggestionAdded.current = true
+      return () => clearTimeout(timer)
+    }
+  }, [suggestionAdded])
   
   const suggestedProduct = getProductById(noaConversations.complete.suggestion)!
   
@@ -135,10 +149,30 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
             </div>
             
             {/* Mobile Title */}
-            <div className="px-3 py-2 border-b border-gray-100 bg-white">
+            <div className="px-3 py-2 border-b border-gray-100 bg-white relative">
               <h1 className="text-base font-normal text-gray-900">
                 Mon panier <span className="text-gray-500">({cartItems.length} articles)</span>
               </h1>
+              
+              {/* Notification d'ajout au panier */}
+              <AnimatePresence>
+                {showNotification && suggestionAdded && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10, scale: 0.9 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -10, scale: 0.9 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    className="absolute top-12 right-3 bg-gray-900 text-white rounded-lg px-3 py-2 shadow-xl z-50 whitespace-nowrap"
+                  >
+                    <div className="flex items-center gap-2">
+                      <Check className="w-3.5 h-3.5 text-green-400 flex-shrink-0" />
+                      <span className="text-xs font-medium">
+                        Article ajouté au panier
+                      </span>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
             
             {/* Mobile Cart Items - Scrollable */}
@@ -442,8 +476,28 @@ export function DemoNoaComplete({ animationProgress = 0 }: DemoNoaCompleteProps)
         ) : (
           <>
             {/* Desktop Header */}
-            <div className="px-4 py-3 border-b border-gray-100">
+            <div className="px-4 py-3 border-b border-gray-100 relative">
               <h1 className="text-sm font-normal text-gray-900">Mon panier <span className="text-base text-gray-500 tracking-wide">({cartItems.length} articles)</span></h1>
+              
+              {/* Notification d'ajout au panier */}
+              <AnimatePresence>
+                {showNotification && suggestionAdded && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10, scale: 0.9 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -10, scale: 0.9 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    className="absolute top-12 right-4 bg-gray-900 text-white rounded-lg px-3 py-2 shadow-xl z-50 whitespace-nowrap"
+                  >
+                    <div className="flex items-center gap-2">
+                      <Check className="w-3.5 h-3.5 text-green-400 flex-shrink-0" />
+                      <span className="text-xs font-medium">
+                        Article ajouté au panier
+                      </span>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
             
             <div className="flex h-[calc(100%-48px)] min-w-0">

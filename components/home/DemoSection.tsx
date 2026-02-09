@@ -198,10 +198,19 @@ export function DemoSection() {
               if (overallProgress < segmentStart) {
                 return 0 // Pas encore commencé
               } else if (overallProgress >= segmentEnd) {
-                return 1 // Terminé
+                // Pour les démos 1 et 2, créer une mini pause en arrêtant le progress à 0.90
+                // Cela permet de voir la dernière étape avant de passer à la démo suivante
+                if (index < 2) {
+                  return 0.90 // Mini pause pour démos 1 et 2
+                }
+                return 1 // Terminé pour démos 3 et 4
               } else {
                 // Dans le segment de cette démo, calculer le progress local (0 à 1)
                 const localProgress = (overallProgress - segmentStart) / segmentSize
+                // Pour les démos 1 et 2, limiter à 0.90 pour créer la pause
+                if (index < 2) {
+                  return Math.min(localProgress, 0.90)
+                }
                 return Math.min(localProgress, 1)
               }
             })

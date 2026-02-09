@@ -232,12 +232,12 @@ function ProductDemoSection({ product, index, isEven }: ProductDemoSectionProps)
               
               {/* Cas typiques */}
               <div className="mb-6">
-                <h4 className={cn("text-sm font-normal uppercase tracking-wider mb-3", isEven ? "text-gray-600" : "text-gray-400")}>
+                <h4 className="text-sm font-normal uppercase tracking-wider mb-3 text-gray-900">
                   Cas typiques
                 </h4>
                 <ul className="space-y-2">
                   {product.casTypiques.map((cas) => (
-                    <li key={cas} className={cn("flex items-start gap-2", isEven ? "text-gray-900" : "text-gray-300")}>
+                    <li key={cas} className="flex items-start gap-2 text-gray-900">
                       <CheckCircle className="w-5 h-5 text-brand flex-shrink-0 mt-0.5" />
                       <span>{cas}</span>
                     </li>
@@ -339,7 +339,7 @@ export function ProduitsContent() {
                     02.
                   </div>
                   <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">
-                    Un moteur gouverné pour le marchand.
+                    Un moteur gouverné par le marchand.
                   </h3>
                   <p className="text-base md:text-lg text-gray-700 leading-relaxed">
                     qui applique ses règles métier, priorités commerciales et contraintes opérationnelles

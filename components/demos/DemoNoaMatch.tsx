@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronRight, Star, Filter } from "lucide-react"
+import { ChevronRight, Star, Filter, Check } from "lucide-react"
 import { SafariWindow } from "./SafariWindow"
 import { PhoneWindow } from "./PhoneWindow"
 import { cn } from "@/lib/utils"
@@ -35,30 +35,72 @@ export function DemoNoaMatch({ animationProgress = 0 }: DemoNoaMatchProps) {
   
   // Calculer les étapes basées sur le progress - Timing optimisé pour fluidité et visibilité
   // Étape 1 (0-0.15) : Message utilisateur "Je cherche des chaussures..."
-  // Étape 2 (0.15-0.30) : Typing
-  // Étape 3 (0.30-0.50) : Réponse PARCEL + sélection taille 42 (temps pour lire)
-  // Étape 4 (0.50-1.0) : Carte produit s'encadre en bleu (50% pour bien voir)
+  // Étape 2 (0.15-0.25) : Question avec choix de terrain (Terrain mixte coché progressivement)
+  // Étape 3 (0.25-0.30) : Typing
+  // Étape 4 (0.30-0.55) : Réponse PARCEL + sélection taille 42 (temps pour lire - réduit pour fluidité)
+  // Étape 5 (0.55-0.90) : Carte produit s'encadre en bleu (35% pour bien voir)
+  // Le progress s'arrête à 0.90 pour créer une mini pause avant la transition
   
   const productGridRef = React.useRef<HTMLDivElement>(null)
   const sidebarRef = React.useRef<HTMLDivElement>(null)
-  const baseChatStep = animationProgress >= 0.50 ? 3 : animationProgress >= 0.30 ? 3 : animationProgress >= 0.15 ? 2 : animationProgress >= 0.08 ? 1 : 0
-  const chatStep = isMobile ? Math.max(3, baseChatStep) : baseChatStep
+  const baseChatStep = animationProgress >= 0.55 ? 4 : animationProgress >= 0.30 ? 4 : animationProgress >= 0.25 ? 3 : animationProgress >= 0.15 ? 2 : animationProgress >= 0.08 ? 1 : 0
+  const chatStep = isMobile ? Math.max(4, baseChatStep) : baseChatStep
+  
+  // Déterminer si "Terrain mixte" doit être coché
+  // Sur mobile ou si pas de scroll reveal (animationProgress === 0 ou === 1 immédiatement) : déjà coché
+  // Sinon : scroll reveal actif, cocher progressivement entre 0.15 et 0.25
+  const isTerrainMixteChecked = React.useMemo(() => {
+    // Si on est sur mobile, toujours coché
+    if (isMobile) return true
+    // Si animationProgress === 0 : pas encore de scroll reveal, pas encore coché
+    if (animationProgress === 0) return false
+    // Si animationProgress >= 0.20 et < 0.25, cocher progressivement
+    if (animationProgress >= 0.15 && animationProgress < 0.20) {
+      const checkProgress = (animationProgress - 0.15) / 0.05 // 0 à 1 entre 0.15 et 0.20
+      return checkProgress >= 0.5 // Cocher à mi-chemin (0.175)
+    }
+    // Après 0.20, toujours coché
+    if (animationProgress >= 0.20) return true
+    // Avant 0.15, pas encore coché
+    return false
+  }, [animationProgress, isMobile])
   const selectedSize = animationProgress >= 0.30 ? 42 : null
   // Sur mobile, toujours mettre en avant la Trail Pro X
-  const highlightedProduct = isMobile ? noaConversations.match.highlightProduct : (animationProgress >= 0.50 ? noaConversations.match.highlightProduct : null)
+  // Retarder la mise en avant pour qu'elle se fasse après la fin de la discussion (après 0.55)
+  // La mise en avant se fait entre 0.55 et 0.90, puis pause jusqu'à la transition
+  const highlightedProduct = isMobile ? noaConversations.match.highlightProduct : (animationProgress >= 0.55 ? noaConversations.match.highlightProduct : null)
   
   // Le scroll dans les fenêtres est uniquement contrôlé par animationProgress
   // Pas de blocage - le scroll de la page fonctionne toujours
   
-  // Scroll synchronisé avec le progress (contrôlé uniquement par le scroll de la page)
+  // Scroll synchronisé avec le progress dans la sidebar pour voir la conversation complète
   // Désactivé sur mobile pour permettre le scroll manuel
+  const sidebarMessagesRef = React.useRef<HTMLDivElement>(null)
+  React.useEffect(() => {
+    if (isMobile) return // Pas d'autoscroll sur mobile
+    
+    const sidebarMessages = sidebarMessagesRef.current
+    if (sidebarMessages && animationProgress >= 0.30) {
+      // Calculer le scroll basé sur le progress pour voir toute la conversation
+      // Le scroll s'arrête à 0.90 pour créer une mini pause
+      const effectiveProgress = Math.min(animationProgress, 0.90)
+      const scrollProgress = (effectiveProgress - 0.30) / 0.60 // 0 à 1 entre 0.30 et 0.90
+      const maxScroll = sidebarMessages.scrollHeight - sidebarMessages.clientHeight
+      // Scroller directement mais de manière fluide grâce au scrub de GSAP
+      sidebarMessages.scrollTop = maxScroll * scrollProgress
+    }
+  }, [animationProgress, isMobile])
+  
+  // Scroll synchronisé avec le progress pour voir la carte mise en avant
   React.useEffect(() => {
     if (isMobile) return // Pas d'autoscroll sur mobile
     
     const productGrid = productGridRef.current
-    if (productGrid && highlightedProduct && animationProgress >= 0.50) {
+    if (productGrid && highlightedProduct && animationProgress >= 0.55) {
       // Calculer le scroll basé sur le progress pour voir la carte mise en avant
-      const scrollProgress = (animationProgress - 0.50) / 0.50 // 0 à 1 entre 0.50 et 1.0
+      // Le scroll se fait entre 0.55 et 0.90, puis pause jusqu'à la transition
+      const effectiveProgress = Math.min(animationProgress, 0.90)
+      const scrollProgress = (effectiveProgress - 0.55) / 0.35 // 0 à 1 entre 0.55 et 0.90
       const highlightedCard = productGrid.querySelector(`[data-product-id="${highlightedProduct}"]`) as HTMLElement
       if (highlightedCard) {
         const cardRelativeTop = highlightedCard.offsetTop
@@ -128,8 +170,8 @@ export function DemoNoaMatch({ animationProgress = 0 }: DemoNoaMatchProps) {
             </div>
             
             {/* PARCEL Assistant */}
-            <div className="bg-gray-50 rounded-xl p-3 flex-1">
-              <div className="flex items-center gap-1.5 mb-2">
+            <div className="bg-gray-50 rounded-xl p-3 flex-1 flex flex-col overflow-hidden">
+              <div className="flex items-center gap-1.5 mb-2 flex-shrink-0">
                 <div className="w-5 h-5 rounded-md bg-gray-200 flex items-center justify-center p-0 overflow-hidden">
                   <Image 
                     src="/images/Logo Parcel sans écriture.png"
@@ -142,7 +184,7 @@ export function DemoNoaMatch({ animationProgress = 0 }: DemoNoaMatchProps) {
                 <span className="text-[10px] font-semibold text-gray-900">PARCEL vous aide</span>
               </div>
               
-              <div className="space-y-2">
+              <div ref={sidebarMessagesRef} className="space-y-2 overflow-y-auto flex-1" style={{ scrollBehavior: 'auto' }}>
                 {/* User message */}
                 <AnimatePresence>
                   {chatStep >= 1 && (
@@ -156,9 +198,57 @@ export function DemoNoaMatch({ animationProgress = 0 }: DemoNoaMatchProps) {
                   )}
                 </AnimatePresence>
                 
+                {/* Question avec choix de terrain */}
+                <AnimatePresence>
+                  {chatStep >= 2 && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="bg-gray-900 text-white rounded-lg px-2 py-1.5 text-[10px] space-y-1.5"
+                    >
+                      <p style={{ color: '#ffffff' }}>Pour choisir la bonne paire, j'ai besoin de savoir sur quel type de terrain vous randonnez le plus souvent.</p>
+                      <div className="space-y-1 mt-2">
+                        <div className="flex items-center gap-1.5">
+                          <div className="w-2.5 h-2.5 rounded border border-gray-400 flex items-center justify-center flex-shrink-0">
+                            <div className="w-1.5 h-1.5 rounded-full bg-transparent" />
+                          </div>
+                          <span className="text-[9px]">Sentiers faciles / balisés</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <motion.div 
+                            className={cn(
+                              "w-2.5 h-2.5 rounded border flex items-center justify-center flex-shrink-0 transition-colors",
+                              isTerrainMixteChecked ? "border-white bg-white" : "border-gray-400 bg-transparent"
+                            )}
+                            animate={isTerrainMixteChecked ? { scale: [1, 1.1, 1] } : {}}
+                            transition={{ duration: 0.3 }}
+                          >
+                            {isTerrainMixteChecked && (
+                              <motion.div
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                transition={{ duration: 0.2 }}
+                              >
+                                <Check className="w-1.5 h-1.5 text-gray-900" />
+                              </motion.div>
+                            )}
+                          </motion.div>
+                          <span className={cn("text-[9px]", isTerrainMixteChecked ? "font-medium" : "")}>Terrain mixte (rochers, racines, dénivelé)</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <div className="w-2.5 h-2.5 rounded border border-gray-400 flex items-center justify-center flex-shrink-0">
+                            <div className="w-1.5 h-1.5 rounded-full bg-transparent" />
+                          </div>
+                          <span className="text-[9px]">Terrain technique / montagne</span>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+                
                 {/* Typing */}
                 <AnimatePresence>
-                  {chatStep === 2 && (
+                  {chatStep === 3 && (
                     <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -176,7 +266,7 @@ export function DemoNoaMatch({ animationProgress = 0 }: DemoNoaMatchProps) {
                 
                 {/* PARCEL response */}
                 <AnimatePresence>
-                  {chatStep >= 3 && (
+                  {chatStep >= 4 && (
                     <motion.div
                       initial={{ opacity: 0, y: 5 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -222,8 +312,50 @@ export function DemoNoaMatch({ animationProgress = 0 }: DemoNoaMatchProps) {
                     </div>
                   )}
                   
+                  {/* Question avec choix de terrain */}
+                  {chatStep >= 2 && (
+                    <div className="bg-gray-900 text-white rounded-lg px-2 py-1.5 text-[10px] space-y-1.5">
+                      <p style={{ color: '#ffffff' }}>Pour choisir la bonne paire, j'ai besoin de savoir sur quel type de terrain vous randonnez le plus souvent.</p>
+                      <div className="space-y-1 mt-2">
+                        <div className="flex items-center gap-1.5">
+                          <div className="w-2.5 h-2.5 rounded border border-gray-400 flex items-center justify-center flex-shrink-0">
+                            <div className="w-1.5 h-1.5 rounded-full bg-transparent" />
+                          </div>
+                          <span className="text-[9px]">Sentiers faciles / balisés</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <motion.div 
+                            className={cn(
+                              "w-2.5 h-2.5 rounded border flex items-center justify-center flex-shrink-0 transition-colors",
+                              isTerrainMixteChecked ? "border-white bg-white" : "border-gray-400 bg-transparent"
+                            )}
+                            animate={isTerrainMixteChecked ? { scale: [1, 1.1, 1] } : {}}
+                            transition={{ duration: 0.3 }}
+                          >
+                            {isTerrainMixteChecked && (
+                              <motion.div
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                transition={{ duration: 0.2 }}
+                              >
+                                <Check className="w-1.5 h-1.5 text-gray-900" />
+                              </motion.div>
+                            )}
+                          </motion.div>
+                          <span className={cn("text-[9px]", isTerrainMixteChecked ? "font-medium" : "")}>Terrain mixte (rochers, racines, dénivelé)</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <div className="w-2.5 h-2.5 rounded border border-gray-400 flex items-center justify-center flex-shrink-0">
+                            <div className="w-1.5 h-1.5 rounded-full bg-transparent" />
+                          </div>
+                          <span className="text-[9px]">Terrain technique / montagne</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  
                   {/* PARCEL response */}
-                  {chatStep >= 3 && (
+                  {chatStep >= 4 && (
                     <div className="bg-gray-900 text-white rounded-lg px-2 py-1.5 text-[10px]">
                       {noaConversations.match.noaResponse}
                     </div>

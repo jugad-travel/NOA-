@@ -29,17 +29,41 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
   // Calculer les étapes basées sur le progress - Timing optimisé pour fluidité et visibilité
   // Étape 1 (0-0.08) : Chat s'ouvre
   // Étape 2 (0.08-0.15) : Message "Bonjour..." (déjà visible)
-  // Étape 3 (0.15-0.25) : Message utilisateur
-  // Étape 4 (0.25-0.35) : Typing
-  // Étape 5 (0.35-0.50) : Réponse PARCEL (message texte seulement - temps pour lire)
-  // Étape 6 (0.50-0.60) : Produits apparaissent
-  // Étape 7 (0.60-1.0) : Ajout au panier (40% pour bien voir chaque produit ajouté)
+  // Étape 3 (0.15-0.25) : Message utilisateur "Je pars une semaine faire le GR20"
+  // Étape 4 (0.25-0.35) : Message avec choix de niveau (Expert coché automatiquement)
+  // Étape 5 (0.35-0.40) : Typing
+  // Étape 6 (0.40-0.50) : Réponse PARCEL (message texte seulement - temps pour lire)
+  // Étape 7 (0.50-0.60) : Produits apparaissent (10% pour bien voir tous les produits)
+  // Étape 8 (0.60-0.90) : Ajout au panier progressif (30% pour bien voir chaque produit ajouté)
+  // Le progress s'arrête à 0.90 pour créer une mini pause avant la transition
   
   const chatMessagesRef = React.useRef<HTMLDivElement>(null)
+  const [showNotification, setShowNotification] = React.useState(false)
   const isChatOpen = isMobile ? true : animationProgress >= 0.08
-  const baseChatStep = animationProgress >= 0.60 ? 4 : animationProgress >= 0.50 ? 3 : animationProgress >= 0.35 ? 3 : animationProgress >= 0.25 ? 2 : animationProgress >= 0.15 ? 1 : 0
-  // Sur mobile, afficher toutes les étapes par défaut (chatStep = 4 pour voir les produits)
-  const chatStep = isMobile ? 4 : baseChatStep
+  const baseChatStep = animationProgress >= 0.60 ? 5 : animationProgress >= 0.50 ? 4 : animationProgress >= 0.40 ? 3 : animationProgress >= 0.35 ? 2 : animationProgress >= 0.25 ? 1 : animationProgress >= 0.15 ? 1 : 0
+  // Sur mobile, afficher toutes les étapes par défaut (chatStep = 5 pour voir les produits)
+  const chatStep = isMobile ? 5 : baseChatStep
+  
+  // Déterminer si "Expert" doit être coché
+  // Sur mobile ou si pas de scroll reveal (animationProgress === 0 ou === 1 immédiatement) : déjà coché
+  // Sinon : scroll reveal actif, cocher progressivement entre 0.25 et 0.35
+  const isExpertChecked = React.useMemo(() => {
+    // Si on est sur mobile, toujours coché
+    if (isMobile) return true
+    // Si animationProgress === 0 : pas encore de scroll reveal, pas encore coché
+    if (animationProgress === 0) return false
+    // Si animationProgress === 1 immédiatement (sans progression) : déjà coché (cas page produits mobile)
+    // On détecte cela en vérifiant si on est déjà à l'étape où les choix apparaissent
+    if (animationProgress >= 0.25 && animationProgress < 0.30) {
+      // Entre 0.25 et 0.30, cocher progressivement
+      const checkProgress = (animationProgress - 0.25) / 0.05 // 0 à 1 entre 0.25 et 0.30
+      return checkProgress >= 0.5 // Cocher à mi-chemin (0.275)
+    }
+    // Après 0.30, toujours coché
+    if (animationProgress >= 0.30) return true
+    // Avant 0.25, pas encore coché
+    return false
+  }, [animationProgress, isMobile])
   
   // Calculer quels produits sont ajoutés basé sur le progress
   const suggestedProducts = getProductsByIds(noaConversations.projet.suggestions)
@@ -48,14 +72,40 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
     if (isMobile) return suggestedProducts.map(p => p.id)
     
     if (animationProgress < 0.60) return []
-    // Ajouter progressivement les produits sur une période plus longue (40% pour bien voir)
-    const addProgress = (animationProgress - 0.60) / 0.40 // 0 à 1 entre 0.60 et 1.0
+    // Ajouter progressivement les produits sur une période plus longue (30% pour bien voir)
+    // Le progress s'arrête à 0.90 pour créer une mini pause
+    // Commencer l'ajout après que tous les produits soient visibles (0.60)
+    const effectiveProgress = Math.min(animationProgress, 0.90)
+    // Ralentir l'ajout progressif pour avoir le temps de voir chaque produit, surtout le dernier
+    // Utiliser une fonction d'easing pour ralentir vers la fin
+    const rawProgress = (effectiveProgress - 0.60) / 0.30 // 0 à 1 entre 0.60 et 0.90
+    // Easing : ralentir vers la fin pour laisser plus de temps au dernier produit
+    const easedProgress = rawProgress < 0.5 
+      ? 2 * rawProgress * rawProgress // Accélération au début
+      : 1 - Math.pow(-2 * rawProgress + 2, 2) / 2 // Décélération à la fin
     const productsToAdd = Math.min(
       suggestedProducts.length,
-      Math.ceil(addProgress * suggestedProducts.length)
+      Math.ceil(easedProgress * suggestedProducts.length)
     )
     return suggestedProducts.slice(0, productsToAdd).map(p => p.id)
   }, [animationProgress, suggestedProducts, isMobile])
+  
+  // Afficher la notification lors de l'ajout au panier
+  // Mais seulement après que les produits soient visibles (animationProgress >= 0.60)
+  const previousAddedCount = React.useRef(0)
+  React.useEffect(() => {
+    // Ne pas afficher la notification si les produits ne sont pas encore visibles
+    if (isMobile || animationProgress >= 0.60) {
+      if (addedProducts.length > previousAddedCount.current && addedProducts.length > 0) {
+        setShowNotification(true)
+        const timer = setTimeout(() => {
+          setShowNotification(false)
+        }, 2500) // Notification visible pendant 2.5 secondes
+        return () => clearTimeout(timer)
+      }
+    }
+    previousAddedCount.current = addedProducts.length
+  }, [addedProducts.length, animationProgress, isMobile])
   
   // Scroll synchronisé avec le progress (contrôlé uniquement par le scroll de la page)
   // Désactivé sur mobile pour permettre le scroll manuel
@@ -63,9 +113,11 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
     if (isMobile) return // Pas d'autoscroll sur mobile
     
     const chatMessages = chatMessagesRef.current
-    if (chatMessages && animationProgress >= 0.50) {
+    if (chatMessages && animationProgress >= 0.40) {
       // Calculer le scroll basé sur le progress pour voir les produits et l'ajout au panier
-      const scrollProgress = (animationProgress - 0.50) / 0.50 // 0 à 1 entre 0.50 et 1.0
+      // Le scroll s'arrête à 0.90 pour créer une mini pause
+      const effectiveProgress = Math.min(animationProgress, 0.90)
+      const scrollProgress = (effectiveProgress - 0.40) / 0.50 // 0 à 1 entre 0.40 et 0.90
       const maxScroll = chatMessages.scrollHeight - chatMessages.clientHeight
       // Scroller directement mais de manière fluide grâce au scrub de GSAP
       chatMessages.scrollTop = maxScroll * scrollProgress
@@ -135,6 +187,26 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
                   {addedProducts.length}
                 </motion.span>
               )}
+              
+              {/* Notification d'ajout au panier */}
+              <AnimatePresence>
+                {showNotification && addedProducts.length > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10, scale: 0.9 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -10, scale: 0.9 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    className="absolute top-10 right-0 bg-gray-900 text-white rounded-lg px-3 py-2 shadow-xl z-50 whitespace-nowrap"
+                  >
+                    <div className="flex items-center gap-2">
+                      <Check className="w-3.5 h-3.5 text-green-400 flex-shrink-0" />
+                      <span className="text-xs font-medium">
+                        {addedProducts.length} {addedProducts.length === 1 ? 'article ajouté' : 'articles ajoutés'}
+                      </span>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </div>
@@ -288,9 +360,68 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
                   )}
                 </AnimatePresence>
                 
+                {/* Message avec choix de niveau */}
+                <AnimatePresence>
+                  {chatStep >= 2 && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="flex gap-2"
+                    >
+                      <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0 p-0 overflow-hidden">
+                        <Image 
+                          src="/images/Logo Parcel sans écriture.png"
+                          alt="PARCEL"
+                          width={27}
+                          height={27}
+                          className="object-contain"
+                        />
+                      </div>
+                      <div className="bg-gray-100 rounded-2xl rounded-tl-sm px-3 py-2 text-xs text-gray-700 space-y-2">
+                        <p>Super ! Quel est votre niveau de pratique en randonnée / trek technique ?</p>
+                        <div className="space-y-1.5 mt-2">
+                          <div className="flex items-center gap-2">
+                            <div className="w-3 h-3 rounded border border-gray-400 flex items-center justify-center">
+                              <div className="w-2 h-2 rounded-full bg-transparent" />
+                            </div>
+                            <span className="text-xs">Débutant</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div className="w-3 h-3 rounded border border-gray-400 flex items-center justify-center">
+                              <div className="w-2 h-2 rounded-full bg-transparent" />
+                            </div>
+                            <span className="text-xs">Intermédiaire / Avancé</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <motion.div 
+                              className={cn(
+                                "w-3 h-3 rounded border flex items-center justify-center transition-colors",
+                                isExpertChecked ? "border-gray-900 bg-gray-900" : "border-gray-400 bg-transparent"
+                              )}
+                              animate={isExpertChecked ? { scale: [1, 1.1, 1] } : {}}
+                              transition={{ duration: 0.3 }}
+                            >
+                              {isExpertChecked && (
+                                <motion.div
+                                  initial={{ scale: 0 }}
+                                  animate={{ scale: 1 }}
+                                  transition={{ duration: 0.2 }}
+                                >
+                                  <Check className="w-2 h-2 text-white" />
+                                </motion.div>
+                              )}
+                            </motion.div>
+                            <span className={cn("text-xs", isExpertChecked ? "font-medium" : "")}>Expert</span>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+                
                 {/* Typing indicator */}
                 <AnimatePresence>
-                  {chatStep === 2 && (
+                  {chatStep === 3 && (
                     <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -319,7 +450,7 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
                 
                 {/* PARCEL response (message texte d'abord) */}
                 <AnimatePresence>
-                  {chatStep >= 3 && (
+                  {chatStep >= 4 && (
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -345,7 +476,7 @@ export function DemoNoaProjet({ animationProgress = 0 }: DemoNoaProjetProps) {
                 
                 {/* Product suggestions (apparaissent après le message) */}
                 <AnimatePresence>
-                  {chatStep >= 4 && (
+                  {chatStep >= 5 && (
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
