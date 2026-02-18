@@ -74,8 +74,8 @@ export const metadata: Metadata = {
     images: ["/images/Logo Parcel sans écriture.png"],
   },
   icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
   },
   manifest: "/site.webmanifest",
 }
