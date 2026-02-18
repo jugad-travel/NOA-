@@ -52,7 +52,7 @@ function AnimatedMetric({ value, label, detail, index }: {
 
 export function Performance() {
   return (
-    <Section variant="white" padding="lg" className="pb-4 md:pb-6 relative overflow-hidden">
+    <Section variant="white" padding="lg" className="pt-8 md:pt-10 pb-4 md:pb-6 relative overflow-hidden">
       <div className="max-w-6xl mx-auto relative z-10">
         <ScrollReveal>
           <div className="text-center mb-6">

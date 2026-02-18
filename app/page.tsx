@@ -90,10 +90,10 @@ export default function HomePage() {
       <DemoSection />
       <BusinessRulesSection />
       <ReconciliationSection />
+      <Performance />
       <PainSection />
       <GammeNoa />
       <Features />
-      <Performance />
       <Integration />
       <PricingTeaser />
       <FooterCTA />

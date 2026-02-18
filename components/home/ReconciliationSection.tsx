@@ -6,7 +6,7 @@ import { ScrollReveal } from "@/components/shared/ScrollReveal"
 
 export function ReconciliationSection() {
   return (
-    <Section variant="white" padding="lg">
+    <Section variant="white" padding="lg" className="pb-8 md:pb-10">
       <div className="max-w-6xl mx-auto">
         <ScrollReveal>
           <div className="text-center mb-12">
@@ -18,7 +18,7 @@ export function ReconciliationSection() {
         
         {/* Deux cartes */}
         <ScrollReveal delay={0.1}>
-          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-4 max-w-5xl mx-auto">
             {/* Carte 01 */}
             <div className="bg-gray-100 rounded-2xl p-6 md:p-8">
               <div className="flex flex-col gap-4">
