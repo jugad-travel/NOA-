@@ -107,7 +107,7 @@ export function Hero() {
         
         {/* CTA Row */}
         <ScrollReveal delay={0.2}>
-          <div className="flex justify-center md:justify-start mt-6 sm:mt-8 md:mt-12 lg:mt-16">
+          <div className="flex justify-center md:justify-start mt-6 sm:mt-8 md:mt-12 lg:mt-16 mb-8 md:mb-12">
             <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo PARCEL">
               <Button variant="primary" size="lg" magnetic className="rounded-full">
                 Réserver une démo
