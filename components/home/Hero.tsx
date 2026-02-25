@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ScrollReveal } from "@/components/shared/ScrollReveal"
+import { PerformanceMetrics } from "@/components/home/PerformanceMetrics"
 
 const rotatingPhrases = [
   "augmente la conversion sans friction.",
@@ -30,9 +31,14 @@ export function Hero() {
   return (
     <section className="relative min-h-[70vh] flex flex-col pt-20 md:pt-24 pb-12 md:pb-16 overflow-hidden bg-white">
       <div className="container relative z-10 px-4 md:px-6">
+        {/* Performance Metrics */}
+        <div className="-mt-4 md:-mt-6">
+          <PerformanceMetrics />
+        </div>
+        
         {/* Large PARCEL Title */}
         <ScrollReveal>
-          <div className="h-32 sm:h-40 md:h-64 lg:h-80 flex items-start -mb-12 sm:-mb-16 md:-mb-20 lg:-mb-24">
+          <div className="h-32 sm:h-40 md:h-64 lg:h-80 flex items-start -mb-12 sm:-mb-16 md:-mb-20 lg:-mb-24 -mt-2 md:-mt-4">
             <Image
               src="/images/Logo Parcel 02:02:2026.png"
               alt="PARCEL Logo"

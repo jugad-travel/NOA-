@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/shared/ScrollReveal"
-import { Clock, TrendingUp, ArrowRight } from "lucide-react"
+import { Clock, TrendingUp, ArrowRight, Calculator } from "lucide-react"
 
 const blogArticles = [
   {
@@ -46,6 +46,48 @@ export function RessourcesContent() {
               </div>
             </ScrollReveal>
           </div>
+        </div>
+      </Section>
+
+      {/* Simulateur ROI Section */}
+      <Section variant="white" padding="xl">
+        <div className="max-w-6xl mx-auto">
+          <ScrollReveal>
+            <div className="text-center mb-12">
+              <Badge className="mb-4">Outils</Badge>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                Simulateur de ROI
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Calculez l'impact de PARCEL sur votre business et estimez votre retour sur investissement.
+              </p>
+            </div>
+          </ScrollReveal>
+          
+          <ScrollReveal delay={0.1}>
+            <Link href="/ressources/simulateur-roi">
+              <Card glow className="h-full group cursor-pointer hover:shadow-xl transition-all">
+                <div className="flex items-start gap-6">
+                  <div className="w-16 h-16 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-100 transition-colors">
+                    <Calculator className="w-8 h-8 text-blue-600" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                      Calculez votre ROI avec PARCEL
+                    </h3>
+                    <p className="text-gray-600 mb-4">
+                      Obtenez une estimation précise de votre retour sur investissement. 
+                      Remplissez quelques informations sur votre business et découvrez l'impact que PARCEL peut avoir sur vos performances commerciales.
+                    </p>
+                    <div className="flex items-center gap-2 text-sm text-blue-600 group-hover:gap-3 transition-all font-medium">
+                      <span>Accéder au simulateur</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </Link>
+          </ScrollReveal>
         </div>
       </Section>
 
