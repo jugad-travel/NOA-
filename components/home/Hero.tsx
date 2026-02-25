@@ -29,7 +29,7 @@ export function Hero() {
   }, [])
   
   return (
-    <section className="relative min-h-[70vh] flex flex-col pt-20 md:pt-24 pb-12 md:pb-16 overflow-hidden bg-white">
+    <section className="relative min-h-[70vh] flex flex-col pt-20 md:pt-24 pb-0 overflow-hidden" style={{ backgroundColor: 'transparent' }}>
       <div className="container relative z-10 px-4 md:px-6">
         {/* Performance Metrics */}
         <div className="-mt-4 md:-mt-6">

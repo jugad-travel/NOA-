@@ -19,7 +19,7 @@ const manrope = Manrope({
 
 export const metadata: Metadata = {
   title: {
-    default: "PARCEL - Le premier conseiller de vente IA qui vend comme en magasin",
+    default: "PARCEL - Le premier conseiller de vente IA qui vend en ligne comme en magasin",
     template: "%s | PARCEL",
   },
   description:
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     url: "https://parcel-ia.com",
     siteName: "PARCEL",
-    title: "PARCEL - Le premier conseiller de vente IA qui vend comme en magasin",
+    title: "PARCEL - Le premier conseiller de vente IA qui vend en ligne comme en magasin",
     description:
       "À chaque étape du parcours client, PARCEL accompagne, conseille avec précision et convertit. Transformez votre site en vendeur digital performant.",
     images: [
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "PARCEL - Le premier conseiller de vente IA qui vend comme en magasin",
+    title: "PARCEL - Le premier conseiller de vente IA qui vend en ligne comme en magasin",
     description:
       "À chaque étape du parcours client, PARCEL accompagne, conseille avec précision et convertit.",
     images: ["/images/Logo Parcel sans écriture.png"],

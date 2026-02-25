@@ -67,7 +67,7 @@ export default function HomePage() {
   return (
     <>
       {/* Hero Image Section */}
-      <section className="w-full relative">
+      <section className="w-full relative bg-white">
         <div className="w-full px-2 md:px-4 pt-14 md:pt-20 pb-4 md:pb-6">
           <div 
             ref={heroImageRef}

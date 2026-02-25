@@ -46,7 +46,7 @@ export function PerformanceMetrics() {
   }
 
   return (
-    <Section variant="white" padding="lg" className="py-4 md:py-5">
+    <div className="py-4 md:py-5" style={{ backgroundColor: 'transparent' }}>
       <div className="max-w-5xl mx-auto">
         <ScrollReveal>
           <div className="relative h-36 md:h-40 flex items-center justify-center overflow-visible">
@@ -120,6 +120,6 @@ export function PerformanceMetrics() {
           </div>
         </ScrollReveal>
       </div>
-    </Section>
+    </div>
   )
 }
