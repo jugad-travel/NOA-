@@ -20,8 +20,8 @@ const footerLinks = {
   ],
   entreprise: [
     { name: "Intégrations & Tech", href: "/integrations-tech" },
-    { name: "Démo", href: "mailto:parcel.webai@gmail.com?subject=Demande de démo PARCEL" },
-    { name: "Contact", href: "mailto:parcel.webai@gmail.com?subject=Contact PARCEL" },
+    { name: "Démo", href: "mailto:vianney@parcel-ia.com?subject=Demande de démo PARCEL" },
+    { name: "Contact", href: "mailto:vianney@parcel-ia.com?subject=Contact PARCEL" },
   ],
   legal: [
     { name: "Mentions légales", href: "#" },
@@ -71,7 +71,7 @@ export function Footer() {
             <p className="text-gray-400 text-sm mb-6 leading-relaxed">
               Le premier conseiller de vente IA qui vend comme en magasin.
             </p>
-            <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo PARCEL">
+            <a href="mailto:vianney@parcel-ia.com?subject=Demande de démo PARCEL">
               <Button variant="primary" size="md" magnetic>
                 Réserver une démo
               </Button>
@@ -165,7 +165,7 @@ export function Footer() {
             <span>•</span>
             <span>RGPD</span>
             <span>•</span>
-            <a href="mailto:parcel.webai@gmail.com?subject=Contact PARCEL" className="hover:text-brand transition-colors">
+            <a href="mailto:vianney@parcel-ia.com?subject=Contact PARCEL" className="hover:text-brand transition-colors">
               Contact
             </a>
           </div>

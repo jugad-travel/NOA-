@@ -653,7 +653,7 @@ export function IntegrationsContent() {
           </ScrollReveal>
           
           <ScrollReveal delay={0.1}>
-            <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo technique PARCEL">
+            <a href="mailto:vianney@parcel-ia.com?subject=Demande de démo technique PARCEL">
               <Button variant="primary" size="xl" magnetic>
                 Demander une démo technique
                 <ArrowRight className="w-5 h-5" />

@@ -25,7 +25,7 @@ export function FooterCTA() {
               </h2>
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo personnalisée PARCEL">
+                <a href="mailto:vianney@parcel-ia.com?subject=Demande de démo personnalisée PARCEL">
                   <Button variant="secondary" size="xl" magnetic>
                     Demander une démo personnalisée
                     <ArrowRight className="w-5 h-5" />

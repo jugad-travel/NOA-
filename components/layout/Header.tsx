@@ -142,7 +142,7 @@ export function Header() {
               ))}
               
               {/* CTA Button - always visible, just moves position */}
-              <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo PARCEL">
+              <a href="mailto:vianney@parcel-ia.com?subject=Demande de démo PARCEL">
                 <button 
                   className={cn(
                     "font-semibold rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-all duration-500",
@@ -221,7 +221,7 @@ export function Header() {
                 </div>
               ))}
               <div className="pt-4">
-                <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo PARCEL">
+                <a href="mailto:vianney@parcel-ia.com?subject=Demande de démo PARCEL">
                   <button className="w-full h-12 px-8 text-sm font-semibold rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-all">
                     Réserver une démo
                   </button>

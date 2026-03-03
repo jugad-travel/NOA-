@@ -490,7 +490,7 @@ export function ArticleContent() {
               <p className="text-lg text-gray-700 mb-6">
                 Découvrez comment PARCEL peut révolutionner l'expérience d'achat de vos clients.
               </p>
-              <a href="mailto:parcel.webai@gmail.com?subject=Demande de démo PARCEL">
+              <a href="mailto:vianney@parcel-ia.com?subject=Demande de démo PARCEL">
                 <Button variant="primary" size="lg">
                   Demander une démo
                   <ArrowRight className="w-5 h-5 ml-2" />
