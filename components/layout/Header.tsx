@@ -23,6 +23,7 @@ const navigation = [
   { name: "Intégrations & Tech", href: "/integrations-tech" },
   { name: "Ressources", href: "/ressources" },
   { name: "À propos", href: "/a-propos" },
+  { name: "Espace Marchand", href: "https://app.parcel-ia.com", external: true },
 ]
 
 export function Header() {
@@ -40,6 +41,7 @@ export function Header() {
   }, [])
   
   const isActive = (href: string) => {
+    if (href.startsWith("http")) return false
     if (href === "/") return pathname === "/"
     return pathname.startsWith(href)
   }
