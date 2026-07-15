@@ -111,10 +111,6 @@ export function FunnelSection() {
   const sectionRef = React.useRef<HTMLDivElement>(null)
   const pinRef = React.useRef<HTMLDivElement>(null)
   const [active, setActive] = React.useState(0)
-  // Pinned panels are stacked, so they ALL intersect the viewport: mounting
-  // every video at once would autoplay five players simultaneously. In pin
-  // mode we mount each stage's video only once the scroll reaches it.
-  const [maxActive, setMaxActive] = React.useState(0)
   const [mode, setMode] = React.useState<"pending" | "pinned" | "stacked">("pending")
 
   React.useEffect(() => {
@@ -147,7 +143,6 @@ export function FunnelSection() {
               Math.round(self.progress * (STAGES.length - 1)),
             )
             setActive(idx)
-            setMaxActive((prev) => Math.max(prev, idx))
           },
         },
       })
@@ -224,9 +219,11 @@ export function FunnelSection() {
                       <YouTubeEmbed
                         videoId={stage.videoId}
                         title={stage.title}
-                        // pending (pre-hydration) → façade; pinned → mount when
-                        // the scroll reaches the stage; stacked → in-view autoplay.
-                        autoplay={mode === "stacked" || (mode === "pinned" && i <= maxActive)}
+                        // Desktop épinglé : seule l'étape active joue (et
+                        // uniquement tant que le funnel est à l'écran, la
+                        // visibilité étant gérée dans YouTubeEmbed). Mobile
+                        // empilé : c'est la visibilité qui décide.
+                        active={mode === "pinned" ? i === active : undefined}
                       />
                     ) : (
                       <SearchMockup />

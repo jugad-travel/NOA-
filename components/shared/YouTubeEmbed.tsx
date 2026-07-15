@@ -1,116 +1,159 @@
 "use client"
 
 import * as React from "react"
-import { Play } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 /**
- * Sober YouTube embed.
+ * YouTube embed piloté par l'API IFrame.
  *
- * autoplay (default): the iframe mounts when the player scrolls into view and
- * starts MUTED in a loop (browsers only allow muted autoplay) with controls
- * visible so visitors can enable sound. Nothing loads before the player is
- * close to the viewport, so pages stay fast.
+ * - Le son est ON par défaut : dès qu'une vidéo devient active/visible on
+ *   appelle unMute() + playVideo(). (Certains navigateurs bloquent la lecture
+ *   sonore sans interaction préalable : YouTube affiche alors « appuyer pour
+ *   activer le son » — c'est le maximum atteignable côté navigateur.)
+ * - La vidéo se met en pause dès qu'elle sort du champ.
+ * - `active` (optionnel) force la lecture/pause depuis le parent (ex. étape
+ *   active du funnel). Sans `active`, c'est la visibilité qui décide.
  *
- * autoplay=false: classic façade — thumbnail + play button, click to load.
+ * Le player n'est instancié que lorsqu'il approche du viewport : rien ne se
+ * charge au chargement de la page pour les vidéos plus bas.
  */
+
+// Chargement unique de l'API IFrame de YouTube.
+let apiPromise: Promise<void> | null = null
+function loadYouTubeAPI(): Promise<void> {
+  if (typeof window === "undefined") return Promise.resolve()
+  const w = window as unknown as {
+    YT?: { Player: unknown }
+    onYouTubeIframeAPIReady?: () => void
+  }
+  if (w.YT?.Player) return Promise.resolve()
+  if (apiPromise) return apiPromise
+  apiPromise = new Promise<void>((resolve) => {
+    const prev = w.onYouTubeIframeAPIReady
+    w.onYouTubeIframeAPIReady = () => {
+      prev?.()
+      resolve()
+    }
+    const tag = document.createElement("script")
+    tag.src = "https://www.youtube.com/iframe_api"
+    document.head.appendChild(tag)
+  })
+  return apiPromise
+}
+
 export function YouTubeEmbed({
   videoId,
   title,
   className,
   rounded = "rounded-2xl",
-  autoplay = true,
+  active,
 }: {
   videoId: string
   title: string
   className?: string
   rounded?: string
-  autoplay?: boolean
+  active?: boolean
 }) {
-  const containerRef = React.useRef<HTMLDivElement>(null)
-  const [mounted, setMounted] = React.useState(false)
+  const wrapRef = React.useRef<HTMLDivElement>(null)
+  const hostRef = React.useRef<HTMLDivElement>(null)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const playerRef = React.useRef<any>(null)
+  const [ready, setReady] = React.useState(false)
+  const [near, setNear] = React.useState(false)
+  const [inView, setInView] = React.useState(false)
 
+  // (a) créer le player quand on approche, (b) suivre la visibilité réelle.
   React.useEffect(() => {
-    if (!autoplay || mounted) return
-    const el = containerRef.current
+    const el = wrapRef.current
     if (!el) return
     const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setMounted(true)
-          io.disconnect()
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) setNear(true)
+          setInView(e.intersectionRatio >= 0.5)
         }
       },
-      { threshold: 0.35 },
+      { threshold: [0, 0.5], rootMargin: "200px 0px" },
     )
     io.observe(el)
     return () => io.disconnect()
-  }, [autoplay, mounted])
+  }, [])
 
-  const src = autoplay
-    ? `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&loop=1&playlist=${videoId}&rel=0&modestbranding=1&controls=1`
-    : `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`
+  // Instancier le player une seule fois, à l'approche du viewport.
+  React.useEffect(() => {
+    if (!near || playerRef.current || !hostRef.current) return
+    let cancelled = false
+    loadYouTubeAPI().then(() => {
+      if (cancelled || !hostRef.current) return
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const YT = (window as any).YT
+      playerRef.current = new YT.Player(hostRef.current, {
+        width: "100%",
+        height: "100%",
+        videoId,
+        playerVars: {
+          autoplay: 0,
+          mute: 0,
+          controls: 1,
+          rel: 0,
+          modestbranding: 1,
+          playsinline: 1,
+        },
+        events: {
+          onReady: () => setReady(true),
+        },
+      })
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [near, videoId])
 
-  const thumbnail = (
-    <>
-      {/* maxres first, hq fallback (YouTube serves a tiny placeholder when
-          maxres is missing — the swap keeps it sharp) */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={`https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`}
-        onError={(e) => {
-          const img = e.currentTarget
-          if (!img.src.includes("hqdefault")) {
-            img.src = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`
-          }
-        }}
-        alt={title}
-        loading="lazy"
-        className="absolute inset-0 h-full w-full object-cover"
-      />
-    </>
+  // Piloter lecture / pause + son.
+  React.useEffect(() => {
+    const p = playerRef.current
+    if (!ready || !p) return
+    const shouldPlay = (active ?? true) && inView
+    try {
+      if (shouldPlay) {
+        p.unMute()
+        p.setVolume(100)
+        p.playVideo()
+      } else {
+        p.pauseVideo()
+      }
+    } catch {
+      /* le player n'est pas encore prêt à recevoir la commande */
+    }
+  }, [ready, inView, active])
+
+  React.useEffect(
+    () => () => {
+      try {
+        playerRef.current?.destroy?.()
+      } catch {
+        /* noop */
+      }
+    },
+    [],
   )
 
   return (
     <div
-      ref={containerRef}
       className={cn(
         "relative w-full aspect-video overflow-hidden bg-gray-900 shadow-lg",
         rounded,
         className,
       )}
     >
-      {mounted ? (
-        <>
-          {/* Thumbnail stays underneath while the iframe boots. */}
-          {thumbnail}
-          <iframe
-            className="absolute inset-0 h-full w-full"
-            src={src}
-            title={title}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-          />
-        </>
-      ) : autoplay ? (
-        // Autoplay pending: plain poster (the observer mounts the iframe).
-        thumbnail
-      ) : (
-        <button
-          type="button"
-          onClick={() => setMounted(true)}
-          aria-label={`Lire la vidéo : ${title}`}
-          className="group absolute inset-0 h-full w-full cursor-pointer"
-        >
-          {thumbnail}
-          <span className="absolute inset-0 bg-black/25 transition-colors duration-300 group-hover:bg-black/15" />
-          <span className="absolute inset-0 flex items-center justify-center">
-            <span className="flex h-16 w-16 md:h-20 md:w-20 items-center justify-center rounded-full bg-white/95 shadow-xl transition-transform duration-300 group-hover:scale-110">
-              <Play className="h-6 w-6 md:h-8 md:w-8 text-gray-900 translate-x-0.5" fill="currentColor" />
-            </span>
-          </span>
-        </button>
-      )}
+      <div
+        ref={wrapRef}
+        title={title}
+        className="absolute inset-0 [&>iframe]:absolute [&>iframe]:inset-0 [&>iframe]:h-full [&>iframe]:w-full"
+      >
+        {/* Remplacé par l'iframe YouTube au montage du player. */}
+        <div ref={hostRef} className="h-full w-full" />
+      </div>
     </div>
   )
 }
