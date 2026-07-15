@@ -23,6 +23,8 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { ScrollReveal } from "@/components/shared/ScrollReveal"
+import { YouTubeEmbed } from "@/components/shared/YouTubeEmbed"
+import { VIDEOS } from "@/lib/videos"
 import { cn } from "@/lib/utils"
 
 const roles = [
@@ -123,11 +125,16 @@ export function DemoContent() {
           <ScrollReveal>
             <Badge className="mb-6">Démo</Badge>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-normal text-white mb-6">
-              Landing page dédiée à la prise de rendez-vous.
+              Voyez Parcel en action
             </h1>
             <p className="text-xl text-gray-400">
-              Réservez une démonstration personnalisée avec notre équipe.
+              Deux minutes de vidéo, puis une démonstration personnalisée avec notre équipe.
             </p>
+          </ScrollReveal>
+          <ScrollReveal delay={0.15}>
+            <div className="max-w-3xl mx-auto mt-10">
+              <YouTubeEmbed videoId={VIDEOS.presentation} title="Présentation de Parcel" />
+            </div>
           </ScrollReveal>
         </div>
       </Section>

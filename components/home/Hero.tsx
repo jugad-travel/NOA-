@@ -40,7 +40,7 @@ export function Hero() {
         <ScrollReveal>
           <div className="h-32 sm:h-40 md:h-64 lg:h-80 flex items-start -mb-12 sm:-mb-16 md:-mb-20 lg:-mb-24 -mt-2 md:-mt-4">
             <Image
-              src="/images/Logo Parcel 02:02:2026.png"
+              src="/images/logo-parcel.png"
               alt="PARCEL Logo"
               width={600}
               height={288}

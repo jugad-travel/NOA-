@@ -18,17 +18,22 @@ const modules = [
   {
     name: "PARCEL Match",
     description: "Aider à choisir le bon produit",
-    features: ["Pages catégories", "Fiches produits", "Tailles & gammes"],
+    features: ["Pages catégories", "Collections", "Tailles & gammes"],
   },
   {
     name: "PARCEL Expert",
     description: "Répondre aux questions produit",
-    features: ["Fiche produit", "Comparaisons", "Caractéristiques"],
+    features: ["Fiche produit", "Compatibilités", "Caractéristiques"],
   },
   {
-    name: "PARCEL Complete",
-    description: "Compléter intelligemment le panier",
-    features: ["Page panier", "Checkout", "Accessoires"],
+    name: "PARCEL Comparaison",
+    description: "Comparer et trancher entre deux produits",
+    features: ["Verdict par usage", "Critères réels", "Depuis les recommandations"],
+  },
+  {
+    name: "PARCEL SAV",
+    description: "Un service après-vente instantané",
+    features: ["Retours & livraison", "Politiques boutique", "Relais humain"],
   },
 ]
 
@@ -48,7 +53,7 @@ export function PricingTeaser() {
           </div>
         </ScrollReveal>
         
-        <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" staggerDelay={0.1}>
+        <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" staggerDelay={0.1}>
           {modules.map((module) => (
             <StaggerItem key={module.name}>
               <Card hover className="h-full flex flex-col">

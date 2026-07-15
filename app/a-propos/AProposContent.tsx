@@ -372,7 +372,7 @@ export function AProposContent() {
                   <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 md:p-5 border border-white/20 hover:bg-white/15 hover:border-white/30 transition-all h-full flex flex-col shadow-lg">
                     <div className="flex flex-col items-center text-center gap-4 h-full">
                       <Image 
-                        src="/images/Logo Parcel 02:02:2026.png"
+                        src="/images/logo-parcel.png"
                         alt="PARCEL"
                         width={120}
                         height={120}

@@ -14,10 +14,11 @@ const navigation = [
     href: "/produits",
     children: [
       { name: "Tous les produits", href: "/produits" },
-      { name: "PARCEL Projet", href: "/produits#noa-projet" },
-      { name: "PARCEL Match", href: "/produits#noa-match" },
-      { name: "PARCEL Expert", href: "/produits#noa-expert" },
-      { name: "PARCEL Complete", href: "/produits#noa-complete" },
+      { name: "PARCEL Projet", href: "/produits#parcel-projet" },
+      { name: "PARCEL Match", href: "/produits#parcel-match" },
+      { name: "PARCEL Expert", href: "/produits#parcel-expert" },
+      { name: "PARCEL Comparaison", href: "/produits#parcel-comparaison" },
+      { name: "PARCEL SAV", href: "/produits#parcel-sav" },
     ],
   },
   { name: "Intégrations & Tech", href: "/integrations-tech" },
@@ -80,7 +81,7 @@ export function Header() {
               )}
             >
               <Image
-                src="/images/Logo Parcel 02:02:2026.png"
+                src="/images/logo-parcel.png"
                 alt="PARCEL Logo"
                 width={100}
                 height={48}
@@ -186,7 +187,7 @@ export function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <Image
-                  src="/images/Logo Parcel 02:02:2026.png"
+                  src="/images/logo-parcel.png"
                   alt="PARCEL Logo"
                   width={120}
                   height={48}

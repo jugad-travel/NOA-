@@ -8,6 +8,7 @@ import { Section } from "@/components/layout/Section"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ScrollReveal } from "@/components/shared/ScrollReveal"
+import { SHOPIFY_APP_STORE_URL } from "@/lib/videos"
 
 // CMS logos
 const cmsLogos = [
@@ -80,6 +81,43 @@ export function Integration() {
           </div>
         </ScrollReveal>
         
+        {/* Shopify highlight */}
+        <ScrollReveal delay={0.25}>
+          <div className="mt-12 rounded-2xl border border-gray-200 bg-gray-50 p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 rounded-xl bg-white border border-gray-200 flex items-center justify-center p-2.5 shrink-0">
+                <Image
+                  src="/images/Logo shopify .webp"
+                  alt="Shopify"
+                  width={44}
+                  height={44}
+                  className="object-contain w-full h-full"
+                />
+              </div>
+              <div>
+                <p className="font-medium text-gray-900">
+                  Sur Shopify, l'installation est native : app + widgets en quelques clics.
+                </p>
+                <p className="text-sm text-gray-500 mt-0.5">
+                  Catalogue synchronisé automatiquement, questions de vente générées par l'IA.
+                </p>
+              </div>
+            </div>
+            {SHOPIFY_APP_STORE_URL ? (
+              <a href={SHOPIFY_APP_STORE_URL} target="_blank" rel="noopener noreferrer" className="shrink-0">
+                <Button variant="primary" size="lg">
+                  Installer sur Shopify
+                  <ArrowRight className="w-5 h-5" />
+                </Button>
+              </a>
+            ) : (
+              <span className="shrink-0 rounded-full border border-gray-300 bg-white px-4 py-2 text-sm text-gray-600">
+                Bientôt sur l'App Store Shopify
+              </span>
+            )}
+          </div>
+        </ScrollReveal>
+
         {/* CTA */}
         <ScrollReveal delay={0.3}>
           <div className="text-center mt-12">

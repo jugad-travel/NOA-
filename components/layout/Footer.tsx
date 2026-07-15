@@ -8,10 +8,11 @@ import { Button } from "@/components/ui/button"
 
 const footerLinks = {
   produits: [
-    { name: "PARCEL Projet", href: "/produits#noa-projet" },
-    { name: "PARCEL Match", href: "/produits#noa-match" },
-    { name: "PARCEL Expert", href: "/produits#noa-expert" },
-    { name: "PARCEL Complete", href: "/produits#noa-complete" },
+    { name: "PARCEL Projet", href: "/produits#parcel-projet" },
+    { name: "PARCEL Match", href: "/produits#parcel-match" },
+    { name: "PARCEL Expert", href: "/produits#parcel-expert" },
+    { name: "PARCEL Comparaison", href: "/produits#parcel-comparaison" },
+    { name: "PARCEL SAV", href: "/produits#parcel-sav" },
   ],
   ressources: [
     { name: "Blog", href: "/ressources#blog" },
@@ -61,7 +62,7 @@ export function Footer() {
           <div className="col-span-2 md:col-span-4 lg:col-span-1">
             <Link href="/" className="flex items-center mb-6">
               <Image
-                src="/images/Logo Parcel 02:02:2026.png"
+                src="/images/logo-parcel.png"
                 alt="PARCEL Logo"
                 width={120}
                 height={60}
@@ -152,7 +153,7 @@ export function Footer() {
           <div className="flex items-center gap-2 text-gray-500 text-sm">
             <span>© {new Date().getFullYear()}</span>
             <Image
-              src="/images/Logo Parcel 02:02:2026.png"
+              src="/images/logo-parcel.png"
               alt="PARCEL Logo"
               width={60}
               height={30}

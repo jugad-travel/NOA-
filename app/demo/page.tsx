@@ -4,7 +4,7 @@ import { DemoContent } from "./DemoContent"
 export const metadata: Metadata = {
   title: "Démo",
   description:
-    "Landing page dédiée à la prise de rendez-vous. Réservez une démo personnalisée avec notre équipe pour découvrir PARCEL.",
+    "Voyez Parcel en action en vidéo, puis réservez une démonstration personnalisée avec notre équipe.",
 }
 
 export default function DemoPage() {

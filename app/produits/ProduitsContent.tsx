@@ -1,252 +1,145 @@
 "use client"
 
 import * as React from "react"
-import Link from "next/link"
-import { 
-  Compass, 
-  Target, 
-  BookOpen, 
-  ShoppingBag, 
-  ArrowRight, 
-  Home, 
-  LayoutGrid, 
-  FileText, 
-  ShoppingCart,
-  CheckCircle
+import {
+  Compass,
+  Target,
+  BookOpen,
+  Scale,
+  LifeBuoy,
+  ArrowRight,
+  CheckCircle,
 } from "lucide-react"
 import { Section } from "@/components/layout/Section"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ScrollReveal } from "@/components/shared/ScrollReveal"
-import { DemoNoaProjet, DemoNoaMatch, DemoNoaExpert, DemoNoaComplete } from "@/components/demos"
+import { YouTubeEmbed } from "@/components/shared/YouTubeEmbed"
+import { VIDEOS, SHOPIFY_APP_STORE_URL, DEMO_CONTACT_URL } from "@/lib/videos"
 import { cn } from "@/lib/utils"
-import gsap from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-
-gsap.registerPlugin(ScrollTrigger)
 
 const products = [
   {
-    id: "noa-projet",
+    id: "parcel-projet",
     name: "PARCEL Projet",
     tagline: "Transformer une intention en panier complet",
-    description: "PARCEL Projet intervient dès l'arrivée sur le site, lorsque le client exprime un besoin global ou un projet, sans savoir précisément quels produits acheter.",
-    details: "Il capte l'intention en langage naturel, qualifie le contexte (durée, usage, niveau, contraintes) et structure le besoin en une sélection cohérente de produits.",
+    description:
+      "PARCEL Projet intervient dès l'arrivée sur le site, lorsque le client exprime un besoin global ou un projet, sans savoir précisément quels produits acheter.",
+    details:
+      "Il capte l'intention en langage naturel, qualifie le contexte (durée, usage, niveau, contraintes) et structure le besoin en une sélection cohérente de produits — de l'indispensable à l'optionnel.",
     casTypiques: [
       "Équipement pour un trek, un sport, un projet maison",
       "Achat multi-produits sans point de départ précis",
     ],
     integration: ["Page d'accueil", "Pages catégories larges"],
-    objectif: "ne plus perdre les clients qui ne savent pas par où commencer.",
     icon: Compass,
-    color: "from-blue-500/20 to-purple-500/20",
-    borderColor: "border-blue-500/30",
-    iconColor: "text-blue-400",
-    demoComponent: DemoNoaProjet,
+    videoId: VIDEOS.projet,
   },
   {
-    id: "noa-match",
+    id: "parcel-match",
     name: "PARCEL Match",
     tagline: "Aider à choisir le bon produit",
-    description: "PARCEL Match intervient lorsque le client connaît le type de produit recherché, mais hésite entre plusieurs options.",
-    details: "Il pose les questions techniques pertinentes, applique vos règles métier (tailles, usages, budgets, compatibilités) et oriente vers le choix le plus adapté.",
+    description:
+      "PARCEL Match intervient lorsque le client connaît le type de produit recherché, mais hésite entre plusieurs options.",
+    details:
+      "Il pose les questions pertinentes en langage client, applique vos règles métier (tailles, usages, budgets, compatibilités) et oriente vers le choix le plus adapté.",
     casTypiques: [
       "Choix de taille, de gamme ou de marque",
       "Produits techniques ou fortement différenciés",
     ],
-    integration: ["Pages catégories techniques", "Fiches produits"],
-    objectif: "réduire l'erreur de choix et sécuriser l'achat.",
+    integration: ["Pages catégories", "Pages collections"],
     icon: Target,
-    color: "from-green-500/20 to-teal-500/20",
-    borderColor: "border-green-500/30",
-    iconColor: "text-green-400",
-    demoComponent: DemoNoaMatch,
+    videoId: VIDEOS.match,
   },
   {
-    id: "noa-expert",
+    id: "parcel-expert",
     name: "PARCEL Expert",
     tagline: "Répondre aux questions produit au moment décisif",
     description: "PARCEL Expert agit comme un vendeur expert sur une fiche produit précise.",
-    details: "Il répond aux questions détaillées, explique les caractéristiques clés, compare avec des alternatives proches et aide le client à confirmer son choix.",
+    details:
+      "Il répond aux questions détaillées, explique les caractéristiques clés et aide le client à confirmer son choix — sans ticket support ni recherche externe.",
     casTypiques: [
-      "Comparaison entre deux modèles",
       "Questions d'usage ou de compatibilité",
+      "Derniers freins avant l'achat",
     ],
     integration: ["Fiche produit", "Encarts d'aide à la décision"],
-    objectif: "lever les derniers freins avant l'achat.",
     icon: BookOpen,
-    color: "from-orange-500/20 to-red-500/20",
-    borderColor: "border-orange-500/30",
-    iconColor: "text-orange-400",
-    demoComponent: DemoNoaExpert,
+    videoId: VIDEOS.expert,
   },
   {
-    id: "noa-complete",
-    name: "PARCEL Complete",
-    tagline: "Compléter intelligemment le panier",
-    description: "PARCEL Complete intervient en fin de parcours, lorsque le panier est constitué.",
-    details: "Il analyse le contenu du panier, comprend le besoin global initial et identifie les produits manquants ou utiles, en expliquant clairement chaque recommandation.",
+    id: "parcel-comparaison",
+    name: "PARCEL Comparaison",
+    tagline: "Comparer comme un vendeur, pas comme un tableau",
+    description:
+      "PARCEL Comparaison intervient quand le client hésite entre deux ou trois produits précis.",
+    details:
+      "Il compare critère par critère à partir des vraies fiches produit, donne un verdict honnête par usage (« pour la longue distance, celui-ci ; pour le confort, celui-là ») et aide à trancher.",
     casTypiques: [
-      "Panier incomplet",
-      "Oublis fréquents",
-      "Accessoires indispensables",
+      "Hésitation entre deux modèles proches",
+      "Arbitrage prix / performance",
     ],
-    integration: ["Page panier", "Checkout"],
-    objectif: "améliorer la complétude du panier sans vente agressive.",
-    icon: ShoppingBag,
-    color: "from-pink-500/20 to-rose-500/20",
-    borderColor: "border-pink-500/30",
-    iconColor: "text-pink-400",
-    demoComponent: DemoNoaComplete,
+    integration: ["Depuis les recommandations", "Fiches produits"],
+    icon: Scale,
+    videoId: VIDEOS.comparaison,
+  },
+  {
+    id: "parcel-sav",
+    name: "PARCEL SAV",
+    tagline: "Un service après-vente instantané",
+    description:
+      "PARCEL SAV répond aux questions d'après-vente à partir des politiques réelles de la boutique.",
+    details:
+      "Retours, remboursements, livraison, suivi : les réponses sont immédiates et fiables, avec passage de relais à un humain quand la situation le demande. Moins de tickets, plus de clients fidèles.",
+    casTypiques: [
+      "Politique de retour et remboursements",
+      "Questions livraison et suivi de commande",
+    ],
+    integration: ["Assistant sur tout le site", "Pages compte / commandes"],
+    icon: LifeBuoy,
+    videoId: VIDEOS.sav,
   },
 ]
 
-const parcoursSteps = [
-  { id: "home", label: "Home", icon: Home, product: "PARCEL Projet" },
-  { id: "categorie", label: "Catégorie", icon: LayoutGrid, product: "PARCEL Projet / Match" },
-  { id: "pdp", label: "Fiche produit", icon: FileText, product: "PARCEL Match / Expert" },
-  { id: "panier", label: "Panier", icon: ShoppingCart, product: "PARCEL Complete" },
-]
-
-interface ProductDemoSectionProps {
-  product: typeof products[0]
-  index: number
+function ProductSection({
+  product,
+  isEven,
+}: {
+  product: (typeof products)[0]
   isEven: boolean
-}
-
-function ProductDemoSection({ product, index, isEven }: ProductDemoSectionProps) {
-  const Icon = product.icon
-  const sectionWrapperRef = React.useRef<HTMLDivElement>(null)
-  const demoContainerRef = React.useRef<HTMLDivElement>(null)
-  const [animationProgress, setAnimationProgress] = React.useState(0)
-  const scrollTriggerRef = React.useRef<ScrollTrigger | null>(null)
-
-  React.useEffect(() => {
-    const sectionWrapper = sectionWrapperRef.current
-    const demoContainer = demoContainerRef.current
-    if (!sectionWrapper || !demoContainer) return
-
-    const viewportHeight = window.innerHeight
-    const scrollDistance = viewportHeight * 2.0 // Distance de scroll pour chaque démo
-
-    // Désactiver ScrollTrigger sur mobile pour éviter les bugs de scroll
-    const isMobile = window.innerWidth < 768
-    if (isMobile) {
-      // Sur mobile, afficher simplement la démo sans animation de scroll
-      setAnimationProgress(1)
-      return
-    }
-
-    // Nettoyer le ScrollTrigger existant
-    if (scrollTriggerRef.current) {
-      scrollTriggerRef.current.kill()
-    }
-
-    // Créer un ScrollTrigger pour cette section
-    // Le pin commence quand la fenêtre de démo est centrée dans le viewport
-    // Attendre que les éléments soient rendus pour calculer les positions
-    const updateScrollTrigger = () => {
-      const demoRect = demoContainer.getBoundingClientRect()
-      const sectionRect = sectionWrapper.getBoundingClientRect()
-      const demoTopRelative = demoRect.top - sectionRect.top
-      const viewportCenter = viewportHeight / 2
-      
-      // Calculer le start pour que le pin commence quand la démo est centrée
-      const startOffset = viewportCenter - (demoTopRelative + demoRect.height / 2)
-      
-      // Nettoyer le ScrollTrigger existant
-      if (scrollTriggerRef.current) {
-        scrollTriggerRef.current.kill()
-      }
-      
-      scrollTriggerRef.current = ScrollTrigger.create({
-        trigger: sectionWrapper,
-        start: `top ${startOffset}px`, // Commence quand la démo est centrée
-        end: `+=${scrollDistance}`,
-        scrub: 0.3,
-        pin: sectionWrapper,
-        anticipatePin: 1,
-        pinSpacing: true,
-        pinReparent: false,
-        onUpdate: (self) => {
-          const progress = self.progress // 0 à 1
-          setAnimationProgress(progress)
-        },
-        onLeave: () => {
-          setAnimationProgress(1)
-        },
-        onLeaveBack: () => {
-          setAnimationProgress(0)
-        },
-      })
-    }
-    
-    // Attendre que le DOM soit prêt
-    setTimeout(updateScrollTrigger, 100)
-    
-    // Réinitialiser au redimensionnement
-    const handleResize = () => {
-      updateScrollTrigger()
-    }
-    window.addEventListener('resize', handleResize)
-    
-    return () => {
-      window.removeEventListener('resize', handleResize)
-      if (scrollTriggerRef.current) {
-        scrollTriggerRef.current.kill()
-      }
-    }
-
-    return () => {
-      if (scrollTriggerRef.current) {
-        scrollTriggerRef.current.kill()
-      }
-    }
-  }, [])
-
-  const DemoComponent = product.demoComponent
-
+}) {
   return (
-    <div ref={sectionWrapperRef}>
-      <Section
-        id={product.id}
-        variant={isEven ? "gray" : "gradient"}
-        padding="xl"
-      >
+    <Section id={product.id} variant={isEven ? "gray" : "white"} padding="xl">
       <div className="max-w-6xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Content */}
-          <ScrollReveal className={cn(!isEven && "lg:order-2", "relative z-10")}>
+          <ScrollReveal className={cn(!isEven && "lg:order-2")}>
             <div>
               <div className="mb-6">
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-2 relative z-10">
+                <h2 className="text-3xl md:text-4xl font-normal text-gray-900 mb-2">
                   {product.name}
                 </h2>
-                <p className="text-brand font-medium">{product.tagline}</p>
+                <p className="text-accent-blue font-medium">{product.tagline}</p>
               </div>
-              
-              <div className={cn("space-y-4 mb-8", isEven ? "text-gray-700" : "text-gray-300")}>
+
+              <div className="space-y-4 mb-8 text-gray-600">
                 <p>{product.description}</p>
                 <p>{product.details}</p>
               </div>
-              
-              {/* Cas typiques */}
+
               <div className="mb-6">
                 <h4 className="text-sm font-normal uppercase tracking-wider mb-3 text-gray-900">
                   Cas typiques
                 </h4>
                 <ul className="space-y-2">
                   {product.casTypiques.map((cas) => (
-                    <li key={cas} className="flex items-start gap-2 text-gray-900">
-                      <CheckCircle className="w-5 h-5 text-brand flex-shrink-0 mt-0.5" />
+                    <li key={cas} className="flex items-start gap-2 text-gray-700">
+                      <CheckCircle className="w-5 h-5 text-accent-blue flex-shrink-0 mt-0.5" />
                       <span>{cas}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-              
-              {/* Où il s'intègre */}
-              <div className="mb-6">
+
+              <div>
                 <h4 className="text-sm font-normal text-gray-400 uppercase tracking-wider mb-3">
                   Où il s'intègre
                 </h4>
@@ -258,20 +151,15 @@ function ProductDemoSection({ product, index, isEven }: ProductDemoSectionProps)
                   ))}
                 </div>
               </div>
-              
             </div>
           </ScrollReveal>
-          
-          {/* Demo */}
-          <ScrollReveal delay={0.2} className={cn(!isEven && "lg:order-1", "relative z-0")}>
-            <div ref={demoContainerRef} className="relative z-0">
-              {DemoComponent && <DemoComponent animationProgress={animationProgress} />}
-            </div>
+
+          <ScrollReveal delay={0.15} className={cn(!isEven && "lg:order-1")}>
+            <YouTubeEmbed videoId={product.videoId} title={`Démo ${product.name}`} />
           </ScrollReveal>
         </div>
       </div>
-      </Section>
-    </div>
+    </Section>
   )
 }
 
@@ -281,11 +169,10 @@ export function ProduitsContent() {
       {/* Hero Section */}
       <Section variant="white" padding="lg" className="relative overflow-hidden py-8 md:py-12">
         <div className="max-w-6xl mx-auto relative z-10">
-          {/* Rectangle avec dégradé en arrière-plan */}
-          <div 
+          <div
             className="relative rounded-3xl mx-4 md:mx-8 p-8 md:p-10 lg:p-12"
             style={{
-              background: "linear-gradient(135deg, #d0f7fb 0%, #83a6ff 40%, #ff966b 100%)"
+              background: "linear-gradient(135deg, #d0f7fb 0%, #83a6ff 40%, #ff966b 100%)",
             }}
           >
             <ScrollReveal>
@@ -295,14 +182,16 @@ export function ProduitsContent() {
                   Le conseiller de vente IA présent tout au long du parcours client
                 </h1>
                 <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto">
-                  Du premier besoin exprimé jusqu'à la décision d'achat, avec compréhension contextuelle et recommandations pertinentes.
+                  Du premier besoin exprimé jusqu'au service après-vente, avec
+                  compréhension contextuelle et recommandations pertinentes.
+                  Chaque module ci-dessous est montré en vidéo, en conditions réelles.
                 </p>
               </div>
             </ScrollReveal>
           </div>
         </div>
       </Section>
-      
+
       {/* Vue d'ensemble */}
       <Section variant="white" padding="lg">
         <div className="max-w-6xl mx-auto">
@@ -313,16 +202,12 @@ export function ProduitsContent() {
               </h2>
             </div>
           </ScrollReveal>
-          
-          {/* Deux cartes */}
+
           <ScrollReveal delay={0.1}>
             <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-              {/* Carte 01 */}
               <div className="bg-gray-100 rounded-2xl p-6 md:p-8">
                 <div className="flex flex-col gap-4">
-                  <div className="text-2xl md:text-3xl font-bold text-gray-900">
-                    01.
-                  </div>
+                  <div className="text-2xl md:text-3xl font-bold text-gray-900">01.</div>
                   <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">
                     Un vendeur digital pour le client
                   </h3>
@@ -331,13 +216,10 @@ export function ProduitsContent() {
                   </p>
                 </div>
               </div>
-              
-              {/* Carte 02 */}
+
               <div className="bg-pink-50 rounded-2xl p-6 md:p-8">
                 <div className="flex flex-col gap-4">
-                  <div className="text-2xl md:text-3xl font-bold text-gray-900">
-                    02.
-                  </div>
+                  <div className="text-2xl md:text-3xl font-bold text-gray-900">02.</div>
                   <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">
                     Un moteur gouverné par le marchand.
                   </h3>
@@ -350,51 +232,45 @@ export function ProduitsContent() {
           </ScrollReveal>
         </div>
       </Section>
-      
+
       {/* Detailed Products */}
-      {products.map((product, index) => {
-        const isEven = index % 2 === 0
-        return (
-          <ProductDemoSection
-            key={product.id}
-            product={product}
-            index={index}
-            isEven={isEven}
-          />
-        )
-      })}
-      
+      {products.map((product, index) => (
+        <ProductSection key={product.id} product={product} isEven={index % 2 === 0} />
+      ))}
+
       {/* CTA Section */}
       <Section variant="white" padding="xl">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
             <div className="relative">
-              {/* Gradient background */}
-              <div 
+              <div
                 className="rounded-3xl p-8 md:p-16 text-center"
                 style={{
-                  background: "linear-gradient(135deg, #d0f7fb 0%, #83a6ff 50%, #ff966b 100%)"
+                  background: "linear-gradient(135deg, #d0f7fb 0%, #83a6ff 50%, #ff966b 100%)",
                 }}
               >
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal text-gray-900 mb-8 font-display">
                   Prêt à activer votre nouveau conseiller de vente digital ?
                 </h2>
-                
+
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                  <a href="mailto:vianney@parcel-ia.com?subject=Demande de démo personnalisée PARCEL">
+                  <a href={DEMO_CONTACT_URL}>
                     <Button variant="secondary" size="xl" magnetic>
                       Demander une démo personnalisée
                       <ArrowRight className="w-5 h-5" />
                     </Button>
                   </a>
-                  <Link href="/produits" onClick={(e) => {
-                    e.preventDefault()
-                    window.scrollTo({ top: 0, behavior: 'smooth' })
-                  }}>
-                    <Button variant="white" size="xl">
-                      Découvrir la suite PARCEL
+                  {SHOPIFY_APP_STORE_URL ? (
+                    <a href={SHOPIFY_APP_STORE_URL} target="_blank" rel="noopener noreferrer">
+                      <Button variant="white" size="xl">
+                        Installer sur Shopify
+                      </Button>
+                    </a>
+                  ) : (
+                    <Button variant="white" size="xl" disabled>
+                      Bientôt sur l'App Store Shopify
                     </Button>
-                  </Link>
+                  )}
                 </div>
               </div>
             </div>
@@ -404,4 +280,3 @@ export function ProduitsContent() {
     </div>
   )
 }
-
