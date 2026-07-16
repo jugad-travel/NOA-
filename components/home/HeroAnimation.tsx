@@ -38,7 +38,7 @@ export function HeroAnimation() {
   const [textIndex, setTextIndex] = React.useState(0)
   const [showProducts, setShowProducts] = React.useState(false)
   const [showMessage, setShowMessage] = React.useState(false)
-  const [isMobile, setIsMobile] = React.useState(false)
+  const [responsiveLayout, setResponsiveLayout] = React.useState({ isPhone: false, scale: 1 })
   const [addedToCart, setAddedToCart] = React.useState<string | null>(null)
   const [currentExampleIndex, setCurrentExampleIndex] = React.useState(0)
   
@@ -46,14 +46,19 @@ export function HeroAnimation() {
   const fullText = currentExample.userMessage
   const displayedText = fullText.substring(0, textIndex)
   
-  // Détecter si on est sur mobile
-  React.useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
+  // Réduire la démo continûment avec la largeur de l'écran.
+  React.useLayoutEffect(() => {
+    const checkViewport = () => {
+      const width = window.innerWidth
+      const isPhone = width < 520
+      // Une base unique évite le saut de taille provoqué auparavant par le
+      // changement de dimensions du composant au breakpoint tablette.
+      const scale = Math.min(1, Math.max(0.5, width / 1440))
+      setResponsiveLayout({ isPhone, scale })
     }
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
+    checkViewport()
+    window.addEventListener('resize', checkViewport)
+    return () => window.removeEventListener('resize', checkViewport)
   }, [])
   
   // Animation en boucle
@@ -139,7 +144,7 @@ export function HeroAnimation() {
   
   return (
     <div className="absolute inset-0 pointer-events-none z-20">
-      <div className="absolute left-1/2 -translate-x-1/2 bottom-[-72px] md:bottom-[-20px]">
+      <div className="absolute bottom-[-96px] left-1/2 -translate-x-1/2 min-[520px]:bottom-auto min-[520px]:top-[clamp(36%,calc(58%-1.5vw),50%)] min-[520px]:mt-3">
         <AnimatePresence>
           {showAnimation && (
             <motion.div
@@ -149,11 +154,11 @@ export function HeroAnimation() {
               }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
-              className="flex flex-col items-center gap-4 md:gap-4 px-4 md:px-0"
+              className="flex flex-col items-center gap-4"
               style={{ 
                 maxWidth: '100vw',
-                transform: isMobile ? 'scale(0.6)' : 'scale(1)',
-                transformOrigin: 'center bottom'
+                transform: `scale(${responsiveLayout.scale})`,
+                transformOrigin: responsiveLayout.isPhone ? 'center bottom' : 'center top'
               }}
             >
               {/* Barre de dialogue - Position fixe, pas de scale */}
@@ -161,11 +166,11 @@ export function HeroAnimation() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl px-5 py-2 md:px-6 md:py-2.5 w-[420px] md:w-[520px] h-[50px] md:h-[60px] flex items-center"
+                className="flex h-[60px] w-[520px] items-center rounded-2xl bg-white/95 px-6 py-2.5 shadow-2xl backdrop-blur-sm"
               >
                 <div className="flex items-center gap-3 w-full">
                   {/* Logo PARCEL sans fond */}
-                  <div className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center flex-shrink-0">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center">
                     <Image
                       src="/images/Logo Parcel sans écriture.png"
                       alt="PARCEL"
@@ -177,13 +182,13 @@ export function HeroAnimation() {
                   
                   {/* Texte qui s'écrit - Taille fixe pour éviter le changement de taille */}
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm md:text-base text-gray-900 font-medium leading-relaxed">
+                    <p className="text-base font-medium leading-relaxed text-gray-900">
                       {displayedText}
                       {textIndex < fullText.length && (
                         <motion.span
                           animate={{ opacity: [1, 0] }}
                           transition={{ duration: 0.8, repeat: Infinity }}
-                          className="inline-block w-0.5 h-4 md:h-5 bg-gray-900 ml-1"
+                          className="ml-1 inline-block h-5 w-0.5 bg-gray-900"
                         />
                       )}
                     </p>
@@ -193,29 +198,29 @@ export function HeroAnimation() {
               
               {/* Réponse chatbot + Produits - Toujours présent pour réserver l'espace, position fixe */}
               <div
-                className="flex flex-row items-start gap-3 md:gap-4 w-[420px] md:w-[520px] min-h-[200px]"
+                className="flex min-h-[200px] w-[520px] flex-row items-start gap-4"
               >
                 {/* Message de recommandation - À gauche, largeur fixe */}
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: showMessage ? 1 : 0 }}
                   transition={{ duration: 0.5 }}
-                  className="bg-white/95 backdrop-blur-sm rounded-xl shadow-xl px-3 py-2.5 md:px-4 md:py-3 w-[200px] md:w-[240px] flex-shrink-0"
+                  className="w-[240px] flex-shrink-0 rounded-xl bg-white/95 px-4 py-3 shadow-xl backdrop-blur-sm"
                 >
-                  <p className="text-[10px] md:text-xs text-gray-700 leading-relaxed">
+                  <p className="text-xs leading-relaxed text-gray-700">
                     {currentExample.response}
                   </p>
                 </motion.div>
                 
                 {/* Produits - À droite, côte à côte - Position fixe, pas de x ni scale */}
-                <div className="flex flex-row gap-2 md:gap-3 flex-shrink-0">
+                <div className="flex flex-shrink-0 flex-row gap-3">
                   {currentExample.products.map((product, index) => (
                     <motion.div
                       key={product.id}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: showProducts ? 1 : 0 }}
                       transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                      className="bg-white rounded-xl shadow-xl overflow-hidden w-[100px] md:w-[120px] flex flex-col"
+                      className="flex w-[120px] flex-col overflow-hidden rounded-xl bg-white shadow-xl"
                     >
                       <div className="relative w-full aspect-square flex-shrink-0">
                         <Image
@@ -226,14 +231,14 @@ export function HeroAnimation() {
                           style={product.objectPosition ? { objectPosition: product.objectPosition } : undefined}
                         />
                       </div>
-                      <div className="p-2 md:p-2.5 flex flex-col flex-1 min-h-0">
-                        <p className="text-xs md:text-sm font-semibold text-gray-900 mb-1 line-clamp-2 flex-shrink-0">{product.name}</p>
-                        <p className="text-[10px] md:text-xs font-bold text-gray-900 mb-2 flex-shrink-0">{product.price}€</p>
+                      <div className="flex min-h-0 flex-1 flex-col p-2.5">
+                        <p className="mb-1 line-clamp-2 flex-shrink-0 text-sm font-semibold text-gray-900">{product.name}</p>
+                        <p className="mb-2 flex-shrink-0 text-xs font-bold text-gray-900">{product.price}€</p>
                         <motion.button
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                           className={cn(
-                            "w-full h-6 md:h-7 rounded-lg text-[9px] md:text-[10px] font-medium flex items-center justify-center gap-1 transition-all mt-auto flex-shrink-0",
+                            "mt-auto flex h-7 w-full flex-shrink-0 items-center justify-center gap-1 rounded-lg text-[10px] font-medium transition-all",
                             addedToCart === product.id
                               ? "bg-green-500 text-white"
                               : "bg-gray-900 text-white hover:bg-gray-800"

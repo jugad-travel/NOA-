@@ -36,14 +36,13 @@ export default function HomePage() {
       if (!heroImageRef.current) return
 
       const rect = heroImageRef.current.getBoundingClientRect()
-      const viewportHeight = window.innerHeight
-
-      // Commencer le fade seulement quand l'image commence à sortir de la viewport
-      const startFade = viewportHeight * 0.85
+      // Commencer le fade uniquement lorsque le hero sort réellement par le haut.
+      // L'ancien calcul basé sur la hauteur du viewport délavavait le hero dès
+      // le chargement sur les écrans intermédiaires au format vertical.
       const fadeDistance = 300
 
-      if (rect.bottom < startFade) {
-        const scrollProgress = Math.min((startFade - rect.bottom) / fadeDistance, 1)
+      if (rect.top < 0) {
+        const scrollProgress = Math.min(Math.abs(rect.top) / fadeDistance, 1)
         setImageOpacity(Math.max(1 - scrollProgress, 0))
       } else {
         setImageOpacity(1)
@@ -78,14 +77,14 @@ export default function HomePage() {
             </div>
             <div className="absolute inset-0 z-10 pointer-events-none px-[4%] pt-[7%] md:pt-[7.5%]">
               <h1
-                className="max-w-[88%] text-[clamp(1.5rem,4.65vw,5.6rem)] font-normal leading-[1.08] tracking-[-0.045em] text-white md:max-w-[62%]"
-                style={{ color: '#ffffff', fontSize: 'clamp(1.5rem, 4.65vw, 5.6rem)', fontWeight: 400, lineHeight: 1.08, letterSpacing: '-0.045em' }}
+                className="max-w-[88%] text-[clamp(1.5rem,4vw,4.8rem)] font-normal leading-[1.08] tracking-[-0.045em] text-white md:max-w-[44%]"
+                style={{ color: '#ffffff', fontSize: 'clamp(1.5rem, 4vw, 4.8rem)', fontWeight: 400, lineHeight: 1.08, letterSpacing: '-0.045em' }}
               >
                 <span className="block">L’assistant d’achat IA </span>
                 <span className="block">pour le e-commerce</span>
               </h1>
               <p
-                className="mt-[2.5%] max-w-[42%] text-[clamp(0.62rem,1.25vw,1.5rem)] leading-[1.45] text-white md:max-w-[34%]"
+                className="mt-[2.5%] hidden max-w-[44%] text-[clamp(0.62rem,1.1vw,1.25rem)] leading-[1.45] text-white min-[520px]:block"
                 style={{ color: '#ffffff' }}
               >
                 Comprenez chaque besoin, recommandez les bons produits et guidez vos clients jusqu’au panier complet.
