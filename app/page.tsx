@@ -66,14 +66,16 @@ export default function HomePage() {
             className="relative w-full mx-auto md:transition-opacity md:duration-300"
             style={{ aspectRatio: "16/9", maxHeight: "90vh", maxWidth: "98vw", opacity: imageOpacity }}
           >
-            <Image
-              src="/images/hero site Parcel v2.png"
-              alt="PARCEL - L'assistant d'achat IA pour le e-commerce"
-              fill
-              className="object-cover rounded-xl md:rounded-2xl"
-              priority
-              quality={90}
-            />
+            <div className="absolute inset-0 overflow-hidden rounded-xl md:rounded-2xl">
+              <Image
+                src="/images/hero site Parcel v2.png"
+                alt="PARCEL - L'assistant d'achat IA pour le e-commerce"
+                fill
+                className="object-cover origin-left scale-[1.16] md:scale-100 md:origin-center"
+                priority
+                quality={90}
+              />
+            </div>
             {/* Les 3 démos qui s'enchaînent, en surimpression */}
             <HeroAnimation />
           </div>

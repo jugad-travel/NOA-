@@ -139,7 +139,7 @@ export function HeroAnimation() {
   
   return (
     <div className="absolute inset-0 pointer-events-none z-20">
-      <div className="absolute left-1/2 -translate-x-1/2 bottom-[-100px] md:bottom-[-20px]">
+      <div className="absolute left-1/2 -translate-x-1/2 bottom-[-72px] md:bottom-[-20px]">
         <AnimatePresence>
           {showAnimation && (
             <motion.div
@@ -152,7 +152,7 @@ export function HeroAnimation() {
               className="flex flex-col items-center gap-4 md:gap-4 px-4 md:px-0"
               style={{ 
                 maxWidth: '100vw',
-                transform: isMobile ? 'scale(0.75)' : 'scale(1)',
+                transform: isMobile ? 'scale(0.6)' : 'scale(1)',
                 transformOrigin: 'center bottom'
               }}
             >
