@@ -1,190 +1,103 @@
 "use client"
 
-import * as React from "react"
+import Link from "next/link"
 import {
-  Compass,
-  Target,
-  BookOpen,
-  Scale,
-  LifeBuoy,
   ArrowRight,
-  CheckCircle,
+  BarChart3,
+  BookOpen,
+  CheckCircle2,
+  Compass,
+  GitCompareArrows,
+  Headphones,
+  Search,
+  ShieldCheck,
+  ShoppingBag,
+  Target,
 } from "lucide-react"
 import { Section } from "@/components/layout/Section"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ScrollReveal } from "@/components/shared/ScrollReveal"
 import { YouTubeEmbed } from "@/components/shared/YouTubeEmbed"
-import { VIDEOS, SHOPIFY_APP_STORE_URL, DEMO_CONTACT_URL } from "@/lib/videos"
-import { cn } from "@/lib/utils"
+import { SHOPIFY_APP_STORE_URL, VIDEOS } from "@/lib/videos"
 
-const products = [
+const useCases = [
   {
     id: "parcel-projet",
-    name: "PARCEL Projet",
-    tagline: "Transformer une intention en panier complet",
-    description:
-      "PARCEL Projet intervient dès l'arrivée sur le site, lorsque le client exprime un besoin global ou un projet, sans savoir précisément quels produits acheter.",
-    details:
-      "Il capte l'intention en langage naturel, qualifie le contexte (durée, usage, niveau, contraintes) et structure le besoin en une sélection cohérente de produits — de l'indispensable à l'optionnel.",
-    casTypiques: [
-      "Équipement pour un trek, un sport, un projet maison",
-      "Achat multi-produits sans point de départ précis",
-    ],
-    integration: ["Page d'accueil", "Pages catégories larges"],
+    step: "Découverte",
+    title: "Transformer un besoin global en sélection",
+    capability: "Capacité Parcel Projet",
+    description: "Le visiteur décrit un projet sans connaître les références à acheter. Parcel qualifie le contexte, identifie les contraintes et construit une sélection cohérente.",
+    examples: ["Projet multi-produits", "Besoin exprimé en langage naturel", "Sélection de l’indispensable à l’optionnel"],
     icon: Compass,
     videoId: VIDEOS.projet,
   },
   {
     id: "parcel-match",
-    name: "PARCEL Match",
-    tagline: "Aider à choisir le bon produit",
-    description:
-      "PARCEL Match intervient lorsque le client connaît le type de produit recherché, mais hésite entre plusieurs options.",
-    details:
-      "Il pose les questions pertinentes en langage client, applique vos règles métier (tailles, usages, budgets, compatibilités) et oriente vers le choix le plus adapté.",
-    casTypiques: [
-      "Choix de taille, de gamme ou de marque",
-      "Produits techniques ou fortement différenciés",
-    ],
-    integration: ["Pages catégories", "Pages collections"],
+    step: "Catégorie",
+    title: "Orienter vers le bon produit",
+    capability: "Capacité Parcel Match",
+    description: "Quand le client connaît la catégorie mais hésite entre de nombreuses références, Parcel pose les questions utiles et explique les recommandations proposées.",
+    examples: ["Usage, budget et préférences", "Variantes, tailles et compatibilités", "Catalogues vastes ou techniques"],
     icon: Target,
     videoId: VIDEOS.match,
   },
   {
     id: "parcel-expert",
-    name: "PARCEL Expert",
-    tagline: "Répondre aux questions produit au moment décisif",
-    description: "PARCEL Expert agit comme un vendeur expert sur une fiche produit précise.",
-    details:
-      "Il répond aux questions détaillées, explique les caractéristiques clés et aide le client à confirmer son choix — sans ticket support ni recherche externe.",
-    casTypiques: [
-      "Questions d'usage ou de compatibilité",
-      "Derniers freins avant l'achat",
-    ],
-    integration: ["Fiche produit", "Encarts d'aide à la décision"],
+    step: "Fiche produit",
+    title: "Répondre au moment décisif",
+    capability: "Capacité Parcel Expert",
+    description: "Sur la fiche produit, Parcel exploite les données catalogue pour répondre aux questions détaillées et lever les derniers freins avant l’achat.",
+    examples: ["Caractéristiques et entretien", "Compatibilité et usage", "Choix de variante"],
     icon: BookOpen,
     videoId: VIDEOS.expert,
   },
   {
     id: "parcel-comparaison",
-    name: "PARCEL Comparaison",
-    tagline: "Comparer comme un vendeur, pas comme un tableau",
-    description:
-      "PARCEL Comparaison intervient quand le client hésite entre deux ou trois produits précis.",
-    details:
-      "Il compare critère par critère à partir des vraies fiches produit, donne un verdict honnête par usage (« pour la longue distance, celui-ci ; pour le confort, celui-là ») et aide à trancher.",
-    casTypiques: [
-      "Hésitation entre deux modèles proches",
-      "Arbitrage prix / performance",
-    ],
-    integration: ["Depuis les recommandations", "Fiches produits"],
-    icon: Scale,
+    step: "Comparaison",
+    title: "Comparer selon l’usage réel",
+    capability: "Capacité Parcel Comparaison",
+    description: "Parcel compare deux ou trois produits sur les critères importants pour le client et formule un verdict contextualisé, plutôt qu’un tableau générique.",
+    examples: ["Arbitrage prix et performance", "Différences entre modèles proches", "Verdict argumenté par usage"],
+    icon: GitCompareArrows,
     videoId: VIDEOS.comparaison,
   },
   {
+    id: "parcel-panier",
+    step: "Panier",
+    title: "Compléter le projet avec cohérence",
+    capability: "Continuité Parcel Projet",
+    description: "Le contexte conservé permet de proposer les compléments réellement utiles au projet, sans appliquer un cross-sell identique à tous les visiteurs.",
+    examples: ["Accessoires compatibles", "Produits manquants au projet", "Alternatives disponibles"],
+    icon: ShoppingBag,
+    videoId: VIDEOS.projet,
+  },
+  {
     id: "parcel-sav",
-    name: "PARCEL SAV",
-    tagline: "Un service après-vente instantané",
-    description:
-      "PARCEL SAV répond aux questions d'après-vente à partir des politiques réelles de la boutique.",
-    details:
-      "Retours, remboursements, livraison, suivi : les réponses sont immédiates et fiables, avec passage de relais à un humain quand la situation le demande. Moins de tickets, plus de clients fidèles.",
-    casTypiques: [
-      "Politique de retour et remboursements",
-      "Questions livraison et suivi de commande",
-    ],
-    integration: ["Assistant sur tout le site", "Pages compte / commandes"],
-    icon: LifeBuoy,
+    step: "Après-vente",
+    title: "Répondre après l’achat",
+    capability: "Capacité Parcel SAV",
+    description: "Parcel répond depuis les politiques réelles de la boutique et oriente vers un humain lorsque la demande nécessite une intervention.",
+    examples: ["Livraison et retours", "Politiques de la boutique", "Relais vers le service client"],
+    icon: Headphones,
     videoId: VIDEOS.sav,
   },
 ]
 
-function ProductSection({
-  product,
-  isEven,
-}: {
-  product: (typeof products)[0]
-  isEven: boolean
-}) {
-  return (
-    <Section id={product.id} variant={isEven ? "gray" : "white"} padding="xl">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <ScrollReveal className={cn(!isEven && "lg:order-2")}>
-            <div>
-              <div className="mb-6">
-                <h2 className="text-3xl md:text-4xl font-normal text-gray-900 mb-2">
-                  {product.name}
-                </h2>
-                <p className="text-accent-blue font-medium">{product.tagline}</p>
-              </div>
-
-              <div className="space-y-4 mb-8 text-gray-600">
-                <p>{product.description}</p>
-                <p>{product.details}</p>
-              </div>
-
-              <div className="mb-6">
-                <h4 className="text-sm font-normal uppercase tracking-wider mb-3 text-gray-900">
-                  Cas typiques
-                </h4>
-                <ul className="space-y-2">
-                  {product.casTypiques.map((cas) => (
-                    <li key={cas} className="flex items-start gap-2 text-gray-700">
-                      <CheckCircle className="w-5 h-5 text-accent-blue flex-shrink-0 mt-0.5" />
-                      <span>{cas}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="text-sm font-normal text-gray-400 uppercase tracking-wider mb-3">
-                  Où il s'intègre
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {product.integration.map((place) => (
-                    <Badge key={place} variant="secondary">
-                      {place}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal delay={0.15} className={cn(!isEven && "lg:order-1")}>
-            <YouTubeEmbed videoId={product.videoId} title={`Démo ${product.name}`} />
-          </ScrollReveal>
-        </div>
-      </div>
-    </Section>
-  )
-}
-
 export function ProduitsContent() {
   return (
     <div className="pt-20">
-      {/* Hero Section */}
-      <Section variant="white" padding="lg" className="relative overflow-hidden py-8 md:py-12">
-        <div className="max-w-6xl mx-auto relative z-10">
-          <div
-            className="relative rounded-3xl mx-4 md:mx-8 p-8 md:p-10 lg:p-12"
-            style={{
-              background: "linear-gradient(135deg, #d0f7fb 0%, #83a6ff 40%, #ff966b 100%)",
-            }}
-          >
+      <Section variant="white" padding="lg" className="py-8 md:py-12">
+        <div className="mx-auto max-w-6xl">
+          <div className="rounded-3xl p-7 md:p-12" style={{ background: "linear-gradient(135deg, #d0f7fb 0%, #83a6ff 45%, #ff966b 100%)" }}>
             <ScrollReveal>
-              <div className="text-center">
-                <Badge className="mb-6 bg-white/90 text-gray-900">La suite PARCEL</Badge>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-                  Le conseiller de vente IA présent tout au long du parcours client
+              <div className="mx-auto max-w-4xl text-center">
+                <Badge className="mb-6 bg-white/90 text-gray-900">Plateforme Parcel</Badge>
+                <h1 className="mb-6 text-4xl font-normal text-gray-900 md:text-6xl">
+                  Une seule intelligence, présente de la recherche au panier
                 </h1>
-                <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto">
-                  Du premier besoin exprimé jusqu'au service après-vente, avec
-                  compréhension contextuelle et recommandations pertinentes.
-                  Chaque module ci-dessous est montré en vidéo, en conditions réelles.
+                <p className="mx-auto max-w-3xl text-lg text-gray-700 md:text-xl">
+                  Les capacités Parcel s’activent aux moments utiles du parcours tout en conservant le même contexte client, le même catalogue et les mêmes données de mesure.
                 </p>
               </div>
             </ScrollReveal>
@@ -192,87 +105,132 @@ export function ProduitsContent() {
         </div>
       </Section>
 
-      {/* Vue d'ensemble */}
-      <Section variant="white" padding="lg">
-        <div className="max-w-6xl mx-auto">
+      <Section variant="white" padding="md">
+        <div className="mx-auto max-w-6xl">
           <ScrollReveal>
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-12">
-                Parcel réconcilie IA conversationnelle et décision commerciale réelle.
-              </h2>
+            <div className="mb-10 text-center">
+              <Badge className="mb-4">Fonctionnement continu</Badge>
+              <h2 className="text-3xl font-normal text-gray-900 md:text-5xl">Des usages connectés, pas cinq produits isolés</h2>
             </div>
           </ScrollReveal>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {useCases.map((useCase, index) => {
+              const Icon = useCase.icon
+              return (
+                <a key={useCase.id} href={`#${useCase.id}`} className="group rounded-2xl border border-gray-200 bg-white p-5 hover:-translate-y-1 hover:shadow-lg">
+                  <div className="mb-5 flex items-center justify-between text-gray-400">
+                    <span className="text-xs font-semibold">{String(index + 1).padStart(2, "0")}</span>
+                    <Icon className="size-5" />
+                  </div>
+                  <p className="text-sm font-semibold text-gray-900">{useCase.step}</p>
+                  <p className="mt-1 text-sm text-gray-500">{useCase.title}</p>
+                </a>
+              )
+            })}
+          </div>
+        </div>
+      </Section>
 
-          <ScrollReveal delay={0.1}>
-            <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-              <div className="bg-gray-100 rounded-2xl p-6 md:p-8">
-                <div className="flex flex-col gap-4">
-                  <div className="text-2xl md:text-3xl font-bold text-gray-900">01.</div>
-                  <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">
-                    Un vendeur digital pour le client
-                  </h3>
-                  <p className="text-base md:text-lg text-gray-700 leading-relaxed">
-                    qui intervient sans perte de contexte sur l'ensemble du tunnel de vente
-                  </p>
+      {useCases.map((useCase, index) => {
+        const Icon = useCase.icon
+        return (
+          <Section key={useCase.id} id={useCase.id} variant={index % 2 === 0 ? "gray" : "white"} padding="lg" className="scroll-mt-24 py-16 md:py-24">
+            <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-2 lg:items-center">
+              <ScrollReveal className={index % 2 === 1 ? "lg:order-2" : undefined}>
+                <div>
+                  <div className="mb-6 flex size-12 items-center justify-center rounded-2xl bg-gray-900 text-white">
+                    <Icon className="size-5" />
+                  </div>
+                  <p className="mb-3 text-sm font-semibold uppercase tracking-[0.15em] text-gray-400">{useCase.step}</p>
+                  <h2 className="mb-3 text-3xl font-normal text-gray-900 md:text-4xl">{useCase.title}</h2>
+                  <p className="mb-6 text-sm font-semibold text-blue-600">{useCase.capability}</p>
+                  <p className="mb-7 text-base leading-relaxed text-gray-700 md:text-lg">{useCase.description}</p>
+                  <ul className="space-y-3">
+                    {useCase.examples.map((example) => (
+                      <li key={example} className="flex items-start gap-3 text-sm text-gray-700">
+                        <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-blue-600" />
+                        <span>{example}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
+              </ScrollReveal>
+              <ScrollReveal delay={0.1} className={index % 2 === 1 ? "lg:order-1" : undefined}>
+                <YouTubeEmbed videoId={useCase.videoId} title={`Démo Parcel — ${useCase.step}`} />
+              </ScrollReveal>
+            </div>
+          </Section>
+        )
+      })}
+
+      <Section id="analytics-insights" variant="dark" padding="lg" className="scroll-mt-24 py-16 md:py-24">
+        <div className="mx-auto max-w-6xl">
+          <ScrollReveal>
+            <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+              <div>
+                <Badge className="mb-5 bg-white/10 text-white">Analytics & Insights</Badge>
+                <BarChart3 className="mb-6 size-9 text-white" />
+                <h2 className="mb-5 text-3xl font-normal text-white md:text-5xl" style={{ color: "#ffffff" }}>
+                  Comprendre ce que vos clients cherchent vraiment
+                </h2>
+                <p className="text-lg text-white/70" style={{ color: "rgba(255,255,255,0.72)" }}>
+                  Les conversations deviennent une source d’information exploitable pour le produit, le merchandising et la conversion.
+                </p>
               </div>
-
-              <div className="bg-pink-50 rounded-2xl p-6 md:p-8">
-                <div className="flex flex-col gap-4">
-                  <div className="text-2xl md:text-3xl font-bold text-gray-900">02.</div>
-                  <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">
-                    Un moteur gouverné par le marchand.
-                  </h3>
-                  <p className="text-base md:text-lg text-gray-700 leading-relaxed">
-                    qui applique ses règles métier, priorités commerciales et contraintes opérationnelles
-                  </p>
-                </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {[
+                  ["Intentions", "Besoins, usages et contraintes exprimés en langage naturel"],
+                  ["Freins", "Questions récurrentes et informations manquantes"],
+                  ["Catalogue", "Produits demandés, recommandés ou absents"],
+                  ["Parcours assistés", "Étapes sollicitées et indicateurs à comparer"],
+                ].map(([title, copy]) => (
+                  <div key={title} className="rounded-2xl border border-white/10 bg-white/5 p-5">
+                    <h3 className="mb-2 text-lg font-medium text-white" style={{ color: "#ffffff" }}>{title}</h3>
+                    <p className="text-sm text-white/65" style={{ color: "rgba(255,255,255,0.65)" }}>{copy}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </ScrollReveal>
         </div>
       </Section>
 
-      {/* Detailed Products */}
-      {products.map((product, index) => (
-        <ProductSection key={product.id} product={product} isEven={index % 2 === 0} />
-      ))}
-
-      {/* CTA Section */}
-      <Section variant="white" padding="xl">
-        <div className="max-w-4xl mx-auto">
+      <Section variant="white" padding="md">
+        <div className="mx-auto max-w-5xl">
           <ScrollReveal>
-            <div className="relative">
-              <div
-                className="rounded-3xl p-8 md:p-16 text-center"
-                style={{
-                  background: "linear-gradient(135deg, #d0f7fb 0%, #83a6ff 50%, #ff966b 100%)",
-                }}
-              >
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal text-gray-900 mb-8 font-display">
-                  Prêt à activer votre nouveau conseiller de vente digital ?
-                </h2>
-
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                  <a href={DEMO_CONTACT_URL}>
-                    <Button variant="secondary" size="xl" magnetic>
-                      Demander une démo personnalisée
-                      <ArrowRight className="w-5 h-5" />
-                    </Button>
-                  </a>
-                  {SHOPIFY_APP_STORE_URL ? (
-                    <a href={SHOPIFY_APP_STORE_URL} target="_blank" rel="noopener noreferrer">
-                      <Button variant="white" size="xl">
-                        Installer sur Shopify
-                      </Button>
-                    </a>
-                  ) : (
-                    <Button variant="white" size="xl" disabled>
-                      Bientôt sur l'App Store Shopify
-                    </Button>
-                  )}
-                </div>
+            <div className="grid gap-6 rounded-3xl border border-gray-200 bg-gray-50 p-7 md:grid-cols-[0.7fr_1.3fr] md:p-10">
+              <div>
+                <ShieldCheck className="mb-5 size-8 text-gray-900" />
+                <h2 className="text-3xl font-normal text-gray-900">Vos équipes gardent la main</h2>
               </div>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {["Disponibilité et stock", "Priorités commerciales", "Contraintes de compatibilité", "Règles logistiques", "Politiques de service", "Analyse des interactions"].map((item) => (
+                  <div key={item} className="flex items-center gap-3 rounded-xl bg-white px-4 py-3 text-sm text-gray-700">
+                    <CheckCircle2 className="size-4 shrink-0 text-blue-600" />
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </ScrollReveal>
+        </div>
+      </Section>
+
+      <Section variant="white" padding="lg">
+        <div className="mx-auto max-w-4xl text-center">
+          <ScrollReveal>
+            <Search className="mx-auto mb-5 size-8 text-gray-900" />
+            <h2 className="mb-7 text-3xl font-normal text-gray-900 md:text-5xl">Voir Parcel sur votre propre catalogue</h2>
+            <div className="flex flex-col justify-center gap-3 sm:flex-row">
+              <Link href="/demo">
+                <Button variant="primary" size="xl">
+                  Réserver une démo
+                  <ArrowRight className="size-5" />
+                </Button>
+              </Link>
+              <a href={SHOPIFY_APP_STORE_URL} target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" size="xl">Voir l’app Shopify</Button>
+              </a>
             </div>
           </ScrollReveal>
         </div>

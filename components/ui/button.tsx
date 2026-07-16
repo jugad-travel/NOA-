@@ -81,7 +81,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       y.set(0)
     }
     
-    const { disabled, onClick, onMouseDown, onMouseUp, onFocus, onBlur, ...restProps } = props
+    const { disabled, onClick, onMouseDown, onMouseUp, onFocus, onBlur } = props
     
     if (magnetic) {
       return (

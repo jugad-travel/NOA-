@@ -2,12 +2,12 @@ import type { Metadata } from "next"
 import { ProduitsContent } from "./ProduitsContent"
 
 export const metadata: Metadata = {
-  title: "La suite PARCEL - Produits",
+  title: "Plateforme d’assistance d’achat IA",
   description:
-    "PARCEL — Le conseiller de vente IA unique, présent tout au long du parcours client. PARCEL accompagne vos visiteurs, du premier besoin exprimé jusqu'à la décision d'achat. Découvrez PARCEL Projet, PARCEL Match, PARCEL Expert et PARCEL Complete.",
+    "Découvrez les usages de Parcel sur tout le funnel e-commerce : recherche, aide au choix, fiche produit, comparaison, panier, SAV et analytics.",
+  alternates: { canonical: "/produits" },
 }
 
 export default function ProduitsPage() {
   return <ProduitsContent />
 }
-

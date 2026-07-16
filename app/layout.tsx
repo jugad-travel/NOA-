@@ -18,23 +18,13 @@ const manrope = Manrope({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://parcel-ia.com"),
   title: {
-    default: "PARCEL - Le premier conseiller de vente IA qui vend en ligne comme en magasin",
+    default: "Assistant d’achat IA pour e-commerce | Parcel",
     template: "%s | PARCEL",
   },
   description:
-    "À chaque étape du parcours client, PARCEL accompagne, conseille avec précision et convertit. Transformez votre site en vendeur digital performant.",
-  keywords: [
-    "conseiller de vente IA",
-    "e-commerce",
-    "conversion",
-    "chatbot",
-    "intelligence artificielle",
-    "vente en ligne",
-    "PARCEL",
-    "panier moyen",
-    "CRO",
-  ],
+    "Assistant d’achat IA et moteur de recherche conversationnel pour e-commerce. Parcel comprend le besoin et recommande les bons produits.",
   authors: [{ name: "PARCEL" }],
   creator: "PARCEL",
   publisher: "PARCEL",
@@ -54,23 +44,23 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     url: "https://parcel-ia.com",
     siteName: "PARCEL",
-    title: "PARCEL - Le premier conseiller de vente IA qui vend en ligne comme en magasin",
+    title: "Assistant d’achat IA pour e-commerce | Parcel",
     description:
-      "À chaque étape du parcours client, PARCEL accompagne, conseille avec précision et convertit. Transformez votre site en vendeur digital performant.",
+      "Assistant d’achat IA et moteur de recherche conversationnel pour e-commerce. Parcel comprend le besoin et recommande les bons produits.",
     images: [
       {
         url: "/images/Logo Parcel sans écriture.png",
         width: 1200,
         height: 630,
-        alt: "PARCEL - Conseiller de vente IA",
+        alt: "Parcel, assistant d’achat IA pour e-commerce",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "PARCEL - Le premier conseiller de vente IA qui vend en ligne comme en magasin",
+    title: "Assistant d’achat IA pour e-commerce | Parcel",
     description:
-      "À chaque étape du parcours client, PARCEL accompagne, conseille avec précision et convertit.",
+      "Assistant d’achat IA et moteur de recherche conversationnel pour e-commerce. Parcel comprend le besoin et recommande les bons produits.",
     images: ["/images/Logo Parcel sans écriture.png"],
   },
   icons: {
@@ -94,33 +84,31 @@ const jsonLd = {
         url: "https://parcel-ia.com/images/Logo Parcel sans écriture.png",
       },
       description:
-        "PARCEL — Le conseiller de vente IA unique, présent tout au long du parcours client. PARCEL accompagne vos visiteurs, du premier besoin exprimé jusqu'à la décision d'achat.",
+        "Parcel développe un assistant d’achat IA et un moteur de recherche conversationnel pour les sites e-commerce.",
       sameAs: [],
     },
     {
-      "@type": "Product",
-      "@id": "https://parcel-ia.com/#product",
-      name: "PARCEL - Suite de conseillers de vente IA",
+      "@type": "Service",
+      "@id": "https://parcel-ia.com/#service",
+      name: "Parcel — Assistant d’achat IA pour e-commerce",
+      serviceType: "Assistant d’achat IA et recherche conversationnelle e-commerce",
       description:
-        "Suite de 4 conseillers de vente IA : PARCEL Projet, PARCEL Match, PARCEL Expert, PARCEL Complete. Compatible Shopify, Magento, WooCommerce.",
-      brand: {
-        "@type": "Brand",
-        name: "PARCEL",
+        "Parcel comprend les besoins exprimés en langage naturel, recommande les bons produits et guide les clients jusqu’à l’achat.",
+      provider: {
+        "@id": "https://parcel-ia.com/#organization",
       },
-      offers: {
-        "@type": "Offer",
-        availability: "https://schema.org/InStock",
-        priceCurrency: "EUR",
-        seller: {
-          "@id": "https://parcel-ia.com/#organization",
-        },
+      audience: {
+        "@type": "BusinessAudience",
+        audienceType: "E-commerçants et enseignes retail",
       },
     },
     {
       "@type": "WebSite",
       "@id": "https://parcel-ia.com/#website",
       url: "https://parcel-ia.com",
-      name: "PARCEL",
+      name: "Parcel — Assistant d’achat IA",
+      description:
+        "Assistant d’achat IA et moteur de recherche conversationnel pour e-commerce.",
       publisher: {
         "@id": "https://parcel-ia.com/#organization",
       },

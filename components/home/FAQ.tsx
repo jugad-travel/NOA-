@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils"
 const faqs = [
   {
     question: "Comment PARCEL s'intègre-t-il à mon site e-commerce existant ?",
-    answer: "PARCEL s'installe comme une couche intelligente sur votre stack existante, sans refonte du site ni modification du tunnel de conversion. L'intégration se fait via API et est compatible avec les principales plateformes e-commerce.",
+    answer: "Sur Shopify, Parcel est disponible via l'application publiée sur le Shopify App Store. Pour les autres stacks, l'API back-end permet une intégration sur mesure. Les connecteurs prêts à installer pour les autres CMS sont encore en préparation.",
   },
   {
     question: "Quels types de produits PARCEL peut-il conseiller ?",
@@ -19,19 +19,19 @@ const faqs = [
   },
   {
     question: "Combien de temps prend l'intégration ?",
-    answer: "Le déploiement est progressif et modulaire. Chaque module peut être activé indépendamment sur une zone précise du site, avec des premiers résultats mesurables rapidement.",
+    answer: "Le calendrier dépend du catalogue, du mode d'intégration et du périmètre fonctionnel. Les étapes, données nécessaires et critères de recette sont cadrés avant le déploiement.",
   },
   {
     question: "PARCEL remplace-t-il mon équipe de vente ou service client ?",
-    answer: "PARCEL ne remplace pas vos équipes, il augmente leur efficacité en prenant en charge le conseil produit en ligne, 24/7. Vos équipes peuvent se concentrer sur les demandes à plus forte valeur ajoutée.",
+    answer: "Parcel prend en charge les demandes de découverte et de conseil produit en ligne. Il peut passer la main lorsqu'une intervention humaine est nécessaire et fournit aux équipes des insights sur les demandes et les freins rencontrés.",
   },
   {
     question: "Mes données sont-elles sécurisées ?",
-    answer: "Oui, PARCEL est conforme RGPD avec un traitement des données strictement nécessaire au service, une isolation des environnements clients et un hébergement sécurisé respectant les politiques IT des grands comptes.",
+    answer: "Le périmètre de données, les accès et les responsabilités sont définis avant le déploiement. Parcel limite les flux aux informations utiles au cas d'usage et isole les configurations et données de chaque marchand.",
   },
   {
     question: "Puis-je mesurer l'impact de PARCEL sur mes conversions ?",
-    answer: "Absolument. Chaque module est déployé sur une zone précise du site, fonctionne de manière autonome et peut être mesuré et ajusté séparément. Vous disposez d'indicateurs clairs sur les parcours assistés.",
+    answer: "Oui. Parcel suit les interactions et les parcours assistés. L'impact doit être évalué sur vos données, avec un périmètre comparable et, lorsque le trafic le permet, un test contrôlé.",
   },
 ]
 

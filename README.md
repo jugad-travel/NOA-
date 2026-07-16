@@ -20,6 +20,16 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Réservation de démo via Planify
+
+La page `/demo` utilise la variable publique suivante pour ouvrir la page de réservation Parcel :
+
+```bash
+NEXT_PUBLIC_PLANIFY_BOOKING_URL=https://votre-url-de-reservation-planify
+```
+
+Sans cette variable, le site affiche volontairement un lien email et ne simule aucune confirmation de rendez-vous.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

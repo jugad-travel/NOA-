@@ -13,12 +13,14 @@ const navigation = [
     name: "Produits",
     href: "/produits",
     children: [
-      { name: "Tous les produits", href: "/produits" },
-      { name: "PARCEL Projet", href: "/produits#parcel-projet" },
-      { name: "PARCEL Match", href: "/produits#parcel-match" },
-      { name: "PARCEL Expert", href: "/produits#parcel-expert" },
-      { name: "PARCEL Comparaison", href: "/produits#parcel-comparaison" },
-      { name: "PARCEL SAV", href: "/produits#parcel-sav" },
+      { name: "Tous les usages", href: "/produits" },
+      { name: "Recherche conversationnelle", href: "/moteur-recherche-conversationnel-ecommerce" },
+      { name: "Besoin global", href: "/produits#parcel-projet" },
+      { name: "Aide au choix", href: "/produits#parcel-match" },
+      { name: "Questions produit", href: "/produits#parcel-expert" },
+      { name: "Comparaison", href: "/produits#parcel-comparaison" },
+      { name: "Service après-vente", href: "/produits#parcel-sav" },
+      { name: "Analytics & Insights", href: "/produits#analytics-insights" },
     ],
   },
   { name: "Intégrations & Tech", href: "/integrations-tech" },
@@ -91,7 +93,7 @@ export function Header() {
             </Link>
             
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-1">
+            <div className="hidden xl:flex items-center gap-1">
               {navigation.map((item) => (
                 <div
                   key={item.name}
@@ -145,7 +147,7 @@ export function Header() {
               ))}
               
               {/* CTA Button - always visible, just moves position */}
-              <a href="mailto:vianney@parcel-ia.com?subject=Demande de démo PARCEL">
+              <Link href="/demo">
                 <button 
                   className={cn(
                     "font-semibold rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-all duration-500",
@@ -154,13 +156,13 @@ export function Header() {
                 >
                   Réserver une démo
                 </button>
-              </a>
+              </Link>
             </div>
             
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 text-gray-700 hover:text-gray-900 transition-colors"
+              className="xl:hidden p-2 text-gray-700 hover:text-gray-900 transition-colors"
               aria-label={isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -177,7 +179,7 @@ export function Header() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden bg-white border-t border-gray-100"
+            className="xl:hidden bg-white border-t border-gray-100"
           >
             <div className="container py-6 space-y-4">
               {/* Mobile Logo */}
@@ -224,11 +226,11 @@ export function Header() {
                 </div>
               ))}
               <div className="pt-4">
-                <a href="mailto:vianney@parcel-ia.com?subject=Demande de démo PARCEL">
+                <Link href="/demo" onClick={() => setIsMobileMenuOpen(false)}>
                   <button className="w-full h-12 px-8 text-sm font-semibold rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-all">
                     Réserver une démo
                   </button>
-                </a>
+                </Link>
               </div>
             </div>
           </motion.div>

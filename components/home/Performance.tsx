@@ -8,19 +8,19 @@ import { ScrollReveal } from "@/components/shared/ScrollReveal"
 
 const metrics = [
   {
-    value: "4x",
-    label: "Taux de conversion",
-    detail: "12,3% vs 3,1% sans assistance",
+    value: "01",
+    label: "Convertir davantage d’intentions qualifiées",
+    detail: "Parcel comprend les demandes formulées en langage naturel et rapproche chaque besoin des produits réellement adaptés.",
   },
   {
-    value: "-47%",
-    label: "Temps de décision",
-    detail: "Achats réalisés plus rapidement",
+    value: "02",
+    label: "Développer la valeur du panier",
+    detail: "Les recommandations complémentaires sont liées au projet et au contexte, pas à une règle de cross-sell générique.",
   },
   {
-    value: "+25%",
-    label: "Valeur client",
-    detail: "Chez les consommateurs récurrents",
+    value: "03",
+    label: "Comprendre les demandes et les freins",
+    detail: "Les insights révèlent ce que les visiteurs cherchent, les questions récurrentes et les points qui bloquent la décision.",
   },
 ]
 
@@ -56,7 +56,7 @@ export function Performance() {
       <div className="max-w-6xl mx-auto relative z-10">
         <ScrollReveal>
           <div className="text-center mb-6">
-            <Badge className="mb-4">Performance & ROI</Badge>
+            <Badge className="mb-4">Valeur marchande</Badge>
           </div>
         </ScrollReveal>
         
@@ -71,7 +71,7 @@ export function Performance() {
             <ScrollReveal>
               <div className="text-center mb-8 sm:mb-10 md:mb-12 pt-2 sm:pt-4 md:pt-8">
                 <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">
-                  Un impact mesurable sur les performances commerciales
+                  Trois leviers à mesurer dans votre propre contexte
                 </h2>
               </div>
             </ScrollReveal>
@@ -83,11 +83,9 @@ export function Performance() {
             </div>
             
             <ScrollReveal delay={0.3}>
-              <div className="text-center">
-                <p className="text-sm text-gray-700 font-medium">
-                  Sources : <span className="text-gray-900">Precedence Research (2025)</span>, <span className="text-gray-900">NVIDIA (2025)</span>
-                </p>
-              </div>
+              <p className="mx-auto max-w-3xl text-center text-sm text-gray-700">
+                Parcel suit ces indicateurs sur les parcours assistés. Les gains sont ensuite établis sur vos données, idéalement via un test comparatif.
+              </p>
             </ScrollReveal>
           </div>
         </div>
@@ -95,4 +93,3 @@ export function Performance() {
     </Section>
   )
 }
-

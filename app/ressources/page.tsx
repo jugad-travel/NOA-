@@ -4,10 +4,10 @@ import { RessourcesContent } from "./RessourcesContent"
 export const metadata: Metadata = {
   title: "Ressources",
   description:
-    "Blog (Conseils CRO), Études de cas, Centre d'aide. Découvrez les ressources PARCEL pour optimiser votre e-commerce.",
+    "Guides sourcés sur l’assistance d’achat IA, la recherche conversationnelle et la mesure de la conversion assistée.",
+  alternates: { canonical: "/ressources" },
 }
 
 export default function RessourcesPage() {
   return <RessourcesContent />
 }
-

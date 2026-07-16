@@ -140,7 +140,7 @@ export function HeroAnimation() {
       isRunning = false
       clearTimeout(timer)
     }
-  }, [currentExampleIndex])
+  }, [currentExample.products, currentExampleIndex, fullText.length])
   
   return (
     <div className="absolute inset-0 pointer-events-none z-20">

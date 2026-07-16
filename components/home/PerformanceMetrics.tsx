@@ -1,30 +1,43 @@
 "use client"
 
 import * as React from "react"
-import { Section } from "@/components/layout/Section"
 import { ScrollReveal } from "@/components/shared/ScrollReveal"
 import { motion, AnimatePresence } from "framer-motion"
 
 const metrics = [
   {
-    value: "+10 à +20 %",
-    label: "Taux de conversion",
-    description: "Réduction de l'hésitation sur catalogues techniques",
+    value: "24 h / 24",
+    label: "disponible en ligne",
+    description: "Une aide au choix accessible quand vos clients achètent",
+    sourceLabel: "Capacité Parcel",
   },
   {
-    value: "+8 à +15 %",
-    label: "Panier moyen",
-    description: "Upsell & cross-sell contextualisés au moment de l'arbitrage",
+    value: "+24 %",
+    label: "de taux de conversion",
+    description: "Résultat publié pour Eurekakids",
+    sourceLabel: "Étude de cas Doofinder",
+    sourceHref: "https://www.doofinder.com/fr/",
   },
   {
-    value: "+10 à +25 %",
-    label: "Rotation produits ciblés",
-    description: "Orientation vers références prioritaires",
+    value: "+12 €",
+    label: "de panier moyen",
+    description: "Résultat publié pour Eurekakids",
+    sourceLabel: "Étude de cas Doofinder",
+    sourceHref: "https://www.doofinder.com/fr/",
   },
   {
-    value: "+2 à +5 pts",
-    label: "Marge par commande",
-    description: "Priorisation paramétrable des produits à forte contribution",
+    value: "94 %",
+    label: "de satisfaction client",
+    description: "Résultat publié pour Sideshow",
+    sourceLabel: "Étude de cas iAdvize",
+    sourceHref: "https://www.iadvize.com/fr/vue-densemble",
+  },
+  {
+    value: "−88 %",
+    label: "de rebond après recherche",
+    description: "Résultat publié pour Lacoste",
+    sourceLabel: "Étude de cas Algolia",
+    sourceHref: "https://www.algolia.com/files/live/sites/www/files/Customer%20stories/EN/CaseStudy_lacoste-en.pdf",
   },
 ]
 
@@ -49,7 +62,7 @@ export function PerformanceMetrics() {
     <div className="py-4 md:py-5" style={{ backgroundColor: 'transparent' }}>
       <div className="max-w-5xl mx-auto">
         <ScrollReveal>
-          <div className="relative h-36 md:h-40 flex items-center justify-center overflow-visible">
+          <div className="relative flex h-40 items-center justify-center overflow-visible md:h-44">
             {/* Carte gauche (arrière-plan) */}
             <motion.div
               key={`left-${getCardIndex(-1)}`}
@@ -89,10 +102,22 @@ export function PerformanceMetrics() {
                   <div className="text-xs md:text-sm font-medium text-gray-700 mb-1">
                     {metrics[currentIndex].label}
                   </div>
-                  <div className="text-xs text-gray-500 leading-relaxed">
-                    {metrics[currentIndex].description}
-                  </div>
+                <div className="text-xs leading-relaxed text-gray-500">
+                  {metrics[currentIndex].description}
                 </div>
+                {metrics[currentIndex].sourceHref ? (
+                  <a
+                    href={metrics[currentIndex].sourceHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 inline-block text-[11px] font-medium text-gray-500 underline decoration-gray-300 underline-offset-2 hover:text-gray-900"
+                  >
+                    {metrics[currentIndex].sourceLabel}
+                  </a>
+                ) : (
+                  <p className="mt-3 text-[11px] font-medium text-gray-400">{metrics[currentIndex].sourceLabel}</p>
+                )}
+              </div>
               </motion.div>
             </AnimatePresence>
 
@@ -119,6 +144,9 @@ export function PerformanceMetrics() {
             </motion.div>
           </div>
         </ScrollReveal>
+        <p className="mx-auto mt-4 max-w-2xl px-5 text-center text-[11px] leading-relaxed text-gray-400">
+          Benchmarks publiés par des acteurs du marché. Ils ne constituent ni des résultats Parcel ni une garantie de performance.
+        </p>
       </div>
     </div>
   )

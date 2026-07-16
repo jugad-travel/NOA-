@@ -13,6 +13,20 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizeCss: true,
   },
+  async redirects() {
+    return [
+      {
+        source: '/ressources/ia-commerce-intelligent',
+        destination: '/ressources/assistant-achat-ia-ecommerce',
+        permanent: true,
+      },
+      {
+        source: '/ressources/quand-le-commerce-devient-intelligent',
+        destination: '/ressources/assistant-achat-ia-ecommerce',
+        permanent: true,
+      },
+    ]
+  },
 };
 
 export default nextConfig;

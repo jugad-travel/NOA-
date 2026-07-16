@@ -11,35 +11,9 @@ import { ScrollReveal } from "@/components/shared/ScrollReveal"
 import { SHOPIFY_APP_STORE_URL } from "@/lib/videos"
 
 // CMS logos
-const cmsLogos = [
-  {
-    name: "Magento",
-    image: "/images/Logo magento.png",
-  },
-  {
-    name: "Shopify",
-    image: "/images/Logo shopify .webp",
-  },
-  {
-    name: "WordPress",
-    image: "/images/Logo wordpress.png",
-  },
-  {
-    name: "Framer",
-    image: "/images/Logo Framer .svg",
-  },
-  {
-    name: "PrestaShop",
-    image: "/images/Logo Prestashop.png",
-  },
-  {
-    name: "WooCommerce",
-    image: "/images/Logo WooCommerce.png",
-  },
-  {
-    name: "Webflow",
-    image: "/images/Logo Webflow.webp",
-  },
+const accessModes = [
+  { name: "Shopify", detail: "Application native disponible", status: "Disponible", image: "/images/Logo shopify .webp" },
+  { name: "API Parcel", detail: "Intégration back-end CMS-agnostique", status: "Disponible", image: "/images/Logo Parcel sans écriture.png" },
 ]
 
 export function Integration() {
@@ -50,23 +24,23 @@ export function Integration() {
           <div className="text-center mb-12">
             <Badge className="mb-4">Intégration technique</Badge>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal text-gray-900 mb-6 font-display">
-              Une suite modulaire, intégrée à votre stack existante
+              Deux voies d’intégration disponibles aujourd’hui
             </h2>
             <p className="text-xl text-gray-500 max-w-3xl mx-auto">
-              Parcel s'installe comme une couche intelligente sur votre stack existante. Compatible avec Shopify, Magento, WordPress, Framer, PrestaShop, WooCommerce, Webflow et les architectures Headless via API.
+              Installez l’application Shopify ou connectez directement l’API back-end Parcel à votre stack. Les autres connecteurs CMS sont en préparation.
             </p>
           </div>
         </ScrollReveal>
         
-        {/* CMS Logos */}
+        {/* Available integrations */}
         <ScrollReveal delay={0.2}>
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12 py-12 border-y border-gray-200">
-            {cmsLogos.map((cms) => (
+          <div className="grid gap-4 border-y border-gray-200 py-8 md:grid-cols-2 md:py-12">
+            {accessModes.map((cms) => (
               <div
                 key={cms.name}
-                className="flex flex-col items-center gap-2 group"
+                className="flex items-center gap-4 rounded-2xl border border-gray-200 bg-white p-5"
               >
-                <div className="w-20 h-20 rounded-2xl border border-gray-200 flex items-center justify-center p-4 group-hover:border-brand-blue/30 transition-colors" style={{ backgroundColor: "#fcf2f8" }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#f9e6f0"} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "#fcf2f8"}>
+                <div className="flex size-16 shrink-0 items-center justify-center rounded-2xl border border-gray-200 bg-gray-50 p-3">
                   <Image
                     src={cms.image}
                     alt={cms.name}
@@ -75,7 +49,11 @@ export function Integration() {
                     className="object-contain w-full h-full"
                   />
                 </div>
-                <span className="text-xs text-gray-400 group-hover:text-gray-600 transition-colors">{cms.name}</span>
+                <div>
+                  <span className="mb-1 inline-flex rounded-full bg-green-50 px-2.5 py-1 text-xs font-semibold text-green-700">{cms.status}</span>
+                  <p className="font-semibold text-gray-900">{cms.name}</p>
+                  <p className="text-sm text-gray-500">{cms.detail}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -96,25 +74,19 @@ export function Integration() {
               </div>
               <div>
                 <p className="font-medium text-gray-900">
-                  Sur Shopify, l'installation est native : app + widgets en quelques clics.
+                  {"Sur Shopify, l'installation est native : app + widgets en quelques clics."}
                 </p>
                 <p className="text-sm text-gray-500 mt-0.5">
-                  Catalogue synchronisé automatiquement, questions de vente générées par l'IA.
+                  {"Catalogue synchronisé automatiquement, questions de vente générées par l'IA."}
                 </p>
               </div>
             </div>
-            {SHOPIFY_APP_STORE_URL ? (
-              <a href={SHOPIFY_APP_STORE_URL} target="_blank" rel="noopener noreferrer" className="shrink-0">
-                <Button variant="primary" size="lg">
-                  Installer sur Shopify
-                  <ArrowRight className="w-5 h-5" />
-                </Button>
-              </a>
-            ) : (
-              <span className="shrink-0 rounded-full border border-gray-300 bg-white px-4 py-2 text-sm text-gray-600">
-                Bientôt sur l'App Store Shopify
-              </span>
-            )}
+            <a href={SHOPIFY_APP_STORE_URL} target="_blank" rel="noopener noreferrer" className="shrink-0">
+              <Button variant="primary" size="lg">
+                Voir l’app Shopify
+                <ArrowRight className="w-5 h-5" />
+              </Button>
+            </a>
           </div>
         </ScrollReveal>
 

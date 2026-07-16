@@ -2,8 +2,7 @@
 
 import * as React from "react"
 import { Section } from "@/components/layout/Section"
-import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/shared/ScrollReveal"
-import { Card } from "@/components/ui/card"
+import { ScrollReveal } from "@/components/shared/ScrollReveal"
 
 const merchantControls = [
   "Contraintes produit",
@@ -27,10 +26,10 @@ export function BusinessRulesSection() {
         <ScrollReveal>
           <div className="text-center mb-12 md:mb-16">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4" style={{ color: '#ffffff' }}>
-              Coté marchand : Parcel arbitre chaque recommandation selon vos règles business.
+              Vos équipes gardent la main
             </h2>
             <p className="text-gray-500 max-w-3xl mx-auto" style={{ color: '#ffffff' }}>
-              Notre agent s'appuie sur une couche de décision structurée qui arbitre chaque réponse.
+              Parcel utilise vos données et vos priorités pour produire des recommandations cohérentes avec votre commerce.
             </p>
           </div>
         </ScrollReveal>
@@ -47,7 +46,7 @@ export function BusinessRulesSection() {
             <ScrollReveal delay={0.1}>
               <div className="max-w-4xl mx-auto">
                 <h3 className="text-xl md:text-2xl font-semibold mb-8 text-center" style={{ color: '#000000' }}>
-                  Le marchand garde le contrôle sur les :
+                  Ce que vous pouvez piloter
                 </h3>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
                   {merchantControls.map((control, index) => (
@@ -94,7 +93,7 @@ export function BusinessRulesSection() {
         <ScrollReveal delay={0.2}>
           <div className="text-center mb-12">
             <p className="text-xl md:text-2xl font-semibold" style={{ color: '#ffffff' }}>
-              Résultat : Parcel arbitre comme un vendeur humain, mais de façon cohérente, mesurable et scalable.
+              Les décisions restent explicables, ajustables et analysables depuis les insights Parcel.
             </p>
           </div>
         </ScrollReveal>

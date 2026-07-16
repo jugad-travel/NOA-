@@ -11,10 +11,7 @@ export const VIDEOS = {
 
 export type VideoKey = keyof typeof VIDEOS
 
-// Shopify App Store listing — still under review. Set the URL here once the
-// app is published: every CTA switches from the "coming soon" fallback
-// automatically.
-export const SHOPIFY_APP_STORE_URL: string | null = null
+// Official Shopify App Store listing.
+export const SHOPIFY_APP_STORE_URL = "https://apps.shopify.com/parcel"
 
-export const DEMO_CONTACT_URL =
-  "mailto:vianney@parcel-ia.com?subject=Demande de démo PARCEL"
+export const DEMO_CONTACT_URL = "/demo"

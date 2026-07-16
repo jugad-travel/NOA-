@@ -4,10 +4,10 @@ import { IntegrationsContent } from "./IntegrationsContent"
 export const metadata: Metadata = {
   title: "Intégrations & Tech",
   description:
-    "PARCEL est une brique applicative indépendante, conçue pour s'intégrer à des environnements e-commerce existants. Compatible Shopify, Magento, WooCommerce, Salesforce et architectures Headless.",
+    "Intégrez Parcel via l’application Shopify disponible ou l’API back-end CMS-agnostique. Découvrez les données, étapes et connecteurs en préparation.",
+  alternates: { canonical: "/integrations-tech" },
 }
 
 export default function IntegrationsPage() {
   return <IntegrationsContent />
 }
-

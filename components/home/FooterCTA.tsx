@@ -25,12 +25,12 @@ export function FooterCTA() {
               </h2>
               
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="mailto:vianney@parcel-ia.com?subject=Demande de démo personnalisée PARCEL">
+                <Link href="/demo">
                   <Button variant="secondary" size="xl" magnetic>
-                    Demander une démo personnalisée
+                    Réserver une démo
                     <ArrowRight className="w-5 h-5" />
                   </Button>
-                </a>
+                </Link>
                 <Link href="/produits" onClick={(e) => {
                   if (window.location.pathname === '/produits') {
                     e.preventDefault()

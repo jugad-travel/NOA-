@@ -3,39 +3,39 @@
 import * as React from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Shield, Lock, Server, FileCheck } from "lucide-react"
+import { BarChart3, Code2, ShoppingBag, ShieldCheck } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const footerLinks = {
   produits: [
-    { name: "PARCEL Projet", href: "/produits#parcel-projet" },
-    { name: "PARCEL Match", href: "/produits#parcel-match" },
-    { name: "PARCEL Expert", href: "/produits#parcel-expert" },
-    { name: "PARCEL Comparaison", href: "/produits#parcel-comparaison" },
-    { name: "PARCEL SAV", href: "/produits#parcel-sav" },
+    { name: "Recherche conversationnelle", href: "/moteur-recherche-conversationnel-ecommerce" },
+    { name: "Aide au choix", href: "/produits#parcel-match" },
+    { name: "Questions produit", href: "/produits#parcel-expert" },
+    { name: "Comparaison", href: "/produits#parcel-comparaison" },
+    { name: "Analytics & Insights", href: "/produits#analytics-insights" },
   ],
   ressources: [
     { name: "Blog", href: "/ressources#blog" },
-    { name: "Études de cas", href: "/ressources#etudes-de-cas" },
-    { name: "Centre d'aide", href: "/ressources#centre-aide" },
+    { name: "Simulateur de scénario", href: "/ressources/simulateur-roi" },
+    { name: "Intégrations", href: "/integrations-tech" },
   ],
   entreprise: [
-    { name: "Intégrations & Tech", href: "/integrations-tech" },
-    { name: "Démo", href: "mailto:vianney@parcel-ia.com?subject=Demande de démo PARCEL" },
+    { name: "À propos", href: "/a-propos" },
+    { name: "Démo", href: "/demo" },
     { name: "Contact", href: "mailto:vianney@parcel-ia.com?subject=Contact PARCEL" },
   ],
   legal: [
-    { name: "Mentions légales", href: "#" },
-    { name: "Politique de confidentialité", href: "#" },
-    { name: "CGU", href: "#" },
+    { name: "Mentions légales", href: "/mentions-legales" },
+    { name: "Politique de confidentialité", href: "/confidentialite" },
+    { name: "CGU", href: "/cgu" },
   ],
 }
 
 const securityFeatures = [
-  { icon: Shield, label: "RGPD" },
-  { icon: Lock, label: "Isolation" },
-  { icon: Server, label: "Hébergement sécurisé" },
-  { icon: FileCheck, label: "IT policies" },
+  { icon: ShoppingBag, label: "App Shopify" },
+  { icon: Code2, label: "API CMS-agnostique" },
+  { icon: BarChart3, label: "Analytics & Insights" },
+  { icon: ShieldCheck, label: "Données maîtrisées" },
 ]
 
 export function Footer() {
@@ -70,13 +70,13 @@ export function Footer() {
               />
             </Link>
             <p className="text-gray-400 text-sm mb-6 leading-relaxed">
-              Le premier conseiller de vente IA qui vend comme en magasin.
+              L’assistant d’achat IA et le moteur de recherche conversationnel pour votre e-commerce.
             </p>
-            <a href="mailto:vianney@parcel-ia.com?subject=Demande de démo PARCEL">
+            <Link href="/demo">
               <Button variant="primary" size="md" magnetic>
                 Réserver une démo
               </Button>
-            </a>
+            </Link>
           </div>
           
           {/* Produits */}
@@ -162,9 +162,9 @@ export function Footer() {
             <span>Tous droits réservés.</span>
           </div>
           <div className="flex items-center gap-2 text-gray-500 text-sm">
-            <span>Sécurité & conformité</span>
+            <span>Site & données</span>
             <span>•</span>
-            <span>RGPD</span>
+            <Link href="/confidentialite" className="hover:text-brand transition-colors">Confidentialité</Link>
             <span>•</span>
             <a href="mailto:vianney@parcel-ia.com?subject=Contact PARCEL" className="hover:text-brand transition-colors">
               Contact
@@ -175,4 +175,3 @@ export function Footer() {
     </footer>
   )
 }
-

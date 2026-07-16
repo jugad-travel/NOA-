@@ -5,9 +5,9 @@ import { Badge } from "@/components/ui/badge"
 import { ScrollReveal } from "@/components/shared/ScrollReveal"
 
 export const metadata: Metadata = {
-  title: "Simulateur de ROI",
+  title: "Simulateur de scénario ROI",
   description:
-    "Calculez l'impact de PARCEL sur votre business. Estimez votre retour sur investissement avec notre simulateur de ROI.",
+    "Construisez un scénario de ROI Parcel à partir de vos propres hypothèses de trafic, conversion, panier et investissement.",
 }
 
 export default function SimulateurROIPage() {
@@ -24,13 +24,12 @@ export default function SimulateurROIPage() {
           >
             <ScrollReveal>
               <div className="text-center">
-                <Badge className="mb-6 bg-white/90 text-gray-900">Simulateur de ROI</Badge>
+                <Badge className="mb-6 bg-white/90 text-gray-900">Simulateur transparent</Badge>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-                  Calculez l'impact de PARCEL sur votre business
+                  Testez un scénario avec vos propres hypothèses
                 </h1>
                 <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto">
-                  Obtenez une estimation précise de votre retour sur investissement avec PARCEL.
-                  Nous garantissons un ROI de 5x ou remboursement intégral.
+                  Modifiez chaque variable et visualisez le résultat. Aucun gain n’est présumé ni garanti : la référence reste la mesure sur votre trafic réel.
                 </p>
               </div>
             </ScrollReveal>

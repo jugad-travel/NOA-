@@ -86,11 +86,10 @@ function SearchMockup() {
       </div>
       <div className="space-y-3">
         <div className="ml-auto max-w-[85%] rounded-2xl rounded-br-sm bg-gray-900 text-white px-4 py-3 text-sm">
-          Je cherche une veste imperméable pour l'hiver, à moins de 150 €
+          {"Je cherche une veste imperméable pour l'hiver, à moins de 150 €"}
         </div>
         <div className="max-w-[85%] rounded-2xl rounded-bl-sm bg-gray-100 text-gray-700 px-4 py-3 text-sm">
-          Très bon choix de saison ! C'est plutôt pour un usage ville ou pour la
-          randonnée ?
+          {"Très bon choix de saison ! C'est plutôt pour un usage ville ou pour la randonnée ?"}
         </div>
         <div className="flex flex-wrap gap-2 pt-1">
           {["Ville", "Randonnée", "Les deux"].map((chip) => (
@@ -132,6 +131,7 @@ export function FunnelSection() {
 
       const tl = gsap.timeline({
         scrollTrigger: {
+          id: "parcel-funnel",
           trigger: pinRef.current,
           start: "top top",
           end: `+=${panels.length * 85}%`,
@@ -166,6 +166,36 @@ export function FunnelSection() {
     return () => ctx.revert()
   }, [])
 
+  React.useEffect(() => {
+    const handleStageNavigation = (event: Event) => {
+      const requestedIndex = Number((event as CustomEvent<number>).detail)
+      const index = Math.min(STAGES.length - 1, Math.max(0, requestedIndex))
+      if (!Number.isFinite(index)) return
+
+      setActive(index)
+
+      const desktop = window.matchMedia("(min-width: 768px)").matches
+      const trigger = desktop ? ScrollTrigger.getById("parcel-funnel") : undefined
+
+      if (trigger) {
+        const progress = STAGES.length > 1 ? index / (STAGES.length - 1) : 0
+        window.scrollTo({
+          top: trigger.start + (trigger.end - trigger.start) * progress,
+          behavior: "smooth",
+        })
+        return
+      }
+
+      document.getElementById(`funnel-stage-${STAGES[index].id}`)?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      })
+    }
+
+    window.addEventListener("parcel:funnel-stage", handleStageNavigation)
+    return () => window.removeEventListener("parcel:funnel-stage", handleStageNavigation)
+  }, [])
+
   return (
     <section ref={sectionRef} id="funnel" className="bg-off-white">
       {/* Section intro */}
@@ -174,7 +204,7 @@ export function FunnelSection() {
           AI Personal Shopper
         </p>
         <h2 className="text-3xl md:text-5xl font-normal text-gray-900 max-w-3xl mx-auto leading-tight">
-          Un vendeur IA sur tout le parcours d'achat
+          {"Un vendeur IA sur tout le parcours d'achat"}
         </h2>
         <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
           De la première question au service après-vente, Parcel accompagne
@@ -189,6 +219,7 @@ export function FunnelSection() {
             {STAGES.map((stage, i) => (
               <div
                 key={stage.id}
+                id={`funnel-stage-${stage.id}`}
                 className={cn(
                   "funnel-panel py-10 md:py-0",
                   "md:absolute md:inset-0 md:flex md:items-center",
