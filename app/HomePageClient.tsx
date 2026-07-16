@@ -54,7 +54,7 @@ export function HomePageClient() {
   return (
     <>
       <section className="relative w-full overflow-x-clip bg-white">
-        <div className="w-full px-2 pb-4 pt-14 md:px-4 md:pb-6 md:pt-20">
+        <div className="w-full px-2 pb-28 pt-14 md:px-4 md:pb-6 md:pt-20">
           <div
             ref={heroImageRef}
             className="relative mx-auto w-full md:transition-opacity md:duration-300"
