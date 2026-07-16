@@ -27,35 +27,40 @@ import {
 
 const teamMembers = [
   {
-    name: "Vianney Mayaud",
-    role: "Co-fondateur",
-    details: "EDHEC, Fondateur ",
-    detailsLink: "https://jugadtravel.com",
-    detailsLinkText: "JUGAD TRAVEL",
-    image: "/images/pdp Vianney  linkedin .png",
-  },
-  {
     name: "Balthazar Barbry",
     role: "Co-fondateur",
     details: "ESSEC",
-    image: "/images/pdp balthazar barbry linkedin .jpeg",
+    image: "/images/Pdp Linkedin Baltha.png",
   },
   {
-    name: "Octave Dumont",
-    role: "Co-fondateur, CTO",
-    details: "HEC - ENSAE, Data scientist BNP Paribas, ENS Data science competitor",
-    image: "/images/pdp Octave dumont .jpeg",
+    name: "Vianney Mayaud",
+    role: "Co-fondateur",
+    details: "EDHEC",
+    image: "/images/1773913153311.png",
+  },
+  {
+    name: "Martin Magnet",
+    role: "Head of GTM",
+    details: "SKEMA",
+    image: "/images/1770344506258.png",
   },
   {
     name: "Alexandre Mayaud",
     role: "Senior Advisor",
-    details: "Retail tech & IA Entrepreneur . Business Angel . Board Member . Advisor . ex CEO fondateur ",
-    detailsLink: "https://keyneo.com",
-    detailsLinkText: "Keyneo",
-    detailsAfterLink: ", co fondateur ",
-    detailsSecondLink: "https://umitek.fr",
-    detailsSecondLinkText: "Umitek",
+    details: "Fondateur Keyneo (Generix) · Multi-entrepreneur retail tech",
     image: "/images/pdp alexandre .jpeg",
+  },
+  {
+    name: "Octave Dumont",
+    role: "CTO",
+    details: "HEC · ENSAE",
+    image: "/images/pdp Octave dumont .jpeg",
+  },
+  {
+    name: "César Clair",
+    role: "Sales & bras droit CEO",
+    details: "EDHEC",
+    image: "/images/PDP Linkedin Cesar.png",
   },
 ]
 
@@ -168,93 +173,50 @@ export function AProposContent() {
         </div>
       </Section>
 
-      {/* Team Section - GARDÉE INTACTE */}
-      <Section variant="white" padding="xl" className="pt-4">
+      {/* Team Section */}
+      <Section id="equipe" variant="dark" padding="xl" className="pt-12 md:pt-16 bg-black" style={{ backgroundColor: '#000000' }}>
         <div className="max-w-6xl mx-auto">
           <ScrollReveal>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-center">
+            <h2 className="text-3xl md:text-5xl font-normal text-white mb-4 text-center" style={{ color: '#ffffff' }}>
               Notre équipe
             </h2>
-            <p className="text-lg text-gray-600 text-center mb-12 max-w-2xl mx-auto">
-              Une équipe passionnée par l'innovation et l'excellence, dédiée à transformer l'expérience d'achat en ligne.
+            <p className="text-base md:text-lg text-white/65 text-center mb-14 md:mb-16 max-w-2xl mx-auto" style={{ color: 'rgba(255,255,255,0.65)' }}>
+              Des expertises complémentaires réunies pour transformer l’expérience d’achat en ligne.
             </p>
           </ScrollReveal>
           
-          <StaggerContainer className="grid md:grid-cols-2 gap-8" staggerDelay={0.1}>
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14 md:gap-y-16" staggerDelay={0.08}>
             {teamMembers.map((member) => (
               <StaggerItem key={member.name}>
-                <Card className="h-full p-8 hover:shadow-lg transition-shadow">
-                  <div className="flex flex-col md:flex-row gap-6 items-start">
-                    {/* Photo de profil */}
-                    <div className="flex-shrink-0">
-                      <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gray-200 overflow-hidden relative">
-                        {member.image ? (
-                          <Image
-                            src={member.image}
-                            alt={member.name}
-                            fill
-                            className="object-cover"
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-gradient-to-br from-brand-cyan to-brand-blue flex items-center justify-center text-white text-2xl font-bold">
-                            {member.name.split(' ').map(n => n[0]).join('')}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    
-                    {/* Informations */}
-                    <div className="flex-1">
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                        {member.name}
-                      </h3>
-                      <p className="text-lg font-semibold text-gray-700 mb-3">
-                        {member.role}
-                      </p>
-                      {member.details && (
-                        <p className="text-gray-600">
-                          {member.details}
-                          {member.detailsLink && member.detailsLinkText ? (
-                            <>
-                              <a 
-                                href={member.detailsLink} 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="text-brand hover:underline"
-                              >
-                                {member.detailsLinkText}
-                              </a>
-                            </>
-                          ) : member.detailsLink ? (
-                            <>{" "}
-                              <a 
-                                href={member.detailsLink} 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="text-brand hover:underline"
-                              >
-                                {member.detailsLink.replace(/^https?:\/\//, '')}
-                              </a>
-                            </>
-                          ) : null}
-                          {member.detailsAfterLink}
-                          {member.detailsSecondLink && member.detailsSecondLinkText ? (
-                            <>
-                              <a 
-                                href={member.detailsSecondLink} 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="text-brand hover:underline"
-                              >
-                                {member.detailsSecondLinkText}
-                              </a>
-                            </>
-                          ) : null}
-                        </p>
-                      )}
-                    </div>
+                <article className="flex h-full flex-col items-center text-center">
+                  <div className="relative mb-5 size-40 overflow-hidden rounded-full bg-[#171717] ring-1 ring-white/10 md:size-44">
+                    <Image
+                      src={member.image}
+                      alt={`Portrait de ${member.name}`}
+                      fill
+                      sizes="(max-width: 640px) 160px, 176px"
+                      className="object-cover"
+                    />
                   </div>
-                </Card>
+
+                  <div className="w-full max-w-[15rem] rounded-xl bg-white px-5 py-3 shadow-[0_10px_30px_rgba(0,0,0,0.25)]">
+                    <h3
+                      className="text-lg font-medium tracking-[-0.02em] text-gray-900"
+                      style={{ fontSize: '1.125rem', fontWeight: 500, lineHeight: 1.2 }}
+                    >
+                      {member.name}
+                    </h3>
+                  </div>
+
+                  <div className="mt-4 min-h-14">
+                    <p className="text-base italic leading-snug text-white" style={{ color: '#ffffff' }}>
+                      {member.role}
+                    </p>
+                    <p className="mt-1 max-w-[18rem] text-sm italic leading-snug text-white/70" style={{ color: 'rgba(255,255,255,0.7)' }}>
+                      {member.details}
+                    </p>
+                  </div>
+                </article>
               </StaggerItem>
             ))}
           </StaggerContainer>

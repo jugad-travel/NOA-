@@ -59,7 +59,7 @@ export default function HomePage() {
   return (
     <>
       {/* Hero Image Section — bannière plein écran + démos flottantes */}
-      <section className="w-full relative bg-white">
+      <section className="w-full relative bg-white overflow-x-clip">
         <div className="w-full px-2 md:px-4 pt-14 md:pt-20 pb-4 md:pb-6">
           <div
             ref={heroImageRef}
@@ -68,13 +68,28 @@ export default function HomePage() {
           >
             <div className="absolute inset-0 overflow-hidden rounded-xl md:rounded-2xl">
               <Image
-                src="/images/hero site Parcel v2.png"
-                alt="PARCEL - L'assistant d'achat IA pour le e-commerce"
+                src="/images/Hero site parcel sans texte.png"
+                alt="Sommet enneigé éclairé par le lever du soleil"
                 fill
                 className="object-cover origin-left scale-[1.16] md:scale-100 md:origin-center"
                 priority
                 quality={90}
               />
+            </div>
+            <div className="absolute inset-0 z-10 pointer-events-none px-[4%] pt-[7%] md:pt-[7.5%]">
+              <h1
+                className="max-w-[88%] text-[clamp(1.5rem,4.65vw,5.6rem)] font-normal leading-[1.08] tracking-[-0.045em] text-white md:max-w-[62%]"
+                style={{ color: '#ffffff', fontSize: 'clamp(1.5rem, 4.65vw, 5.6rem)', fontWeight: 400, lineHeight: 1.08, letterSpacing: '-0.045em' }}
+              >
+                <span className="block">L’assistant d’achat IA </span>
+                <span className="block">pour le e-commerce</span>
+              </h1>
+              <p
+                className="mt-[2.5%] max-w-[42%] text-[clamp(0.62rem,1.25vw,1.5rem)] leading-[1.45] text-white md:max-w-[34%]"
+                style={{ color: '#ffffff' }}
+              >
+                Comprenez chaque besoin, recommandez les bons produits et guidez vos clients jusqu’au panier complet.
+              </p>
             </div>
             {/* Les 3 démos qui s'enchaînent, en surimpression */}
             <HeroAnimation />
