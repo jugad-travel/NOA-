@@ -33,7 +33,11 @@ const examples = [
   }
 ]
 
-export function HeroAnimation() {
+type HeroAnimationProps = {
+  desktopTop?: string
+}
+
+export function HeroAnimation({ desktopTop = "50%" }: HeroAnimationProps) {
   const [showAnimation, setShowAnimation] = React.useState(true)
   const [textIndex, setTextIndex] = React.useState(0)
   const [showProducts, setShowProducts] = React.useState(false)
@@ -144,7 +148,10 @@ export function HeroAnimation() {
   
   return (
     <div className="absolute inset-0 pointer-events-none z-20">
-      <div className="absolute bottom-[-96px] left-1/2 -translate-x-1/2 min-[520px]:bottom-auto min-[520px]:top-[clamp(36%,calc(58%-1.5vw),50%)] min-[520px]:mt-3">
+      <div
+        className="absolute bottom-[-96px] left-1/2 -translate-x-1/2 min-[520px]:bottom-auto min-[520px]:top-[var(--hero-demo-top)]"
+        style={{ "--hero-demo-top": desktopTop } as React.CSSProperties}
+      >
         <AnimatePresence>
           {showAnimation && (
             <motion.div

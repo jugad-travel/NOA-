@@ -53,7 +53,7 @@ export function JourneyMap() {
       id="funnel-parcel"
       variant="white"
       padding="sm"
-      className="scroll-mt-20 border-y border-gray-100 py-10 md:py-14"
+      className="scroll-mt-20 border-b border-gray-100 bg-off-white py-8 md:py-10"
     >
       <ScrollReveal>
         <div className="mx-auto max-w-6xl" onMouseLeave={() => setActiveId(null)}>

@@ -5,6 +5,7 @@ import Link from "next/link"
 import { ArrowRight, MessageCircle } from "lucide-react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { JourneyMap } from "@/components/home/JourneyMap"
 import { YouTubeEmbed } from "@/components/shared/YouTubeEmbed"
 import { VIDEOS } from "@/lib/videos"
 import { cn } from "@/lib/utils"
@@ -111,6 +112,7 @@ export function FunnelSection() {
   const pinRef = React.useRef<HTMLDivElement>(null)
   const [active, setActive] = React.useState(0)
   const [mode, setMode] = React.useState<"pending" | "pinned" | "stacked">("pending")
+  const [pinCentered, setPinCentered] = React.useState(false)
 
   React.useEffect(() => {
     const desktop = window.matchMedia("(min-width: 768px)").matches
@@ -167,6 +169,29 @@ export function FunnelSection() {
   }, [])
 
   React.useEffect(() => {
+    if (!window.matchMedia("(min-width: 768px)").matches) return
+
+    let frameId = 0
+    const syncPinnedAlignment = () => {
+      cancelAnimationFrame(frameId)
+      frameId = requestAnimationFrame(() => {
+        const top = pinRef.current?.getBoundingClientRect().top
+        if (top !== undefined) setPinCentered(top <= 1)
+      })
+    }
+
+    syncPinnedAlignment()
+    window.addEventListener("scroll", syncPinnedAlignment, { passive: true })
+    window.addEventListener("resize", syncPinnedAlignment)
+
+    return () => {
+      cancelAnimationFrame(frameId)
+      window.removeEventListener("scroll", syncPinnedAlignment)
+      window.removeEventListener("resize", syncPinnedAlignment)
+    }
+  }, [])
+
+  React.useEffect(() => {
     const handleStageNavigation = (event: Event) => {
       const requestedIndex = Number((event as CustomEvent<number>).detail)
       const index = Math.min(STAGES.length - 1, Math.max(0, requestedIndex))
@@ -199,7 +224,7 @@ export function FunnelSection() {
   return (
     <section ref={sectionRef} id="funnel" className="bg-off-white">
       {/* Section intro */}
-      <div className="container px-4 md:px-6 pt-20 md:pt-28 pb-10 md:pb-14 text-center">
+      <div className="container px-4 pb-4 pt-20 text-center md:px-6 md:pb-6 md:pt-28">
         <p className="text-sm font-semibold uppercase tracking-widest text-accent-blue mb-4">
           AI Personal Shopper
         </p>
@@ -211,6 +236,8 @@ export function FunnelSection() {
           chaque client comme le ferait votre meilleur vendeur.
         </p>
       </div>
+
+      <JourneyMap />
 
       {/* Pinned stage (desktop) / stacked cards (mobile) */}
       <div ref={pinRef} className="relative md:h-screen md:overflow-hidden">
@@ -227,7 +254,8 @@ export function FunnelSection() {
               >
                 <div
                   className={cn(
-                    "grid gap-8 md:gap-16 md:grid-cols-2 items-center w-full",
+                    "grid w-full items-center gap-8 md:grid-cols-2 md:gap-16 md:transition-transform md:duration-300 md:ease-out",
+                    !pinCentered && "md:translate-y-[calc(-50vh+4rem+50%)]",
                   )}
                 >
                   <div className={cn("max-w-xl", i % 2 === 1 && "md:order-2 md:justify-self-end")}>

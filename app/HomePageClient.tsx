@@ -5,7 +5,6 @@ import Image from "next/image"
 import { Hero } from "@/components/home/Hero"
 import { HeroAnimation } from "@/components/home/HeroAnimation"
 import { PresentationVideo } from "@/components/home/PresentationVideo"
-import { JourneyMap } from "@/components/home/JourneyMap"
 import { FunnelSection } from "@/components/home/FunnelSection"
 import { BusinessRulesSection } from "@/components/home/BusinessRulesSection"
 import { Performance } from "@/components/home/Performance"
@@ -16,7 +15,42 @@ import { FAQ } from "@/components/home/FAQ"
 
 export function HomePageClient() {
   const [imageOpacity, setImageOpacity] = React.useState(1)
+  const [heroDemoTop, setHeroDemoTop] = React.useState("50%")
   const heroImageRef = React.useRef<HTMLDivElement>(null)
+  const heroTitleRef = React.useRef<HTMLHeadingElement>(null)
+  const heroCopyRef = React.useRef<HTMLParagraphElement>(null)
+
+  React.useLayoutEffect(() => {
+    const updateDemoPosition = () => {
+      if (window.innerWidth < 520) return
+
+      const hero = heroImageRef.current
+      const title = heroTitleRef.current
+      const copy = heroCopyRef.current
+      if (!hero || !title || !copy) return
+
+      const heroRect = hero.getBoundingClientRect()
+      const titleRect = title.getBoundingClientRect()
+      const copyRect = copy.getBoundingClientRect()
+      const rhythmGap = Math.max(0, copyRect.top - titleRect.bottom)
+      const nextTop = Math.round(copyRect.bottom - heroRect.top + rhythmGap)
+
+      setHeroDemoTop(`${nextTop}px`)
+    }
+
+    updateDemoPosition()
+    window.addEventListener("resize", updateDemoPosition)
+
+    const resizeObserver = new ResizeObserver(updateDemoPosition)
+    if (heroImageRef.current) resizeObserver.observe(heroImageRef.current)
+    if (heroTitleRef.current) resizeObserver.observe(heroTitleRef.current)
+    if (heroCopyRef.current) resizeObserver.observe(heroCopyRef.current)
+
+    return () => {
+      window.removeEventListener("resize", updateDemoPosition)
+      resizeObserver.disconnect()
+    }
+  }, [])
 
   React.useEffect(() => {
     const checkMobile = () => window.innerWidth < 768
@@ -72,6 +106,7 @@ export function HomePageClient() {
             </div>
             <div className="pointer-events-none absolute inset-0 z-10 px-[4%] pt-[7%] md:pt-[7.5%]">
               <h1
+                ref={heroTitleRef}
                 className="max-w-[88%] text-[clamp(1.5rem,4vw,4.8rem)] font-normal leading-[1.08] tracking-[-0.045em] text-white md:max-w-[44%]"
                 style={{ color: "#ffffff", fontSize: "clamp(1.5rem, 4vw, 4.8rem)", fontWeight: 400, lineHeight: 1.08, letterSpacing: "-0.045em" }}
               >
@@ -79,19 +114,19 @@ export function HomePageClient() {
                 <span className="block">pour le e-commerce</span>
               </h1>
               <p
+                ref={heroCopyRef}
                 className="mt-[2.5%] hidden max-w-[44%] text-[clamp(0.62rem,1.1vw,1.25rem)] leading-[1.45] text-white min-[520px]:block"
                 style={{ color: "#ffffff" }}
               >
                 Assistant d’achat IA et moteur de recherche conversationnel : Parcel comprend le besoin, recommande les bons produits et guide jusqu’à l’achat.
               </p>
             </div>
-            <HeroAnimation />
+            <HeroAnimation desktopTop={heroDemoTop} />
           </div>
         </div>
       </section>
       <Hero />
       <PresentationVideo />
-      <JourneyMap />
       <FunnelSection />
       <BusinessRulesSection />
       <Performance />
