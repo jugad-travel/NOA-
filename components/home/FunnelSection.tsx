@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { ArrowRight, MessageCircle } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { JourneyMap } from "@/components/home/JourneyMap"
@@ -15,7 +15,7 @@ type Stage = {
   kicker: string
   title: string
   copy: string
-  videoId?: string
+  videoId: string
   href: string
 }
 
@@ -28,16 +28,8 @@ const STAGES: Stage[] = [
     title: "Recherche conversationnelle",
     copy:
       "Votre client décrit son besoin avec ses mots, comme à un vendeur en boutique. Parcel comprend l'intention, pose les bonnes questions et trouve les bons produits — là où une barre de recherche renvoie une liste.",
-    href: "/produits",
-  },
-  {
-    id: "match",
-    kicker: "Aide au choix",
-    title: "Aide au choix par catégorie",
-    copy:
-      "Sur une page catégorie, le client hésite entre des dizaines de modèles. PARCEL Match l'interroge sur son usage et son budget, puis lui recommande le bon produit — avec l'explication du choix.",
     videoId: VIDEOS.match,
-    href: "/produits/aide-au-choix",
+    href: "/produits",
   },
   {
     id: "expert",
@@ -76,36 +68,6 @@ const STAGES: Stage[] = [
     href: "/produits/service-apres-vente",
   },
 ]
-
-// Stage 1 has no dedicated video: a sober chat mockup shows the idea.
-function SearchMockup() {
-  return (
-    <div className="w-full rounded-2xl border border-gray-200 bg-white shadow-lg p-6 md:p-8">
-      <div className="flex items-center gap-2 text-gray-400 text-sm mb-5">
-        <MessageCircle className="h-4 w-4" />
-        Assistant Parcel
-      </div>
-      <div className="space-y-3">
-        <div className="ml-auto max-w-[85%] rounded-2xl rounded-br-sm bg-gray-900 text-white px-4 py-3 text-sm">
-          {"Je cherche une veste imperméable pour l'hiver, à moins de 150 €"}
-        </div>
-        <div className="max-w-[85%] rounded-2xl rounded-bl-sm bg-gray-100 text-gray-700 px-4 py-3 text-sm">
-          {"Très bon choix de saison ! C'est plutôt pour un usage ville ou pour la randonnée ?"}
-        </div>
-        <div className="flex flex-wrap gap-2 pt-1">
-          {["Ville", "Randonnée", "Les deux"].map((chip) => (
-            <span
-              key={chip}
-              className="rounded-full border border-gray-300 px-3 py-1.5 text-xs text-gray-600"
-            >
-              {chip}
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
-}
 
 export function FunnelSection() {
   const sectionRef = React.useRef<HTMLDivElement>(null)
@@ -274,19 +236,15 @@ export function FunnelSection() {
                     </Link>
                   </div>
                   <div className={cn(i % 2 === 1 && "md:order-1")}>
-                    {stage.videoId ? (
-                      <YouTubeEmbed
-                        videoId={stage.videoId}
-                        title={stage.title}
-                        // Desktop épinglé : seule l'étape active joue (et
-                        // uniquement tant que le funnel est à l'écran, la
-                        // visibilité étant gérée dans YouTubeEmbed). Mobile
-                        // empilé : c'est la visibilité qui décide.
-                        active={mode === "pinned" ? i === active : undefined}
-                      />
-                    ) : (
-                      <SearchMockup />
-                    )}
+                    <YouTubeEmbed
+                      videoId={stage.videoId}
+                      title={stage.title}
+                      // Desktop épinglé : seule l'étape active joue (et
+                      // uniquement tant que le funnel est à l'écran, la
+                      // visibilité étant gérée dans YouTubeEmbed). Mobile
+                      // empilé : c'est la visibilité qui décide.
+                      active={mode === "pinned" ? i === active : undefined}
+                    />
                   </div>
                 </div>
               </div>

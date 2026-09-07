@@ -107,39 +107,6 @@ export const USE_CASES: UseCase[] = [
     legacyAnchor: "parcel-projet",
   },
 
-  /* ──────────────────────────── Aide au choix ─────────────────────────── */
-  {
-    slug: "aide-au-choix",
-    path: "/produits/aide-au-choix",
-    step: "Page catégorie",
-    capability: "Parcel Match",
-    navLabel: "Aide au choix",
-    title: "Aide au choix sur les catégories à forte profondeur",
-    metaTitle: "Aide au choix produit pour e-commerce",
-    metaDescription:
-      "Quarante références pertinentes ne valent pas mieux que zéro : la décision reste entière. Parcel interroge l’usage et le budget, puis explique sa recommandation.",
-    intro:
-      "Sur une page catégorie, le client connaît le rayon mais hésite entre des dizaines de modèles. Les filtres supposent qu’il sait déjà ce qu’il cherche. Parcel pose les questions qui écartent réellement des options, puis explique pourquoi tel produit lui convient.",
-    videoId: VIDEOS.match,
-    videoTitle: "Trouver le bon produit : recherche classique et recherche IA",
-    benefits: [
-      { title: "Moins d’allers-retours", copy: "Le client arrête de comparer des fiches à l’aveugle : la sélection lui arrive déjà triée sur son usage." },
-      { title: "Une recommandation justifiée", copy: "Chaque produit porte sa raison. Un classement sans explication ne rassure personne." },
-      { title: "La disponibilité intégrée", copy: "Taille, variante, stock : Parcel ne recommande pas ce qu’il ne peut pas livrer." },
-    ],
-    steps: [
-      { title: "Deux questions, pas dix", copy: "Chaque question supplémentaire fait chuter le taux d’aboutissement. Parcel demande ce qui trie vraiment." },
-      { title: "Le classement s’explique", copy: "Score de correspondance, raison par produit, points de vigilance — y compris quand un modèle a un défaut." },
-      { title: "L’alternative budget est nommée", copy: "Quand un modèle moins cher tient la comparaison, il est proposé comme tel, pas dissimulé." },
-    ],
-    faq: [
-      { question: "En quoi est-ce différent de filtres à facettes ?", answer: "Les filtres demandent au client de connaître les critères. Parcel part de son usage — « quinze jours avec onze kilos » — et en déduit les critères techniques lui-même." },
-      { question: "Faut-il enrichir le catalogue au préalable ?", answer: "La qualité des recommandations est plafonnée par celle des attributs produit. Un travail d’enrichissement est souvent utile, ciblé sur les attributs qui pèsent dans la décision." },
-      { question: "Que se passe-t-il si aucun produit ne convient ?", answer: "Parcel le dit, et remonte la demande non couverte dans les insights. C’est un signal d’assortiment, pas un échec à masquer." },
-    ],
-    legacyAnchor: "parcel-match",
-  },
-
   /* ─────────────────────────── Questions produit ──────────────────────── */
   {
     slug: "questions-produit",

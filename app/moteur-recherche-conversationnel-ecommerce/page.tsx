@@ -154,8 +154,8 @@ export default function ConversationalSearchPage() {
       </section>
 
       <section className="bg-gray-50 px-4 py-20 md:py-28">
-        <div className="container grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-          <div>
+        <div className="container">
+          <div className="mx-auto max-w-3xl text-center">
             <p className="mb-4 text-sm font-semibold uppercase tracking-[0.16em] text-orange-600">
               Une expérience guidée
             </p>
@@ -165,37 +165,40 @@ export default function ConversationalSearchPage() {
             <p className="mt-5 text-lg leading-relaxed text-gray-600">
               Parcel associe recherche sémantique, dialogue et règles de décision commerciale dans une seule expérience intégrée au site marchand.
             </p>
-            <ul className="mt-8 space-y-4">
-              {[
-                "Analyse du langage naturel et du contexte de la demande",
-                "Questions de clarification adaptées au catalogue",
-                "Recommandations argumentées et comparaisons par usage",
-                "Ajout au panier et compléments pertinents",
-              ].map((item) => (
-                <li key={item} className="flex items-start gap-3 text-gray-700">
-                  <span className="mt-0.5 flex h-6 w-6 flex-none items-center justify-center rounded-full bg-gray-950 text-white">
-                    <Check className="h-3.5 w-3.5" />
-                  </span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
           </div>
 
           {/* Démonstration réelle plutôt qu'une maquette statique : la page
               qui vise « moteur de recherche conversationnel » doit montrer le
-              geste, pas le décrire. */}
-          <div>
+              geste, pas le décrire. Même mise en page que les pages d'usage
+              (/produits/[slug]), en plus large : c'est la démonstration
+              principale du site. */}
+          <div className="mx-auto mt-14 max-w-5xl">
             <YouTubeEmbed
               videoId={VIDEOS.match}
               title="Trouver le bon produit : recherche classique et recherche IA"
               rounded="rounded-[2rem]"
             />
-            <p className="mt-4 text-sm leading-relaxed text-gray-500">
+            <p className="mt-4 text-center text-sm text-gray-500">
               Recherche par mots-clés, puis bascule vers l’assistant quand la
               demande dépasse le mot-clé — sur un catalogue réel.
             </p>
           </div>
+
+          <ul className="mx-auto mt-14 grid max-w-4xl gap-4 sm:grid-cols-2">
+            {[
+              "Analyse du langage naturel et du contexte de la demande",
+              "Questions de clarification adaptées au catalogue",
+              "Recommandations argumentées et comparaisons par usage",
+              "Ajout au panier et compléments pertinents",
+            ].map((item) => (
+              <li key={item} className="flex items-start gap-3 text-gray-700">
+                <span className="mt-0.5 flex h-6 w-6 flex-none items-center justify-center rounded-full bg-gray-950 text-white">
+                  <Check className="h-3.5 w-3.5" />
+                </span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 

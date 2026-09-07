@@ -25,6 +25,14 @@ const nextConfig: NextConfig = {
         destination: '/ressources/assistant-achat-ia-ecommerce',
         permanent: true,
       },
+      {
+        // « Aide au choix » disait la même chose que la recherche : la page a
+        // été retirée plutôt que maintenue en double. L'URL était indexable,
+        // donc elle redirige vers l'usage qui l'absorbe.
+        source: '/produits/aide-au-choix',
+        destination: '/moteur-recherche-conversationnel-ecommerce',
+        permanent: true,
+      },
     ]
   },
 };

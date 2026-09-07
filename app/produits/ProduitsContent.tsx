@@ -12,7 +12,6 @@ import {
   Search,
   ShieldCheck,
   ShoppingBag,
-  Target,
 } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
 import { Section } from "@/components/layout/Section"
@@ -27,7 +26,6 @@ import { USE_CASES } from "@/lib/use-cases"
 const ICONS: Record<string, LucideIcon> = {
   "recherche-conversationnelle": Search,
   "besoin-global": Compass,
-  "aide-au-choix": Target,
   "questions-produit": BookOpen,
   comparaison: GitCompareArrows,
   "panier-complements": ShoppingBag,

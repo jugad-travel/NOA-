@@ -16,7 +16,6 @@ const navigation = [
       { name: "Tous les usages", href: "/produits" },
       { name: "Recherche conversationnelle", href: "/moteur-recherche-conversationnel-ecommerce" },
       { name: "Besoin global", href: "/produits/besoin-global" },
-      { name: "Aide au choix", href: "/produits/aide-au-choix" },
       { name: "Questions produit", href: "/produits/questions-produit" },
       { name: "Comparaison", href: "/produits/comparaison" },
       { name: "Compléments au panier", href: "/produits/panier-complements" },
