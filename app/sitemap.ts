@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next"
 import { articles } from "@/lib/articles"
+import { NESTED_USE_CASES } from "@/lib/use-cases"
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://parcel-ia.com"
@@ -19,6 +20,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/cgu`, lastModified, changeFrequency: "yearly", priority: 0.2 },
   ]
 
+  // Une page par usage : elles portent chacune leur intention de recherche.
+  const useCaseRoutes: MetadataRoute.Sitemap = NESTED_USE_CASES.map((useCase) => ({
+    url: `${baseUrl}${useCase.path}`,
+    lastModified,
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }))
+
   const articleRoutes: MetadataRoute.Sitemap = articles.map((article) => ({
     url: `${baseUrl}/ressources/${article.slug}`,
     lastModified,
@@ -26,5 +35,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }))
 
-  return [...staticRoutes, ...articleRoutes]
+  return [...staticRoutes, ...useCaseRoutes, ...articleRoutes]
 }

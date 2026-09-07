@@ -37,7 +37,7 @@ const STAGES: Stage[] = [
     copy:
       "Sur une page catégorie, le client hésite entre des dizaines de modèles. PARCEL Match l'interroge sur son usage et son budget, puis lui recommande le bon produit — avec l'explication du choix.",
     videoId: VIDEOS.match,
-    href: "/produits#parcel-match",
+    href: "/produits/aide-au-choix",
   },
   {
     id: "expert",
@@ -46,7 +46,7 @@ const STAGES: Stage[] = [
     copy:
       "PARCEL Expert répond à toutes les questions sur le produit consulté : compatibilité, usage, entretien, taille. Le client est rassuré avant d'acheter, sans ticket support ni recherche externe.",
     videoId: VIDEOS.expert,
-    href: "/produits#parcel-expert",
+    href: "/produits/questions-produit",
   },
   {
     id: "comparaison",
@@ -55,7 +55,7 @@ const STAGES: Stage[] = [
     copy:
       "Deux produits en tête ? Parcel les compare critère par critère, avec un verdict honnête par usage — comme un vendeur qui connaît son rayon, pas un tableau de specs illisible.",
     videoId: VIDEOS.comparaison,
-    href: "/produits#parcel-comparaison",
+    href: "/produits/comparaison",
   },
   {
     id: "projet",
@@ -64,7 +64,7 @@ const STAGES: Stage[] = [
     copy:
       "« Je prépare un trek de 5 jours » : PARCEL Projet décompose le besoin, distingue l'indispensable de l'optionnel et construit le panier complet en une conversation. Le panier moyen change d'échelle.",
     videoId: VIDEOS.projet,
-    href: "/produits#parcel-projet",
+    href: "/produits/besoin-global",
   },
   {
     id: "sav",
@@ -73,7 +73,7 @@ const STAGES: Stage[] = [
     copy:
       "Retours, livraison, politiques de la boutique : Parcel répond immédiatement à partir de vos règles réelles, et passe la main à un humain quand il le faut. Moins de tickets, des clients qui reviennent.",
     videoId: VIDEOS.sav,
-    href: "/produits#parcel-sav",
+    href: "/produits/service-apres-vente",
   },
 ]
 

@@ -9,10 +9,12 @@ import { Button } from "@/components/ui/button"
 const footerLinks = {
   produits: [
     { name: "Recherche conversationnelle", href: "/moteur-recherche-conversationnel-ecommerce" },
-    { name: "Aide au choix", href: "/produits#parcel-match" },
-    { name: "Questions produit", href: "/produits#parcel-expert" },
-    { name: "Comparaison", href: "/produits#parcel-comparaison" },
-    { name: "Analytics & Insights", href: "/produits#analytics-insights" },
+    { name: "Besoin global", href: "/produits/besoin-global" },
+    { name: "Aide au choix", href: "/produits/aide-au-choix" },
+    { name: "Questions produit", href: "/produits/questions-produit" },
+    { name: "Comparaison", href: "/produits/comparaison" },
+    { name: "Compléments au panier", href: "/produits/panier-complements" },
+    { name: "Service après-vente", href: "/produits/service-apres-vente" },
   ],
   ressources: [
     { name: "Blog", href: "/ressources#blog" },
