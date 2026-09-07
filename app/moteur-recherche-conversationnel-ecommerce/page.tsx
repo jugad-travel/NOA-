@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowRight, Check, MessageSquareText, Search, SlidersHorizontal, ShoppingCart } from "lucide-react"
+import { ArrowRight, Check, MessageSquareText, SlidersHorizontal, ShoppingCart } from "lucide-react"
+import { YouTubeEmbed } from "@/components/shared/YouTubeEmbed"
+import { VIDEOS } from "@/lib/videos"
 
 const canonicalUrl = "/moteur-recherche-conversationnel-ecommerce"
 
@@ -180,23 +182,19 @@ export default function ConversationalSearchPage() {
             </ul>
           </div>
 
-          <div className="rounded-[2rem] border border-gray-200 bg-white p-5 shadow-xl shadow-gray-200/60 md:p-8">
-            <div className="flex items-center gap-3 rounded-2xl border border-gray-200 px-5 py-4 text-gray-500">
-              <Search className="h-5 w-5" />
-              <span>Je cherche un ordinateur léger pour voyager et faire du montage vidéo</span>
-            </div>
-            <div className="mt-4 rounded-2xl bg-gray-950 p-5 text-white">
-              <p className="text-sm leading-relaxed !text-gray-200">
-                Pour vous recommander le bon modèle, quel logiciel de montage utilisez-vous et quelle autonomie minimale recherchez-vous ?
-              </p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {["Final Cut Pro", "Premiere Pro", "DaVinci Resolve"].map((label) => (
-                  <span key={label} className="rounded-full border border-white/20 px-3 py-1.5 text-xs text-gray-200">
-                    {label}
-                  </span>
-                ))}
-              </div>
-            </div>
+          {/* Démonstration réelle plutôt qu'une maquette statique : la page
+              qui vise « moteur de recherche conversationnel » doit montrer le
+              geste, pas le décrire. */}
+          <div>
+            <YouTubeEmbed
+              videoId={VIDEOS.match}
+              title="Trouver le bon produit : recherche classique et recherche IA"
+              rounded="rounded-[2rem]"
+            />
+            <p className="mt-4 text-sm leading-relaxed text-gray-500">
+              Recherche par mots-clés, puis bascule vers l’assistant quand la
+              demande dépasse le mot-clé — sur un catalogue réel.
+            </p>
           </div>
         </div>
       </section>

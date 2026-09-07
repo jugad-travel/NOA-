@@ -70,7 +70,9 @@ const useCases = [
     description: "Le contexte conservé permet de proposer les compléments réellement utiles au projet, sans appliquer un cross-sell identique à tous les visiteurs.",
     examples: ["Accessoires compatibles", "Produits manquants au projet", "Alternatives disponibles"],
     icon: ShoppingBag,
-    videoId: VIDEOS.projet,
+    // Cette section rejouait la vidéo « projet » : deux usages distincts
+    // montraient donc exactement la même démonstration.
+    videoId: VIDEOS.panier,
   },
   {
     id: "parcel-sav",
