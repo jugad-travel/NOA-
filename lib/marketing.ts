@@ -26,7 +26,6 @@ export const primaryNavigation = [
   { name: "Cas d’usage", href: "/produits" },
   { name: "Intégrations", href: "/integrations-tech" },
   { name: "Tarifs", href: "/tarifs" },
-  { name: "Comparatif", href: "/comparatif-assistant-ia-ecommerce" },
   { name: "Ressources", href: "/ressources" },
   { name: "À propos", href: "/a-propos" },
 ] as const
@@ -40,7 +39,6 @@ export const footerNavigation = {
     { name: "Tarifs", href: "/tarifs" },
   ],
   explorer: [
-    { name: "Comparatif", href: "/comparatif-assistant-ia-ecommerce" },
     { name: "Intégrations", href: "/integrations-tech" },
     { name: "Ressources", href: "/ressources" },
     { name: "À propos", href: "/a-propos" },

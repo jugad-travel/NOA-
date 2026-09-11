@@ -4,8 +4,6 @@ import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, ArrowUpRight, CheckCircle2, Code2 } from "lucide-react"
-import { BusinessRulesSection } from "@/components/home/BusinessRulesSection"
-import { ComparisonPreview } from "@/components/home/ComparisonPreview"
 import { FAQ } from "@/components/home/FAQ"
 import { FooterCTA } from "@/components/home/FooterCTA"
 import { FunnelSection } from "@/components/home/FunnelSection"
@@ -122,13 +120,11 @@ export function HomePageClient() {
         </div>
       </section>
 
-      <BusinessRulesSection />
       <PresentationVideo />
       <HybridSearchSection />
       <FunnelSection />
       <PricingTeaser />
       <Integration />
-      <ComparisonPreview />
       <FAQ />
       <FooterCTA />
     </>

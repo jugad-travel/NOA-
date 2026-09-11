@@ -1,7 +1,6 @@
 export { Hero } from "./Hero"
 export { PresentationVideo } from "./PresentationVideo"
 export { FunnelSection } from "./FunnelSection"
-export { BusinessRulesSection } from "./BusinessRulesSection"
 export { Performance } from "./Performance"
 export { Integration } from "./Integration"
 export { SocialProof } from "./SocialProof"

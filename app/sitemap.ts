@@ -12,7 +12,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/produits`, lastModified, changeFrequency: "weekly", priority: 0.9 },
     { url: `${baseUrl}/moteur-recherche-conversationnel-ecommerce`, lastModified, changeFrequency: "monthly", priority: 0.9 },
     { url: `${baseUrl}/tarifs`, lastModified, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${baseUrl}/comparatif-assistant-ia-ecommerce`, lastModified, changeFrequency: "monthly", priority: 0.9 },
     { url: `${baseUrl}/integrations-tech`, lastModified, changeFrequency: "monthly", priority: 0.8 },
     { url: `${baseUrl}/ressources`, lastModified, changeFrequency: "weekly", priority: 0.7 },
     { url: `${baseUrl}/ressources/simulateur-roi`, lastModified, changeFrequency: "monthly", priority: 0.6 },
