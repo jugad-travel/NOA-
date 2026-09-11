@@ -8,28 +8,28 @@ import { ScrollReveal } from "@/components/shared/ScrollReveal"
 const stages = [
   {
     id: "recherche",
-    label: "Découverte",
-    description: "Transformer un besoin encore flou en sélection pertinente.",
+    label: "Recherche",
+    description: "Trouver sans connaître le bon mot-clé.",
   },
   {
-    id: "match",
-    label: "Catégorie",
-    description: "Qualifier l’usage et orienter vers le bon produit.",
+    id: "projet",
+    label: "Projet",
+    description: "Transformer un besoin global en sélection cohérente.",
   },
   {
     id: "expert",
     label: "Fiche produit",
-    description: "Répondre aux questions qui bloquent la décision.",
+    description: "Lever un doute avant l’ajout au panier.",
   },
   {
     id: "comparaison",
     label: "Comparaison",
-    description: "Expliquer les différences selon l’usage réel.",
+    description: "Arbitrer selon les critères qui comptent.",
   },
   {
-    id: "projet",
+    id: "panier",
     label: "Panier",
-    description: "Compléter le projet avec des produits cohérents.",
+    description: "Compléter intelligemment un achat.",
   },
   {
     id: "sav",
@@ -58,7 +58,7 @@ export function JourneyMap() {
       <ScrollReveal>
         <div className="mx-auto max-w-6xl" onMouseLeave={() => setActiveId(null)}>
           <p className="mb-7 text-center text-xs font-semibold uppercase tracking-[0.18em] text-gray-400 md:mb-9">
-            Parcel sur tout le funnel de vente
+            Parcel dans le parcours d’achat
           </p>
 
           <div className="no-scrollbar overflow-x-auto pb-1">

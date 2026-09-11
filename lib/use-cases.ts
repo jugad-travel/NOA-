@@ -1,240 +1,195 @@
 import { VIDEOS } from "@/lib/videos"
 
-/**
- * Les usages Parcel, un par page.
- *
- * Ils vivaient jusqu'ici comme six ancres d'une seule page `/produits`, ce qui
- * donnait une seule URL indexable pour six sujets distincts — et un
- * déséquilibre avec la page « recherche conversationnelle », qui avait déjà
- * la sienne. Chaque usage a désormais sa page, avec son mot-clé, sa
- * démonstration et ses questions.
- *
- * `path` est absolu : la recherche conserve son URL historique et son
- * référencement acquis, les autres vivent sous `/produits/`.
- */
-
 export type UseCase = {
   slug: string
   path: string
-  /** Étape du parcours d'achat, affichée en surtitre. */
   step: string
-  /** Nom de la capacité côté produit. */
   capability: string
-  /** Titre court, pour les cartes et la navigation. */
   navLabel: string
-  /** H1 de la page. */
   title: string
   metaTitle: string
   metaDescription: string
   intro: string
   videoId: string
   videoTitle: string
-  /** Ce que l'usage change, côté marchand. */
   benefits: Array<{ title: string; copy: string }>
-  /** Le déroulé concret, tel qu'un visiteur le vit. */
   steps: Array<{ title: string; copy: string }>
   faq: Array<{ question: string; answer: string }>
-  /** Ancien fragment sur /produits, conservé pour les redirections. */
   legacyAnchor: string
 }
 
 export const USE_CASES: UseCase[] = [
-  /* ────────────────────────────── Recherche ───────────────────────────── */
   {
     slug: "recherche-conversationnelle",
-    // URL historique : elle porte le référencement déjà acquis sur ce mot-clé.
     path: "/moteur-recherche-conversationnel-ecommerce",
     step: "Recherche",
-    capability: "Parcel Recherche",
-    navLabel: "Recherche conversationnelle",
-    title: "Le moteur de recherche conversationnel pensé pour l’e-commerce",
-    metaTitle: "Moteur de recherche conversationnel e-commerce",
-    metaDescription:
-      "Une recherche qui comprend l’intention, pas seulement les mots-clés. Parcel qualifie le besoin, interroge votre catalogue et explique ses recommandations.",
-    intro:
-      "La recherche par mots-clés fonctionne quand le client connaît le nom du produit. Elle décroche dès qu’il décrit un usage. Parcel garde la recherche classique et prend le relais quand la demande la dépasse.",
+    capability: "Recherche hybride Parcel",
+    navLabel: "Recherche & aide au choix",
+    title: "Le moteur de recherche IA qui sait quand il faut conseiller",
+    metaTitle: "Moteur de recherche IA e-commerce conversationnel",
+    metaDescription: "Parcel combine recherche e-commerce déterministe gratuite et assistance IA pour comprendre les besoins complexes, qualifier et recommander.",
+    intro: "Une recherche précise obtient immédiatement ses résultats. Un besoin complexe déclenche un parcours de conseil capable de comprendre l’usage, poser les bonnes questions et recommander.",
     videoId: VIDEOS.match,
-    videoTitle: "Trouver le bon produit : recherche classique et recherche IA",
+    videoTitle: "Recherche déterministe et aide au choix IA dans Parcel",
     benefits: [
-      { title: "Comprendre le besoin réel", copy: "Le client formule sa demande avec ses mots. Parcel identifie l’intention, l’usage, le budget et les contraintes." },
-      { title: "Respecter vos règles business", copy: "Les recommandations tiennent compte du catalogue, du stock, de la marge, des priorités commerciales et de vos exclusions." },
-      { title: "Guider jusqu’à l’achat", copy: "Parcel explique ses choix et accompagne la décision au lieu de renvoyer une liste de résultats." },
+      { title: "Deux niveaux de réponse", copy: "Les requêtes précises restent directes ; les demandes par usage ouvrent un parcours guidé." },
+      { title: "Votre logique métier", copy: "Critères de choix, compatibilités, exclusions et priorités structurent les résultats." },
+      { title: "Une décision expliquée", copy: "Les recommandations rendent visibles les critères retenus et les limites importantes." },
     ],
     steps: [
-      { title: "La recherche classique d’abord", copy: "Mots-clés, complétion, tri, filtres : le geste habituel reste intact, avec les critères compris affichés en clair." },
-      { title: "La bascule quand c’est utile", copy: "Si la requête dépasse le mot-clé, une invite discrète propose l’assistant. Jamais une fenêtre qui s’ouvre d’elle-même." },
-      { title: "Les questions qui trient", copy: "Parcel demande seulement ce qui écarte réellement des options : pointure disponible, usage, budget." },
+      { title: "La demande est identifiée", copy: "Parcel distingue une recherche précise d’un besoin qui demande du conseil." },
+      { title: "Les critères utiles sont qualifiés", copy: "Usage, budget et contraintes sont précisés uniquement lorsque cela aide à trancher." },
+      { title: "Les résultats deviennent actionnables", copy: "Produits, explications, comparaison et ajout au panier s’enchaînent dans la même expérience." },
     ],
     faq: [
-      { question: "Qu’est-ce qu’un moteur de recherche conversationnel e-commerce ?", answer: "C’est un moteur qui comprend des demandes formulées en langage naturel. Il précise le besoin, conserve le contexte et recommande les produits les plus adaptés du catalogue réel." },
-      { question: "Quelle différence avec un chatbot e-commerce ?", answer: "Un chatbot répond à des questions prédéfinies. Parcel interroge le catalogue, raisonne sur les critères produit et applique les règles commerciales du marchand pour aider à choisir." },
-      { question: "Parcel remplace-t-il mon moteur de recherche actuel ?", answer: "Non, il le complète. La recherche par mots-clés reste le chemin le plus court pour un rachat ; l’assistant s’ajoute pour les demandes exprimées par usage." },
-      { question: "Avec quelles plateformes est-il compatible ?", answer: "Application sur le Shopify App Store, et API back-end CMS-agnostique pour Magento, WooCommerce, PrestaShop, Webflow et les architectures headless." },
+      { question: "Qu’est-ce qu’un moteur de recherche IA e-commerce ?", answer: "Il comprend les requêtes formulées en langage naturel et relie le besoin aux produits du catalogue, tout en conservant un chemin direct pour les recherches précises." },
+      { question: "Une recherche simple consomme-t-elle une session IA ?", answer: "Non. Une recherche déterministe précise peut afficher directement ses résultats sans consommer de session Parcel assistée." },
+      { question: "Avec quelles plateformes Parcel est-il compatible ?", answer: "Parcel dispose d’une application Shopify native, installable en environ 2 minutes, et d’une API back-end permettant des intégrations adaptées à d’autres architectures. Les autres connecteurs dédiés sont en préparation." },
     ],
     legacyAnchor: "parcel-recherche",
   },
-
-  /* ─────────────────────────────── Projet ─────────────────────────────── */
   {
     slug: "besoin-global",
     path: "/produits/besoin-global",
-    step: "Découverte",
+    step: "Découverte / projet",
     capability: "Parcel Projet",
     navLabel: "Besoin global",
-    title: "Transformer un projet en sélection de produits",
-    metaTitle: "Vendre un projet complet, pas un produit isolé",
-    metaDescription:
-      "Vos clients décrivent un projet sans connaître les références. Parcel qualifie le contexte, décompose le besoin par poste et construit une sélection cohérente.",
-    intro:
-      "« Je pars quinze jours sur le GR20 » n’est pas une requête produit : c’est un projet. Parcel le décompose en postes, distingue l’indispensable de l’optionnel, et construit le panier en une conversation au lieu de six recherches successives.",
+    title: "Transformer un besoin complet en panier cohérent",
+    metaTitle: "Assistant IA cross-sell & panier complet e-commerce",
+    metaDescription: "Parcel décompose un projet complexe et construit une sélection cohérente de produits à partir du catalogue et des règles du marchand.",
+    intro: "Quand un client prépare un trek, une chambre, une routine beauté ou un chantier, il cherche une solution complète. Parcel décompose son projet et construit une sélection adaptée.",
     videoId: VIDEOS.projet,
     videoTitle: "Construire un équipement complet pour le GR20",
     benefits: [
-      { title: "Un panier au lieu d’un article", copy: "Le client repart avec ce qu’il lui faut pour son projet, pas avec le seul produit qu’il savait nommer." },
-      { title: "Une décomposition explicite", copy: "Chaque poste est justifié. Le client comprend pourquoi tel élément est indispensable et tel autre optionnel." },
-      { title: "Un choix par catégorie", copy: "Parcel propose plusieurs options par poste avec un choix par défaut. Un kit imposé se refuse ; un kit qu’on ajuste s’achète." },
+      { title: "Faire émerger tous les besoins", copy: "Le projet est décomposé en postes compréhensibles avant de sélectionner les produits." },
+      { title: "Construire une sélection cohérente", copy: "Compatibilités, contraintes, budget et règles métier relient les choix entre catégories." },
+      { title: "Créer un panier ajustable", copy: "Le visiteur peut conserver, remplacer ou retirer chaque élément avant l’ajout au panier." },
     ],
     steps: [
-      { title: "Le projet est qualifié", copy: "Durée, conditions, niveau d’autonomie : Parcel demande ce qui change réellement la sélection." },
-      { title: "Les postes sont proposés", copy: "Portage, couchage, protection… Le client coche ce qu’il n’a pas déjà, indispensable et recommandé séparés." },
-      { title: "Le panier est construit", copy: "Une sélection par poste, avec les alternatives et le budget total, ajustable avant l’ajout au panier." },
+      { title: "Le projet est qualifié", copy: "Durée, contexte, contraintes et budget précisent le besoin global." },
+      { title: "Les postes utiles sont proposés", copy: "Parcel structure les catégories nécessaires et distingue leur rôle dans le projet." },
+      { title: "La sélection est assemblée", copy: "Les produits retenus forment un panier cohérent, explicable et modifiable." },
     ],
     faq: [
-      { question: "Sur quels catalogues cet usage a-t-il du sens ?", answer: "Sur ceux où un besoin se traduit par plusieurs produits complémentaires : outdoor, sport, bricolage, puériculture, équipement professionnel. Sur un catalogue d’achats unitaires, l’apport est faible." },
-      { question: "Comment Parcel sait-il ce qui compose un projet ?", answer: "À partir de vos données produit — types, attributs, compatibilités — et de vos règles métier. La décomposition n’est pas générique : elle vient de votre catalogue." },
-      { question: "Le client peut-il modifier la sélection ?", answer: "Oui, à chaque étape. Il choisit les postes, puis les produits dans chaque poste. Le budget se met à jour en conséquence." },
+      { question: "Sur quels catalogues cet usage a-t-il du sens ?", answer: "Sur les catalogues où un projet demande plusieurs produits complémentaires : outdoor, sport, maison, bricolage, beauté ou équipement professionnel. Son apport est plus limité pour un achat strictement unitaire." },
+      { question: "Comment Parcel décompose-t-il un projet ?", answer: "À partir des informations du catalogue, des compatibilités et des règles métier configurées avec le marchand." },
+      { question: "Le visiteur peut-il modifier la sélection ?", answer: "Oui. Chaque poste et chaque produit peuvent être ajustés avant l’ajout au panier." },
     ],
     legacyAnchor: "parcel-projet",
   },
-
-  /* ─────────────────────────── Questions produit ──────────────────────── */
   {
     slug: "questions-produit",
     path: "/produits/questions-produit",
     step: "Fiche produit",
     capability: "Parcel Expert",
     navLabel: "Questions produit",
-    title: "Répondre aux questions qui bloquent l’ajout au panier",
-    metaTitle: "Répondre aux questions produit sur la fiche",
-    metaDescription:
-      "Taille, compatibilité, entretien : les questions sans réponse font sortir le client de la page. Parcel répond depuis vos données produit, sans ticket support.",
-    intro:
-      "« Ça taille comment ? », « C’est vraiment étanche ? » : la description ne le dit pas, le client sort de la page pour chercher ailleurs, et souvent ne revient pas. Parcel répond sur place, à partir de la fiche et des retours clients.",
+    title: "Répondre au doute avant qu’il ne devienne un abandon",
+    metaTitle: "Assistant IA fiche produit e-commerce & FAQ produit",
+    metaDescription: "Taille, compatibilité, usage, composition ou entretien : Parcel répond sur la fiche produit à partir des données disponibles.",
+    intro: "Taille, compatibilité, usage, composition ou entretien : Parcel répond directement sur la fiche produit à partir des données disponibles, sans obliger le visiteur à quitter son parcours.",
     videoId: VIDEOS.expert,
-    videoTitle: "Un expert produit directement sur la fiche produit",
+    videoTitle: "Répondre aux questions directement sur la fiche produit",
     benefits: [
-      { title: "Pas de sortie de page", copy: "La réponse arrive là où la question se pose. Le client ne part pas la chercher sur un forum." },
-      { title: "Moins de tickets", copy: "Les questions récurrentes sont absorbées avant d’arriver au service client." },
-      { title: "Moins de retours", copy: "Une réponse honnête sur la taille évite la commande qui reviendra." },
+      { title: "Répondre dans le bon contexte", copy: "La question est traitée sur la fiche du produit concerné, au moment où elle apparaît." },
+      { title: "Rendre les limites visibles", copy: "Les réponses précisent les points de vigilance utiles à la décision." },
+      { title: "Signaler l’information manquante", copy: "Lorsque la donnée nécessaire n’est pas disponible, Parcel le signale clairement." },
     ],
     steps: [
-      { title: "La réponse vient de vos données", copy: "Fiche produit, attributs, avis clients, politiques de la boutique. Pas de généralité inventée." },
-      { title: "Ce pour quoi le produit convient", copy: "Parcel énonce les usages où le produit est bon, et ceux où il ne l’est pas." },
-      { title: "Les points de vigilance sont dits", copy: "« Chausse petit », « pointure 45 en rupture ». Taire un défaut se paie en retour." },
+      { title: "La question est reliée au produit", copy: "Le contexte de la fiche et les données disponibles structurent la réponse." },
+      { title: "Les informations utiles sont sélectionnées", copy: "Attributs, variantes et règles pertinentes sont mobilisés selon la demande." },
+      { title: "La suite reste actionnable", copy: "Le visiteur peut poursuivre, comparer ou demander un relais selon l’information obtenue." },
     ],
     faq: [
-      { question: "D’où viennent les réponses ?", answer: "De vos données : fiche produit, attributs, variantes, avis, politiques de la boutique. Parcel n’invente pas de caractéristique absente du catalogue." },
-      { question: "Que fait Parcel s’il ne sait pas ?", answer: "Il le dit et propose le relais vers un conseiller, plutôt que de produire une réponse plausible mais invérifiable." },
-      { question: "Cela remplace-t-il la description produit ?", answer: "Non. La description reste le socle. Parcel répond aux questions qu’elle ne couvre pas, et signale les manques récurrents." },
+      { question: "D’où viennent les réponses ?", answer: "Des données produit, variantes, attributs et politiques effectivement mises à disposition de Parcel dans l’intégration retenue." },
+      { question: "Que se passe-t-il lorsque l’information manque ?", answer: "Parcel le signale clairement et peut proposer le relais approprié, sans compléter la réponse avec une caractéristique non vérifiée." },
+      { question: "Cela remplace-t-il la description produit ?", answer: "La description reste le socle. Parcel rend ses informations accessibles dans le contexte d’une question précise et aide à identifier les sujets encore peu documentés." },
     ],
     legacyAnchor: "parcel-expert",
   },
-
-  /* ───────────────────────────── Comparaison ──────────────────────────── */
   {
     slug: "comparaison",
     path: "/produits/comparaison",
     step: "Comparaison",
     capability: "Parcel Comparaison",
     navLabel: "Comparaison",
-    title: "Comparer deux produits selon l’usage réel",
-    metaTitle: "Comparateur de produits pour e-commerce",
-    metaDescription:
-      "Un tableau de specs ne tranche pas. Parcel compare critère par critère et formule un verdict par usage — y compris quand la réponse est « aucun des deux ».",
-    intro:
-      "Deux modèles en tête, et le client bloque. Un tableau de caractéristiques aligne des chiffres sans dire lequel choisir. Parcel compare sur les critères qui comptent pour son usage, et tranche.",
+    title: "Comparer selon le besoin et les critères qui comptent réellement",
+    metaTitle: "Comparateur de produits IA pour e-commerce",
+    metaDescription: "Parcel compare les produits selon l’usage exprimé, explique les différences et peut conclure qu’aucun choix n’est adapté.",
+    intro: "Parcel sélectionne les critères qui comptent pour l’usage exprimé, explique les différences et peut conclure qu’aucun des produits comparés n’est réellement adapté.",
     videoId: VIDEOS.comparaison,
-    videoTitle: "Comparer deux produits selon son besoin",
+    videoTitle: "Comparer plusieurs produits selon le besoin exprimé",
     benefits: [
-      { title: "Un verdict, pas un tableau", copy: "Le client repart avec une décision, pas avec une ligne de plus à interpréter." },
-      { title: "Contextualisé par usage", copy: "Le meilleur modèle dépend de ce qu’on en fait. Parcel le dit usage par usage." },
-      { title: "Honnête sur les cas limites", copy: "Quand aucun des deux ne convient, Parcel le dit et propose le bon." },
+      { title: "Des critères contextualisés", copy: "Les lignes utiles dépendent de la catégorie et de l’usage exprimé par le visiteur." },
+      { title: "Un verdict par usage", copy: "Les arbitrages rendent visibles les situations dans lesquelles chaque produit convient le mieux." },
+      { title: "Une conclusion honnête", copy: "Parcel peut indiquer qu’aucun produit comparé ne répond correctement au besoin." },
     ],
     steps: [
-      { title: "La sélection se fait partout", copy: "Le client coche « Comparer » depuis les résultats ou la fiche. La comparaison est une action, pas une destination." },
-      { title: "Les critères sont ceux du client", copy: "Poids, tenue sous charge, adhérence : les lignes retenues sont celles qui décident, pas la totalité de la fiche technique." },
-      { title: "Le verdict est découpé", copy: "Un gagnant par usage, plutôt qu’un vainqueur unique qui ne vaudrait pour personne." },
+      { title: "Les produits sont sélectionnés", copy: "Le visiteur choisit deux à quatre références depuis les résultats ou les fiches." },
+      { title: "Les critères décisifs sont retenus", copy: "Les caractéristiques sont filtrées selon l’usage, les contraintes et les règles de la catégorie." },
+      { title: "Les différences sont expliquées", copy: "La synthèse fait ressortir les avantages, limites et alternatives pertinentes." },
     ],
     faq: [
-      { question: "Combien de produits peut-on comparer ?", answer: "De deux à quatre. Au-delà, le tableau devient illisible et la comparaison perd son intérêt." },
-      { question: "Les critères sont-ils les mêmes pour tous les produits ?", answer: "Non. Ils sont choisis selon la catégorie et l’usage exprimé : comparer deux chaussures et deux ordinateurs n’appelle pas les mêmes lignes." },
-      { question: "Parcel peut-il conclure qu’aucun ne convient ?", answer: "Oui, et c’est important. Un comparateur qui désigne toujours un gagnant perd la confiance du client dès la première déception." },
+      { question: "Combien de produits peut-on comparer ?", answer: "L’expérience présentée par Parcel compare de deux à quatre produits afin de conserver une lecture claire." },
+      { question: "Les critères sont-ils toujours identiques ?", answer: "Ils varient selon la catégorie et l’usage. Une comparaison de chaussures et une comparaison d’ordinateurs mobilisent des critères différents." },
+      { question: "Parcel peut-il conclure qu’aucun produit ne convient ?", answer: "Oui. La conclusion peut recommander une autre référence ou signaler une incompatibilité avec le besoin exprimé." },
     ],
     legacyAnchor: "parcel-comparaison",
   },
-
-  /* ────────────────────────────── Panier ──────────────────────────────── */
   {
     slug: "panier-complements",
     path: "/produits/panier-complements",
     step: "Panier",
     capability: "Continuité Parcel",
     navLabel: "Compléments au panier",
-    title: "Des compléments utiles, pas un cross-sell générique",
-    metaTitle: "Augmenter le panier moyen sans harceler le client",
-    metaDescription:
-      "« Les clients ont aussi acheté » propose la même chose à tout le monde. Parcel garde le contexte du besoin et ne propose que ce qui complète réellement l’achat.",
-    intro:
-      "Le cross-sell classique applique la même liste à tous les visiteurs. Parcel a suivi la conversation : il sait pourquoi ce produit a été choisi, et ne propose que ce qui manque vraiment au projet.",
+    title: "Compléter le panier à partir du besoin réel",
+    metaTitle: "Cross-sell IA e-commerce & recommandations panier",
+    metaDescription: "Parcel contextualise les recommandations complémentaires avec le besoin explicitement exprimé par le visiteur.",
+    intro: "Les recommandations e-commerce peuvent s’appuyer sur le comportement, la similarité produit ou des règles prédéfinies. Parcel exploite également le besoin explicitement exprimé pour contextualiser les compléments proposés.",
     videoId: VIDEOS.panier,
-    videoTitle: "Compléter intelligemment un achat",
+    videoTitle: "Compléter un panier à partir du contexte d’achat",
     benefits: [
-      { title: "Le contexte est conservé", copy: "Le besoin exprimé plus tôt sert encore au moment du panier. Rien à re-qualifier." },
-      { title: "Une proposition, pas une relance", copy: "Les compléments arrivent au moment de l’ajout, discrètement, et jamais en boucle." },
-      { title: "Un panier moyen qui change d’échelle", copy: "Compléter un projet fait plus d’effet que suggérer un accessoire au hasard." },
+      { title: "Conserver le contexte", copy: "Le besoin exprimé plus tôt continue d’informer les recommandations au panier." },
+      { title: "Justifier chaque complément", copy: "La proposition explique le rôle du produit complémentaire dans l’usage du client." },
+      { title: "Faire émerger un panier plus complet", copy: "Les produits nécessaires au projet deviennent visibles au bon moment du parcours." },
     ],
     steps: [
-      { title: "Déclenché par l’ajout", copy: "Les compléments apparaissent quand un produit entre au panier, pas en fenêtre surgissante à l’arrivée." },
-      { title: "Justifiés un par un", copy: "« Les cols sont exposés, même en juin » vaut mieux que « souvent acheté ensemble »." },
-      { title: "Ouvre sur le projet complet", copy: "Si la demande évoque un usage plus large, Parcel propose de compléter l’équipement entier." },
+      { title: "Le contexte est repris", copy: "Usage, contraintes et produits déjà choisis servent de point de départ." },
+      { title: "Les compléments sont filtrés", copy: "Compatibilités, disponibilité et règles du marchand déterminent les propositions pertinentes." },
+      { title: "Le visiteur garde le choix", copy: "Chaque ajout reste explicable et peut être accepté ou écarté individuellement." },
     ],
     faq: [
-      { question: "En quoi est-ce différent d’un moteur de recommandation ?", answer: "Un moteur classique s’appuie sur des corrélations d’achat. Parcel s’appuie sur le besoin que le client vient d’exprimer, ce qui donne des compléments explicables." },
-      { question: "Le client peut-il être sollicité trop souvent ?", answer: "Les compléments ne sont proposés qu’à l’ajout au panier, et seulement quand la demande évoque un usage plus large qu’un achat isolé." },
-      { question: "Comment mesurer l’effet ?", answer: "Compléments acceptés, valeur du panier assisté comparée au panier moyen, sur un périmètre comparable. Voir notre guide sur la mesure de la conversion assistée." },
+      { question: "Quels signaux alimentent les recommandations ?", answer: "De nombreux moteurs exploitent des signaux comportementaux, des similarités et des règles. Parcel ajoute à ces signaux le contexte explicite de la demande lorsqu’il est disponible." },
+      { question: "À quel moment les compléments apparaissent-ils ?", answer: "Ils peuvent être présentés au moment de l’ajout au panier, dans le contexte du produit et du besoin déjà exprimé." },
+      { question: "Comment mesurer leur apport ?", answer: "Les compléments acceptés et la valeur du panier assisté peuvent être comparés sur un périmètre et une période cohérents, sans appliquer de gain théorique universel." },
     ],
     legacyAnchor: "parcel-panier",
   },
-
-  /* ───────────────────────────── Après-vente ──────────────────────────── */
   {
     slug: "service-apres-vente",
     path: "/produits/service-apres-vente",
     step: "Après-vente",
     capability: "Parcel SAV",
     navLabel: "Service après-vente",
-    title: "Répondre aux demandes après-vente depuis vos vraies règles",
-    metaTitle: "Automatiser le service après-vente e-commerce",
-    metaDescription:
-      "Retours, livraison, échanges : Parcel répond depuis les politiques réelles de la boutique et la commande du client, et passe la main dès que c’est nécessaire.",
-    intro:
-      "Les demandes après-vente sont répétitives, arrivent en volume et à toute heure. Parcel répond à partir de la commande réelle et des politiques de la boutique — et sait s’arrêter quand la demande dépasse ce cadre.",
+    title: "Automatiser les questions simples et transmettre les situations qui demandent une intervention humaine",
+    metaTitle: "Assistant SAV IA e-commerce : réponses automatisées",
+    metaDescription: "Parcel répond aux demandes après-vente à partir des politiques et données disponibles, puis propose un relais lorsque la situation le demande.",
+    intro: "Parcel répond aux demandes après-vente à partir des politiques et données disponibles de la boutique. Lorsqu’une situation demande une décision humaine, il propose le relais approprié.",
     videoId: VIDEOS.sav,
-    videoTitle: "Répondre aux questions SAV directement sur le site",
+    videoTitle: "Répondre aux questions après-vente documentées",
     benefits: [
-      { title: "Adossé à vos politiques", copy: "Délais, conditions, prise en charge : la réponse vient de vos règles, pas d’un texte générique." },
-      { title: "Ancré sur la commande", copy: "Parcel voit la commande concernée, sa date et son état. La réponse est vérifiable." },
-      { title: "Le relais reste ouvert", copy: "Dès qu’une intervention humaine s’impose, le passage de main est proposé sans faire répéter le client." },
+      { title: "Appliquer les politiques disponibles", copy: "Les réponses sont structurées à partir des règles effectivement fournies par la boutique." },
+      { title: "Rester dans le périmètre connecté", copy: "Parcel utilise uniquement les données rendues accessibles dans l’intégration mise en place." },
+      { title: "Proposer un relais", copy: "Une situation qui demande une décision humaine peut être transmise selon le processus défini avec le marchand." },
     ],
     steps: [
-      { title: "La demande est située", copy: "Commande, article, date de livraison : le contexte est repris sans redemander un numéro." },
-      { title: "La règle est appliquée", copy: "« Neuf jours, l’échange est ouvert jusqu’à trente » : une réponse datée, pas une paraphrase de CGV." },
-      { title: "L’action est engagée", copy: "Échange lancé, étiquette envoyée — ou transmission à un conseiller quand le cas sort du cadre." },
+      { title: "La demande est qualifiée", copy: "Parcel identifie la politique ou l’information nécessaire pour répondre." },
+      { title: "Le périmètre disponible est vérifié", copy: "La réponse s’appuie sur les règles et données effectivement connectées." },
+      { title: "La suite appropriée est proposée", copy: "Une réponse documentée est fournie ou la situation est orientée vers l’équipe compétente." },
     ],
     faq: [
-      { question: "Parcel remplace-t-il mon service client ?", answer: "Non. Il absorbe les demandes répétitives et documentées, et libère du temps humain pour les cas à forte valeur. Le relais est toujours disponible." },
-      { question: "Comment éviter une réponse fausse sur un retour ?", answer: "Les réponses sont adossées aux politiques que vous fournissez et à la commande réelle. Hors de ce cadre, Parcel oriente vers un conseiller plutôt que d’extrapoler." },
-      { question: "Quelles données sont nécessaires ?", answer: "Les politiques de la boutique et un accès en lecture aux commandes concernées. Le périmètre est défini avec vous avant le déploiement." },
+      { question: "Parcel remplace-t-il le service client ?", answer: "Parcel traite les questions simples qui peuvent être répondues à partir des politiques et données disponibles. Les situations qui demandent une décision restent orientées vers une équipe humaine." },
+      { question: "Parcel accède-t-il aux commandes ?", answer: "L’accès dépend de l’intégration et des autorisations explicitement mises en place. Cette page ne suppose pas qu’une donnée de commande soit disponible par défaut." },
+      { question: "Comment éviter une réponse non vérifiée ?", answer: "Le périmètre des données et politiques est défini avant l’activation. Lorsqu’une information nécessaire manque, Parcel peut signaler cette limite et proposer un relais." },
     ],
     legacyAnchor: "parcel-sav",
   },
@@ -244,5 +199,4 @@ export function getUseCase(slug: string) {
   return USE_CASES.find((useCase) => useCase.slug === slug)
 }
 
-/** Les usages qui vivent sous /produits/ — la recherche garde son URL propre. */
-export const NESTED_USE_CASES = USE_CASES.filter((u) => u.path.startsWith("/produits/"))
+export const NESTED_USE_CASES = USE_CASES.filter((useCase) => useCase.path.startsWith("/produits/"))

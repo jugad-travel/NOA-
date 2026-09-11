@@ -2,11 +2,12 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, BarChart3, CheckCircle2, Search, ShoppingBag, Sparkles } from "lucide-react"
+import { ArrowRight, BarChart3, CheckCircle2, Clock3, Search, ShoppingBag } from "lucide-react"
 import { Section } from "@/components/layout/Section"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button-variants"
 import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/shared/ScrollReveal"
+import { SHOPIFY_INSTALL_TIME } from "@/lib/marketing"
 
 const teamMembers = [
   { name: "Balthazar Barbry", role: "Co-fondateur", details: "ESSEC", image: "/images/Pdp Linkedin Baltha.png" },
@@ -33,10 +34,10 @@ export function AProposContent() {
               <div className="mx-auto max-w-4xl text-center">
                 <Badge className="mb-6 bg-white/90 text-gray-900">À propos de Parcel</Badge>
                 <h1 className="mb-6 text-4xl font-normal text-gray-900 md:text-6xl">
-                  Rendre le conseil produit aussi naturel en ligne qu’en magasin
+                  Construire l’IA de vente avec ceux qui vendent réellement
                 </h1>
                 <p className="mx-auto max-w-3xl text-lg text-gray-700 md:text-xl">
-                  Parcel transforme chaque intention d’achat en décision, de la recherche au panier.
+                  Parcel est une startup française née d’un constat simple : lorsqu’un client hésite en ligne, la qualité du conseil dépend autant de la logique métier du marchand que de la technologie utilisée.
                 </p>
               </div>
             </ScrollReveal>
@@ -48,11 +49,12 @@ export function AProposContent() {
         <div className="mx-auto max-w-6xl">
           <ScrollReveal>
             <div className="mx-auto mb-12 max-w-4xl text-center">
-              <Sparkles className="mx-auto mb-6 size-8 text-gray-900" />
-              <h2 className="mb-6 text-3xl font-normal text-gray-900 md:text-5xl">L’angle mort du e-commerce n’est plus l’accès au produit. C’est l’aide à la décision.</h2>
-              <p className="text-lg leading-relaxed text-gray-600">
-                Les catalogues deviennent plus vastes et plus techniques, alors que le parcours reste souvent limité à une barre de recherche, des filtres et des fiches produit. Parcel apporte la couche de compréhension et de conseil qui manque entre la demande et l’achat.
-              </p>
+              <Search className="mx-auto mb-6 size-8 text-gray-900" />
+              <h2 className="mb-6 text-3xl font-normal text-gray-900 md:text-5xl">Le raisonnement du vendeur comme point de départ</h2>
+              <div className="space-y-4 text-lg leading-relaxed text-gray-600">
+                <p>Nous échangeons avec des marchands, responsables e-commerce et experts produit pour comprendre ce qui fait réellement une bonne recommandation : quelles questions poser, quels critères arbitrer, quelles informations rassurent et quelles règles ne doivent pas être contournées.</p>
+                <p>Ces connaissances métier structurent la façon dont Parcel conseille chaque visiteur.</p>
+              </div>
             </div>
           </ScrollReveal>
 
@@ -73,13 +75,13 @@ export function AProposContent() {
         </div>
       </Section>
 
-      <Section variant="dark" padding="lg" className="py-16 md:py-24">
+      <Section variant="white" padding="lg" className="py-16 md:py-24">
         <div className="mx-auto max-w-5xl">
           <ScrollReveal>
-            <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+            <div className="grid gap-8 rounded-[2rem] bg-gradient-to-br from-[#dff9fb] via-[#d9e0ff] to-[#ffd2bf] p-7 md:p-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
               <div>
-                <Badge className="mb-5 bg-white/10 text-white">Notre approche</Badge>
-                <h2 className="text-3xl font-normal text-white md:text-5xl" style={{ color: "#ffffff" }}>Une plateforme continue, connectée aux données du commerce</h2>
+                <Badge className="mb-5 bg-white/75 text-blue-900">Notre approche</Badge>
+                <h2 className="text-3xl font-normal text-gray-950 md:text-5xl">Une même logique de vente, de la recherche au panier</h2>
               </div>
               <div className="space-y-4">
                 {[
@@ -87,9 +89,9 @@ export function AProposContent() {
                   "Des réponses ancrées dans le catalogue, la disponibilité et les politiques réelles",
                   "Des insights sur les intentions, les freins et les parcours assistés",
                 ].map((item) => (
-                  <div key={item} className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 text-white/75">
-                    <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-white" />
-                    <span className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.76)" }}>{item}</span>
+                  <div key={item} className="flex items-start gap-3 rounded-2xl border border-white/80 bg-white/80 p-4 text-gray-700">
+                    <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-blue-700" />
+                    <span className="text-sm leading-relaxed">{item}</span>
                   </div>
                 ))}
               </div>
@@ -102,9 +104,9 @@ export function AProposContent() {
         <div className="mx-auto max-w-6xl">
           <ScrollReveal>
             <div className="mb-14 text-center">
-              <Badge className="mb-4">Équipe</Badge>
-              <h2 className="mb-4 text-3xl font-normal text-gray-900 md:text-5xl">Des expertises produit, IA, retail et go-to-market</h2>
-              <p className="mx-auto max-w-2xl text-gray-600">Une équipe réunie autour d’un objectif : rendre l’assistance d’achat utile, fiable et déployable à l’échelle.</p>
+              <Badge className="mb-4">Une équipe française accessible</Badge>
+              <h2 className="mb-4 text-3xl font-normal text-gray-900 md:text-5xl">Produit, IA, retail et go-to-market réunis autour du marchand</h2>
+              <p className="mx-auto max-w-2xl text-gray-600">Les responsabilités et expertises opérationnelles restent au premier plan ; les formations complètent les profils à titre secondaire.</p>
             </div>
           </ScrollReveal>
 
@@ -132,13 +134,13 @@ export function AProposContent() {
           <ScrollReveal>
             <div className="grid gap-7 rounded-3xl border border-gray-200 bg-white p-7 md:grid-cols-[0.8fr_1.2fr] md:p-10">
               <div>
-                <p className="mb-3 text-sm font-semibold uppercase tracking-[0.15em] text-gray-400">Contrôle marchand</p>
-                <h2 className="text-3xl font-normal text-gray-900">Vos équipes définissent le cadre</h2>
+                <p className="mb-3 text-sm font-semibold uppercase tracking-[0.15em] text-gray-400">De l’installation aux premières optimisations</p>
+                <h2 className="text-3xl font-normal text-gray-900">Connecté rapidement, configuré avec votre équipe</h2>
               </div>
               <div>
-                <p className="mb-5 text-gray-600">Le contrôle n’est pas la promesse principale de Parcel : c’est la condition pour que le conseil reste fiable et cohérent avec votre commerce.</p>
+                <p className="mb-5 text-gray-600">Sur Shopify, Parcel s’installe en {SHOPIFY_INSTALL_TIME}. Notre équipe accompagne ensuite chaque marchand dans la configuration de sa logique de vente.</p>
                 <div className="flex flex-wrap gap-2">
-                  {["Catalogue", "Stock", "Compatibilités", "Priorités", "Politiques", "Mesure"].map((item) => (
+                  {["Installation", "Catalogue", "Critères", "Compatibilités", "Priorités", "Optimisation"].map((item) => (
                     <span key={item} className="rounded-full border border-gray-200 bg-gray-50 px-3 py-2 text-xs font-medium text-gray-700">{item}</span>
                   ))}
                 </div>
@@ -151,12 +153,11 @@ export function AProposContent() {
       <Section variant="white" padding="lg">
         <div className="mx-auto max-w-3xl text-center">
           <ScrollReveal>
-            <h2 className="mb-7 text-3xl font-normal text-gray-900 md:text-5xl">Construire le prochain parcours d’achat avec Parcel</h2>
-            <Link href="/demo">
-              <Button variant="primary" size="xl">
-                Rencontrer l’équipe
-                <ArrowRight className="size-5" />
-              </Button>
+            <Clock3 className="mx-auto mb-5 size-8 text-gray-900" />
+            <h2 className="mb-7 text-3xl font-normal text-gray-900 md:text-5xl">Échangez directement avec l’équipe qui configure Parcel</h2>
+            <Link href="/demo" className={buttonVariants({ variant: "primary", size: "xl" })}>
+              Rencontrer l’équipe
+              <ArrowRight className="size-5" />
             </Link>
           </ScrollReveal>
         </div>

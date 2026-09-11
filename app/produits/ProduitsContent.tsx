@@ -16,7 +16,7 @@ import {
 import type { LucideIcon } from "lucide-react"
 import { Section } from "@/components/layout/Section"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button-variants"
 import { ScrollReveal } from "@/components/shared/ScrollReveal"
 import { SHOPIFY_APP_STORE_URL } from "@/lib/videos"
 import { USE_CASES } from "@/lib/use-cases"
@@ -42,10 +42,10 @@ export function ProduitsContent() {
               <div className="mx-auto max-w-4xl text-center">
                 <Badge className="mb-6 bg-white/90 text-gray-900">Plateforme Parcel</Badge>
                 <h1 className="mb-6 text-4xl font-normal text-gray-900 md:text-6xl">
-                  Une seule intelligence, présente de la recherche au panier
+                  Une IA de vente présente à chaque moment de décision
                 </h1>
                 <p className="mx-auto max-w-3xl text-lg text-gray-700 md:text-xl">
-                  Les capacités Parcel s’activent aux moments utiles du parcours tout en conservant le même contexte client, le même catalogue et les mêmes données de mesure.
+                  Recherche, aide au choix, fiche produit, comparaison, panier et SAV : Parcel conserve le même contexte client et applique les mêmes règles métier sur tout le parcours.
                 </p>
               </div>
             </ScrollReveal>
@@ -60,13 +60,13 @@ export function ProduitsContent() {
         <div className="mx-auto max-w-6xl">
           <ScrollReveal>
             <div className="mb-10 text-center">
-              <Badge className="mb-4">Fonctionnement continu</Badge>
+              <Badge className="mb-4">Six moments. Une même logique de vente.</Badge>
               <h2 className="text-3xl font-normal text-gray-900 md:text-5xl">
-                Des usages connectés, pas sept produits isolés
+                Le contexte client se conserve à chaque étape du parcours.
               </h2>
               <p className="mx-auto mt-5 max-w-2xl text-gray-500">
-                Une seule intelligence, présente à chaque étape du parcours. Chaque usage
-                a sa page, sa démonstration et ses questions.
+                Chaque usage répond à un problème client précis, avec le même catalogue,
+                les mêmes règles métier et la même compréhension du besoin.
               </p>
             </div>
           </ScrollReveal>
@@ -83,7 +83,7 @@ export function ProduitsContent() {
                     className="group flex h-full flex-col scroll-mt-28 rounded-3xl border border-gray-200 bg-white p-6 transition hover:-translate-y-1 hover:shadow-lg"
                   >
                     <div className="mb-6 flex items-center justify-between">
-                      <div className="flex size-11 items-center justify-center rounded-2xl bg-gray-900 text-white">
+                      <div className="flex size-11 items-center justify-center rounded-2xl bg-blue-100 text-blue-800">
                         <Icon className="size-5" />
                       </div>
                       <span className="text-xs font-semibold text-gray-300">
@@ -108,30 +108,30 @@ export function ProduitsContent() {
         </div>
       </Section>
 
-      <Section id="analytics-insights" variant="dark" padding="lg" className="scroll-mt-24 py-16 md:py-24">
+      <Section id="analytics-insights" variant="white" padding="lg" className="scroll-mt-24 py-16 md:py-24">
         <div className="mx-auto max-w-6xl">
           <ScrollReveal>
-            <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+            <div className="grid gap-10 rounded-[2rem] bg-gradient-to-br from-[#dff9fb] via-[#d9e0ff] to-[#ffd2bf] p-7 md:p-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
               <div>
-                <Badge className="mb-5 bg-white/10 text-white">Analytics & Insights</Badge>
-                <BarChart3 className="mb-6 size-9 text-white" />
-                <h2 className="mb-5 text-3xl font-normal text-white md:text-5xl" style={{ color: "#ffffff" }}>
-                  Comprendre ce que vos clients cherchent vraiment
+                <Badge className="mb-5 bg-white/75 text-blue-900">Analytics & Insights</Badge>
+                <BarChart3 className="mb-6 size-9 text-blue-800" />
+                <h2 className="mb-5 text-3xl font-normal text-gray-950 md:text-5xl">
+                  Comprendre ce que vos visiteurs essaient réellement d’acheter
                 </h2>
-                <p className="text-lg text-white/70" style={{ color: "rgba(255,255,255,0.72)" }}>
-                  Les conversations deviennent une source d’information exploitable pour le produit, le merchandising et la conversion.
+                <p className="text-lg text-gray-700">
+                  Les interactions font émerger les intentions, critères de décision, freins et demandes auxquelles le catalogue ne répond pas encore.
                 </p>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 {[
                   ["Intentions", "Besoins, usages et contraintes exprimés en langage naturel"],
+                  ["Critères", "Éléments qui déterminent réellement le choix"],
                   ["Freins", "Questions récurrentes et informations manquantes"],
-                  ["Catalogue", "Produits demandés, recommandés ou absents"],
-                  ["Parcours assistés", "Étapes sollicitées et indicateurs à comparer"],
+                  ["Demande non couverte", "Produits ou usages recherchés mais absents du catalogue"],
                 ].map(([title, copy]) => (
-                  <div key={title} className="rounded-2xl border border-white/10 bg-white/5 p-5">
-                    <h3 className="mb-2 text-lg font-medium text-white" style={{ color: "#ffffff" }}>{title}</h3>
-                    <p className="text-sm text-white/65" style={{ color: "rgba(255,255,255,0.65)" }}>{copy}</p>
+                  <div key={title} className="rounded-2xl border border-white/80 bg-white/80 p-5">
+                    <h3 className="mb-2 text-lg font-medium text-gray-950">{title}</h3>
+                    <p className="text-sm text-gray-600">{copy}</p>
                   </div>
                 ))}
               </div>
@@ -167,14 +167,12 @@ export function ProduitsContent() {
             <Search className="mx-auto mb-5 size-8 text-gray-900" />
             <h2 className="mb-7 text-3xl font-normal text-gray-900 md:text-5xl">Voir Parcel sur votre propre catalogue</h2>
             <div className="flex flex-col justify-center gap-3 sm:flex-row">
-              <Link href="/demo">
-                <Button variant="primary" size="xl">
-                  Réserver une démo
-                  <ArrowRight className="size-5" />
-                </Button>
+              <Link href="/demo" className={buttonVariants({ variant: "primary", size: "xl" })}>
+                Réserver une démo
+                <ArrowRight className="size-5" />
               </Link>
-              <a href={SHOPIFY_APP_STORE_URL} target="_blank" rel="noopener noreferrer">
-                <Button variant="outline" size="xl">Voir l’app Shopify</Button>
+              <a href={SHOPIFY_APP_STORE_URL} target="_blank" rel="noopener noreferrer" className={buttonVariants({ variant: "outline", size: "xl" })}>
+                Voir l’app Shopify
               </a>
             </div>
           </ScrollReveal>

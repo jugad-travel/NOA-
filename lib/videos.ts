@@ -23,7 +23,6 @@ export const VIDEOS = {
 
 export type VideoKey = keyof typeof VIDEOS
 
-// Fiche officielle sur le Shopify App Store.
-export const SHOPIFY_APP_STORE_URL = "https://apps.shopify.com/parcel"
-
-export const DEMO_CONTACT_URL = "/demo"
+// Compatibilité avec les composants historiques : les URL marketing vivent
+// dans une source de vérité unique.
+export { DEMO_URL as DEMO_CONTACT_URL, SHOPIFY_APP_STORE_URL } from "@/lib/marketing"

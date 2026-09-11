@@ -1,240 +1,157 @@
 "use client"
 
 import * as React from "react"
-import Link from "next/link"
 import Image from "next/image"
+import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { motion, AnimatePresence } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import { ChevronDown, Menu, X } from "lucide-react"
+import { buttonVariants } from "@/components/ui/button-variants"
+import { MERCHANT_APP_URL, primaryNavigation } from "@/lib/marketing"
 import { cn } from "@/lib/utils"
-
-const navigation = [
-  {
-    name: "Produits",
-    href: "/produits",
-    children: [
-      { name: "Tous les usages", href: "/produits" },
-      { name: "Recherche conversationnelle", href: "/moteur-recherche-conversationnel-ecommerce" },
-      { name: "Besoin global", href: "/produits/besoin-global" },
-      { name: "Questions produit", href: "/produits/questions-produit" },
-      { name: "Comparaison", href: "/produits/comparaison" },
-      { name: "Compléments au panier", href: "/produits/panier-complements" },
-      { name: "Service après-vente", href: "/produits/service-apres-vente" },
-      { name: "Analytics & Insights", href: "/produits#analytics-insights" },
-    ],
-  },
-  { name: "Intégrations & Tech", href: "/integrations-tech" },
-  { name: "Ressources", href: "/ressources" },
-  { name: "À propos", href: "/a-propos" },
-  { name: "Espace Marchand", href: "https://app.parcel-ia.com", external: true },
-]
 
 export function Header() {
   const pathname = usePathname()
   const [isScrolled, setIsScrolled] = React.useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
   const [openDropdown, setOpenDropdown] = React.useState<string | null>(null)
-  
+
   React.useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
-    }
-    window.addEventListener("scroll", handleScroll)
+    const handleScroll = () => setIsScrolled(window.scrollY > 20)
+    handleScroll()
+    window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
-  
+
+  React.useEffect(() => setIsMobileMenuOpen(false), [pathname])
+
   const isActive = (href: string) => {
-    if (href.startsWith("http")) return false
     if (href === "/") return pathname === "/"
     return pathname.startsWith(href)
   }
-  
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50">
-      <div 
-        className={cn(
-          "transition-all duration-500 ease-out",
-          isScrolled ? "pt-3 px-4" : "pt-0 px-0"
-        )}
-      >
-        <nav 
+    <header className="fixed inset-x-0 top-0 z-50">
+      <div className={cn("transition-all duration-500 ease-out", isScrolled ? "px-4 pt-3" : "px-0 pt-0")}>
+        <nav
+          aria-label="Navigation principale"
           className={cn(
-            "transition-all duration-500 ease-out mx-auto",
-            isScrolled 
-              ? "max-w-fit bg-white/95 backdrop-blur-xl shadow-lg border border-gray-200 rounded-full py-2 px-3"
-              : "container bg-transparent py-4"
+            "mx-auto transition-all duration-500 ease-out",
+            isScrolled
+              ? "max-w-fit rounded-full border border-gray-200 bg-white/95 px-3 py-2 shadow-lg backdrop-blur-xl"
+              : "container bg-transparent py-4",
           )}
         >
-          <div className={cn(
-            "flex items-center transition-all duration-500 ease-out",
-            isScrolled 
-              ? "justify-center gap-1" 
-              : "justify-between"
-          )}>
-            {/* Logo - Left side (replaces Home button) */}
-            <Link 
-              href="/" 
+          <div className={cn("flex items-center transition-all duration-500 ease-out", isScrolled ? "justify-center gap-0.5" : "justify-between")}>
+            <Link
+              href="/"
+              aria-label="Parcel — Accueil"
               className={cn(
                 "flex items-center justify-center transition-all duration-500",
-                isScrolled 
-                  ? "rounded-full bg-white shadow-sm hover:bg-gray-50 h-9 px-2" 
-                  : "rounded-none bg-transparent shadow-none hover:opacity-80 h-10",
-                isActive("/") && isScrolled && "bg-gray-100 hover:bg-gray-200"
+                isScrolled ? "h-9 rounded-full bg-white px-2 shadow-sm hover:bg-gray-50" : "h-10 bg-transparent hover:opacity-80",
+                isActive("/") && isScrolled && "bg-gray-100 hover:bg-gray-200",
               )}
             >
-              <Image
-                src="/images/logo-parcel.png"
-                alt="PARCEL Logo"
-                width={100}
-                height={48}
-                className="object-contain translate-y-0.5"
-                priority
-              />
+              <Image src="/images/logo-parcel.png" alt="Parcel" width={100} height={48} className="translate-y-0.5 object-contain" priority />
             </Link>
-            
-            {/* Desktop Navigation */}
-            <div className="hidden xl:flex items-center gap-1">
-              {navigation.map((item) => (
+
+            <div className="hidden items-center gap-0.5 xl:flex">
+              {primaryNavigation.map((item) => (
                 <div
                   key={item.name}
                   className="relative"
-                  onMouseEnter={() => item.children && setOpenDropdown(item.name)}
+                  onMouseEnter={() => "children" in item && setOpenDropdown(item.name)}
                   onMouseLeave={() => setOpenDropdown(null)}
                 >
                   <Link
                     href={item.href}
                     className={cn(
-                      "flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-full transition-colors",
-                      isActive(item.href)
-                        ? "text-gray-900 bg-gray-100"
-                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                      "flex items-center gap-1 rounded-full px-2.5 py-2 text-[13px] font-medium transition-colors 2xl:px-3.5 2xl:text-sm",
+                      isActive(item.href) ? "bg-gray-100 text-gray-900" : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
                     )}
                   >
                     {item.name}
-                    {item.children && (
-                      <ChevronDown className={cn(
-                        "w-4 h-4 transition-transform",
-                        openDropdown === item.name && "rotate-180"
-                      )} />
-                    )}
+                    {"children" in item ? <ChevronDown className={cn("size-3.5 transition-transform", openDropdown === item.name && "rotate-180")} /> : null}
                   </Link>
-                  
-                  {/* Dropdown */}
+
                   <AnimatePresence>
-                    {item.children && openDropdown === item.name && (
+                    {"children" in item && openDropdown === item.name ? (
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
                         transition={{ duration: 0.2 }}
-                        className="absolute top-full left-0 mt-2 w-56 rounded-2xl bg-white border border-gray-100 shadow-lg overflow-hidden"
+                        className="absolute left-0 top-full w-72 pt-2"
                       >
-                        <div className="p-2">
+                        <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white p-2 shadow-lg">
                           {item.children.map((child) => (
-                            <Link
-                              key={child.name}
-                              href={child.href}
-                              className="block px-4 py-3 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-xl transition-colors"
-                            >
+                            <Link key={child.href} href={child.href} className="block rounded-xl px-4 py-3 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900">
                               {child.name}
                             </Link>
                           ))}
                         </div>
                       </motion.div>
-                    )}
+                    ) : null}
                   </AnimatePresence>
                 </div>
               ))}
-              
-              {/* CTA Button - always visible, just moves position */}
-              <Link href="/demo">
-                <button 
-                  className={cn(
-                    "font-semibold rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-all duration-500",
-                    isScrolled ? "h-9 px-4 text-sm" : "h-11 px-6 text-sm ml-2"
-                  )}
-                >
-                  Réserver une démo
-                </button>
+
+              <a href={MERCHANT_APP_URL} target="_blank" rel="noopener noreferrer" className="rounded-full px-2.5 py-2 text-[13px] font-semibold text-gray-700 hover:bg-gray-50 2xl:px-3.5 2xl:text-sm">
+                Espace Marchand
+              </a>
+              <Link href="/demo" className={buttonVariants({ variant: "primary", size: isScrolled ? "sm" : "md", className: isScrolled ? "ml-1" : "ml-2" })}>
+                Réserver une démo
               </Link>
             </div>
-            
-            {/* Mobile Menu Button */}
+
             <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="xl:hidden p-2 text-gray-700 hover:text-gray-900 transition-colors"
+              type="button"
+              onClick={() => setIsMobileMenuOpen((open) => !open)}
+              className="p-2 text-gray-700 transition-colors hover:text-gray-900 xl:hidden"
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-navigation"
               aria-label={isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
             >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isMobileMenuOpen ? <X className="size-6" /> : <Menu className="size-6" />}
             </button>
           </div>
         </nav>
       </div>
-      
-      {/* Mobile Menu */}
+
       <AnimatePresence>
-        {isMobileMenuOpen && (
+        {isMobileMenuOpen ? (
           <motion.div
+            id="mobile-navigation"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="xl:hidden bg-white border-t border-gray-100"
+            className="max-h-[calc(100vh-4.5rem)] overflow-y-auto border-t border-gray-100 bg-white xl:hidden"
           >
-            <div className="container py-6 space-y-4">
-              {/* Mobile Logo */}
-              <Link 
-                href="/" 
-                className="flex items-center mb-4"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <Image
-                  src="/images/logo-parcel.png"
-                  alt="PARCEL Logo"
-                  width={120}
-                  height={48}
-                  className="object-contain"
-                />
-              </Link>
-              
-              {navigation.map((item) => (
+            <div className="container space-y-2 py-5">
+              {primaryNavigation.map((item) => (
                 <div key={item.name}>
-                  <Link
-                    href={item.href}
-                    onClick={() => !item.children && setIsMobileMenuOpen(false)}
-                    className={cn(
-                      "block py-3 text-lg font-medium transition-colors",
-                      isActive(item.href) ? "text-gray-900" : "text-gray-600"
-                    )}
-                  >
+                  <Link href={item.href} className={cn("block py-2.5 text-base font-medium", isActive(item.href) ? "text-gray-900" : "text-gray-600")}>
                     {item.name}
                   </Link>
-                  {item.children && (
-                    <div className="pl-4 space-y-2 mt-2">
+                  {"children" in item ? (
+                    <div className="mb-2 ml-3 border-l border-gray-200 pl-4">
                       {item.children.map((child) => (
-                        <Link
-                          key={child.name}
-                          href={child.href}
-                          onClick={() => setIsMobileMenuOpen(false)}
-                          className="block py-2 text-sm text-gray-500 hover:text-gray-900 transition-colors"
-                        >
+                        <Link key={child.href} href={child.href} className="block py-2 text-sm text-gray-500 hover:text-gray-900">
                           {child.name}
                         </Link>
                       ))}
                     </div>
-                  )}
+                  ) : null}
                 </div>
               ))}
-              <div className="pt-4">
-                <Link href="/demo" onClick={() => setIsMobileMenuOpen(false)}>
-                  <button className="w-full h-12 px-8 text-sm font-semibold rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-all">
-                    Réserver une démo
-                  </button>
-                </Link>
+              <div className="grid gap-3 border-t border-gray-100 pt-4 sm:grid-cols-2">
+                <a href={MERCHANT_APP_URL} target="_blank" rel="noopener noreferrer" className={buttonVariants({ variant: "outline", size: "lg" })}>Espace Marchand</a>
+                <Link href="/demo" className={buttonVariants({ variant: "primary", size: "lg" })}>Réserver une démo</Link>
               </div>
             </div>
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
     </header>
   )

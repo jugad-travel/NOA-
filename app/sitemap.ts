@@ -1,15 +1,18 @@
 import type { MetadataRoute } from "next"
 import { articles } from "@/lib/articles"
+import { SITE_URL } from "@/lib/marketing"
 import { NESTED_USE_CASES } from "@/lib/use-cases"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://parcel-ia.com"
+  const baseUrl = SITE_URL
   const lastModified = new Date()
 
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: baseUrl, lastModified, changeFrequency: "weekly", priority: 1 },
     { url: `${baseUrl}/produits`, lastModified, changeFrequency: "weekly", priority: 0.9 },
     { url: `${baseUrl}/moteur-recherche-conversationnel-ecommerce`, lastModified, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/tarifs`, lastModified, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/comparatif-assistant-ia-ecommerce`, lastModified, changeFrequency: "monthly", priority: 0.9 },
     { url: `${baseUrl}/integrations-tech`, lastModified, changeFrequency: "monthly", priority: 0.8 },
     { url: `${baseUrl}/ressources`, lastModified, changeFrequency: "weekly", priority: 0.7 },
     { url: `${baseUrl}/ressources/simulateur-roi`, lastModified, changeFrequency: "monthly", priority: 0.6 },

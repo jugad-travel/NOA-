@@ -84,18 +84,18 @@ export function ROICalculator() {
       <div className="mx-auto max-w-6xl">
         <ScrollReveal>
           <div className="grid overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl lg:grid-cols-[0.8fr_1.2fr]">
-            <div className="bg-gray-900 p-7 md:p-10 lg:p-12">
-              <Calculator className="mb-7 size-8 text-white" />
-              <h2 className="mb-5 text-3xl font-normal text-white md:text-4xl" style={{ color: "#ffffff" }}>
-                Construisez votre scénario
+            <div className="bg-gradient-to-br from-[#dff9fb] via-[#d9e0ff] to-[#ffd2bf] p-7 md:p-10 lg:p-12">
+              <Calculator className="mb-7 size-8 text-blue-800" />
+              <h2 className="mb-5 text-3xl font-normal text-gray-950 md:text-4xl">
+                Construisez votre estimation
               </h2>
-              <p className="mb-8 text-base leading-relaxed text-white/70" style={{ color: "rgba(255,255,255,0.72)" }}>
+              <p className="mb-8 text-base leading-relaxed text-gray-700">
                 Le calcul repose uniquement sur vos hypothèses. Parcel n’applique aucun multiplicateur automatique et ne présente pas cette estimation comme un résultat garanti.
               </p>
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
+              <div className="rounded-2xl border border-white/80 bg-white/70 p-5">
                 <div className="flex items-start gap-3">
-                  <Info className="mt-0.5 size-5 shrink-0 text-white/70" />
-                  <p className="text-sm leading-relaxed text-white/70" style={{ color: "rgba(255,255,255,0.72)" }}>
+                  <Info className="mt-0.5 size-5 shrink-0 text-blue-800" />
+                  <p className="text-sm leading-relaxed text-gray-700">
                     La hausse attendue correspond à une variation relative. Exemple : un taux de 2 % avec une hypothèse de +10 % devient 2,2 %, pas 12 %.
                   </p>
                 </div>
@@ -124,7 +124,7 @@ export function ROICalculator() {
 
                 <div className="sm:col-span-2">
                   <Button type="submit" variant="primary" size="lg" className="w-full">
-                    Calculer ce scénario
+                    Calculer cette estimation
                     <TrendingUp className="size-5" />
                   </Button>
                 </div>
@@ -138,7 +138,7 @@ export function ROICalculator() {
                     <Result label="Commandes supplémentaires" value={scenario.incrementalOrders.toLocaleString("fr-FR", { maximumFractionDigits: 1 })} />
                     <Result label="CA supplémentaire" value={currency(scenario.incrementalRevenue)} />
                     <Result label="Gain net après coût mensuel" value={currency(scenario.monthlyNetGain)} />
-                    <Result label="ROI mensuel du scénario" value={scenario.roiPercent === null ? "Non calculable" : `${scenario.roiPercent.toLocaleString("fr-FR", { maximumFractionDigits: 0 })} %`} />
+                    <Result label="ROI mensuel estimé" value={scenario.roiPercent === null ? "Non calculable" : `${scenario.roiPercent.toLocaleString("fr-FR", { maximumFractionDigits: 0 })} %`} />
                     <Result label="Retour sur coût d’intégration" value={scenario.paybackMonths === null ? "Non calculable" : `${scenario.paybackMonths.toLocaleString("fr-FR", { maximumFractionDigits: 1 })} mois`} />
                   </div>
                   <p className="mt-5 text-xs leading-relaxed text-gray-500">

@@ -22,10 +22,10 @@ export const articles: Article[] = [
     category: "Stratégie",
     readTime: "7 min",
     date: "Juillet 2026",
-    intro: "Un assistant d’achat utile ne se contente pas de répondre. Il comprend un besoin, interroge le catalogue, explique ses choix et accompagne une décision mesurable.",
+    intro: "Un assistant d’achat utile comprend un besoin, interroge le catalogue, explique ses choix et accompagne une décision mesurable.",
     sections: [
       {
-        title: "Le problème n’est pas la conversation, mais la décision",
+        title: "Faire progresser la conversation jusqu’à la décision",
         paragraphs: [
           "Les interfaces conversationnelles sont devenues familières. Pourtant, produire une réponse agréable ne suffit pas à aider un client à choisir un produit.",
           "L’assistant doit relier la demande aux données réelles du commerce : attributs, variantes, disponibilité, politiques et contexte de navigation.",
@@ -44,7 +44,7 @@ export const articles: Article[] = [
       {
         title: "La bonne place dans le funnel",
         paragraphs: [
-          "L’assistant ne doit pas être limité à une bulle flottante. Il peut intervenir sur la home, la catégorie, la fiche produit, la comparaison, le panier et l’après-vente.",
+          "L’assistant peut intervenir sur la page d’accueil, la catégorie, la fiche produit, la comparaison, le panier et l’après-vente.",
           "Cette continuité évite de recommencer la qualification à chaque page et permet d’analyser le parcours dans son ensemble.",
         ],
       },
@@ -71,7 +71,7 @@ export const articles: Article[] = [
         ],
       },
       {
-        title: "Compléter, pas supprimer, les outils existants",
+        title: "Articuler conversation, mots-clés et filtres",
         paragraphs: [
           "Les filtres restent efficaces pour les visiteurs qui savent déjà ce qu’ils veulent. La conversation ajoute une porte d’entrée pour ceux qui raisonnent par usage.",
           "Les deux approches peuvent partager le même catalogue, la même disponibilité et les mêmes règles de classement.",
@@ -103,7 +103,7 @@ export const articles: Article[] = [
     intro: "Un ROI crédible ne doit pas partir d’un multiplicateur universel. Il se construit avec une référence, des hypothèses visibles et une mesure sur le trafic du marchand.",
     sections: [
       {
-        title: "Séparer scénario et résultat",
+        title: "Séparer hypothèse et résultat",
         paragraphs: [
           "Un simulateur sert à tester une hypothèse : trafic, conversion actuelle, panier, coût et hausse envisagée. Il ne prouve pas que cette hausse se produira.",
           "Le résultat réel vient ensuite d’un déploiement instrumenté et d’une période de mesure suffisamment représentative.",

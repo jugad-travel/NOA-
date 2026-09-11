@@ -15,7 +15,7 @@ const metrics = [
   {
     value: "02",
     label: "Développer la valeur du panier",
-    detail: "Les recommandations complémentaires sont liées au projet et au contexte, pas à une règle de cross-sell générique.",
+    detail: "Les recommandations complémentaires s’appuient sur le projet, le contexte et les règles définies avec le marchand.",
   },
   {
     value: "03",

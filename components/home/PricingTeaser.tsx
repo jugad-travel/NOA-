@@ -1,84 +1,54 @@
 "use client"
 
-import * as React from "react"
-import Link from "next/link"
-import { Check, ArrowRight, BarChart3, Search, MessageSquareWarning } from "lucide-react"
-import { Section } from "@/components/layout/Section"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/shared/ScrollReveal"
+import { BarChart3, CircleDollarSign, ListFilter, MessageSquareWarning } from "lucide-react"
+import { ScrollReveal } from "@/components/shared/ScrollReveal"
 
-const modules = [
-  {
-    name: "Intentions exprimées",
-    description: "Comprendre ce que vos visiteurs demandent réellement",
-    features: ["Demandes en langage naturel", "Usages et contraintes", "Produits recherchés"],
-    icon: Search,
-  },
-  {
-    name: "Freins à la décision",
-    description: "Identifier les questions qui reviennent et les points de blocage",
-    features: ["Objections récurrentes", "Comparaisons demandées", "Informations manquantes"],
-    icon: MessageSquareWarning,
-  },
-  {
-    name: "Parcours assistés",
-    description: "Suivre les interactions utiles jusqu’à la décision",
-    features: ["Étapes sollicitées", "Produits recommandés", "Indicateurs de conversion assistée"],
-    icon: BarChart3,
-  },
-]
+const intentSignals = [
+  { icon: ListFilter, title: "Intentions", copy: "Ce que les visiteurs cherchent réellement à accomplir." },
+  { icon: BarChart3, title: "Critères de décision", copy: "Ce qui compte réellement dans leur choix." },
+  { icon: MessageSquareWarning, title: "Freins", copy: "Ce qui bloque ou retarde la décision." },
+  { icon: CircleDollarSign, title: "Demande non couverte", copy: "Ce que le catalogue ne leur apporte pas encore." },
+] as const
 
 export function PricingTeaser() {
   return (
-    <Section variant="gray" padding="xl">
-      <div className="max-w-6xl mx-auto">
-        <ScrollReveal>
-          <div className="text-center mb-12">
-            <Badge className="mb-4">Analytics & Insights</Badge>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal text-gray-900 mb-4 font-display">
-              Transformez les conversations en décisions marchandes
-            </h2>
-            <p className="text-xl text-gray-500 max-w-2xl mx-auto">
-              Le tableau de bord Parcel montre les demandes, les freins et les parcours assistés sur l’ensemble du funnel.
+    <section id="intent-data" className="bg-white px-4 py-20 md:py-28">
+      <div className="container">
+        <div className="rounded-[2rem] bg-gradient-to-br from-[#d9f7fb] via-[#c5d1ff] to-[#ffc4aa] px-6 py-14 md:px-12 md:py-16">
+          <ScrollReveal>
+            <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+              <div>
+                <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-blue-800">Intent data</p>
+                <h2 className="text-3xl font-normal leading-tight text-gray-950 md:text-5xl">Comprendre ce que vos visiteurs essaient réellement d’acheter.</h2>
+              </div>
+              <p className="text-base leading-relaxed text-gray-700 md:text-lg">
+                Vos analytics mesurent les actions réalisées sur le site. Les interactions Parcel font également émerger les usages recherchés, contraintes, budgets, objections, critères de décision, comparaisons et besoins auxquels votre catalogue ne répond pas encore.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {intentSignals.map((signal, index) => {
+              const Icon = signal.icon
+              return (
+                <ScrollReveal key={signal.title} delay={index * 0.07} className="h-full">
+                  <article className="h-full rounded-3xl border border-white/75 bg-white/85 p-7 shadow-sm md:p-8">
+                    <Icon className="mb-10 size-6 text-blue-700" />
+                    <h3 className="text-lg font-medium text-gray-950">{signal.title}</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-gray-600">{signal.copy}</p>
+                  </article>
+                </ScrollReveal>
+              )
+            })}
+          </div>
+
+          <ScrollReveal delay={0.2}>
+            <p className="mx-auto mt-10 max-w-3xl text-center text-lg font-semibold text-gray-950 md:text-xl">
+              Transformez les intentions exprimées en données exploitables par vos équipes e-commerce, produit et merchandising.
             </p>
-          </div>
-        </ScrollReveal>
-        
-        <StaggerContainer className="grid md:grid-cols-3 gap-6" staggerDelay={0.1}>
-          {modules.map((module) => (
-            <StaggerItem key={module.name}>
-              <Card hover className="h-full flex flex-col">
-                <div className="flex-1">
-                  <module.icon className="mb-5 size-6 text-blue-600" />
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">{module.name}</h3>
-                  <p className="text-gray-500 text-sm mb-4">{module.description}</p>
-                  <ul className="space-y-2">
-                    {module.features.map((feature) => (
-                      <li key={feature} className="flex items-center gap-2 text-sm text-gray-600">
-                        <Check className="w-4 h-4 text-brand-blue flex-shrink-0" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </Card>
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
-        
-        <ScrollReveal delay={0.4}>
-          <div className="text-center mt-12">
-            <Link href="/produits#analytics-insights">
-              <Button variant="primary" size="xl" magnetic>
-                Découvrir les insights Parcel
-                <ArrowRight className="w-5 h-5" />
-              </Button>
-            </Link>
-          </div>
-        </ScrollReveal>
+          </ScrollReveal>
+        </div>
       </div>
-    </Section>
+    </section>
   )
 }

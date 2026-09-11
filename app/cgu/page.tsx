@@ -19,7 +19,7 @@ export default function CGUPage() {
       </LegalSection>
 
       <LegalSection title="Contenus et estimations">
-        <p>Les informations, démonstrations et scénarios présentés sont indicatifs. Le simulateur applique uniquement les valeurs renseignées par l’utilisateur et ne constitue pas une promesse de résultat.</p>
+        <p>Les informations, démonstrations et estimations présentées sont indicatives. Le simulateur applique uniquement les valeurs renseignées par l’utilisateur et ne constitue pas une promesse de résultat.</p>
       </LegalSection>
 
       <LegalSection title="Liens externes">

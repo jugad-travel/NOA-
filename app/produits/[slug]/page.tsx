@@ -1,8 +1,10 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { ArrowRight, Check } from "lucide-react"
+import { ArrowRight, ArrowUpRight, Check } from "lucide-react"
+import { PageHero } from "@/components/marketing/PageHero"
 import { YouTubeEmbed } from "@/components/shared/YouTubeEmbed"
+import { SHOPIFY_APP_STORE_URL, SHOPIFY_INSTALL_TIME } from "@/lib/marketing"
 import { NESTED_USE_CASES, USE_CASES, getUseCase } from "@/lib/use-cases"
 
 /**
@@ -39,6 +41,12 @@ export async function generateMetadata({
       url: useCase.path,
       siteName: "PARCEL",
       title: `${useCase.metaTitle} | PARCEL`,
+      description: useCase.metaDescription,
+      images: [{ url: "/images/Hero site parcel sans texte.png", width: 1200, height: 630, alt: `${useCase.navLabel} dans Parcel` }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${useCase.metaTitle} | Parcel`,
       description: useCase.metaDescription,
     },
   }
@@ -83,51 +91,21 @@ export default async function UseCasePage({ params }: { params: Promise<{ slug: 
         />
       ))}
 
-      <div className="h-[72px] bg-white md:h-[80px]" aria-hidden="true" />
-
-      <section className="bg-[#06132f] px-4 pb-16 pt-16 text-white md:pb-24 md:pt-20">
-        <div className="container">
-          <nav aria-label="Fil d’Ariane" className="mb-8">
-            <ol className="flex flex-wrap items-center gap-2 text-sm !text-blue-200/70">
-              <li>
-                <Link href="/" className="hover:!text-white">Accueil</Link>
-              </li>
-              <li aria-hidden="true">/</li>
-              <li>
-                <Link href="/produits" className="hover:!text-white">Produits</Link>
-              </li>
-              <li aria-hidden="true">/</li>
-              <li className="!text-white" aria-current="page">{useCase.navLabel}</li>
-            </ol>
-          </nav>
-
-          <div className="max-w-4xl">
-            <p className="mb-5 text-sm font-semibold uppercase tracking-[0.18em] !text-blue-300">
-              {useCase.step} · {useCase.capability}
-            </p>
-            <h1 className="text-4xl font-normal leading-[1.06] tracking-[-0.045em] !text-white md:text-6xl">
-              {useCase.title}
-            </h1>
-            <p className="mt-7 max-w-2xl text-lg leading-relaxed !text-blue-100/80 md:text-xl">
-              {useCase.intro}
-            </p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/demo"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-7 text-sm font-semibold text-gray-950 transition-colors hover:bg-blue-50"
-              >
-                Réserver une démo <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link
-                href="/produits"
-                className="inline-flex h-12 items-center justify-center rounded-full border border-white/25 px-7 text-sm font-semibold text-white transition-colors hover:bg-white/10"
-              >
-                Tous les usages
-              </Link>
-            </div>
-          </div>
+      <PageHero
+        eyebrow={`${useCase.step} · ${useCase.capability}`}
+        title={useCase.title}
+        description={useCase.intro}
+        breadcrumbs={[{ name: "Accueil", href: "/" }, { name: "Produits", href: "/produits" }, { name: useCase.navLabel }]}
+      >
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Link href="/demo" className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-7 text-sm font-semibold text-gray-950 shadow-sm hover:bg-white/85">Réserver une démo <ArrowRight className="h-4 w-4" /></Link>
+          <Link href="/produits" className="inline-flex h-12 items-center justify-center rounded-full border border-white/80 bg-white/35 px-7 text-sm font-semibold text-gray-950 hover:bg-white/60">Tous les usages</Link>
         </div>
-      </section>
+        <div className="mt-6 flex flex-col gap-2 text-sm font-semibold text-gray-800 sm:flex-row sm:items-center sm:gap-6">
+          <a href={SHOPIFY_APP_STORE_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-gray-950">Shopify · {SHOPIFY_INSTALL_TIME}<ArrowUpRight className="size-4" /></a>
+          <Link href="/integrations-tech" className="hover:text-gray-950">Autres stacks · API back-end</Link>
+        </div>
+      </PageHero>
 
       {/* La démonstration d'abord : sur ce sujet, montrer vaut mieux que décrire. */}
       <section className="bg-white px-4 py-16 md:py-24">
@@ -164,7 +142,7 @@ export default async function UseCasePage({ params }: { params: Promise<{ slug: 
             <ol className="space-y-8">
               {useCase.steps.map((item, i) => (
                 <li key={item.title} className="flex gap-5">
-                  <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-950 text-sm font-semibold text-white">
+                  <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-semibold text-blue-800">
                     {i + 1}
                   </span>
                   <div>
@@ -225,15 +203,15 @@ export default async function UseCasePage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-      <section className="bg-gray-950 px-4 py-16 text-white md:py-24">
-        <div className="container text-center">
-          <h2 className="mx-auto max-w-3xl text-3xl font-normal tracking-[-0.035em] !text-white md:text-5xl">
+      <section className="bg-[#f7f8fb] px-4 py-16 md:py-24">
+        <div className="container"><div className="rounded-[2rem] bg-gradient-to-br from-[#d9f7fb] via-[#b8c8ff] to-[#ffb99b] px-6 py-14 text-center md:px-12 md:py-16">
+          <h2 className="mx-auto max-w-3xl text-3xl font-normal tracking-[-0.035em] text-gray-950 md:text-5xl">
             Voir Parcel sur votre propre catalogue
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-lg !text-gray-400">
+          <p className="mx-auto mt-5 max-w-2xl text-lg text-gray-700">
             Une démonstration sur vos produits, vos règles et vos contraintes.
           </p>
-          <ul className="mx-auto mt-8 flex max-w-2xl flex-wrap justify-center gap-x-8 gap-y-3 text-sm !text-gray-300">
+          <ul className="mx-auto mt-8 flex max-w-2xl flex-wrap justify-center gap-x-8 gap-y-3 text-sm text-gray-800">
             {["Sur votre catalogue", "Vos règles commerciales", "Sans engagement"].map((item) => (
               <li key={item} className="inline-flex items-center gap-2">
                 <Check className="size-4 shrink-0" /> {item}
@@ -242,11 +220,19 @@ export default async function UseCasePage({ params }: { params: Promise<{ slug: 
           </ul>
           <Link
             href="/demo"
-            className="mt-9 inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-7 text-sm font-semibold text-gray-950 transition-colors hover:bg-gray-100"
+            className="mt-9 inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-7 text-sm font-semibold text-gray-950 shadow-sm transition-colors hover:bg-white/85"
           >
             Réserver une démo <ArrowRight className="h-4 w-4" />
           </Link>
-        </div>
+          <a
+            href={SHOPIFY_APP_STORE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-0 mt-3 inline-flex h-12 items-center justify-center gap-2 rounded-full border border-white/80 bg-white/35 px-7 text-sm font-semibold text-gray-950 transition-colors hover:bg-white/60 sm:ml-3 sm:mt-0"
+          >
+            Installer en {SHOPIFY_INSTALL_TIME} <ArrowUpRight className="size-4" />
+          </a>
+        </div></div>
       </section>
     </>
   )

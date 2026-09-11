@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { ArrowLeft, ArrowRight, CheckCircle2, ExternalLink } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button-variants"
 import type { Article } from "@/lib/articles"
 
 export function ArticleContent({ article }: { article: Article }) {
@@ -62,11 +62,9 @@ export function ArticleContent({ article }: { article: Article }) {
 
           <section className="mt-16 rounded-3xl p-7 text-center md:p-12" style={{ background: "linear-gradient(135deg, #d0f7fb 0%, #83a6ff 48%, #ff966b 100%)" }}>
             <h2 className="mb-5 text-3xl font-normal text-gray-900">Voir ces principes dans Parcel</h2>
-            <Link href="/demo">
-              <Button variant="secondary" size="lg">
-                Réserver une démo
-                <ArrowRight className="size-5" />
-              </Button>
+            <Link href="/demo" className={buttonVariants({ variant: "secondary", size: "lg" })}>
+              Réserver une démo
+              <ArrowRight className="size-5" />
             </Link>
           </section>
         </div>

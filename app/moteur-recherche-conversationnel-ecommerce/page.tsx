@@ -1,125 +1,119 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowRight, Check, MessageSquareText, SlidersHorizontal, ShoppingCart } from "lucide-react"
+import { ArrowRight, Search, Shapes, SlidersHorizontal, Sparkles } from "lucide-react"
+import { PageHero } from "@/components/marketing/PageHero"
+import { StructuredData } from "@/components/marketing/StructuredData"
 import { YouTubeEmbed } from "@/components/shared/YouTubeEmbed"
+import { buttonVariants } from "@/components/ui/button-variants"
+import { SHOPIFY_INSTALL_TIME, SITE_URL } from "@/lib/marketing"
+import { getUseCase } from "@/lib/use-cases"
 import { VIDEOS } from "@/lib/videos"
 
 const canonicalUrl = "/moteur-recherche-conversationnel-ecommerce"
 
 export const metadata: Metadata = {
-  title: "Moteur de recherche conversationnel e-commerce",
-  description:
-    "Découvrez le moteur de recherche conversationnel Parcel : compréhension du besoin, recommandations produit et aide au choix pour votre e-commerce.",
-  alternates: {
-    canonical: canonicalUrl,
-  },
+  title: "Moteur de recherche IA e-commerce conversationnel",
+  description: "Parcel combine recherche e-commerce déterministe et assistance IA : résultats directs pour les demandes simples, parcours guidé pour les besoins complexes.",
+  alternates: { canonical: canonicalUrl },
   openGraph: {
     type: "website",
     locale: "fr_FR",
     url: canonicalUrl,
     siteName: "Parcel",
-    title: "Moteur de recherche conversationnel e-commerce | Parcel",
-    description:
-      "Parcel transforme la recherche e-commerce en conversation pour comprendre le besoin et recommander les bons produits.",
-    images: [
-      {
-        url: "/images/Hero site parcel sans texte.png",
-        width: 1200,
-        height: 630,
-        alt: "Moteur de recherche conversationnel Parcel pour e-commerce",
-      },
+    title: "Moteur de recherche IA e-commerce conversationnel | Parcel",
+    description: "Recherche déterministe gratuite, aide au choix IA, logique métier et interface d’achat intégrée.",
+    images: [{ url: "/images/Hero site parcel sans texte.png", width: 1200, height: 630, alt: "Moteur de recherche IA Parcel pour e-commerce" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Moteur de recherche IA e-commerce conversationnel | Parcel",
+    description: "Une recherche précise obtient ses résultats ; un besoin complexe déclenche un parcours de conseil.",
+  },
+}
+
+const capabilities = [
+  [Search, "Langage naturel", "Comprendre une référence précise, un usage, une contrainte ou un projet formulé avec les mots du visiteur."],
+  [SlidersHorizontal, "Bascule déterministe / IA", "Réserver le raisonnement IA aux demandes où la qualification et le conseil apportent une valeur réelle."],
+  [Shapes, "Règles métier", "Appliquer les compatibilités, exclusions, disponibilités et priorités définies avec le marchand."],
+  [Sparkles, "Décision expliquée", "Rendre visibles les critères retenus, les différences importantes et les limites de chaque option."],
+] as const
+
+export default function SearchPage() {
+  const useCase = getUseCase("recherche-conversationnelle")!
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: useCase.faq.map((item) => ({ "@type": "Question", name: item.question, acceptedAnswer: { "@type": "Answer", text: item.answer } })),
+  }
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Accueil", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Produits", item: `${SITE_URL}/produits` },
+      { "@type": "ListItem", position: 3, name: "Recherche IA", item: `${SITE_URL}${canonicalUrl}` },
     ],
-  },
-}
+  }
 
-const benefits = [
-  {
-    icon: MessageSquareText,
-    title: "Comprendre le besoin réel",
-    copy: "Le client formule sa demande avec ses mots. Parcel identifie l’intention, l’usage, le budget et les contraintes importantes.",
-  },
-  {
-    icon: SlidersHorizontal,
-    title: "Respecter vos règles business",
-    copy: "Les recommandations tiennent compte du catalogue, du stock, de la marge, des priorités commerciales et de vos exclusions métier.",
-  },
-  {
-    icon: ShoppingCart,
-    title: "Guider jusqu’à l’achat",
-    copy: "Parcel explique ses choix, compare les produits et accompagne la décision au lieu de renvoyer une simple liste de résultats.",
-  },
-]
-
-const faq = [
-  {
-    question: "Qu’est-ce qu’un moteur de recherche conversationnel e-commerce ?",
-    answer:
-      "C’est un moteur de recherche qui comprend des demandes formulées en langage naturel. Il peut préciser le besoin, conserver le contexte de la conversation et recommander les produits les plus adaptés.",
-  },
-  {
-    question: "Quelle différence avec un chatbot e-commerce ?",
-    answer:
-      "Un chatbot classique répond surtout à des questions prédéfinies. Parcel interroge le catalogue, raisonne sur les critères produit et applique les règles commerciales du marchand pour aider réellement à choisir.",
-  },
-  {
-    question: "Parcel remplace-t-il le moteur de recherche existant ?",
-    answer:
-      "Parcel peut compléter la recherche existante ou devenir le point d’entrée principal de la découverte produit. L’intégration dépend de votre parcours, de votre catalogue et de votre stack technique.",
-  },
-  {
-    question: "Avec quelles plateformes e-commerce Parcel est-il compatible ?",
-    answer:
-      "Parcel s’intègre notamment à Shopify, Magento, WooCommerce, PrestaShop, Webflow et aux architectures headless via API.",
-  },
-]
-
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faq.map((item) => ({
-    "@type": "Question",
-    name: item.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: item.answer,
-    },
-  })),
-}
-
-export default function ConversationalSearchPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
+      <StructuredData data={[faqJsonLd, breadcrumbJsonLd]} />
+      <PageHero
+        eyebrow="Recherche IA e-commerce"
+        title="Le moteur de recherche IA qui sait quand il faut conseiller"
+        description="Parcel combine recherche e-commerce déterministe et assistance IA. Les demandes simples obtiennent immédiatement des résultats ; les besoins complexes déclenchent une expérience guidée capable de comprendre l’usage, poser les bonnes questions et recommander."
+        breadcrumbs={[{ name: "Accueil", href: "/" }, { name: "Produits", href: "/produits" }, { name: "Recherche IA" }]}
+        aside={
+          <Link href="/integrations-tech" className="rounded-3xl border border-white/80 bg-white/65 p-6 text-gray-950 shadow-sm hover:bg-white/85">
+            <span className="text-xs font-semibold uppercase tracking-[0.16em] text-blue-800">Shopify · API back-end</span>
+            <strong className="mt-3 block text-2xl font-semibold">{SHOPIFY_INSTALL_TIME} sur Shopify, API pour les autres stacks.</strong>
+            <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold">Voir les intégrations <ArrowRight className="size-4" /></span>
+          </Link>
+        }
+      >
+        <Link href="/demo" className={buttonVariants({ variant: "white", size: "lg" })}>Voir Parcel sur mon catalogue <ArrowRight className="size-4" /></Link>
+      </PageHero>
 
-      <div className="h-[72px] bg-white md:h-[80px]" aria-hidden="true" />
-      <section className="bg-[#06132f] px-4 pb-20 pt-20 text-white md:pb-28 md:pt-24">
+      <section className="bg-[#f7f8fb] px-4 py-20 md:py-28">
         <div className="container">
-          <div className="max-w-4xl">
-            <p className="mb-5 text-sm font-semibold uppercase tracking-[0.18em] !text-blue-300">
-              Recherche et découverte produit par l’IA
-            </p>
-            <h1 className="max-w-4xl text-4xl font-normal leading-[1.06] tracking-[-0.045em] !text-white md:text-6xl lg:text-7xl">
-              Le moteur de recherche conversationnel pensé pour l’e-commerce
-            </h1>
-            <p className="mt-7 max-w-2xl text-lg leading-relaxed !text-blue-100/80 md:text-xl">
-              Parcel transforme une demande formulée en langage naturel en recommandations produit pertinentes. Vos clients trouvent, comparent et choisissent sans parcourir des dizaines de filtres.
-            </p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/demo"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-7 text-sm font-semibold text-gray-950 transition-colors hover:bg-blue-50"
-              >
-                Réserver une démo <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link
-                href="/produits"
-                className="inline-flex h-12 items-center justify-center rounded-full border border-white/25 px-7 text-sm font-semibold text-white transition-colors hover:bg-white/10"
-              >
-                Découvrir la suite Parcel
-              </Link>
+          <div className="mx-auto mb-12 max-w-4xl text-center">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-blue-600">Deux chemins dans une même recherche</p>
+            <h2 className="text-3xl font-normal leading-tight text-gray-950 md:text-5xl">Une recherche précise obtient immédiatement ses résultats. Un besoin complexe déclenche un parcours de conseil.</h2>
+          </div>
+          <div className="mx-auto grid max-w-6xl gap-4 rounded-[2rem] bg-gradient-to-br from-[#e3fafc] via-[#dce3ff] to-[#ffd8c8] p-4 lg:grid-cols-2">
+            <article className="rounded-[1.5rem] border border-white/80 bg-white/90 p-7 md:p-10">
+              <div className="flex items-center justify-between gap-4"><p className="text-xs font-semibold uppercase tracking-[0.15em] text-gray-500">Recherche déterministe</p><span className="rounded-full bg-green-50 px-3 py-1.5 text-xs font-semibold text-green-700">Gratuite</span></div>
+              <div className="mt-8 rounded-2xl border border-gray-200 bg-gray-50 p-5"><p className="text-sm font-medium text-gray-950">Nike Pegasus 42</p><div className="mt-4 grid grid-cols-3 gap-2" aria-hidden="true">{["#dbeafe", "#e5e7eb", "#fee2e2"].map((color) => <span key={color} className="h-24 rounded-xl" style={{ backgroundColor: color }} />)}</div></div>
+              <p className="mt-6 text-sm leading-relaxed text-gray-600">La marque, la référence et le modèle suffisent à retourner les produits correspondants sans session assistée.</p>
+            </article>
+            <article className="rounded-[1.5rem] border border-blue-100 bg-[#eef4ff] p-7 md:p-10">
+              <div className="flex items-center justify-between gap-4"><p className="text-xs font-semibold uppercase tracking-[0.15em] text-blue-800">Vendeur IA</p><span className="rounded-full bg-blue-200 px-3 py-1.5 text-xs font-semibold text-blue-900">Conseil activé</span></div>
+              <p className="mt-8 rounded-2xl border border-blue-200 bg-white/80 p-5 text-lg font-medium text-gray-950">« Je prépare mon premier marathon et j’ai besoin de plus d’amorti. »</p>
+              <ol className="mt-5 space-y-3 text-sm text-gray-700"><li>1. Préciser le rythme, la distance et le terrain</li><li>2. Appliquer les critères et règles de la catégorie</li><li>3. Expliquer la recommandation et proposer les actions utiles</li></ol>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white px-4 py-20 md:py-28">
+        <div className="container">
+          <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+            <div>
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-blue-600">Démonstration produit</p>
+              <h2 className="text-3xl font-normal text-gray-950 md:text-5xl">De la requête à une décision actionnable</h2>
+              <p className="mt-5 leading-relaxed text-gray-600">L’interface rassemble les questions de qualification, les cartes produit, les explications, la comparaison et l’ajout au panier.</p>
+            </div>
+            <YouTubeEmbed videoId={VIDEOS.match} title="Recherche déterministe et aide au choix IA Parcel" rounded="rounded-[2rem]" />
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white px-4 py-20 md:py-28">
+        <div className="container">
+          <div className="rounded-[2rem] bg-gradient-to-br from-[#dff9fb] via-[#d6ddff] to-[#ffd0bd] p-7 md:p-10">
+            <div className="mb-12 max-w-4xl"><p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-blue-800">Configurer la façon de chercher et conseiller</p><h2 className="text-3xl font-normal text-gray-950 md:text-5xl">Le catalogue et les règles métier structurent chaque réponse.</h2></div>
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+              {capabilities.map(([Icon, title, copy]) => <article key={title} className="rounded-2xl border border-white/80 bg-white/85 p-7"><Icon className="mb-8 size-6 text-blue-700" /><h3 className="text-xl font-semibold text-gray-950">{title}</h3><p className="mt-4 text-sm leading-relaxed text-gray-600">{copy}</p></article>)}
             </div>
           </div>
         </div>
@@ -127,115 +121,12 @@ export default function ConversationalSearchPage() {
 
       <section className="bg-white px-4 py-20 md:py-28">
         <div className="container">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.16em] text-blue-600">
-              Au-delà d’une barre de recherche
-            </p>
-            <h2 className="text-3xl font-normal tracking-[-0.035em] text-gray-950 md:text-5xl">
-              Comprendre une intention, pas seulement des mots-clés
-            </h2>
-            <p className="mt-5 text-lg leading-relaxed text-gray-600">
-              Une recherche traditionnelle renvoie les produits qui correspondent aux termes saisis. La recherche conversationnelle comprend pourquoi le client achète, pose les questions utiles et l’aide à arbitrer.
-            </p>
-          </div>
-
-          <div className="mt-14 grid gap-5 md:grid-cols-3">
-            {benefits.map((benefit) => (
-              <article key={benefit.title} className="rounded-3xl border border-gray-200 bg-gray-50 p-7 md:p-8">
-                <div className="mb-6 flex h-11 w-11 items-center justify-center rounded-2xl bg-gray-950 text-white">
-                  <benefit.icon className="h-5 w-5" />
-                </div>
-                <h3 className="text-xl font-semibold text-gray-950">{benefit.title}</h3>
-                <p className="mt-3 leading-relaxed text-gray-600">{benefit.copy}</p>
-              </article>
-            ))}
-          </div>
+          <div className="mx-auto max-w-3xl"><h2 className="text-3xl font-normal text-gray-950 md:text-5xl">Questions fréquentes</h2><div className="mt-10 divide-y divide-gray-200 border-y border-gray-200">{useCase.faq.map((item) => <article key={item.question} className="py-7"><h3 className="text-lg font-semibold text-gray-950">{item.question}</h3><p className="mt-3 leading-relaxed text-gray-600">{item.answer}</p></article>)}</div></div>
         </div>
       </section>
 
-      <section className="bg-gray-50 px-4 py-20 md:py-28">
-        <div className="container">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.16em] text-orange-600">
-              Une expérience guidée
-            </p>
-            <h2 className="text-3xl font-normal tracking-[-0.035em] text-gray-950 md:text-5xl">
-              Du besoin exprimé au produit choisi
-            </h2>
-            <p className="mt-5 text-lg leading-relaxed text-gray-600">
-              Parcel associe recherche sémantique, dialogue et règles de décision commerciale dans une seule expérience intégrée au site marchand.
-            </p>
-          </div>
-
-          {/* Démonstration réelle plutôt qu'une maquette statique : la page
-              qui vise « moteur de recherche conversationnel » doit montrer le
-              geste, pas le décrire. Même mise en page que les pages d'usage
-              (/produits/[slug]), en plus large : c'est la démonstration
-              principale du site. */}
-          <div className="mx-auto mt-14 max-w-5xl">
-            <YouTubeEmbed
-              videoId={VIDEOS.match}
-              title="Trouver le bon produit : recherche classique et recherche IA"
-              rounded="rounded-[2rem]"
-            />
-            <p className="mt-4 text-center text-sm text-gray-500">
-              Recherche par mots-clés, puis bascule vers l’assistant quand la
-              demande dépasse le mot-clé — sur un catalogue réel.
-            </p>
-          </div>
-
-          <ul className="mx-auto mt-14 grid max-w-4xl gap-4 sm:grid-cols-2">
-            {[
-              "Analyse du langage naturel et du contexte de la demande",
-              "Questions de clarification adaptées au catalogue",
-              "Recommandations argumentées et comparaisons par usage",
-              "Ajout au panier et compléments pertinents",
-            ].map((item) => (
-              <li key={item} className="flex items-start gap-3 text-gray-700">
-                <span className="mt-0.5 flex h-6 w-6 flex-none items-center justify-center rounded-full bg-gray-950 text-white">
-                  <Check className="h-3.5 w-3.5" />
-                </span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <section className="bg-white px-4 py-20 md:py-28">
-        <div className="container">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.16em] text-blue-600">Questions fréquentes</p>
-            <h2 className="text-3xl font-normal tracking-[-0.035em] text-gray-950 md:text-5xl">
-              Recherche conversationnelle et e-commerce
-            </h2>
-          </div>
-          <div className="mx-auto mt-12 max-w-3xl divide-y divide-gray-200 border-y border-gray-200">
-            {faq.map((item) => (
-              <article key={item.question} className="py-7">
-                <h3 className="text-lg font-semibold text-gray-950">{item.question}</h3>
-                <p className="mt-3 leading-relaxed text-gray-600">{item.answer}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-gray-950 px-4 py-20 text-white md:py-24">
-        <div className="container text-center">
-          <h2 className="mx-auto max-w-3xl text-3xl font-normal tracking-[-0.035em] !text-white md:text-5xl">
-            Transformez la recherche produit en conversation utile
-          </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-lg !text-gray-400">
-            Découvrez comment Parcel s’intègre à votre catalogue, à vos règles commerciales et à votre parcours d’achat.
-          </p>
-          <Link
-            href="/demo"
-            className="mt-8 inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-7 text-sm font-semibold text-gray-950 transition-colors hover:bg-gray-100"
-          >
-            Parler de votre projet <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
+      <section className="bg-[#f7f8fb] px-4 py-16 md:py-20">
+        <div className="container text-center"><h2 className="text-3xl font-normal text-gray-950 md:text-5xl">Testez la recherche Parcel sur vos propres produits</h2><p className="mx-auto mt-5 max-w-2xl text-gray-600">Une démonstration avec votre catalogue, vos critères de choix et vos priorités commerciales.</p><div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row"><Link href="/demo" className={buttonVariants({ variant: "primary", size: "xl" })}>Réserver une démo <ArrowRight className="size-5" /></Link><Link href="/tarifs" className={buttonVariants({ variant: "outline", size: "xl" })}>Voir les tarifs</Link></div></div>
       </section>
     </>
   )

@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion"
 import Image from "next/image"
 import { Plus, Check } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -38,6 +38,7 @@ type HeroAnimationProps = {
 }
 
 export function HeroAnimation({ desktopTop = "50%" }: HeroAnimationProps) {
+  const reduceMotion = useReducedMotion()
   const [showAnimation, setShowAnimation] = React.useState(true)
   const [textIndex, setTextIndex] = React.useState(0)
   const [showProducts, setShowProducts] = React.useState(false)
@@ -48,7 +49,7 @@ export function HeroAnimation({ desktopTop = "50%" }: HeroAnimationProps) {
   
   const currentExample = examples[currentExampleIndex]
   const fullText = currentExample.userMessage
-  const displayedText = fullText.substring(0, textIndex)
+  const displayedText = reduceMotion ? fullText : fullText.substring(0, textIndex)
   
   // Réduire la démo continûment avec la largeur de l'écran.
   React.useLayoutEffect(() => {
@@ -57,7 +58,7 @@ export function HeroAnimation({ desktopTop = "50%" }: HeroAnimationProps) {
       const isPhone = width < 520
       // Une base unique évite le saut de taille provoqué auparavant par le
       // changement de dimensions du composant au breakpoint tablette.
-      const scale = Math.min(1, Math.max(0.5, width / 1440))
+      const scale = Math.min(0.82, Math.max(0.5, width / 1600))
       setResponsiveLayout({ isPhone, scale })
     }
     checkViewport()
@@ -67,6 +68,14 @@ export function HeroAnimation({ desktopTop = "50%" }: HeroAnimationProps) {
   
   // Animation en boucle
   React.useEffect(() => {
+    if (reduceMotion) {
+      setShowAnimation(true)
+      setShowMessage(true)
+      setShowProducts(true)
+      setAddedToCart(null)
+      return
+    }
+
     let isRunning = true
     
     const sequence = async () => {
@@ -144,7 +153,7 @@ export function HeroAnimation({ desktopTop = "50%" }: HeroAnimationProps) {
       isRunning = false
       clearTimeout(timer)
     }
-  }, [currentExample.products, currentExampleIndex, fullText.length])
+  }, [currentExample.products, currentExampleIndex, fullText.length, reduceMotion])
   
   return (
     <div className="absolute inset-0 pointer-events-none z-20">
@@ -184,6 +193,7 @@ export function HeroAnimation({ desktopTop = "50%" }: HeroAnimationProps) {
                       width={40}
                       height={40}
                       className="object-contain"
+                      unoptimized
                     />
                   </div>
                   
@@ -191,7 +201,7 @@ export function HeroAnimation({ desktopTop = "50%" }: HeroAnimationProps) {
                   <div className="flex-1 min-w-0">
                     <p className="text-base font-medium leading-relaxed text-gray-900">
                       {displayedText}
-                      {textIndex < fullText.length && (
+                      {!reduceMotion && textIndex < fullText.length && (
                         <motion.span
                           animate={{ opacity: [1, 0] }}
                           transition={{ duration: 0.8, repeat: Infinity }}

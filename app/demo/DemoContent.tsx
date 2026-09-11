@@ -4,7 +4,7 @@ import Link from "next/link"
 import { ArrowRight, CalendarDays, CheckCircle2, Clock3, Mail } from "lucide-react"
 import { Section } from "@/components/layout/Section"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button-variants"
 import { ScrollReveal } from "@/components/shared/ScrollReveal"
 import { YouTubeEmbed } from "@/components/shared/YouTubeEmbed"
 import { VIDEOS } from "@/lib/videos"
@@ -51,7 +51,7 @@ export function DemoContent() {
           <ScrollReveal delay={0.1}>
             <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-lg md:p-8">
               <div className="mb-7 flex items-center gap-4">
-                <div className="flex size-12 items-center justify-center rounded-2xl bg-gray-900 text-white">
+                <div className="flex size-12 items-center justify-center rounded-2xl bg-blue-100 text-blue-800">
                   <CalendarDays className="size-5" />
                 </div>
                 <div>
@@ -72,18 +72,14 @@ export function DemoContent() {
               </ul>
 
               {PLANIFY_BOOKING_URL ? (
-                <a href={PLANIFY_BOOKING_URL} target="_blank" rel="noopener noreferrer">
-                  <Button variant="primary" size="xl" className="w-full">
-                    Choisir un créneau sur Planify
-                    <ArrowRight className="size-5" />
-                  </Button>
+                <a href={PLANIFY_BOOKING_URL} target="_blank" rel="noopener noreferrer" className={buttonVariants({ variant: "primary", size: "xl", className: "w-full" })}>
+                  Choisir un créneau sur Planify
+                  <ArrowRight className="size-5" />
                 </a>
               ) : (
-                <a href="mailto:vianney@parcel-ia.com?subject=Demande de démo Parcel">
-                  <Button variant="primary" size="xl" className="w-full">
-                    Nous contacter pour une démo
-                    <Mail className="size-5" />
-                  </Button>
+                <a href="mailto:vianney@parcel-ia.com?subject=Demande de démo Parcel" className={buttonVariants({ variant: "primary", size: "xl", className: "w-full" })}>
+                  Nous contacter pour une démo
+                  <Mail className="size-5" />
                 </a>
               )}
 
@@ -99,11 +95,9 @@ export function DemoContent() {
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="mb-4 text-3xl font-normal text-gray-900">Vous préférez commencer par la technique ?</h2>
           <p className="mb-7 text-gray-600">Consultez les modes d’intégration disponibles et les données nécessaires.</p>
-          <Link href="/integrations-tech">
-            <Button variant="outline" size="lg">
-              Voir les intégrations
-              <ArrowRight className="size-5" />
-            </Button>
+          <Link href="/integrations-tech" className={buttonVariants({ variant: "outline", size: "lg" })}>
+            Voir les intégrations
+            <ArrowRight className="size-5" />
           </Link>
         </div>
       </Section>

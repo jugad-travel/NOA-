@@ -20,11 +20,11 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL("https://parcel-ia.com"),
   title: {
-    default: "Assistant d’achat IA pour e-commerce | Parcel",
-    template: "%s | PARCEL",
+    default: "Vendeur IA e-commerce configuré selon votre façon de vendre | Parcel",
+    template: "%s | Parcel",
   },
   description:
-    "Assistant d’achat IA et moteur de recherche conversationnel pour e-commerce. Parcel comprend le besoin et recommande les bons produits.",
+    "Parcel transforme votre catalogue, vos règles métier et votre expertise produit en vendeur IA intégré à votre site e-commerce.",
   authors: [{ name: "PARCEL" }],
   creator: "PARCEL",
   publisher: "PARCEL",
@@ -44,30 +44,30 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     url: "https://parcel-ia.com",
     siteName: "PARCEL",
-    title: "Assistant d’achat IA pour e-commerce | Parcel",
+    title: "Votre façon de vendre, à l’échelle | Parcel",
     description:
-      "Assistant d’achat IA et moteur de recherche conversationnel pour e-commerce. Parcel comprend le besoin et recommande les bons produits.",
+      "Recherche, conseil produit, comparaison et panier selon la logique de vente de votre équipe.",
     images: [
       {
-        url: "/images/Logo Parcel sans écriture.png",
+        url: "/images/Hero site parcel sans texte.png",
         width: 1200,
         height: 630,
-        alt: "Parcel, assistant d’achat IA pour e-commerce",
+        alt: "Expérience d’achat IA Parcel intégrée à un site e-commerce",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Assistant d’achat IA pour e-commerce | Parcel",
+    title: "Votre façon de vendre, à l’échelle | Parcel",
     description:
-      "Assistant d’achat IA et moteur de recherche conversationnel pour e-commerce. Parcel comprend le besoin et recommande les bons produits.",
-    images: ["/images/Logo Parcel sans écriture.png"],
+      "Le vendeur IA configuré selon votre catalogue et votre logique métier.",
+    images: ["/images/Hero site parcel sans texte.png"],
   },
   icons: {
     icon: "/icon.png",
     apple: "/apple-icon.png",
   },
-  manifest: "/site.webmanifest",
+  manifest: "/manifest.webmanifest",
 }
 
 // JSON-LD structured data
@@ -84,31 +84,16 @@ const jsonLd = {
         url: "https://parcel-ia.com/images/Logo Parcel sans écriture.png",
       },
       description:
-        "Parcel développe un assistant d’achat IA et un moteur de recherche conversationnel pour les sites e-commerce.",
+        "Parcel développe un vendeur IA e-commerce configuré selon le catalogue, les règles métier et la façon de vendre du marchand.",
       sameAs: [],
-    },
-    {
-      "@type": "Service",
-      "@id": "https://parcel-ia.com/#service",
-      name: "Parcel — Assistant d’achat IA pour e-commerce",
-      serviceType: "Assistant d’achat IA et recherche conversationnelle e-commerce",
-      description:
-        "Parcel comprend les besoins exprimés en langage naturel, recommande les bons produits et guide les clients jusqu’à l’achat.",
-      provider: {
-        "@id": "https://parcel-ia.com/#organization",
-      },
-      audience: {
-        "@type": "BusinessAudience",
-        audienceType: "E-commerçants et enseignes retail",
-      },
     },
     {
       "@type": "WebSite",
       "@id": "https://parcel-ia.com/#website",
       url: "https://parcel-ia.com",
-      name: "Parcel — Assistant d’achat IA",
+      name: "Parcel — Vendeur IA e-commerce",
       description:
-        "Assistant d’achat IA et moteur de recherche conversationnel pour e-commerce.",
+        "Recherche e-commerce, conseil produit, comparaison, panier et données d’intention selon la logique du marchand.",
       publisher: {
         "@id": "https://parcel-ia.com/#organization",
       },

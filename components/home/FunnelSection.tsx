@@ -25,45 +25,54 @@ const STAGES: Stage[] = [
   {
     id: "recherche",
     kicker: "Recherche",
-    title: "Recherche conversationnelle",
+    title: "Trouver sans connaître le bon mot-clé",
     copy:
-      "Votre client décrit son besoin avec ses mots, comme à un vendeur en boutique. Parcel comprend l'intention, pose les bonnes questions et trouve les bons produits — là où une barre de recherche renvoie une liste.",
+      "Une requête précise obtient immédiatement ses résultats. Lorsqu’un visiteur décrit un usage, Parcel comprend l’intention, pose les questions utiles et transforme le besoin en critères de recherche.",
     videoId: VIDEOS.match,
-    href: "/produits",
+    href: "/moteur-recherche-conversationnel-ecommerce",
+  },
+  {
+    id: "projet",
+    kicker: "Découverte / projet",
+    title: "Transformer un projet en sélection cohérente",
+    copy:
+      "Un trek, une chambre ou une routine demandent plusieurs produits qui fonctionnent ensemble. Parcel décompose le projet, distingue les besoins et construit une sélection ajustable.",
+    videoId: VIDEOS.projet,
+    href: "/produits/besoin-global",
   },
   {
     id: "expert",
     kicker: "Fiche produit",
-    title: "Un expert sur chaque fiche produit",
+    title: "Lever un doute avant l’ajout au panier",
     copy:
-      "PARCEL Expert répond à toutes les questions sur le produit consulté : compatibilité, usage, entretien, taille. Le client est rassuré avant d'acheter, sans ticket support ni recherche externe.",
+      "Taille, compatibilité, usage, composition ou entretien : Parcel répond à partir des informations disponibles sur la fiche produit et signale clairement les données manquantes.",
     videoId: VIDEOS.expert,
     href: "/produits/questions-produit",
   },
   {
     id: "comparaison",
     kicker: "Comparaison",
-    title: "Comparaison intelligente",
+    title: "Arbitrer entre plusieurs produits",
     copy:
-      "Deux produits en tête ? Parcel les compare critère par critère, avec un verdict honnête par usage — comme un vendeur qui connaît son rayon, pas un tableau de specs illisible.",
+      "Parcel sélectionne les critères utiles à l’usage exprimé, explique les différences et peut conclure qu’aucun des produits comparés ne répond réellement au besoin.",
     videoId: VIDEOS.comparaison,
     href: "/produits/comparaison",
   },
   {
-    id: "projet",
-    kicker: "Panier complet",
-    title: "Un projet, un panier complet",
+    id: "panier",
+    kicker: "Panier",
+    title: "Compléter intelligemment un achat",
     copy:
-      "« Je prépare un trek de 5 jours » : PARCEL Projet décompose le besoin, distingue l'indispensable de l'optionnel et construit le panier complet en une conversation. Le panier moyen change d'échelle.",
-    videoId: VIDEOS.projet,
-    href: "/produits/besoin-global",
+      "Le besoin exprimé plus tôt contextualise les compléments proposés au moment de l’ajout au panier. Chaque recommandation reste justifiée et ajustable.",
+    videoId: VIDEOS.panier,
+    href: "/produits/panier-complements",
   },
   {
     id: "sav",
     kicker: "Après-vente",
-    title: "SAV instantané",
+    title: "Répondre avec les bonnes informations",
     copy:
-      "Retours, livraison, politiques de la boutique : Parcel répond immédiatement à partir de vos règles réelles, et passe la main à un humain quand il le faut. Moins de tickets, des clients qui reviennent.",
+      "Parcel peut répondre aux demandes documentées à partir des politiques disponibles de la boutique et proposer un relais lorsque la situation demande une intervention humaine.",
     videoId: VIDEOS.sav,
     href: "/produits/service-apres-vente",
   },
@@ -188,14 +197,14 @@ export function FunnelSection() {
       {/* Section intro */}
       <div className="container px-4 pb-4 pt-20 text-center md:px-6 md:pb-6 md:pt-28">
         <p className="text-sm font-semibold uppercase tracking-widest text-accent-blue mb-4">
-          AI Personal Shopper
+          Les moments de décision
         </p>
         <h2 className="text-3xl md:text-5xl font-normal text-gray-900 max-w-3xl mx-auto leading-tight">
-          {"Un vendeur IA sur tout le parcours d'achat"}
+          Un vendeur présent partout où le client hésite.
         </h2>
         <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
-          De la première question au service après-vente, Parcel accompagne
-          chaque client comme le ferait votre meilleur vendeur.
+          Recherche, découverte, fiche produit, comparaison, panier et après-vente :
+          la même compréhension du besoin accompagne le visiteur.
         </p>
       </div>
 
@@ -221,7 +230,7 @@ export function FunnelSection() {
                   )}
                 >
                   <div className={cn("max-w-xl", i % 2 === 1 && "md:order-2 md:justify-self-end")}>
-                    <p className="text-sm font-semibold uppercase tracking-widest text-accent-orange mb-3">
+                    <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-blue-600">
                       {String(i + 1).padStart(2, "0")} — {stage.kicker}
                     </p>
                     <h3 className="text-2xl md:text-4xl font-normal text-gray-900 leading-tight mb-4">
