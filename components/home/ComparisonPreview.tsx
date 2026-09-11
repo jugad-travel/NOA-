@@ -19,7 +19,7 @@ export function ComparisonPreview() {
         <div className="mx-auto mb-10 max-w-4xl text-center">
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-blue-700">Comparatif 2026</p>
           <h2 className="text-3xl font-normal leading-tight text-gray-950 md:text-5xl">Parcel face aux principales solutions d’IA e-commerce</h2>
-          <p className="mx-auto mt-5 max-w-3xl text-lg leading-relaxed text-gray-600">Comparez les écarts qui comptent réellement pour déployer un vendeur IA : modèle produit, coût, configuration métier et expérience d’achat.</p>
+          <p className="mx-auto mt-5 max-w-3xl text-lg leading-relaxed text-gray-600">Chaque solution est évaluée sur exactement les mêmes huit critères : funnel, Search, actions transactionnelles, règles métier, UX, ingestion, accompagnement et prix.</p>
         </div>
 
         <ComparisonProofStrip />

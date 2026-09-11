@@ -46,19 +46,21 @@ export function ArticleContent({ article }: { article: Article }) {
             ))}
           </div>
 
-          <section className="mt-16 border-t border-gray-200 pt-10">
-            <h2 className="mb-5 text-2xl font-normal text-gray-900">Sources consultées</h2>
-            <ul className="space-y-3">
-              {article.sources.map((source) => (
-                <li key={source.href}>
-                  <a href={source.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-blue-700 hover:underline">
-                    {source.label}
-                    <ExternalLink className="size-3.5" />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </section>
+          {article.sources.length > 0 ? (
+            <section className="mt-16 border-t border-gray-200 pt-10">
+              <h2 className="mb-5 text-2xl font-normal text-gray-900">Sources consultées</h2>
+              <ul className="space-y-3">
+                {article.sources.map((source) => (
+                  <li key={source.href}>
+                    <a href={source.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-blue-700 hover:underline">
+                      {source.label}
+                      <ExternalLink className="size-3.5" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
 
           <section className="mt-16 rounded-3xl p-7 text-center md:p-12" style={{ background: "linear-gradient(135deg, #d0f7fb 0%, #83a6ff 48%, #ff966b 100%)" }}>
             <h2 className="mb-5 text-3xl font-normal text-gray-900">Voir ces principes dans Parcel</h2>

@@ -1,19 +1,19 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowRight, ArrowUpRight, Check, Search, Settings2, ShoppingCart, Sparkles } from "lucide-react"
+import { ArrowRight, Check, Search, Settings2, ShoppingCart, Sparkles } from "lucide-react"
 import { ComparisonProofStrip } from "@/components/marketing/ComparisonProofStrip"
 import { ComparisonTable } from "@/components/marketing/ComparisonTable"
 import { HeadToHeadCard } from "@/components/marketing/HeadToHeadCard"
 import { PageHero } from "@/components/marketing/PageHero"
 import { StructuredData } from "@/components/marketing/StructuredData"
 import { buttonVariants } from "@/components/ui/button-variants"
-import { comparisonVerifiedLabel, competitorComparisonData, headToHeadComparisons, parcelDifferentiatorContext } from "@/lib/comparison"
+import { comparisonVerifiedLabel, headToHeadComparisons, parcelDifferentiatorContext } from "@/lib/comparison"
 import { pricingData } from "@/lib/pricing"
 import { SITE_URL } from "@/lib/marketing"
 
 export const metadata: Metadata = {
   title: "Comparatif IA e-commerce 2026 : Parcel, Doofinder, iAdvize, Algolia et Rep AI",
-  description: "Comparez Parcel, Doofinder, iAdvize, Algolia et Rep AI sur le modèle produit, le coût, la configuration métier et l’expérience d’achat.",
+  description: "Comparez Parcel, Doofinder, iAdvize, Algolia et Rep AI sur une même grille : funnel, Search, règles métier, UX, ingestion, accompagnement et prix.",
   alternates: { canonical: "/comparatif-assistant-ia-ecommerce" },
   openGraph: {
     title: "Comparatif IA e-commerce 2026 | Parcel",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 }
 
 const displayedPlans = pricingData.filter((plan) => ["free", "essential", "growth", "pro"].includes(plan.id))
-const decisionStages = ["Résultat de recherche", "Question", "Cartes produit", "Comparatif", "Panier"]
+const decisionStages = ["Search", "Guided selling", "PDP Expert", "Comparatif", "Panier complet", "Checkout", "SAV"]
 
 export default function ComparisonPage() {
   const breadcrumbJsonLd = {
@@ -46,7 +46,7 @@ export default function ComparisonPage() {
       <PageHero
         eyebrow="Comparatif IA e-commerce 2026"
         title="Parcel face à Doofinder, iAdvize, Algolia et Rep AI"
-        description="Pour un marchand qui veut intégrer un vendeur IA à son site, les écarts se jouent surtout sur quatre dimensions : ce que le produit fait réellement, la manière de le déployer, le contrôle métier et le coût."
+        description="Chaque solution est examinée avec la même grille : couverture du funnel, Search et guided selling, actions transactionnelles, règles métier, UX, ingestion, accompagnement et prix."
         breadcrumbs={[{ name: "Accueil", href: "/" }, { name: "Comparatif" }]}
       >
         <div className="flex flex-col gap-3 sm:flex-row">
@@ -63,12 +63,12 @@ export default function ComparisonPage() {
         <div className="container">
           <div className="mx-auto mb-12 max-w-4xl text-center">
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-blue-700">Ce qui distingue Parcel</p>
-            <h2 className="text-3xl font-normal leading-tight text-gray-950 md:text-5xl">Un vendeur IA pensé comme une expérience d’achat complète.</h2>
+            <h2 className="text-3xl font-normal leading-tight text-gray-950 md:text-5xl">Un AI sales engine conçu pour tout le funnel.</h2>
           </div>
 
           <div className="space-y-5">
             <article className="grid gap-8 rounded-[2rem] border border-gray-200 bg-white p-7 md:p-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
-              <div><Sparkles className="mb-6 size-7 text-blue-700" /><span className="font-mono text-xs font-semibold text-blue-700">01</span><h3 className="mt-4 text-3xl text-gray-950">Le vendeur IA est le produit</h3><p className="mt-5 leading-relaxed text-gray-600">Parcel est construit pour comprendre un besoin, le qualifier et faire avancer une décision d’achat. La recherche, les recommandations, les comparaisons et le panier partagent le même contexte.</p></div>
+              <div><Sparkles className="mb-6 size-7 text-blue-700" /><span className="font-mono text-xs font-semibold text-blue-700">01</span><h3 className="mt-4 text-3xl text-gray-950">Un runtime de vente, six points de contact</h3><p className="mt-5 leading-relaxed text-gray-600">Search, découverte, PDP Expert, comparaison, panier et SAV partagent le même contexte. Parcel compose questions, recommandations, comparatifs et actions sans recommencer le parcours à chaque page.</p></div>
               <div className="grid gap-3 sm:grid-cols-2">{parcelDifferentiatorContext.map(([name, copy]) => <div key={name} className="rounded-2xl bg-[#f7f9ff] p-5"><p className="font-semibold text-gray-950">{name}</p><p className="mt-2 text-sm leading-relaxed text-gray-600">{copy}</p></div>)}</div>
             </article>
 
@@ -83,7 +83,7 @@ export default function ComparisonPage() {
                 <ul className="mt-7 grid gap-3 sm:grid-cols-2">{["Questions à poser", "Critères importants", "Contraintes", "Incompatibilités", "Règles commerciales"].map((item) => <li key={item} className="flex items-center gap-2 rounded-xl bg-[#f7f9ff] px-4 py-3 text-sm font-semibold text-gray-800"><Check className="size-4 text-blue-700" />{item}</li>)}</ul>
               </article>
               <article className="rounded-[2rem] border border-gray-200 bg-white p-7 md:p-9">
-                <ShoppingCart className="mb-6 size-7 text-blue-700" /><span className="font-mono text-xs font-semibold text-blue-700">04</span><h3 className="mt-4 text-3xl text-gray-950">L’interface suit la décision d’achat</h3><p className="mt-5 leading-relaxed text-gray-600">Le visiteur avance sans perdre le contexte, de la première recherche jusqu’à l’action dans le panier.</p>
+                <ShoppingCart className="mb-6 size-7 text-blue-700" /><span className="font-mono text-xs font-semibold text-blue-700">04</span><h3 className="mt-4 text-3xl text-gray-950">L’interface orchestre l’achat</h3><p className="mt-5 leading-relaxed text-gray-600">Le visiteur avance sans perdre le contexte, de la première recherche au panier complet, jusqu’au checkout et au SAV.</p>
                 <ol className="mt-7 space-y-2">{decisionStages.map((stage, index) => <li key={stage} className="flex items-center gap-3 rounded-xl bg-[#f7f9ff] px-4 py-3"><span className="font-mono text-xs font-semibold text-blue-700">0{index + 1}</span><span className="text-sm font-semibold text-gray-800">{stage}</span>{index < decisionStages.length - 1 ? <ArrowRight className="ml-auto size-4 text-gray-400" /> : null}</li>)}</ol>
               </article>
             </div>
@@ -93,7 +93,7 @@ export default function ComparisonPage() {
 
       <section className="bg-white px-4 py-20 md:py-28">
         <div className="container">
-          <div className="mx-auto mb-12 max-w-4xl text-center"><p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-blue-700">Face-à-face</p><h2 className="text-3xl font-normal text-gray-950 md:text-5xl">Quatre comparaisons, quatre vrais écarts de produit.</h2></div>
+          <div className="mx-auto mb-12 max-w-4xl text-center"><p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-blue-700">Face-à-face</p><h2 className="text-3xl font-normal text-gray-950 md:text-5xl">Quatre concurrents, une seule grille de comparaison.</h2><p className="mx-auto mt-5 max-w-3xl leading-relaxed text-gray-600">Les huit critères restent strictement identiques d’un concurrent à l’autre. Les différences de périmètre et d’unité de facturation sont explicitées au lieu d’être transformées en score artificiel.</p></div>
           <div className="space-y-8">{headToHeadComparisons.map((comparison) => <div key={comparison.id} id={`parcel-vs-${comparison.id}`} className="scroll-mt-28"><HeadToHeadCard comparison={comparison} actions /></div>)}</div>
         </div>
       </section>
@@ -109,7 +109,7 @@ export default function ComparisonPage() {
       <section id="methodologie-sources" className="scroll-mt-24 bg-white px-4 py-20 md:py-24">
         <div className="container">
           <div className="grid gap-8 rounded-[2rem] border border-gray-200 bg-white p-7 md:p-10 lg:grid-cols-[1fr_auto] lg:items-center">
-            <div><p className="text-xs font-semibold uppercase tracking-[0.16em] text-blue-700">Méthodologie · vérifiée le {comparisonVerifiedLabel}</p><p className="mt-4 max-w-3xl text-sm leading-relaxed text-gray-600">Nous comparons les positionnements, prix et périmètres publiés par chaque éditeur, sans score inventé ni vainqueur artificiel. Les forces propres à chaque solution sont précisées dans les face-à-face.</p><div className="mt-5 flex flex-wrap gap-x-6 gap-y-3">{competitorComparisonData.filter((item) => item.id !== "parcel").map((item) => <a key={item.id} href={item.sourceUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm font-semibold text-gray-700 underline decoration-gray-300 underline-offset-4 hover:text-gray-950">{item.name}<ArrowUpRight className="size-3.5" /></a>)}</div></div>
+            <div><p className="text-xs font-semibold uppercase tracking-[0.16em] text-blue-700">Méthodologie · vérifiée le {comparisonVerifiedLabel}</p><p className="mt-4 max-w-3xl text-sm leading-relaxed text-gray-600">Nous appliquons les mêmes critères à chaque solution et reprenons le vocabulaire, les prix et les périmètres publiés par les éditeurs. Aucune absence n’est déduite lorsque la documentation publique ne permet pas de conclure. Les unités de facturation restent volontairement visibles.</p></div>
             <Link href="/demo" className={buttonVariants({ variant: "secondary", size: "lg" })}>Tester Parcel <ArrowRight className="size-4" /></Link>
           </div>
         </div>

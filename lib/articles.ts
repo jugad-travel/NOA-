@@ -51,7 +51,6 @@ export const articles: Article[] = [
     ],
     sources: [
       { label: "Google Cloud — Conversational commerce", href: "https://docs.cloud.google.com/retail/conversational_search_backup/conversational-search" },
-      { label: "iAdvize — Choisir un assistant shopping IA", href: "https://www.iadvize.com/fr/blog/choisir-assistant-shopping-ia" },
     ],
   },
   {
@@ -90,7 +89,6 @@ export const articles: Article[] = [
     ],
     sources: [
       { label: "Google Cloud — Conversational filtering", href: "https://docs.cloud.google.com/retail/docs/conversational-filtering" },
-      { label: "Algolia — AI Search", href: "https://www.algolia.com/products/ai-search" },
     ],
   },
   {
@@ -127,10 +125,7 @@ export const articles: Article[] = [
         ],
       },
     ],
-    sources: [
-      { label: "iAdvize — Critères de choix et mesure", href: "https://www.iadvize.com/fr/blog/choisir-assistant-shopping-ia" },
-      { label: "Algolia — Search, merchandising et analytics", href: "https://www.algolia.com/products/ai-search" },
-    ],
+    sources: [],
   },
 ]
 

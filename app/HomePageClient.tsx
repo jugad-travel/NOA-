@@ -87,12 +87,12 @@ export function HomePageClient() {
             </div>
 
             <div ref={heroContentRef} className="absolute inset-x-0 top-0 z-30 px-[5%] pt-[9%] md:pt-[7%]">
-              <div className="max-w-[760px] md:max-w-[61%]">
+              <div className="max-w-[760px] md:max-w-[92%]">
                 <p className="inline-flex rounded-full border border-white/55 bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-sm">
                   Vendeur IA pour e-commerce
                 </p>
                 <h1 className="mt-5 text-[clamp(2.05rem,3.15vw,3.55rem)] font-normal leading-[1.06] tracking-[-0.045em] text-white">
-                  <span className="block font-semibold">Le vendeur IA de votre site e-commerce,</span>
+                  <span className="block font-semibold lg:whitespace-nowrap">Le vendeur IA de votre site e-commerce,</span>
                   <span className="mt-1 block font-normal">qui reproduit votre logique de vente.</span>
                 </h1>
                 <p className="mt-5 max-w-3xl text-[clamp(0.9rem,1.08vw,1.08rem)] leading-relaxed text-white/90">

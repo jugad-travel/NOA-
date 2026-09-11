@@ -6,7 +6,7 @@ type ComparisonTableProps = {
 
 export function ComparisonTable({ compact = false }: ComparisonTableProps) {
   const rows = compact
-    ? comparisonRows.filter((row) => ["positioning", "search", "decision", "rules", "price"].includes(row.id))
+    ? comparisonRows.filter((row) => ["positioning", "search", "funnel", "rules", "price"].includes(row.id))
     : comparisonRows
 
   return (
